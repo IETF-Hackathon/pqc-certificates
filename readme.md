@@ -19,7 +19,7 @@ At the hackathon, we are all going to script our PKI toolkits to produce and rea
 
 - artifacts.zip
     - \<alg oid\>
-    - ta/     # trust anchor, aka root CA, aka self-signed
+        - ta/     # trust anchor, aka root CA, aka self-signed
             - ta.der
             - ta_priv.der
             - (*.pem)
