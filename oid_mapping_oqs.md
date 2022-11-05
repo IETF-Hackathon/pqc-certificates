@@ -1,3 +1,8 @@
+The following are is the OID mapping to be used for the hackathon.
+
+Note: asterisk "*" means experimental; ie likely to change after the hackathon.
+
+
 
 | Algorithm Name | OID | Signature Algorithm |
 | ----------- | ----------- | ----------- |

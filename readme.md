@@ -17,22 +17,28 @@ At the hackathon, we are all going to script our PKI toolkits to produce and rea
 
 (parantheses denotes optional files)
 
-- <alg oid>/artifacts.zip:
+- artifacts.zip
+    - \<alg oid\>
     - ta/     # trust anchor, aka root CA, aka self-signed
-        - ta.der
-        - ta_priv.der
-        - (*.pem)
-    - ca/     # certificate authority, aka intermediate CA
-        - ca.der
-        - ca_priv.der
-        - (*.pem)
-    - ee/     # end entity
-        - cert.der
-        - cert_priv.der    # corresponding private key
-        - cert.csr
-        - (*.pem)
-    - crl/
-        - crl.crl
-        - (crl.pem)
-    - ocsp/
-        - ocsp.der
+            - ta.der
+            - ta_priv.der
+            - (*.pem)
+        - ca/     # certificate authority, aka intermediate CA
+            - ca.der
+            - ca_priv.der
+            - (*.pem)
+        - ee/     # end entity
+            - cert.der
+            - cert_priv.der    # corresponding private key
+            - cert.csr
+            - (*.pem)
+        - crl/
+            - crl_ta.crl
+            - crl_ca.crl
+        - ocsp/
+            - ocsp.der
+
+
+## OIDs
+
+The OID mappings to be used for this hackathon are documented in `oid_mapping_oqs.md`.
