@@ -32,7 +32,7 @@ At the hackathon, we are all going to script our PKI toolkits to produce and rea
         - cert.csr
         - (*.pem)
     - crl/
-        - crl.der
+        - crl.crl
         - (crl.pem)
     - ocsp/
         - ocsp.der
