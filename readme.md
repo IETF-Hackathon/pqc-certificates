@@ -17,7 +17,7 @@ At the hackathon, we are all going to script our PKI toolkits to produce and rea
 
 (parantheses denotes optional files)
 
-<alg oid>/artifacts.zip:
+- <alg oid>/artifacts.zip:
     - ta/     # trust anchor, aka root CA, aka self-signed
         - ta.der
         - ta_priv.der
