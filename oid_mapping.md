@@ -1,12 +1,17 @@
 The following are is the OID mapping to be used for the hackathon.
 
+Taken from: 
+* https://docs.google.com/document/d/1A2-D82du0qJjygvBuOlG8Xao3MzDYz1pRDzjT9eY6ls/edit#
+
 Note: asterisk "*" means experimental; ie likely to change after the hackathon.
 
+
+ # Single-algorithm OIDs
 
 
 | Algorithm Name | OID | Signature Algorithm |
 | ----------- | ----------- | ----------- |
-| RSA | 1.2.840.113549.1.1.1 | SHA256withRSA, SHA384withRSA, SHA512withRSA 
+| RSA | 1.2.840.113549.1.1.1 | SHA256withRSA, SHA384withRSA, SHA512withRSA |
 | ECDSA |  1.2.840.10045.2.1 | SHA256withEC, SHA384withEC, SHA512withEC |
 | Dilithium2 | 1.3.6.1.4.1.2.267.7.4.4* | Dilithium2 |
 | Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
@@ -28,4 +33,12 @@ Note: asterisk "*" means experimental; ie likely to change after the hackathon.
 | SPHINCS+-SHA256-256f-simple | 1.3.9999.6.6.3* | SPHINCS+-SHA256-256f-simple |
 | SPHINCS+-SHA256-256s-robust | 1.3.9999.6.6.5* | SPHINCS+-SHA256-256s-robust |
 | SPHINCS+-SHA256-256s-simple | 1.3.9999.6.6.7* | SPHINCS+-SHA256-256s-simple |
+
+
+# Composite OIDs
+
+| Algorithm Name | OID | Signature Algorithm |
+| ----------- | ----------- | ----------- |
+| COMPOSITE-Signature | 1.3.6.1.4.1.18227.2.1 | COMPOSITE-Signature |
+| COMPOSITE-KEY | 2.16.840.1.114027.80.4.1 | COMPOSITE-KEY |
 
