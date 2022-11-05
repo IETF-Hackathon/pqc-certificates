@@ -41,4 +41,14 @@ Note: asterisk "*" means experimental; ie likely to change after the hackathon.
 | ----------- | ----------- | ----------- |
 | COMPOSITE-Signature | 1.3.6.1.4.1.18227.2.1 | COMPOSITE-Signature |
 | COMPOSITE-KEY | 2.16.840.1.114027.80.4.1 | COMPOSITE-KEY |
+| id-Dilithium3-ECDSA-P256 | 2.16.840.1.114027.80.5.1 | TBD |
+| id-Dilithium3-RSA | 2.16.840.1.114027.80.5.2 | TBD |
+| id-Falcon512-ECDSA-P256 | 2.16.840.1.114027.80.5.3 | TBD |
+| id-Falcon512-Ed25519 | 2.16.840.1.114027.80.5.4 | TBD |
+| id-Dilithium5-Falcon1024-ECDSA-P521 | 2.16.840.1.114027.80.5.5 | TBD |
+| id-Dilithium5-Falcon1024-RSA | 2.16.840.1.114027.80.5.6 | TBD |
+| id-SPHINCS256_256f_robust+-ECDSA-P256 | 2.16.840.1.114027.80.5.7 | TBD |
+| id-SPHINCS256_256f+-RSA | 2.16.840.1.114027.80.5.8 | TBD |
+| entrust-Algorithm-ExplicitCompositeKEMKEY | 2.16.840.1.114027.80.7 | TBD |
+
 
