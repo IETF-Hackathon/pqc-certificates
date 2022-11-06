@@ -8,6 +8,8 @@ Columns are parsers
 | - | Red Hound | PQShield | Entrust | DigiCert Python | Openssl-OQS | BouncyCastle |
 | - | --------- | -------- | ------- | --------------- | ----------- | ------------ |
 | carl_redhound/artifacts.zip | Y | | | | | |
-| entrust/artifacts.zip | | | Y | | | |
-| oqs-openssl111/artifacts.zip | | | | | |
-| oqs-oqsprovider/artifacts.zip | | | | | |
+| entrust/artifacts.zip | | | Y | | Y | |
+| oqs-openssl111/artifacts.zip | | | | | Y |
+| oqs-oqsprovider/artifacts.zip | | | | | Y |
+| kris/artifacts.zip | | | | | | |
+| corey_snakefood/arifacts.zip | | | | | (Y) errors on dilithium3+5 | |
