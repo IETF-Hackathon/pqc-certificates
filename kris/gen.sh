@@ -7,7 +7,7 @@ gen() {
    # Root/TA:
    mkdir ta
    # Generate key pair
-   openssl req -x509 -new -newkey $1 -keyout ta/ta_priv.pem -out ta/ta.pem -nodes -subj "/CN=TA"
+   openssl req -x509 -new -newkey $1 -keyout ta/ta_priv.pem -out ta/ta.pem -nodes -subj "/CN=TA"  -addext basicConstraints=critical,CA:TRUE
    # Also generate DER for private key
    openssl pkcs8 -topk8 -inform PEM -outform DER -in ta/ta_priv.pem -out ta/ta_priv.der -nocrypt
    # Also generate cert in DER
@@ -16,7 +16,7 @@ gen() {
    # Intermediate CA:
    mkdir ca
    # Generate key pair in PEM format
-   openssl req -new -newkey $1 -keyout ca/ca_priv.pem -out ca/ca.csr -nodes -subj "/CN=CA"
+   openssl req -new -newkey $1 -keyout ca/ca_priv.pem -out ca/ca.csr -nodes -subj "/CN=CA"  -addext basicConstraints=critical,CA:TRUE
    # Also generate DER for private key
    openssl pkcs8 -topk8 -inform PEM -outform DER -in ca/ca_priv.pem -out ca/ca_priv.der -nocrypt
    # Generate CSR in PEM
@@ -29,7 +29,7 @@ gen() {
    # End Entity cert:
    mkdir ee
    # Generate key pair in PEM format
-   openssl req -new -newkey $1 -keyout ee/cert_priv.pem -out ee/cert.csr -nodes -subj "/CN=EE"
+   openssl req -new -newkey $1 -keyout ee/cert_priv.pem -out ee/cert.csr -nodes -subj "/CN=EE"  -addext basicConstraints=CA:FALSE
    # Also generate DER for private key
    openssl pkcs8 -topk8 -inform PEM -outform DER -in ee/cert_priv.pem -out ee/cert_priv.der -nocrypt
    # Generate CSR in PEM
