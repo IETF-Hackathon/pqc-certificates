@@ -5,7 +5,7 @@ Columns are parsers
 
 
 
-| - | Red Hound | Among Bytes (Kris) | Entrust | DigiCert Python | Openssl-OQS | BouncyCastle |
+| - | Red Hound | Among Bytes | Entrust | DigiCert Python | Openssl-OQS | BouncyCastle |
 | - | --------- | -------- | ------- | --------------- | ----------- | ------------ |
 | carl_redhound/artifacts.zip | Y | | | | "Could not read cert etc. of certificate file from ca/ca.pem" and dilithiumAES errors |
 | entrust/artifacts.zip | | | Y | | Y | |
