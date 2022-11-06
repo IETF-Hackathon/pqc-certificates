@@ -41,4 +41,8 @@ At the hackathon, we are all going to script our PKI toolkits to produce and rea
 
 ## OIDs
 
-The OID mappings to be used for this hackathon are documented in `oid_mapping.md`.
+The OID mappings to be used for this hackathon are documented in [oid_mapping.md](oid_mapping.md).
+
+## Results
+
+Interop results are documented in [compat_matrix.md](compat_matrix.md).
