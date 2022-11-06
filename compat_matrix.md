@@ -7,9 +7,9 @@ Columns are parsers
 
 | - | Red Hound | Kris | Entrust | DigiCert Python | Openssl-OQS | BouncyCastle |
 | - | --------- | -------- | ------- | --------------- | ----------- | ------------ |
-| carl_redhound/artifacts.zip | Y | | | | "Could not read cert etc. of certificate file from ca/ca.pem" and dilithiumAES errors |
+| carl_redhound/artifacts.zip | Y | | Y | | "Could not read cert etc. of certificate file from ca/ca.pem" and dilithiumAES errors |
 | entrust/artifacts.zip | | | Y | | Y | |
-| oqs-openssl111/artifacts.zip | | | | | Y |
-| oqs-oqsprovider/artifacts.zip | | | | | Y |
-| kris/artifacts.zip | | | | | "error 20 at 0 depth lookup: unable to get local issuer certificate" | |
-| corey_snakefood/artifacts.zip | | | | | (Y) errors on dilithium3+5 | |
+| oqs-openssl111/artifacts.zip | | | Y | | Y |
+| oqs-oqsprovider/artifacts.zip | | | Y | | Y |
+| kris/artifacts.zip | | | (Y) errors on Falcon 512 + 1024 | | "error 20 at 0 depth lookup: unable to get local issuer certificate" | |
+| corey_snakefoot/artifacts.zip | | | | Y | (Y) errors on dilithium3+5 | |
