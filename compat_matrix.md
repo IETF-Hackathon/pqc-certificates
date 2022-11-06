@@ -6,6 +6,7 @@ Columns are parsers
 
 
 | - | Red Hound | PQShield | Entrust | DigiCert Python | Openssl-OQS | BouncyCastle |
+| - | --------- | -------- | ------- | --------------- | ----------- | ------------ |
 | oqs-openssl111 | | | | | |
 | oqs-oqsprovider | | | | | |
 | carl_redhound | Y | | | | | |
