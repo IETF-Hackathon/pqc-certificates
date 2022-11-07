@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!-- PKI service configurations -->
+<pki:tokenConfig xmlns:pki="http://www.openca.org/openca/pki/1/0/0">
+  <!-- Token Name -->
+  <pki:name>default</pki:name>
+  <!-- Token Type (software, hardware) -->
+  <pki:type>software</pki:type>
+  <!-- Private key identifier (URI - file:// id:// etc.. ) -->
+  <pki:keypair>file:///$HOME/.libpki/private/key.pem</pki:keypair>
+  <!-- Certificate identifier (URI) -->
+  <pki:cert>file:///$HOME/.libpki/certs/cert.pem</pki:cert>
+  <!-- CA Certificate -->
+  <pki:cacert>file:///$HOME/.libpki/certs/cacert.pem</pki:cacert>
+  <!-- Certificates -->
+  <pki:othercerts>file::///$HOME/.libpki/certs/other-certs.pem</pki:othercerts>
+  <pki:trustedcerts>file::///$HOME/.libpki/certs/trusted-certs.pem</pki:trustedcerts>
+  <!-- Where the Password should be read from -->
+  <pki:passin>stdin</pki:passin>
+  <!-- ... or simply specify the password here -->
+  <!-- <pki:password></pki:password> -->
+</pki:tokenConfig>

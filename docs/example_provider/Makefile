@@ -112,14 +112,18 @@ cross_verify: requirements/verify
 		echo > $(VERIFY_LOG) ; \
 		for i in ../* ; do \
 			echo "  -  $$i" ; \
-			result=`cd "$$i" && make $@` ; \
+			result=`cd "$$i" && make verify 2>&1 > "$(VERIFY_LOGFILE)" ` ; \
 		done ; \
 		echo "[ $(PROVIDER_NAME) ] Done (Ok)." && echo; \
 	 fi
 
 # Cleans up the provider's directories
-clean dist-clean:
+clean:
 	@rm -rf generate_log.txt verify_log.txt
 	@for i in $(DIRS) ; do \
-	   rm -rf $$i/1.3.* ; \
+	   rm -rf $$i/artifacts ; \
+	   rm -rf $$i/1.3.6* ; \
 	 done
+
+distclean: clean
+	@rm -rf logs

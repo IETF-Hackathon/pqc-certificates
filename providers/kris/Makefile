@@ -122,8 +122,12 @@ cross_verify: requirements/verify
 	 fi
 
 # Cleans up the provider's directories
-clean dist-clean:
+clean:
 	@rm -rf generate_log.txt verify_log.txt
 	@for i in $(DIRS) ; do \
 	   rm -rf $$i/1.3.* ; \
+	   rm -rf $$i/artifacts ; \
 	 done
+
+distclean: clean
+	@rm -rf logs

@@ -3,7 +3,7 @@
 # PQC Certificates Tests
 
 # Name for this provider
-PROVIDER_NAME := Corey Snakefoot
+PROVIDER_NAME := corey_snakefoot
 
 # Directories for (possibly) multiple products
 # supported by the same provider
@@ -12,11 +12,11 @@ DIRS := default
 
 # Script for Generating the artifacts (if any)
 GEN_SCRIPT := ./gen.sh
-GEN_LOGFILE := generate_log.txt
+GEN_LOGFILE := logs/generate_log.txt
 
 # Script for Verifying the artifacts (if any)
 VERIFY_SCRIPT := ./check.sh
-VERIFY_LOGFILE := verify_log.txt
+VERIFY_LOGFILE := logs/verify_log.txt
 
 # Time
 NOW := `date +%Y%m%d`
@@ -44,11 +44,13 @@ requirements/unzip:
 
 # Generation Requirements
 requirements/generate:
+	@[ -d logs ] || mkdir -p "logs"
 	@echo && echo "[ $(PROVIDER_NAME) ] Checking Requirements (Generate):"
 	@echo "[ $(PROVIDER_NAME) ] Done (Ok)"
 
 # Verification Requirements
 requirements/verify:
+	@[ -d logs ] || mkdir -p "logs"
 	@echo && echo "[ $(PROVIDER_NAME) ] Checking Requirements (Verify):"
 	@echo "[ $(PROVIDER_NAME) ] Done (Ok)"
 
@@ -110,14 +112,18 @@ cross_verify: requirements/verify
 		echo > $(VERIFY_LOG) ; \
 		for i in ../* ; do \
 			echo "  -  $$i" ; \
-			result=`cd "$$i" && make $@` ; \
+			result=`cd "$$i" && make verify 2>&1 > "$(VERIFY_LOGFILE)" ` ; \
 		done ; \
 		echo "[ $(PROVIDER_NAME) ] Done (Ok)." && echo; \
 	 fi
 
 # Cleans up the provider's directories
-clean dist-clean:
+clean:
 	@rm -rf generate_log.txt verify_log.txt
 	@for i in $(DIRS) ; do \
-	   rm -rf $$i/1.3.* ; \
+	   rm -rf $$i/artifacts ; \
+	   rm -rf $$i/1.3.6* ; \
 	 done
+
+distclean: clean
+	@rm -rf logs

@@ -4,30 +4,31 @@ function check_dir() {
 
 	# We want to check that the needed structures
 	# are all in place
+	DIR=$1
 
 	# Checks if we have the PEM version of the RootCA
-	if ! [ -f ta/ta.pem ]; then
+	if ! [ -f "$DIR/ta/ta.pem" ]; then
 
 		# Special handling for the Entrust artifacts
 		if [ `echo $1 | grep 'entrust'` ] ; then
-			mv ta/ta.der ta/ta.pem
-			openssl x509 -in ta/ta.pem -out ta/ta.der -outform DER
+			mv "$DIR/ta/ta.der" "$DIR/ta/ta.pem"
+			openssl x509 -in "$DIR/ta/ta.pem" -out "$DIR/ta/ta.der" -outform DER
 		fi
 
 		# Checks for the RootCA in DER format
-		if ! [ -f ta/ta.der ] ; then
+		if ! [ -f "$DIR/ta/ta.der" ] ; then
 			echo
-			echo "ERROR: missing ta/ta.der file ... "
+			echo "ERROR: missing $DIR/ta/ta.der file ... "
 			echo
 			exit 1;
 		fi
 
 		# Providing the PEM version of the RootCA
-		echo "Converting ta/ta.der to ta/ta.pem ... "
-		openssl x509 -inform DER -in ta/ta.der -out ta/ta.pem
+		echo "Converting $DIR/ta/ta.der to $DIR/ta/ta.pem ... "
+		openssl x509 -inform DER -in "$DIR/ta/ta.der" -out "$DIR/ta/ta.pem"
 		if [ $? -gt 0 ] ; then
 			echo
-			echo "ERROR: Cannot convert ta/ta.der into PEM format"
+			echo "ERROR: Cannot convert $DIR/ta/ta.der into PEM format"
 			echo
 			exit 1
 		fi
@@ -35,27 +36,27 @@ function check_dir() {
 
 	# Checks if we have the PEM version of the
 	# Intermediate CA
-	if ! [ -f ca/ca.pem ]; then
+	if ! [ -f "$DIR/ca/ca.pem" ]; then
 
 		# Special trick for Entrust's artifacts
 		if [ `echo $1 | grep 'entrust'` ] ; then
-			mv ca/ca.der ca/ca.pem
-			openssl x509 -in ca/ca.pem -out ca/ca.der -outform DER
+			mv "$DIR/ca/ca.der" "$DIR/ca/ca.pem"
+			openssl x509 -in "$DIR/ca/ca.pem" -out "$DIR/ca/ca.der" -outform DER
 		fi
 
 		# Checks for the RootCA in DER format
-		if ! [ -f ca/ca.der ] ; then
+		if ! [ -f "$DIR/ca/ca.der" ] ; then
 			echo
-			echo "ERROR: missing ca/ca.der file ... "
+			echo "ERROR: missing $DIR/ca/ca.der file ... "
 			echo
 			exit 1;
 		fi
 
 		# Converts the DER into PEM
-		openssl x509 -inform DER -in ca/ca.der -out ca/ca.pem
+		openssl x509 -inform DER -in "$DIR/ca/ca.der" -out "$DIR/ca/ca.pem"
 		if [ $? -gt 0 ] ; then
 			echo
-			echo "ERROR: Cannot convert ta/ta.der into PEM format"
+			echo "ERROR: Cannot convert $DIR/ta/ta.der into PEM format"
 			echo
 			exit 1
 		fi
@@ -97,6 +98,22 @@ function check() {
 	#           |
 	#           +--> ./ocsp_cert.der (EE's OCSP)
 
+	# Extracts the argument
+	DIR=$1
+
+	# Change directory
+	if ! [ -d "$DIR" ] ; then
+		echo "ERROR: missing dir $DIR"
+		exit 1;
+	fi
+
+	# Change Directory
+	cd "$DIR"
+
+	# Perform some actions
+
+	# Returns
+	cd -
 }
 
 # List of Sub Directories
@@ -108,12 +125,16 @@ if ! [ "x$1" = "x" ] ; then
 fi
 
 # Checks each directory 
-for dir in ${SUBDIRS}/*; do
+for oid_folder in ${SUBDIRS}/artifacts/*; do
+
+	# Extracts the target
+	target=${oid_folder##$SUBDIRS/artifacts/};
+	dir=${oid_folder%%$target}
 
 	# Executing the Check Script
-	if [ -d "${dir}"] ; then
-		result=$(cd "${dir}" && echo "${dir}:" \
-			&& check_dir "${dir}" && check "${dir}" )
+	if [ -d "${dir}" ] ; then
+		result=$(cd "${dir}" && echo "${oid_folder}:" \
+			&& check_dir "${target}" && check "${target}" )
 		echo "$result" && echo
 	fi
 

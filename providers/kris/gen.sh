@@ -46,20 +46,24 @@ SUBDIRS=default
 
 for dir in ${SUBDIRS} ; do 
 
+    # Generates the material's directory
+   [ -d "${dir}" ] || mkdir -p "${dir}"
+   [ -d "${dir}/artifacts" ] || mkdir -p "${dir}/artifacts"
+
    # Classic/baseline test: 
    # gen ed448 1.3.101.113
 
    # Dilithium
-   result=$(cd "${dir}" && gen DILITHIUM_2 1.3.6.1.4.1.2.267.7.4.4)
-   result=$(cd "${dir}" && gen DILITHIUM_3 1.3.6.1.4.1.2.267.7.6.5)
-   result=$(cd "${dir}" && gen DILITHIUM_5 1.3.6.1.4.1.2.267.7.8.7)
+   result=$(cd "${dir}/artifacts" && gen DILITHIUM_2 1.3.6.1.4.1.2.267.7.4.4)
+   result=$(cd "${dir}/artifacts" && gen DILITHIUM_3 1.3.6.1.4.1.2.267.7.6.5)
+   result=$(cd "${dir}"/artifacts && gen DILITHIUM_5 1.3.6.1.4.1.2.267.7.8.7)
 
    # Dilitium AES
    # Not Supported
 
    # Falcon
-   result=$(cd "${dir}" && gen FALCON_512 1.3.9999.3.1)
-   result=$(cd "${dir}" && gen FALCON_1024 1.3.9999.3.4)
+   result=$(cd "${dir}/artifacts" && gen FALCON_512 1.3.9999.3.1)
+   result=$(cd "${dir}/artifacts" && gen FALCON_1024 1.3.9999.3.4)
 
    # Sphincs+
    # Not Supported

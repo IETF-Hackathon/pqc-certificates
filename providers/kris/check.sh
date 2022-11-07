@@ -1,8 +1,81 @@
 #!/bin/bash
 
+function check_dir() {
+
+	# We want to check that the needed structures
+	# are all in place
+	DIR=$1
+
+	# Checks if we have the PEM version of the RootCA
+	if ! [ -f "$DIR/ta/ta.pem" ]; then
+
+		# Special handling for the Entrust artifacts
+		if [ `echo $1 | grep 'entrust'` ] ; then
+			mv "$DIR/ta/ta.der" "$DIR/ta/ta.pem"
+			openssl x509 -in "$DIR/ta/ta.pem" -out "$DIR/ta/ta.der" -outform DER
+		fi
+
+		# Checks for the RootCA in DER format
+		if ! [ -f "$DIR/ta/ta.der" ] ; then
+			echo
+			echo "ERROR: missing $DIR/ta/ta.der file ... "
+			echo
+			exit 1;
+		fi
+
+		# Providing the PEM version of the RootCA
+		echo "Converting $DIR/ta/ta.der to $DIR/ta/ta.pem ... "
+		openssl x509 -inform DER -in "$DIR/ta/ta.der" -out "$DIR/ta/ta.pem"
+		if [ $? -gt 0 ] ; then
+			echo
+			echo "ERROR: Cannot convert $DIR/ta/ta.der into PEM format"
+			echo
+			exit 1
+		fi
+	fi
+
+	# Checks if we have the PEM version of the
+	# Intermediate CA
+	if ! [ -f "$DIR/ca/ca.pem" ]; then
+
+		# Special trick for Entrust's artifacts
+		if [ `echo $1 | grep 'entrust'` ] ; then
+			mv "$DIR/ca/ca.der" "$DIR/ca/ca.pem"
+			openssl x509 -in "$DIR/ca/ca.pem" -out "$DIR/ca/ca.der" -outform DER
+		fi
+
+		# Checks for the RootCA in DER format
+		if ! [ -f "$DIR/ca/ca.der" ] ; then
+			echo
+			echo "ERROR: missing $DIR/ca/ca.der file ... "
+			echo
+			exit 1;
+		fi
+
+		# Converts the DER into PEM
+		openssl x509 -inform DER -in "$DIR/ca/ca.der" -out "$DIR/ca/ca.pem"
+		if [ $? -gt 0 ] ; then
+			echo
+			echo "ERROR: Cannot convert $DIR/ta/ta.der into PEM format"
+			echo
+			exit 1
+		fi
+	fi
+}
+
 check() {
-	export $1=$2
-	cd $2
+
+	# Extracts the argument
+	DIR=$1
+
+	# Change directory
+	if ! [ -d "$DIR" ] ; then
+		echo "ERROR: missing dir $DIR"
+		exit 1;
+	fi
+
+	cd "$DIR"
+	
 	# Generate PEM files if missing
 	if [ ! -f ta/ta.pem ]; then
 		openssl x509 -in ta/ta.der -out ta/ta.pem
@@ -33,32 +106,30 @@ check() {
 		echo "Error parsing TA certificate in $1"
 	fi
 	echo "--------------"
+	
 	cd ..
 }
 
 # List of Sub Directories
 SUBDIRS=default
 
-# If the directory is passed as a parameter
-# this is the case for cross-verifying
-if ! [ "x$1" = "" ] ; then
+# Checks for the input
+if ! [ "x$1" = "x" ] ; then
 	SUBDIRS=$1
 fi
 
-# Performs the Checks for every provided products
-for dir in ${SUBDIRS}/* ; do
+# Checks each directory 
+for oid_folder in ${SUBDIRS}/artifacts/*; do
 
-	# Dilithium 2
-	if [ -d "${dir}"] ; then
-		result=$(cd "${dir}" && \
-			echo "Verifying Dilithium2 (${dir})" && \
-			check DILITHIUM_2 1.3.6.1.4.1.2.267.7.4.4 )
-		echo "$result"
+	# Extracts the target
+	target=${oid_folder##$SUBDIRS/artifacts/};
+	dir=${oid_folder%%$target}
+
+	# Executing the Check Script
+	if [ -d "${dir}" ] ; then
+		result=$(cd "${dir}" && echo "${oid_folder}:" \
+			&& check_dir "${target}" && check "${target}" )
+		echo "$result" && echo
 	fi
-
-	#check DILITHIUM_3 1.3.6.1.4.1.2.267.7.6.5
-	#check DILITHIUM_5 1.3.6.1.4.1.2.267.7.8.7
-	#check FALCON_512 1.3.9999.3.1
-	#check FALCON_1024 1.3.9999.3.4
 
 done
