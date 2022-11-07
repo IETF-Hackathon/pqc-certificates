@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<!-- Hardware Module Configuration -->
+<pki:hsm xmlns:pki="http://www.openca.org/openca/pki/1/0/0">
+  <!-- HSM Name -->
+  <pki:name>etoken-pkcs11</pki:name>
+  <!-- Token Type (kmf, engine) -->
+  <pki:type>pkcs11</pki:type>
+  <!-- HSM ID that pilots the HSM. Depending on the type of HSM
+       it can be:
+        * id:// - for kmf (name of the hw token)
+        * id:// - for ENGINE openssl extensions
+        * file:// - library file for PKCS11 tokens (not supported now)
+  -->
+  <pki:id>file:///usr/lib/libeTPkcs11.so</pki:id>
+  <!-- If the keyextractable is set to 'yes', the generated keys will
+       be exportable. Default is non-exportable -->
+  <pki:keyexportable>no</pki:keyexportable>
+  <!-- Here is where the Token Password - or SO password (if any) - should
+       go -->
+  <pki:passin>stdin</pki:passin>
+  <!-- ... or simply specify the password here -->
+  <!-- <pki:password></pki:password> -->
+</pki:hsm>

@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<!-- PKI X509 PROFILE -->
+<pki:profile xmlns:pki="http://www.openca.org/openca/pki/1/0/0">
+   <!-- Name of the Service -->
+   <pki:name>EndEntity</pki:name>
+   <pki:subject>
+      <pki:cn required="yes" max="1" min="1" />
+      <pki:ou required="yes" max="1">PQC Test</pki:ou>
+      <pki:o required="yes" max="1" min="1">OpenCA Labs</pki:o>
+      <pki:c required="yes" max="1" min="1">US</pki:c>
+   </pki:subject>
+   <pki:keyParams>
+      <pki:algorithm>RSA-SHA256</pki:algorithm>
+      <pki:bits>2048</pki:bits>
+      <pki:mode /> <!-- { AES } -->
+      <pki:curveName /> <!-- { secp256v1, ... } -->
+      <pki:pointType /> <!-- { compressed, uncompressed, hybrid } -->
+      <pki:ecParams /> <!-- { namedCurve, implicitCurve, specifiedCurve } -->
+   </pki:keyParams>
+   <pki:notBefore>
+      <pki:years>0</pki:years>
+      <pki:days>0</pki:days>
+      <pki:hours>0</pki:hours>
+      <pki:minutes>0</pki:minutes>
+   </pki:notBefore>
+   <pki:validity>
+      <pki:years>0</pki:years>
+      <pki:days>30</pki:days>
+      <pki:hours>0</pki:hours>
+      <pki:minutes>0</pki:minutes>
+   </pki:validity>
+   <pki:extensions>
+      <pki:extension name="keyUsage" critical="yes">
+         <pki:value>digitalSignature</pki:value>
+         <pki:value>keyEncipherment</pki:value>
+      </pki:extension>
+      <pki:extension name="authorityKeyIdentifier" critical="no">
+         <pki:value>keyid</pki:value>
+      </pki:extension>
+      <pki:extension name="crlDistributionPoints" critical="no">
+         <pki:value type="URI">ttp://testpqc.ica.crl.local</pki:value>
+      </pki:extension>
+      <pki:extension name="extendedKeyUsage" critical="yes">
+         <pki:value>clientAuth</pki:value>
+         <pki:value>serverAuth</pki:value>
+      </pki:extension>
+      <pki:extension name="certificatePolicies" critical="no">
+         <pki:value>1.3.6.1.4.1.4491.2021.1.5</pki:value>
+      </pki:extension>
+      <pki:extension name="authorityInfoAccess" critical="no">
+         <pki:value type="URI" tag="OCSP">http://testpqc.ica.ocsp.local</pki:value>
+         <pki:value type="URI" tag="caIssuers">http://testpqc.ica.cacert.local</pki:value>
+      </pki:extension>
+   </pki:extensions>
+</pki:profile>

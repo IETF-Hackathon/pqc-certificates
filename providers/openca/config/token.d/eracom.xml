@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!-- PKI service configurations -->
+<pki:tokenConfig xmlns:pki="http://www.openca.org/openca/pki/1/0/0">
+  <!-- Token Name -->
+  <pki:name>Eracom</pki:name>
+  <!-- Token Type (software, hardware) -->
+  <pki:type>pkcs11</pki:type>
+  <!-- HSM specification for server token -->
+  <pki:hsm>Eracom-SDK</pki:hsm>
+  <!-- Slot in the HSM -->
+  <pki:slot>0</pki:slot>
+  <!-- KeyPair identifier (URI - file:// id:// etc.. ) 
+       The format for the id for PKCS#11 is id://[LABEL]/[ID]
+       where the ID is optional and needed only if multiple
+       keypairs with the same LABEL are present on the token. 
+
+       Example:
+
+          <pki:key>id://$USER/00:11:22:33:44:55:66:77</pki:key>
+  -->
+  <pki:keypair>id://$USER</pki:keypair>
+  <!-- Certificate identifier (URI) -->
+  <pki:cert>id://$USER</pki:cert>
+  <!-- CA Certificate -->
+  <pki:cacert>id://$USER CA Certificate</pki:cacert>
+  <!-- Where the Password should be read from -->
+  <pki:passin>stdin</pki:passin>
+  <!-- ... or simply specify the password here -->
+  <!-- <pki:password>1234567890</pki:password> -->
+  <!-- Certificates -->
+  <pki:othercerts>file:://$HOME/.libpki/other-certs.pem</pki:othercerts>
+  <pki:trustedcerts>file:://$HOME/.libpki/other-certs.pem</pki:trustedcerts>
+</pki:tokenConfig>

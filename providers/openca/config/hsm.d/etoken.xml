@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<!-- Hardware Module Configuration -->
+<pki:hsm xmlns:pki="http://www.openca.org/openca/pki/1/0/0">
+  <!-- HSM Name -->
+  <pki:name>etoken</pki:name>
+  <!-- Token Type (kmf, engine) -->
+  <pki:type>engine</pki:type>
+  <!-- HSM ID that pilots the HSM. Depending on the type of HSM
+       it can be:
+        * id:// - for kmf (name of the hw token)
+        * id:// - for ENGINE openssl extensions
+        * file:// - library file for PKCS11 tokens (not supported now)
+  -->
+  <pki:id>id://dynamic</pki:id>
+  <!-- Private key identifier (URI - file:// id:// etc.. ) and
+       certificate details should be specified in the token config
+       file -->
+  <!-- We have different sections: init, pre, post, finalize -->
+  <!--
+  <pki:init>
+    These commands are reserved for initializations, most of tokens
+    use their own tools
+    <pki:cmd label=""></pki:cmd>
+  </pki:init>
+  -->
+  <!-- PRE and POST commands are reserved for ENGINE tokens -->
+  <pki:pre>
+    <pki:cmd>SO_PATH:/usr/local/lib/engines/engine_pkcs11.so</pki:cmd>
+    <pki:cmd>ID:pkcs11</pki:cmd>
+    <pki:cmd>LIST_ADD:1</pki:cmd>
+    <pki:cmd>LOAD</pki:cmd>
+    <pki:cmd>MODULE_PATH:/usr/local/lib/libetpkcs11.so</pki:cmd>
+  </pki:pre>
+  <!--
+  <pki:post>
+    <pki:cmd label=""></pki:cmd>
+  </pki:post>
+  -->
+  <!-- Here is where the Token Password - or SO password (if any) - should
+       go -->
+  <pki:passin>env:etoken</pki:passin>
+  <!-- ... or simply specify the password here -->
+  <!-- <pki:password></pki:password> -->
+</pki:hsm>

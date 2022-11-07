@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<!-- Hardware Module Configuration -->
+<pki:store xmlns:pki="http://www.openca.org/openca/pki/1/0/0">
+  <!-- Store Name -->
+  <pki:name>empty</pki:name>
+  <!-- Store Type (kmf, engine) -->
+  <pki:type>mysql</pki:type>
+</pki:store>
