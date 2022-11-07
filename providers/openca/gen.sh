@@ -17,7 +17,7 @@ gen() {
       -subject "CN=PQC Test" -out "ta/ta_req.pem"
    # Generate the certificate
    pki-tool gencert -batch -selfsign \
-      -config "../../config" -profile "RootCA" \
+      -config "../config" -profile "RootCA" \
       -in ta/ta_req.pem -out ta/ta.pem \
       -signkey "ta/ta_priv.pem"
    # Output the key in DER
@@ -36,7 +36,7 @@ gen() {
       -subject "CN=Intermediate CA" -out "ca/ca_req.pem"
    # Generates the CA's certificate via the Root CA
    pki-tool gencert -batch \
-      -config "../../config" -profile "IntermediateCA" \
+      -config "../config" -profile "IntermediateCA" \
       -signkey "ta/ta_priv.pem" -signcert "ta/ta.pem" \
       -in "ca/ca_req.pem" -out "ca/ca.pem"
    # Converts the certificate to DER format
@@ -57,7 +57,7 @@ gen() {
    pki-tool gencert -batch \
       -signkey "ca/ca_priv.pem" -signcert "ca/ca.pem" \
       -in "ee/ee_req.pem" -out "ee/ca.pem" \
-      -config "../../config" -profile "EndEntity"
+      -config "../config" -profile "EndEntity"
    # Converts the certificate to DER format
    # pki-tool format -outform DER -in ca/ca.pem \
    #    -out ca/ca.der

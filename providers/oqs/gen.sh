@@ -43,14 +43,28 @@ gen() {
    cd ..
 }
 
-# Classic/baseline test: 
-# gen ed448 1.3.101.113
-gen dilithium2 1.3.6.1.4.1.2.267.7.4.4 
-gen dilithium3 1.3.6.1.4.1.2.267.7.6.5
-gen dilithium5 1.3.6.1.4.1.2.267.7.8.7
-gen dilithium2_aes 1.3.6.1.4.1.2.267.11.4.4
-gen dilithium3_aes 1.3.6.1.4.1.2.267.11.6.5
-gen dilithium5_aes 1.3.6.1.4.1.2.267.11.8.7
-gen falcon512 1.3.9999.3.1
-gen falcon1024 1.3.9999.3.4
-gen sphincssha256128frobust 1.3.9999.6.4.1
+# Sub folders for the provider
+SUBDIRS=openssl111 oqsprovider
+
+for dir in ${SUBDIRS} ; do 
+
+   # Classic/baseline test: 
+   # gen ed448 1.3.101.113
+
+   # Dilithium
+   result=$(cd "${dir}" && gen dilithium2 1.3.6.1.4.1.2.267.7.4.4)
+   result=$(cd "${dir}" && gen dilithium3 1.3.6.1.4.1.2.267.7.6.5)
+   result=$(cd "${dir}" && gen dilithium5 1.3.6.1.4.1.2.267.7.8.7)
+
+   # Dilitium AES
+   result=$(cd "${dir}" && gen dilithium2_aes 1.3.6.1.4.1.2.267.11.4.4)
+   result=$(cd "${dir}" && gen dilithium3_aes 1.3.6.1.4.1.2.267.11.6.5)
+   result=$(cd "${dir}" && gen dilithium5_aes 1.3.6.1.4.1.2.267.11.8.7)
+
+   # Falcon
+   result=$(cd "${dir}" && gen falcon512 1.3.9999.3.1)
+   result=$(cd "${dir}" && gen falcon1024 1.3.9999.3.4)
+
+   # Sphincs+
+   result=$(cd "${dir}" && gen sphincssha256128frobust 1.3.9999.6.4.1)
+done
