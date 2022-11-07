@@ -80,7 +80,7 @@ public class ArtifactGenerator
             new X500Name("CN=BC " + algName + " Test TA"),
             generateSerialNumber(),
             new Date(System.currentTimeMillis() - BEFORE_DELTA),
-            new Date(System.currentTimeMillis() - AFTER_DELTA),
+            new Date(System.currentTimeMillis() + AFTER_DELTA),
             new X500Name("CN=BC " + algName + " Test TA"),
             SubjectPublicKeyInfo.getInstance(taKp.getPublic().getEncoded()));
 
@@ -113,7 +113,7 @@ public class ArtifactGenerator
             new X500Name("CN=BC " + algName + " Test TA"),
             generateSerialNumber(),
             new Date(System.currentTimeMillis() - BEFORE_DELTA),
-            new Date(System.currentTimeMillis() - AFTER_DELTA),
+            new Date(System.currentTimeMillis() + AFTER_DELTA),
             new X500Name("CN=BC " + algName + " Test CA"),
             SubjectPublicKeyInfo.getInstance(caKp.getPublic().getEncoded()));
 
@@ -158,7 +158,7 @@ public class ArtifactGenerator
             new X500Name("CN=BC " + algName + " Test CA"),
             generateSerialNumber(),
             new Date(System.currentTimeMillis() - BEFORE_DELTA),
-            new Date(System.currentTimeMillis() - AFTER_DELTA),
+            new Date(System.currentTimeMillis() + AFTER_DELTA),
             new X500Name("CN=BC " + algName + " Test EE"),
             SubjectPublicKeyInfo.getInstance(eeKp.getPublic().getEncoded()));
 
