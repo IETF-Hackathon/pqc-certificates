@@ -1,3 +1,4 @@
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
@@ -22,6 +23,8 @@ import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCSException;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequest;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
+import org.bouncycastle.util.encoders.Hex;
+import org.bouncycastle.util.io.Streams;
 import org.bouncycastle.util.io.pem.PemReader;
 
 public class ArtifactParser
@@ -46,15 +49,29 @@ public class ArtifactParser
     private static void checkCSR(ZipFile zipFile, ZipEntry zipEntry, Set<String> passed)
         throws IOException, PKCSException, OperatorCreationException
     {
-        PemReader pemReader = new PemReader(new InputStreamReader(zipFile.getInputStream(zipEntry)));
-        PKCS10CertificationRequest certRequest = new JcaPKCS10CertificationRequest(pemReader.readPemObject().getContent());
-        if (certRequest.isSignatureValid(new JcaContentVerifierProviderBuilder().build(certRequest.getSubjectPublicKeyInfo())))
+        byte[] enc = Streams.readAll(zipFile.getInputStream(zipEntry));
+        if (enc[0] != 0x30)
         {
-            passed.add(zipEntry.getName());
+            PemReader pemReader = new PemReader(new InputStreamReader(new ByteArrayInputStream(enc)));
+
+            enc = pemReader.readPemObject().getContent();
         }
-        else
+
+        try
         {
-            System.err.println("Entry " + zipEntry.getName() + " failed to verify");
+            PKCS10CertificationRequest certRequest = new JcaPKCS10CertificationRequest(enc);
+            if (certRequest.isSignatureValid(new JcaContentVerifierProviderBuilder().build(certRequest.getSubjectPublicKeyInfo())))
+            {
+                passed.add(zipEntry.getName());
+            }
+            else
+            {
+                System.err.println("Entry " + zipEntry.getName() + " failed to verify");
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Entry " + zipEntry.getName() + " failed to parse: " + e.getMessage());
         }
     }
 
@@ -192,8 +209,15 @@ public class ArtifactParser
                     }
                     else if (!name.contains("priv") && name.endsWith("der"))
                     {
-                        taName = zipEntry.getName();
-                        taCert = (X509Certificate)certFact.generateCertificate(zipFile.getInputStream(zipEntry));
+                        try
+                        {
+                            taName = zipEntry.getName();
+                            taCert = (X509Certificate)certFact.generateCertificate(zipFile.getInputStream(zipEntry));
+                        }
+                        catch (Exception e)
+                        {
+                            System.err.println("exception parsing " + zipEntry.getName() + " :" + e.getMessage());
+                        }
                     }
                     else if (name.endsWith("csr"))
                     {
