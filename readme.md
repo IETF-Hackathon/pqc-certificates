@@ -18,9 +18,8 @@ The project's directory structure is as follows:
                 - artifacts.zip
             - implementation_name_2/
                 - artifacts.zip
-            - scripts/
-                - gen.sh
-                - check.sh
+            - gen.sh
+            - check.sh
             - Makefile
                 - unzip, generate, verify, and cross_verify targets
         - provider_name_2
@@ -69,7 +68,8 @@ At the hackathon, we are all going to script our PKI toolkit to produce and read
 (parentheses denotes optional files)
 
 - artifacts.zip
-    - \<alg oid\>
+  - artifacts/
+    - alg_oid_dir/
         - ta/     # trust anchor, aka root CA, aka self-signed
             - ta.der
             - ta_priv.der
