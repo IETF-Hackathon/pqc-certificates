@@ -6,6 +6,7 @@ import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.Security;
 import java.security.cert.CertificateFactory;
+import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Enumeration;
@@ -16,14 +17,12 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.bouncycastle.cert.X509CRLHolder;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
-import org.bouncycastle.pkcs.PKCSException;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequest;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
-import org.bouncycastle.util.encoders.Hex;
 import org.bouncycastle.util.io.Streams;
 import org.bouncycastle.util.io.pem.PemReader;
 
@@ -46,8 +45,23 @@ public class ArtifactParser
         }
     }
 
+    private static boolean checkCRL(String entryName, X509CRL subject, X509Certificate signingCert)
+    {
+        try
+        {
+            subject.verify(signingCert.getPublicKey());
+
+            return true;
+        }
+        catch (GeneralSecurityException e)
+        {
+            System.err.println("Entry " + entryName + " failed to verify: " + e);
+            return false;
+        }
+    }
+
     private static void checkCSR(ZipFile zipFile, ZipEntry zipEntry, Set<String> passed)
-        throws IOException, PKCSException, OperatorCreationException
+        throws IOException
     {
         byte[] enc = Streams.readAll(zipFile.getInputStream(zipEntry));
         if (enc[0] != 0x30)
@@ -86,6 +100,11 @@ public class ArtifactParser
             }
         }
         return thisIgnored;
+    }
+
+    private static boolean isRecognizedEncoding(String name)
+    {
+        return name.endsWith(".pem") || name.endsWith("der");
     }
 
     public static void main(String[] args)
@@ -144,6 +163,10 @@ public class ArtifactParser
         String eeName = null;
         X509Certificate eeCert = null;
         PublicKey eePub = null;
+        String taCrlName = null;
+        X509CRL taCrl = null;
+        String caCrlName = null;
+        X509CRL caCrl = null;
         CertificateFactory certFact = CertificateFactory.getInstance("X.509", "BC");
 
         for (String oid : algEntries.keySet())
@@ -157,6 +180,10 @@ public class ArtifactParser
             eeName = null;
             eeCert = null;
             eePub = null;
+            taCrl = null;
+            taCrlName = null;
+            caCrl = null;
+            caCrlName = null;
 
             Map<String, ZipEntry> algEntry = algEntries.get(oid);
             // ignore SPHINCS+ for now
@@ -173,7 +200,7 @@ public class ArtifactParser
                 ZipEntry zipEntry = algEntry.get(name);
                 if (name.startsWith("ca/"))
                 {
-                    if (name.contains("pub") && name.endsWith("der"))
+                    if (name.contains("pub") && isRecognizedEncoding(name))
                     {
                         PemReader pemReader = new PemReader(new InputStreamReader(zipFile.getInputStream(zipEntry)));
                         taPub = KeyFactory.getInstance(oid).generatePublic(new X509EncodedKeySpec(pemReader.readPemObject().getContent()));
@@ -182,7 +209,7 @@ public class ArtifactParser
                             passed.add(zipEntry.getName());
                         }
                     }
-                    else if (!name.contains("priv") && name.endsWith("der"))
+                    else if (!name.contains("priv") && isRecognizedEncoding(name))
                     {
                         caName = zipEntry.getName();
                         caCert = (X509Certificate)certFact.generateCertificate(zipFile.getInputStream(zipEntry));
@@ -198,7 +225,7 @@ public class ArtifactParser
                 }
                 else if (name.startsWith("ta/"))
                 {
-                    if (name.contains("pub") && name.endsWith("der"))
+                    if (name.contains("pub") && isRecognizedEncoding(name))
                     {
                         PemReader pemReader = new PemReader(new InputStreamReader(zipFile.getInputStream(zipEntry)));
                         taPub = KeyFactory.getInstance(oid).generatePublic(new X509EncodedKeySpec(pemReader.readPemObject().getContent()));
@@ -207,7 +234,7 @@ public class ArtifactParser
                             passed.add(zipEntry.getName());
                         }
                     }
-                    else if (!name.contains("priv") && name.endsWith("der"))
+                    else if (!name.contains("priv") && isRecognizedEncoding(name))
                     {
                         try
                         {
@@ -230,7 +257,7 @@ public class ArtifactParser
                 }
                 else if (name.startsWith("ee/"))
                 {
-                    if (name.contains("pub") && name.endsWith("der"))
+                    if (name.contains("pub") && isRecognizedEncoding(name))
                     {
                         PemReader pemReader = new PemReader(new InputStreamReader(zipFile.getInputStream(zipEntry)));
                         eePub = KeyFactory.getInstance(oid).generatePublic(new X509EncodedKeySpec(pemReader.readPemObject().getContent()));
@@ -239,7 +266,7 @@ public class ArtifactParser
                             passed.add(zipEntry.getName());
                         }
                     }
-                    else if (!name.contains("priv") && name.endsWith("der"))
+                    else if (!name.contains("priv") && isRecognizedEncoding(name))
                     {
                         eeName = zipEntry.getName();
                         eeCert = (X509Certificate)certFact.generateCertificate(zipFile.getInputStream(zipEntry));
@@ -247,6 +274,37 @@ public class ArtifactParser
                     else if (name.endsWith("csr"))
                     {
                         checkCSR(zipFile, zipEntry, passed);
+                    }
+                    else
+                    {
+                        ignored.add(zipEntry.getName());
+                    }
+                }
+                else if (name.startsWith("crl/"))
+                {
+                    if (name.contains("crl_ta"))
+                    {
+                        try
+                        {
+                            taCrlName = zipEntry.getName();
+                            taCrl = (X509CRL)certFact.generateCRL(zipFile.getInputStream(zipEntry));
+                        }
+                        catch (Exception e)
+                        {
+                            System.err.println("exception parsing " + zipEntry.getName() + " :" + e.getMessage());
+                        }
+                    }
+                    else if (name.contains("crl_ca"))
+                    {
+                        try
+                        {
+                            caCrlName = zipEntry.getName();
+                            caCrl = (X509CRL)certFact.generateCRL(zipFile.getInputStream(zipEntry));
+                        }
+                        catch (Exception e)
+                        {
+                            System.err.println("exception parsing " + zipEntry.getName() + " :" + e.getMessage());
+                        }
                     }
                     else
                     {
@@ -272,6 +330,20 @@ public class ArtifactParser
             if (eeCert != null && caCert != null)
             {
                 if (checkCertificate(eeName, eeCert, caCert))
+                {
+                    passed.add(eeName);
+                }
+            }
+            if (taCrl != null && taCert != null)
+            {
+                if (checkCRL(taCrlName, taCrl, taCert))
+                {
+                    passed.add(eeName);
+                }
+            }
+            if (caCrl != null && caCert != null)
+            {
+                if (checkCRL(caCrlName, caCrl, caCert))
                 {
                     passed.add(eeName);
                 }

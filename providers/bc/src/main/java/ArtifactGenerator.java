@@ -1,5 +1,7 @@
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -9,6 +11,8 @@ import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 
+import org.bouncycastle.asn1.ASN1Encodable;
+import org.bouncycastle.asn1.ASN1Encoding;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bouncycastle.asn1.x500.X500Name;
@@ -17,6 +21,7 @@ import org.bouncycastle.asn1.x509.CRLReason;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.cert.X509CRLHolder;
 import org.bouncycastle.cert.X509v2CRLBuilder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
 import org.bouncycastle.cert.jcajce.JcaX509CRLConverter;
@@ -92,7 +97,7 @@ public class ArtifactGenerator
         return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer));
     }
 
-    private static X509CRL createTACrl(String algName, KeyPair taKp)
+    private static X509CRLHolder createTACrl(String algName, KeyPair taKp)
         throws Exception
     {
         X509v2CRLBuilder crlBuilder = new X509v2CRLBuilder(
@@ -103,7 +108,7 @@ public class ArtifactGenerator
 
         ContentSigner signer = new JcaContentSignerBuilder(algName).build(taKp.getPrivate());
 
-        return new JcaX509CRLConverter().getCRL(crlBuilder.build(signer));
+        return crlBuilder.build(signer);
     }
 
     private static X509Certificate createCACertificate(String algName, KeyPair taKp, KeyPair caKp)
@@ -125,7 +130,7 @@ public class ArtifactGenerator
         return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer));
     }
 
-    private static X509CRL createCACrl(String algName, KeyPair caKp)
+    private static X509CRLHolder createCACrl(String algName, KeyPair caKp)
         throws Exception
     {
         X509v2CRLBuilder crlBuilder = new X509v2CRLBuilder(
@@ -136,7 +141,7 @@ public class ArtifactGenerator
 
         ContentSigner signer = new JcaContentSignerBuilder(algName).build(caKp.getPrivate());
 
-        return new JcaX509CRLConverter().getCRL(crlBuilder.build(signer));
+        return crlBuilder.build(signer);
     }
 
     private static PKCS10CertificationRequest createCACSR(String algName, KeyPair caKp)
@@ -182,6 +187,16 @@ public class ArtifactGenerator
         return csrBld.build(signer);
     }
 
+    private static void derOutput(File parent, String name, ASN1Encodable obj)
+        throws Exception
+    {
+        OutputStream fOut = new FileOutputStream(new File(parent, name));
+
+
+        fOut.write(obj.toASN1Primitive().getEncoded(ASN1Encoding.DER));
+        fOut.close();
+    }
+
     private static void pemOutput(File parent, String name, Object obj)
         throws Exception
     {
@@ -214,10 +229,10 @@ public class ArtifactGenerator
             KeyPair eeKp = kpGen.generateKeyPair();
 
             X509Certificate taCert = createTACertificate(algNames[count], taKp);
-            X509CRL taCrl = createTACrl(algNames[count], taKp);
-            PKCS10CertificationRequest caCsr = createEECSR(algNames[count], eeKp);
+            X509CRLHolder taCrl = createTACrl(algNames[count], taKp);
+            PKCS10CertificationRequest caCsr = createCACSR(algNames[count], eeKp);
             X509Certificate caCert = createCACertificate(algNames[count], taKp, caKp);
-            X509CRL caCrl = createCACrl(algNames[count], caKp);
+            X509CRLHolder caCrl = createCACrl(algNames[count], caKp);
             PKCS10CertificationRequest eeCsr = createEECSR(algNames[count], eeKp);
             X509Certificate eeCert = createEECertificate(algNames[count], caKp, eeKp);
 
@@ -231,34 +246,34 @@ public class ArtifactGenerator
 
             taDir.mkdir();
 
-            pemOutput(taDir, "ta.der", taCert);
-            pemOutput(taDir, "ta_priv.der", taKp.getPrivate());
-            pemOutput(taDir, "ta_pub.der", taKp.getPublic());
+            pemOutput(taDir, "ta.pem", taCert);
+            pemOutput(taDir, "ta_priv.pem", taKp.getPrivate());
+            pemOutput(taDir, "ta_pub.pem", taKp.getPublic());
 
             File caDir = new File(oidDir, "ca");
 
             caDir.mkdir();
 
-            pemOutput(caDir, "ca.csr", caCsr);
-            pemOutput(caDir, "ca.der", caCert);
-            pemOutput(caDir, "ca_priv.der", caKp.getPrivate());
-            pemOutput(caDir, "ca_pub.der", caKp.getPublic());
+            derOutput(caDir, "ca.csr", caCsr.toASN1Structure());
+            pemOutput(caDir, "ca.pem", caCert);
+            pemOutput(caDir, "ca_priv.pem", caKp.getPrivate());
+            pemOutput(caDir, "ca_pub.pem", caKp.getPublic());
 
             File eeDir = new File(oidDir, "ee");
 
             eeDir.mkdir();
 
-            pemOutput(eeDir, "ee.csr", eeCsr);
-            pemOutput(eeDir, "ee.der", eeCert);
-            pemOutput(eeDir, "ee_priv.der", eeKp.getPrivate());
-            pemOutput(eeDir, "ee_pub.der", eeKp.getPublic());
+            derOutput(eeDir, "cert.csr", eeCsr.toASN1Structure());
+            pemOutput(eeDir, "cert.pem", eeCert);
+            pemOutput(eeDir, "cert_priv.pem", eeKp.getPrivate());
+            pemOutput(eeDir, "cert_pub.pem", eeKp.getPublic());
 
             File crlDir = new File(oidDir, "crl");
 
             crlDir.mkdir();
 
-            pemOutput(crlDir, "crl_ta.crl", taCrl);
-            pemOutput(crlDir, "crl_ca.crl", caCrl);
+            derOutput(crlDir, "crl_ta.crl", taCrl.toASN1Structure());
+            derOutput(crlDir, "crl_ca.crl", caCrl.toASN1Structure());
         }
     }
 }
