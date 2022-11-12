@@ -121,10 +121,12 @@ if ! [ "x$1" = "x" ] ; then
 fi
 
 # Checks each directory 
-for oid_folder in ${SUBDIRS}/artifacts/*; do
+for sd in ${SUBDIRS}; do
+    echo "Checking in ${sd}"
+    for oid_folder in ${sd}/artifacts/*; do
 
 	# Extracts the target
-	target=${oid_folder##$SUBDIRS/artifacts/};
+	target=${oid_folder##$sd/artifacts/};
 	dir=${oid_folder%%$target}
 
 	# Executing the Check Script
@@ -134,4 +136,5 @@ for oid_folder in ${SUBDIRS}/artifacts/*; do
 		echo "$result" && echo
 	fi
 
+    done
 done
