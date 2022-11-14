@@ -3,6 +3,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
@@ -197,6 +198,26 @@ public class ArtifactGenerator
         fOut.close();
     }
 
+    private static void derOutput(File parent, String name, Key obj)
+        throws Exception
+    {
+        OutputStream fOut = new FileOutputStream(new File(parent, name));
+
+
+        fOut.write(obj.getEncoded());
+        fOut.close();
+    }
+
+    private static void derOutput(File parent, String name, X509Certificate obj)
+        throws Exception
+    {
+        OutputStream fOut = new FileOutputStream(new File(parent, name));
+
+
+        fOut.write(obj.getEncoded());
+        fOut.close();
+    }
+
     private static void pemOutput(File parent, String name, Object obj)
         throws Exception
     {
@@ -249,6 +270,9 @@ public class ArtifactGenerator
             pemOutput(taDir, "ta.pem", taCert);
             pemOutput(taDir, "ta_priv.pem", taKp.getPrivate());
             pemOutput(taDir, "ta_pub.pem", taKp.getPublic());
+            derOutput(taDir, "ta.der", taCert);
+            derOutput(taDir, "ta_priv.der", taKp.getPrivate());
+            derOutput(taDir, "ta_pub.der", taKp.getPublic());
 
             File caDir = new File(oidDir, "ca");
 
@@ -258,6 +282,9 @@ public class ArtifactGenerator
             pemOutput(caDir, "ca.pem", caCert);
             pemOutput(caDir, "ca_priv.pem", caKp.getPrivate());
             pemOutput(caDir, "ca_pub.pem", caKp.getPublic());
+            derOutput(caDir, "ca.der", caCert);
+            derOutput(caDir, "ca_priv.der", caKp.getPrivate());
+            derOutput(caDir, "ca_pub.der", caKp.getPublic());
 
             File eeDir = new File(oidDir, "ee");
 
@@ -267,6 +294,9 @@ public class ArtifactGenerator
             pemOutput(eeDir, "cert.pem", eeCert);
             pemOutput(eeDir, "cert_priv.pem", eeKp.getPrivate());
             pemOutput(eeDir, "cert_pub.pem", eeKp.getPublic());
+            derOutput(eeDir, "cert.der", eeCert);
+            derOutput(eeDir, "cert_priv.der", eeKp.getPrivate());
+            derOutput(eeDir, "cert_pub.der", eeKp.getPublic());
 
             File crlDir = new File(oidDir, "crl");
 
