@@ -20,14 +20,27 @@ with classic combinations (e.g., RSA + EC) to provide CC (Composite
 Crypto) specific tests that do not require the use of post-quantum
 algorithms.
 
-## Generic Composite Crypto Direct signing
+## Generic Composite Crypto Keys (Not Explicit)
 
 ### Entrust (Dec 5, 2022)
 
-| Product   | Key        | Sig             | Key Load/Use | Sigs Load/Verify |
-| --------- | ---------- | --------------- | ------------ | ---------------- |
-| Entrust   | COMPOSITE  | COMPOSITE-NULL  | Yes          | n/a              |
-| Entrust   | MULTIKEY   | MULTIKEY-NULL   | n/a          | n/a              |
+| Product   | Key        | Sig             | Key Load/Use   | Sigs Load/Verify |
+| --------- | ---------- | --------------- | -------------- | ---------------- |
+| Entrust   | COMPOSITE  | COMPOSITE-NULL  | Yes (20221206) | n/a              |
+| Entrust   | MULTIKEY   | MULTIKEY-NULL   | n/a            | n/a              |
+
+## Explicit Composite Crypto Keys (Not Generic)
+
+| Product   | Key                           | Sig             | Key Load/Use   | Sigs Load/Verify |
+| --------- | ----------------------------- | --------------- | -------------- | ---------------- |
+| Entrust   | id-Dilithium3-ECDSA-P256      | TBD             | Y (20221206)   | n/a              | 
+| Entrust   | id-Dilithium3-RSA             | TBD             | n/a            | n/a              |
+| Entrust   | id-Falcon512-ECDSA-P256       | TBD             | n/a            | n/a              |
+| Entrust   | id-Falcon512-Ed25519          | TBD             | n/a            | n/a              |
+| Entrust   | id-Dilithium5-Falcon1024-ECDSA-P521 | TBD       | n/a            | n/a              |
+| Entrust   | id-Dilithium5-Falcon1024-RSA  | TBD             | n/a            | n/a              |
+| Entrust   | id-SPHINCS256_256f-RSA        | TBD             | n/a            | n/a              |
+| Entrust   | entrust-Algorithm-ExplicitCompositeKEMKEY | TBD | n/a            | n/a              |
 
 ## Generic Composite Crypto Hash-n-Sign
 
@@ -92,10 +105,19 @@ TBD.
 
 | Product   | Key        | Sig          | Key Load/Use | Sigs Load/Verify |
 | --------- | ---------- | ------------ | ------------ | ---------------- |
-| OQS (v3)  | Dilithium3 | Dilithium3   | Yes          | n/a              |
-| OQS (v3)  | Dilithium5 | Dilithium5   | Yes          | n/a              |
+| OQS (v3)  | dilithium3 | dilithium3   | Yes          | n/a              |
+| OQS (v3)  | dilithium5 | dilithium5   | Yes          | n/a              |
 | OQS (v3)  | Falcon512  | Falcon512    | Yes          | n/a              |
 | OQS (v3)  | Falcon1024 | Falcon1024   | Yes          | n/a              |
+
+### DigiCert - Java Artifacts
+
+| Product   | Key        | Sig          | Key Load/Use   | Sigs Load/Verify |
+| --------- | ---------- | ------------ | -------------- | ---------------- |
+| bc/java   | dilithium3 | dilithium3   | No (20221206)  | n/a              |
+| bc/java   | dilithium5 | dilithium5   | No (20221206)  | n/a              |
+| bc/java   | falcon512  | falcon512    | No (20221206)  | n/a              |
+| bc/java   | falcon1024 | falcon1024   | No (20221206)  | n/a              |
 
 ## Hash-n-Sign Paradigm
 
