@@ -119,6 +119,42 @@ TBD.
 | bc/java   | falcon512  | falcon512    | No (20221206)  | n/a              |
 | bc/java   | falcon1024 | falcon1024   | No (20221206)  | n/a              |
 
+### Carl Redhound - default
+
+| Product   | Key        | Sig          | Key Load/Use       | Sigs Load/Verify |
+| --------- | ---------- | ------------ | ------------------ | ---------------- |
+| redhound  | dilithium3 | n/a          | Yes/No+ (20221207) | No* (20221207)   |
+| redhound  | dilithium5 | n/a          | Yes/No+ (20221207) | No* (20221207)   |
+| redhound  | falcon512  | n/a          | Yes/No+ (20221207) | No* (20221207)   |
+| redhound  | falcon1024 | n/a          | Yes/No+ (20221207) | No* (20221207)   |
+
+'+' = Indicates Segfault during sig generation
+'*' = Indicates Verify Issue (verify final - asn1_check_tlen:wrong tag)
+
+### Corey Snakefoot - default
+
+| Product   | Key        | Sig          | Key Load/Use       | Sigs Load/Verify |
+| --------- | ---------- | ------------ | ------------------ | ---------------- |
+| snakefoot | dilithium3 | n/a          | Yes/No+ (20221207) | No* (20221207)   |
+| snakefoot | dilithium5 | n/a          | Yes/No+ (20221207) | No* (20221207)   |
+| snakefoot | falcon512  | n/a          | Yes/No+ (20221207) | No* (20221207)   |
+| snakefoot | falcon1024 | n/a          | Yes/No+ (20221207) | No* (20221207)   |
+
+'+' = Indicates Segfault during sig generation
+'*' = Indicates Verify Issue (verify final - asn1_check_tlen:wrong tag)
+
+### Kris default - default
+
+| Product   | Key        | Sig          | Key Load/Use   | Sigs Load/Verify |
+| --------- | ---------- | ------------ | -------------- | ---------------- |
+| kris/def  | dilithium3 | n/a          | Yes (20221207) | No* (20221207)    |
+| kris/def  | dilithium5 | n/a          | Yes (20221207) | No* (20221207)    |
+| kris/def  | falcon512  | n/a          | Yes (20221207) | No* (20221207)    |
+| kris/def  | falcon1024 | n/a          | Yes (20221207) | No* (20221207)    |
+
+'+' = Indicates Segfault during sig generation
+'*' = Indicates Verify Issue (verify final - asn1_check_tlen:wrong tag)
+
 ## Hash-n-Sign Paradigm
 
 | Product   | Key        | Sig          | Key Load/Use | Sigs Load/Verify |
