@@ -12,9 +12,12 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -385,22 +388,21 @@ public class ArtifactParser
             throw new IllegalStateException("artifact argument must point to a directory");
         }
 
-        for (File f : artDir.listFiles())
+        for (File f : getLeafs(artDir.listFiles()))
         {
-            String[] entryTokens = f.getName().split("/");
-            if (entryTokens.length == 4)
+            String[] entryTokens = canonicalise(artDir, f).split("/");
+            if (entryTokens.length == 3)
             {
-                Map<String, File> algEntry = fileAlgEntries.get(entryTokens[1]);
+                Map<String, File> algEntry = fileAlgEntries.get(entryTokens[0]);
                 if (algEntry == null)
                 {
                     algEntry = new HashMap<>();
-                    fileAlgEntries.put(entryTokens[1], algEntry);
+                    fileAlgEntries.put(entryTokens[0], algEntry);
                 }
-
-                algEntry.put(entryTokens[2] + "/" + entryTokens[3], f);
+                algEntry.put(entryTokens[1] + "/" + entryTokens[2], f);
             }
             // some zips missing the artifacts directory
-            else if (!entryTokens[0].equals("artifacts") && entryTokens.length == 3)
+            else if (entryTokens.length == 2)
             {
                 Map<String, File> algEntry = fileAlgEntries.get(entryTokens[0]);
                 if (algEntry == null)
@@ -409,7 +411,7 @@ public class ArtifactParser
                     fileAlgEntries.put(entryTokens[0], algEntry);
                 }
 
-                algEntry.put(entryTokens[1] + "/" + entryTokens[2], f);
+                algEntry.put(entryTokens[0] + "/" + entryTokens[1], f);
             }
         }
 
@@ -432,7 +434,7 @@ public class ArtifactParser
         X509CRL caCrl = null;
         CertificateFactory certFact = CertificateFactory.getInstance("X.509", "BC");
 
-        for (String oid : algEntries.keySet())
+        for (String oid : fileAlgEntries.keySet())
         {
             taName = null;
             taCert = null;
@@ -454,7 +456,7 @@ public class ArtifactParser
             {
                 for (File fe : algEntry.values())
                 {
-                    ignored.add(fe.getName());
+                    ignored.add(canonicalise(artDir, fe));
                 }
                 continue;
             }
@@ -476,21 +478,21 @@ public class ArtifactParser
                         }
                         if (caPub != null)
                         {
-                            passed.add(fileEntry.getName());
+                            passed.add(canonicalise(artDir, fileEntry));
                         }
                     }
                     else if (!name.contains("priv") && isRecognizedEncoding(name))
                     {
-                        caName = fileEntry.getName();
+                        caName = canonicalise(artDir, fileEntry);
                         caCert = (X509Certificate)certFact.generateCertificate(new FileInputStream(fileEntry));
                     }
                     else if (name.endsWith("csr"))
                     {
-                        checkCSR(fileEntry.getName(), new FileInputStream(fileEntry), passed);
+                        checkCSR(canonicalise(artDir, fileEntry), new FileInputStream(fileEntry), passed);
                     }
                     else
                     {
-                        ignored.add(fileEntry.getName());
+                        ignored.add(canonicalise(artDir, fileEntry));
                     }
                 }
                 else if (name.startsWith("ta/"))
@@ -508,28 +510,28 @@ public class ArtifactParser
                         }
                         if (taPub != null)
                         {
-                            passed.add(fileEntry.getName());
+                            passed.add(canonicalise(artDir, fileEntry));
                         }
                     }
                     else if (!name.contains("priv") && isRecognizedEncoding(name))
                     {
                         try
                         {
-                            taName = fileEntry.getName();
+                            taName = canonicalise(artDir, fileEntry);
                             taCert = (X509Certificate)certFact.generateCertificate(new FileInputStream(fileEntry));
                         }
                         catch (Exception e)
                         {
-                            System.err.println("exception parsing " + fileEntry.getName() + " :" + e.getMessage());
+                            System.err.println("exception parsing " + canonicalise(artDir, fileEntry) + " :" + e.getMessage());
                         }
                     }
                     else if (name.endsWith("csr"))
                     {
-                        checkCSR(fileEntry.getName(), new FileInputStream(fileEntry), passed);
+                        checkCSR(canonicalise(artDir, fileEntry), new FileInputStream(fileEntry), passed);
                     }
                     else
                     {
-                        ignored.add(fileEntry.getName());
+                        ignored.add(canonicalise(artDir, fileEntry));
                     }
                 }
                 else if (name.startsWith("ee/"))
@@ -547,21 +549,21 @@ public class ArtifactParser
                         }
                         if (eePub != null)
                         {
-                            passed.add(fileEntry.getName());
+                            passed.add(canonicalise(artDir, fileEntry));
                         }
                     }
                     else if (!name.contains("priv") && isRecognizedEncoding(name))
                     {
-                        eeName = fileEntry.getName();
+                        eeName = canonicalise(artDir, fileEntry);
                         eeCert = (X509Certificate)certFact.generateCertificate(new FileInputStream(fileEntry));
                     }
                     else if (name.endsWith("csr"))
                     {
-                        checkCSR(fileEntry.getName(), new FileInputStream(fileEntry), passed);
+                        checkCSR(canonicalise(artDir, fileEntry), new FileInputStream(fileEntry), passed);
                     }
                     else
                     {
-                        ignored.add(fileEntry.getName());
+                        ignored.add(canonicalise(artDir, fileEntry));
                     }
                 }
                 else if (name.startsWith("crl/"))
@@ -570,29 +572,29 @@ public class ArtifactParser
                     {
                         try
                         {
-                            taCrlName = fileEntry.getName();
+                            taCrlName = canonicalise(artDir, fileEntry);
                             taCrl = (X509CRL)certFact.generateCRL(new FileInputStream(fileEntry));
                         }
                         catch (Exception e)
                         {
-                            System.err.println("exception parsing " + fileEntry.getName() + " :" + e.getMessage());
+                            System.err.println("exception parsing " + canonicalise(artDir, fileEntry) + " :" + e.getMessage());
                         }
                     }
                     else if (name.contains("crl_ca"))
                     {
                         try
                         {
-                            caCrlName = fileEntry.getName();
+                            caCrlName = canonicalise(artDir, fileEntry);
                             caCrl = (X509CRL)certFact.generateCRL(new FileInputStream(fileEntry));
                         }
                         catch (Exception e)
                         {
-                            System.err.println("exception parsing " + fileEntry.getName() + " :" + e.getMessage());
+                            System.err.println("exception parsing " + canonicalise(artDir, fileEntry) + " :" + e.getMessage());
                         }
                     }
                     else
                     {
-                        ignored.add(fileEntry.getName());
+                        ignored.add(canonicalise(artDir, fileEntry));
                     }
                 }
             }
@@ -642,6 +644,28 @@ public class ArtifactParser
             System.out.println("    Passed : " + getMatching(passed, entry));
             System.out.println("    Ignored: " + getMatching(ignored, entry));
         }
+    }
+
+    private static String canonicalise(File artDir, File f)
+    {
+        return f.getPath().substring(artDir.getPath().length() + 1).replace('\\', '/');
+    }
+
+    private static File[] getLeafs(File[] listFiles)
+    {
+        List<File> fs = new ArrayList<>();
+        for (File f : listFiles)
+        {
+            if (f.isDirectory())
+            {
+                fs.addAll(Arrays.asList(getLeafs(f.listFiles())));
+            }
+            else
+            {
+                fs.add(f);
+            }
+        }
+        return fs.toArray(new File[0]);
     }
 
     public static void main(String[] args)
