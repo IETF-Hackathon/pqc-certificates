@@ -9,12 +9,6 @@ function check_dir() {
 	# Checks if we have the PEM version of the RootCA
 	if ! [ -f "$DIR/ta/ta.pem" ]; then
 
-		# Special handling for the Entrust artifacts
-		if [ `echo $1 | grep 'entrust'` ] ; then
-			mv "$DIR/ta/ta.der" "$DIR/ta/ta.pem"
-			openssl x509 -in "$DIR/ta/ta.pem" -out "$DIR/ta/ta.der" -outform DER
-		fi
-
 		# Checks for the RootCA in DER format
 		if ! [ -f "$DIR/ta/ta.der" ] ; then
 			echo
@@ -37,12 +31,6 @@ function check_dir() {
 	# Checks if we have the PEM version of the
 	# Intermediate CA
 	if ! [ -f "$DIR/ca/ca.pem" ]; then
-
-		# Special trick for Entrust's artifacts
-		if [ `echo $1 | grep 'entrust'` ] ; then
-			mv "$DIR/ca/ca.der" "$DIR/ca/ca.pem"
-			openssl x509 -in "$DIR/ca/ca.pem" -out "$DIR/ca/ca.der" -outform DER
-		fi
 
 		# Checks for the RootCA in DER format
 		if ! [ -f "$DIR/ca/ca.der" ] ; then
@@ -100,6 +88,7 @@ check() {
 		openssl verify -CAfile ta/ta.pem ca/ca.pem
 		if [ $? -ne 0 ]; then
 			echo "Error verifying $1/ca/ca.pem"
+			exit -1
 		else
 			echo "cert chain TA->CA verified for $1"
 		fi
@@ -117,24 +106,57 @@ SUBDIRS="openssl111 oqsprovider"
 
 # Checks for the input
 if ! [ "x$1" = "x" ] ; then
-	SUBDIRS=$1
+	EXT_PREFIX=$1
+else
+	# if parameter not present, self-test
+	EXT_PREFIX="."
 fi
 
 # Checks each directory 
 for sd in ${SUBDIRS}; do
-    echo "Checking in ${sd}"
-    for oid_folder in ${sd}/artifacts/*; do
+    if [ $sd == "oqsprovider" ]; then
+           # check openssl actually supports providers
+           openssl list --providers 2>&1 | grep oqsprovider > /dev/null
+           if [ $? -ne 0 ]; then
+                   echo "oqsprovider not available"
+                   continue
+           fi
+    fi
+    if [ $sd == "openssl111" ]; then
+           # check oqs-openssl111 runs
+           openssl version | grep "Open Quantum Safe" > /dev/null
+           if [ $? -ne 0 ]; then
+                   echo "OQS-openssl not active"
+                   continue
+           fi
+    fi
 
-	# Extracts the target
-	target=${oid_folder##$sd/artifacts/};
-	dir=${oid_folder%%$target}
+    echo "Checking in ${sd}"
+    cd $sd/artifacts
+    for oid_folder in *; do
+
+	target=${oid_folder}
+	if [ $EXT_PREFIX == "." ]; then
+	    dir=$EXT_PREFIX
+        else
+	    dir=../../$EXT_PREFIX
+	fi
 
 	# Executing the Check Script
 	if [ -d "${dir}" ] ; then
-		result=$(cd "${dir}" && echo "${oid_folder}:" \
-			&& check_dir "${target}" && check "${target}" )
-		echo "$result" && echo
+		cd "${dir}" && echo "${oid_folder}:" \
+			&& check_dir "${target}" && check "${target}"
+		if [ $? -ne 0 ]; then
+			echo "Failure testing $EXT_PREFIX. Exiting."
+			exit -1
+		else
+			echo "Successfully tested $dir/$target"
+		fi
+	else
+		echo "Directory $dir not found. Exiting test."
+		exit -1
 	fi
 
     done
 done
+echo "All tests passed successfully"
