@@ -61,7 +61,7 @@ This section provides the OIDs associated with Explicit algorithm combinations f
 Composite Keys:
 
 | Algorithm Name | OID | Signature Algorithm | Signature OID |
-| ----------- | ----------- | ----------- |
+| ----------- | ----------- | ----------- |  ----------- |
 | id-Dilithium3-RSA                   | 2.16.840.1.114027.80.5.1.1 | Dilithium3-SHA256withRSA | 2.16.840.1.114027.80.5.3.1 |
 | id-Dilithium3-ECDSA-P256            | 2.16.840.1.114027.80.5.1.2 | Dilithium3-SHA256withECDSA | 2.16.840.1.114027.80.5.3.2 |
 | id-Dilithium3-ECDSA-brainpoolP256r1 | 2.16.840.1.114027.80.5.1.3 | Dilithium3-SHA256withECDSA | 2.16.840.1.114027.80.5.3.2 |
