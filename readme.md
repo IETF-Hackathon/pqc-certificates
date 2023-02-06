@@ -1,4 +1,4 @@
-# IETF 115 Hackathon - PQC Certificates
+# IETF 115/116 Hackathon - PQC Certificates
 
 This project provides a set of data repositories for X.509 data
 structures that make use of post-quantum and composite algorithms
