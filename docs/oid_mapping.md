@@ -178,17 +178,15 @@ to 1.3.6.1.4.1.18227.999.1.1 and the DILITHIUM-SHA256 would be changed to
 | Algorithm Name | OID | Signature Algorithm |
 | ----------- | ----------- | ----------- |
 | Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
-| Dilithium3WithNoHash | 1.3.6.1.4.1.18227.999.1.1 | DILITHIUM3-NULL |
-| Dilithium3WithSha256 | 1.3.6.1.4.1.18227.999.1.1.1 | DILITHIUM3-SHA256 |
-| Dilithium3WithSha384 | 1.3.6.1.4.1.18227.999.1.1.2 | DILITHIUM3-SHA384 |
-| Dilithium3WithSha512 | 1.3.6.1.4.1.18227.999.1.1.3 | DILITHIUM3-SHA512 |
-| Dilithium3WithSha3At256 | 1.3.6.1.4.1.18227.999.1.1.4 | DILITHIUM3-SHA3_256 |
-| Dilithium3WithSha3At384 | 1.3.6.1.4.1.18227.999.1.1.5 | DILITHIUM3-SHA3_384 |
-| Dilithium3WithSha3At512 | 1.3.6.1.4.1.18227.999.1.1.6 | DILITHIUM3-SHA3_512 |
-| Dilithium3WithShake128 | 1.3.6.1.4.1.18227.999.1.1.7 | DILITHIUM3-SHAKE128 |
-| Dilithium3WithShake256 | 1.3.6.1.4.1.18227.999.1.1.8 | DILITHIUM3-SHAKE256 |
+| Dilithium3WithSha256 | 1.3.6.1.4.1.18227.999.1.2.1 | DILITHIUM3-SHA256 |
+| Dilithium3WithSha384 | 1.3.6.1.4.1.18227.999.1.2.2 | DILITHIUM3-SHA384 |
+| Dilithium3WithSha512 | 1.3.6.1.4.1.18227.999.1.2.3 | DILITHIUM3-SHA512 |
+| Dilithium3WithSha3At256 | 1.3.6.1.4.1.18227.999.1.2.4 | DILITHIUM3-SHA3_256 |
+| Dilithium3WithSha3At384 | 1.3.6.1.4.1.18227.999.1.2.5 | DILITHIUM3-SHA3_384 |
+| Dilithium3WithSha3At512 | 1.3.6.1.4.1.18227.999.1.2.6 | DILITHIUM3-SHA3_512 |
+| Dilithium3WithShake128 | 1.3.6.1.4.1.18227.999.1.2.7 | DILITHIUM3-SHAKE128 |
+| Dilithium3WithShake256 | 1.3.6.1.4.1.18227.999.1.2.8 | DILITHIUM3-SHAKE256 |
 | Dilithium5 | 1.3.6.1.4.1.2.267.7.8.7* | Dilithium5 |
-| Dilithium5WithNoHash | 1.3.6.1.4.1.18227.999.1.2 | DILITHIUM5-NULL |
 | Dilithium5WithSha256 | 1.3.6.1.4.1.18227.999.1.2.1 | DILITHIUM5-SHA256 |
 | Dilithium5WithSha384 | 1.3.6.1.4.1.18227.999.1.2.2 | DILITHIUM5-SHA384 |
 | Dilithium5WithSha512 | 1.3.6.1.4.1.18227.999.1.2.3 | DILITHIUM5-SHA512 |
@@ -197,8 +195,7 @@ to 1.3.6.1.4.1.18227.999.1.1 and the DILITHIUM-SHA256 would be changed to
 | Dilithium5WithSha3At512 | 1.3.6.1.4.1.18227.999.1.2.6 | DILITHIUM5-SHA3_512 |
 | Dilithium5WithShake128 | 1.3.6.1.4.1.18227.999.1.2.7 | DILITHIUM5-SHAKE128 |
 | Dilithium5WithShake256 | 1.3.6.1.4.1.18227.999.1.2.8 | DILITHIUM5-SHAKE256 |
-| Falcon-512 | 1.3.9999.3.1* | Falcon-512 |
-| Falcon512WithNoHash | 1.3.6.1.4.1.18227.999.2.1 | FALCON512-NULL |
+| Falcon512 | 1.3.9999.3.1* | Falcon-512 |
 | Falcon512WithSha256 | 1.3.6.1.4.1.18227.999.2.1.1 | FALCON512-SHA256 |
 | Falcon512WithSha384 | 1.3.6.1.4.1.18227.999.2.1.2 | FALCON512-SHA384 |
 | Falcon512WithSha512 | 1.3.6.1.4.1.18227.999.2.1.3 | FALCON512-SHA512 |
@@ -207,8 +204,7 @@ to 1.3.6.1.4.1.18227.999.1.1 and the DILITHIUM-SHA256 would be changed to
 | Falcon512WithSha3At512 | 1.3.6.1.4.1.18227.999.2.1.6 | FALCON512-SHA3_512 |
 | Falcon512WithShake128 | 1.3.6.1.4.1.18227.999.2.1.7 | FALCON512-SHAKE128 |
 | Falcon512WithShake256 | 1.3.6.1.4.1.18227.999.2.1.8 | FALCON512-SHAKE256 |
-| Falcon-1024 | 1.3.9999.3.4* | Falcon-1024 |
-| Falcon1024WithNoHash | 1.3.6.1.4.1.18227.999.2.2 | FALCON51024-NULL |
+| Falcon1024 | 1.3.9999.3.4* | Falcon-1024 |
 | Falcon1024WithSha256 | 1.3.6.1.4.1.18227.999.2.2.1 | FALCON1024-SHA256 |
 | Falcon1024WithSha384 | 1.3.6.1.4.1.18227.999.2.2.2 | FALCON1024-SHA384 |
 | Falcon1024WithSha512 | 1.3.6.1.4.1.18227.999.2.2.3 | FALCON1024-SHA512 |
