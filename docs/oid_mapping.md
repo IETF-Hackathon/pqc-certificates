@@ -55,26 +55,28 @@ This section provides the OIDs associated with Generic Composite Keys
 | COMPOSITE | 1.3.6.1.4.1.18227.2.1.999.1 | COMPOSITE-NONE |
 | MULTIKEY | 1.3.6.1.4.1.18227.2.1.999.1 | MULTIKEY-NONE |
 
-## Explicit Composite Key OIDs 
+## Explicit Composite Key and Signature OIDs 
 
 This section provides the OIDs associated with Explicit algorithm combinations for
-Composite Keys:
+Composite Keys and Composite Signatures.  The Algorithm OID is the same for both the 
+Explicit Composite Key and for the Composite Signature Algorithm.  
 
-| Algorithm Name | OID | Signature Algorithm | Signature OID |
-| ----------- | ----------- | ----------- |  ----------- |
-| id-Dilithium3-RSA                   | 2.16.840.1.114027.80.5.1.1 | Dilithium3-SHA256withRSA | 2.16.840.1.114027.80.5.3.1 |
-| id-Dilithium3-ECDSA-P256            | 2.16.840.1.114027.80.5.1.2 | Dilithium3-SHA256withECDSA | 2.16.840.1.114027.80.5.3.2 |
-| id-Dilithium3-ECDSA-brainpoolP256r1 | 2.16.840.1.114027.80.5.1.3 | Dilithium3-SHA256withECDSA | 2.16.840.1.114027.80.5.3.2 |
-| id-Dilithium3-Ed25519               | 2.16.840.1.114027.80.5.1.4 | Dilithium3-Ed25519 | 2.16.840.1.114027.80.5.3.4 |
-| id-Dilithium5-ECDSA-P384            | 2.16.840.1.114027.80.5.1.5 | Dilithium5-SHA384withECDSA | 2.16.840.1.114027.80.5.3.5 |
-| id-Dilithium5-ECDSA-brainpoolP384r1 | 2.16.840.1.114027.80.5.1.6 | Dilithium5-SHA384withECDSA | 2.16.840.1.114027.80.5.3.5 |
-| id-Dilithium5-Ed448                 | 2.16.840.1.114027.80.5.1.7 | Dilithium5-Ed448 | 2.16.840.1.114027.80.5.3.7 |
-| id-Falcon512-ECDSA-P256             | 2.16.840.1.114027.80.5.1.8 | Falcon512-SHA256withECDSA | 2.16.840.1.114027.80.5.3.8 |
-| id-Falcon512-ECDSA-brainpoolP256r1  | 2.16.840.1.114027.80.5.1.9 | Falcon512-SHA256withECDSA | 2.16.840.1.114027.80.5.3.8 |
-| id-Falcon512-Ed25519                       | 2.16.840.1.114027.80.5.1.10| Falcon512-Ed25519 | 2.16.840.1.114027.80.5.3.10 |
-| id-SPHINCSplusSHA256-ECDSA-P256            | 2.16.840.1.114027.80.5.1.11| SPHINCSplusSHA256-SHA256withECDSA| 2.16.840.1.114027.80.5.3.11 |
-| id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1 | 2.16.840.1.114027.80.5.1.12 | SPHINCSplusSHA256-SHA256withECDSA| 2.16.840.1.114027.80.5.3.11 |
-| id-SPHINCSplusSHA256-Ed25519               | 2.16.840.1.114027.80.5.1.13 | SPHINCSplusSHA256-Ed25519 | 2.16.840.1.114027.80.5.3.13 |
+| AlgorithmID for both Composite Key and Signature Algorithms | OID | 
+| ----------- | ----------- | 
+| id-Dilithium3-RSA-PKCS15-SHA256         | 2.16.840.1.114027.80.5.1.1 |
+| id-Dilithium3-ECDSA-P256-SHA256            | 2.16.840.1.114027.80.5.1.2 | 
+| id-Dilithium3-ECDSA-brainpoolP256r1-SHA256 | 2.16.840.1.114027.80.5.1.3 | 
+| id-Dilithium3-Ed25519               | 2.16.840.1.114027.80.5.1.4 | 
+| id-Dilithium5-ECDSA-P384-SHA384            | 2.16.840.1.114027.80.5.1.5 |
+| id-Dilithium5-ECDSA-brainpoolP384r1-SHA384 | 2.16.840.1.114027.80.5.1.6 | 
+| id-Dilithium5-Ed448                 | 2.16.840.1.114027.80.5.1.7 | 
+| id-Falcon512-ECDSA-P256             | 2.16.840.1.114027.80.5.1.8 | 
+| id-Falcon512-ECDSA-brainpoolP256r1-SHA256  | 2.16.840.1.114027.80.5.1.9 | 
+| id-Falcon512-Ed25519                       | 2.16.840.1.114027.80.5.1.10| 
+| id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256            | 2.16.840.1.114027.80.5.1.11| 
+| id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 | 2.16.840.1.114027.80.5.1.12 | 
+| id-SPHINCSplusSHA256128sSimple-Ed25519               | 2.16.840.1.114027.80.5.1.13 |  
+| id-Dilithium3-RSA-PSS-SHA256                   | 2.16.840.1.114027.80.5.1.14 |  
 
 # Composite Signatures OIDs
 
@@ -112,27 +114,6 @@ combinations can be easily updated to the new value.
 | CompositeWithSha3At512 | 1.3.6.1.4.1.18227.2.1.7 | COMPOSITE-SHA3_512 |
 | CompositeWithShake128 | 1.3.6.1.4.1.18227.2.1.8 | COMPOSITE-SHAKE128 |
 | CompositeWithShake256 | 1.3.6.1.4.1.18227.2.1.9 | COMPOSITE-SHAKE256 |
-
-
-## Explicit Composite Signatures OIDs
-
-### No Hash Explicit Composite Signatures OIDs (Currently same as Key OIDs for experimentation)
-
-| Algorithm Name | OID | Signature Algorithm |
-| ----------- | ----------- | ----------- |
-| id-Dilithium3-RSA                   | 2.16.840.1.114027.80.5.1.1 | Dilithium3-SHA256withRSA |
-| id-Dilithium3-ECDSA-P256            | 2.16.840.1.114027.80.5.1.2 | Dilithium3-SHA256withECDSA |
-| id-Dilithium3-ECDSA-brainpoolP256r1 | 2.16.840.1.114027.80.5.1.3 | Dilithium3-SHA256withECDSA |
-| id-Dilithium3-Ed25519               | 2.16.840.1.114027.80.5.1.4 | Dilithium3-Ed25519 |
-| id-Dilithium5-ECDSA-P384            | 2.16.840.1.114027.80.5.1.5 | Dilithium5-SHA384withECDSA |
-| id-Dilithium5-ECDSA-brainpoolP384r1 | 2.16.840.1.114027.80.5.1.6 | Dilithium5-SHA384withECDSA |
-| id-Dilithium5-Ed448                 | 2.16.840.1.114027.80.5.1.7 | Dilithium5-Ed448 |
-| id-Falcon512-ECDSA-P256             | 2.16.840.1.114027.80.5.1.8 | Falcon512-SHA256withECDSA |
-| id-Falcon512-ECDSA-brainpoolP256r1  | 2.16.840.1.114027.80.5.1.9 | Falcon512-SHA256withECDSA |
-| id-Falcon512-Ed25519                       | 2.16.840.1.114027.80.5.1.10| Falcon512-Ed25519 |
-| id-SPHINCSplusSHA256-ECDSA-P256            | 2.16.840.1.114027.80.5.1.11| SPHINCSplusSHA256-SHA256withECDSA|
-| id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1 | 2.16.840.1.114027.80.5.1.12 | SPHINCSplusSHA256-SHA256withECDSA|
-| id-SPHINCSplusSHA256-Ed25519               | 2.16.840.1.114027.80.5.1.13 | SPHINCSplusSHA256-Ed25519 |
 
 # PQC Signatures OIDs
 
