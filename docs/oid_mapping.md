@@ -69,8 +69,8 @@ Explicit Composite Key and for the Composite Signature Algorithm.
 | id-Dilithium3-Ed25519               | 2.16.840.1.114027.80.5.1.4 | 
 | id-Dilithium5-ECDSA-P384-SHA384            | 2.16.840.1.114027.80.5.1.5 |
 | id-Dilithium5-ECDSA-brainpoolP384r1-SHA384 | 2.16.840.1.114027.80.5.1.6 | 
-| id-Dilithium5-Ed448                 | 2.16.840.1.114027.80.5.1.7 | 
-| id-Falcon512-ECDSA-P256             | 2.16.840.1.114027.80.5.1.8 | 
+| id-Dilithium5-Ed448                   | 2.16.840.1.114027.80.5.1.7 | 
+| id-Falcon512-ECDSA-P256-SHA256        | 2.16.840.1.114027.80.5.1.8 | 
 | id-Falcon512-ECDSA-brainpoolP256r1-SHA256  | 2.16.840.1.114027.80.5.1.9 | 
 | id-Falcon512-Ed25519                       | 2.16.840.1.114027.80.5.1.10| 
 | id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256            | 2.16.840.1.114027.80.5.1.11| 
