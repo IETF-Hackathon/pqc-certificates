@@ -107,13 +107,7 @@ combinations can be easily updated to the new value.
 | Algorithm Name | OID | Signature Algorithm |
 | ----------- | ----------- | ----------- |
 | CompositeWithSha256 | 1.3.6.1.4.1.18227.2.1.2 | COMPOSITE-SHA256 |
-| CompositeWithSha384 | 1.3.6.1.4.1.18227.2.1.3 | COMPOSITE-SHA384 |
 | CompositeWithSha512 | 1.3.6.1.4.1.18227.2.1.4 | COMPOSITE-SHA512 |
-| CompositeWithSha3At256 | 1.3.6.1.4.1.18227.2.1.5 | COMPOSITE-SHA3_256 |
-| CompositeWithSha3At384 | 1.3.6.1.4.1.18227.2.1.6 | COMPOSITE-SHA3_384 |
-| CompositeWithSha3At512 | 1.3.6.1.4.1.18227.2.1.7 | COMPOSITE-SHA3_512 |
-| CompositeWithShake128 | 1.3.6.1.4.1.18227.2.1.8 | COMPOSITE-SHAKE128 |
-| CompositeWithShake256 | 1.3.6.1.4.1.18227.2.1.9 | COMPOSITE-SHAKE256 |
 
 # PQC Signatures OIDs
 
