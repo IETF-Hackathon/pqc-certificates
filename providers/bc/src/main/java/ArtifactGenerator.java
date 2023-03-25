@@ -1,39 +1,59 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.Security;
-import java.security.cert.X509CRL;
+import java.security.SignatureException;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.security.spec.ECGenParameterSpec;
 import java.util.Date;
 
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.ASN1Encoding;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.bc.BCObjectIdentifiers;
+import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.CRLReason;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.cert.CertException;
 import org.bouncycastle.cert.X509CRLHolder;
+import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v2CRLBuilder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
-import org.bouncycastle.cert.jcajce.JcaX509CRLConverter;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
+import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
+import org.bouncycastle.jcajce.CompositePrivateKey;
+import org.bouncycastle.jcajce.CompositePublicKey;
+import org.bouncycastle.jcajce.spec.CompositeAlgorithmSpec;
+import org.bouncycastle.jcajce.spec.EdDSAParameterSpec;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.operator.ContentSigner;
+import org.bouncycastle.operator.ContentVerifierProvider;
+import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
+import org.bouncycastle.pqc.jcajce.spec.DilithiumParameterSpec;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.Pack;
 
@@ -62,7 +82,7 @@ public class ArtifactGenerator
             "falcon-512",
             "falcon-1024"
         };
-
+    
     private static final long BEFORE_DELTA = 60 * 1000L;
     private static final long AFTER_DELTA = 365L * 24 * 60 * 60 * 1000L;
 
@@ -188,6 +208,210 @@ public class ArtifactGenerator
         return csrBld.build(signer);
     }
 
+    private static X509Certificate createDilithiumECNistP256Composite()
+        throws Exception
+    {
+        //
+        // set up the keys
+        //
+        KeyPairGenerator ecKpg = KeyPairGenerator.getInstance("EC", "BC");
+
+        ecKpg.initialize(new ECGenParameterSpec("P-256"));
+
+        KeyPair ecKp = ecKpg.generateKeyPair();
+
+        PrivateKey ecPriv = ecKp.getPrivate();
+        PublicKey ecPub = ecKp.getPublic();
+
+        KeyPairGenerator dilKpg = KeyPairGenerator.getInstance("Dilithium", "BCPQC");
+
+        dilKpg.initialize(DilithiumParameterSpec.dilithium3);
+
+        KeyPair dilKp = dilKpg.generateKeyPair();
+
+        PrivateKey dilPriv = dilKp.getPrivate();
+        PublicKey dilPub = dilKp.getPublic();
+
+        //
+        // distinguished name table.
+        //
+        X500Name issuer = new X500Name("CN=BC " + "SHA256-ECDSA(P256)-Dilithium3" + " Test TA");
+
+        //
+        // create the certificate - version 3
+        //
+        CompositeAlgorithmSpec compAlgSpec = new CompositeAlgorithmSpec.Builder()
+            .add("SHA256withECDSA")
+            .add("Dilithium3")
+            .build();
+        CompositePublicKey compPub = new CompositePublicKey(ecPub, dilPub);
+        CompositePrivateKey compPrivKey = new CompositePrivateKey(ecPriv, dilPriv);
+
+        ContentSigner sigGen = new JcaContentSignerBuilder("COMPOSITE",
+            compAlgSpec).build(compPrivKey);
+
+        X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(
+            issuer,
+            BigInteger.valueOf(1),
+            new Date(System.currentTimeMillis() - 50000), new Date(System.currentTimeMillis() + 50000), issuer,
+            compPub);
+
+        X509CertificateHolder compCertHldr = certGen.build(sigGen);
+
+        return checkCompositeCertificate(compCertHldr, ecPub, dilPub, compPub);
+    }
+
+    private static X509Certificate createDilithiumECBrainPoolComposite()
+        throws Exception
+    {
+        //
+        // set up the keys
+        //
+        KeyPairGenerator ecKpg = KeyPairGenerator.getInstance("EC", "BC");
+
+        ecKpg.initialize(new ECGenParameterSpec("brainpoolP256r1"));
+
+        KeyPair ecKp = ecKpg.generateKeyPair();
+
+        PrivateKey ecPriv = ecKp.getPrivate();
+        PublicKey ecPub = ecKp.getPublic();
+
+        KeyPairGenerator dilKpg = KeyPairGenerator.getInstance("Dilithium", "BCPQC");
+
+        dilKpg.initialize(DilithiumParameterSpec.dilithium3);
+
+        KeyPair dilKp = dilKpg.generateKeyPair();
+
+        PrivateKey dilPriv = dilKp.getPrivate();
+        PublicKey dilPub = dilKp.getPublic();
+
+        //
+        // distinguished name table.
+        //
+        X500Name issuer = new X500Name("CN=BC " + "SHA256-ECDSA(BrainpoolP256)-Dilithium3" + " Test TA");
+
+        //
+        // create the certificate - version 3
+        //
+        CompositeAlgorithmSpec compAlgSpec = new CompositeAlgorithmSpec.Builder()
+            .add("SHA256withECDSA")
+            .add("Dilithium3")
+            .build();
+        CompositePublicKey compPub = new CompositePublicKey(ecPub, dilPub);
+        CompositePrivateKey compPrivKey = new CompositePrivateKey(ecPriv, dilPriv);
+
+        ContentSigner sigGen = new JcaContentSignerBuilder("COMPOSITE",
+            compAlgSpec).build(compPrivKey);
+
+        X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(
+            issuer,
+            BigInteger.valueOf(1),
+            new Date(System.currentTimeMillis() - 50000), new Date(System.currentTimeMillis() + 50000), issuer,
+            compPub);
+
+        X509CertificateHolder compCertHldr = certGen.build(sigGen);
+
+        return checkCompositeCertificate(compCertHldr, ecPub, dilPub, compPub);
+    }
+
+    private static X509Certificate createDilithiumEd25519Composite()
+        throws Exception
+    {
+        //
+        // set up the keys
+        //
+        KeyPairGenerator ecKpg = KeyPairGenerator.getInstance("EDDSA", "BC");
+
+        ecKpg.initialize(new EdDSAParameterSpec(EdDSAParameterSpec.Ed25519));
+
+        KeyPair ecKp = ecKpg.generateKeyPair();
+
+        PrivateKey ecPriv = ecKp.getPrivate();
+        PublicKey ecPub = ecKp.getPublic();
+
+        KeyPairGenerator dilKpg = KeyPairGenerator.getInstance("Dilithium", "BCPQC");
+
+        dilKpg.initialize(DilithiumParameterSpec.dilithium3);
+
+        KeyPair dilKp = dilKpg.generateKeyPair();
+
+        PrivateKey dilPriv = dilKp.getPrivate();
+        PublicKey dilPub = dilKp.getPublic();
+
+        //
+        // distinguished name table.
+        //
+        X500Name issuer = new X500Name("CN=BC " + "ED25519-Dilithium3" + " Test TA");
+
+        //
+        // create the certificate - version 3
+        //
+        CompositeAlgorithmSpec compAlgSpec = new CompositeAlgorithmSpec.Builder()
+            .add("Ed25519")
+            .add("Dilithium3")
+            .build();
+        CompositePublicKey compPub = new CompositePublicKey(ecPub, dilPub);
+        CompositePrivateKey compPrivKey = new CompositePrivateKey(ecPriv, dilPriv);
+
+        ContentSigner sigGen = new JcaContentSignerBuilder("COMPOSITE",
+            compAlgSpec).build(compPrivKey);
+
+        X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(
+            issuer,
+            BigInteger.valueOf(1),
+            new Date(System.currentTimeMillis() - 50000), new Date(System.currentTimeMillis() + 50000), issuer,
+            compPub);
+
+        X509CertificateHolder compCertHldr = certGen.build(sigGen);
+
+        return checkCompositeCertificate(compCertHldr, ecPub, dilPub, compPub);
+    }
+
+    private static X509Certificate checkCompositeCertificate(X509CertificateHolder compCertHldr, PublicKey ecPub, PublicKey dilPub, CompositePublicKey compPub)
+        throws OperatorCreationException, CertException, CertificateException, NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException
+    {
+        ContentVerifierProvider vProv = new JcaContentVerifierProviderBuilder().build(compPub);
+
+        if (!compCertHldr.isSignatureValid(vProv))
+        {
+            throw new IllegalStateException("composite failed to verify");
+        }
+
+        vProv = new JcaContentVerifierProviderBuilder().build(ecPub);
+
+        if (!compCertHldr.isSignatureValid(vProv))
+        {
+            throw new IllegalStateException("classic failed to verify");
+        }
+
+        vProv = new JcaContentVerifierProviderBuilder().build(dilPub);
+
+        if (!compCertHldr.isSignatureValid(vProv))
+        {
+            throw new IllegalStateException("pqc failed to verify");
+        }
+
+        X509Certificate cert = new JcaX509CertificateConverter().setProvider("BC").getCertificate(compCertHldr);
+
+        cert.checkValidity(new Date());
+
+        //
+        // check verifies in general
+        //
+        cert.verify(compPub);
+
+        cert.verify(ecPub);      // ec key only
+
+        cert.verify(ecPub, "BC");      // ec key only
+
+        //
+        // check verifies with contained key
+        //
+        cert.verify(cert.getPublicKey());
+
+        return cert;
+    }
+
     private static void derOutput(File parent, String name, ASN1Encodable obj)
         throws Exception
     {
@@ -233,8 +457,8 @@ public class ArtifactGenerator
     public static void main(String[] args)
         throws Exception
     {
-        Security.addProvider(new BouncyCastleProvider());
-        Security.addProvider(new BouncyCastlePQCProvider());
+        Security.insertProviderAt(new BouncyCastleProvider(), 1);
+        Security.insertProviderAt(new BouncyCastlePQCProvider(), 2);
 
         File aDir = new File("artifacts");
 
@@ -305,5 +529,26 @@ public class ArtifactGenerator
             derOutput(crlDir, "crl_ta.crl", taCrl.toASN1Structure());
             derOutput(crlDir, "crl_ca.crl", caCrl.toASN1Structure());
         }
+
+
+        File oidDir = new File(aDir, MiscObjectIdentifiers.id_composite_key.getId());
+
+        oidDir.mkdir();
+
+        File taDir = new File(oidDir, "ta");
+
+        taDir.mkdir();
+
+        X509Certificate taCert = createDilithiumECNistP256Composite();
+
+        pemOutput(taDir, "ta-ecp256Dil3.pem", taCert);
+
+        taCert = createDilithiumECBrainPoolComposite();
+
+        pemOutput(taDir, "ta-ecbrainp256Dil3.pem", taCert);
+
+        taCert = createDilithiumEd25519Composite();
+
+        pemOutput(taDir, "ta-ed25519Dil3.pem", taCert);
     }
 }
