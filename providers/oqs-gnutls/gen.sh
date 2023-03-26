@@ -38,11 +38,13 @@ gen() {
    cd "$BASE_DIR"
    echo "Operating in $(pwd)"
 
+   CERTTOOL="docker run --rm -v $(pwd):/artifacts:Z -w /artifacts ghcr.io/ueno/oqs-gnutls:main /install/bin/certtool"
+
    # Root/TA:
    # ========
 
    # Generate key pair
-   certtool --generate-privkey --key-type=dilithium3 --outder --outfile ta/ta_priv.der
+   $CERTTOOL --generate-privkey --key-type=dilithium3 --outder --outfile ta/ta_priv.der
 
    # Generate cert in DER
    cat >ta/ta.tmpl <<EOF
@@ -50,16 +52,16 @@ cn = GnuTLS test TA
 ca
 cert_signing_key
 EOF
-   certtool --generate-self-signed --inder --load-privkey ta/ta_priv.der --outder --outfile ta/ta.der --template ta/ta.tmpl
+   $CERTTOOL --generate-self-signed --inder --load-privkey ta/ta_priv.der --outder --outfile ta/ta.der --template ta/ta.tmpl
 
    # Convert it to PEM
-   certtool -i --inder --infile ta/ta.der --outfile ta/ta.pem
+   $CERTTOOL -i --inder --infile ta/ta.der --outfile ta/ta.pem
 
    # Intermediate CA:
    # ================
 
    # Generate key pair
-   certtool --generate-privkey --key-type=dilithium3 --outder --outfile ca/ca_priv.der
+   $CERTTOOL --generate-privkey --key-type=dilithium3 --outder --outfile ca/ca_priv.der
 
    # Generate cert in DER
    cat >ca/ca.tmpl <<EOF
@@ -67,16 +69,16 @@ cn = GnuTLS test CA
 ca
 cert_signing_key
 EOF
-   certtool --generate-certificate --inder --load-ca-privkey ta/ta_priv.der --load-ca-certificate ta/ta.der --load-privkey ca/ca_priv.der --outder --outfile ca/ca.der --template ca/ca.tmpl
+   $CERTTOOL --generate-certificate --inder --load-ca-privkey ta/ta_priv.der --load-ca-certificate ta/ta.der --load-privkey ca/ca_priv.der --outder --outfile ca/ca.der --template ca/ca.tmpl
 
    # Convert it to PEM
-   certtool -i --inder --infile ca/ca.der --outfile ca/ca.pem
+   $CERTTOOL -i --inder --infile ca/ca.der --outfile ca/ca.pem
 
    # End Entity cert:
    # ================
 
    # Generate key pair
-   certtool --generate-privkey --key-type=dilithium3 --outder --outfile ee/ee_priv.der
+   $CERTTOOL --generate-privkey --key-type=dilithium3 --outder --outfile ee/ee_priv.der
 
    # Generate cert in DER
    cat >ee/ee.tmpl <<EOF
@@ -87,10 +89,10 @@ encryption_key
 signing_key
 dns_name = test.gnutls.org
 EOF
-   certtool --generate-certificate --inder --load-ca-privkey ca/ca_priv.der --load-ca-certificate ca/ca.der --load-privkey ee/ee_priv.der --outder --outfile ee/ee.der --template ee/ee.tmpl
+   $CERTTOOL --generate-certificate --inder --load-ca-privkey ca/ca_priv.der --load-ca-certificate ca/ca.der --load-privkey ee/ee_priv.der --outder --outfile ee/ee.der --template ee/ee.tmpl
 
    # Convert it to PEM
-   certtool -i --inder --infile ee/ee.der --outfile ee/ee.pem
+   $CERTTOOL -i --inder --infile ee/ee.der --outfile ee/ee.pem
 }
 
 gen dilithium3 1.3.6.1.4.1.2.267.7.6.5
