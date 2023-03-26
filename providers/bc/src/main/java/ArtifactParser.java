@@ -23,8 +23,15 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.bouncycastle.asn1.x509.Extension;
+import org.bouncycastle.asn1.x509.Extensions;
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.cert.CertException;
 import org.bouncycastle.cert.X509CRLHolder;
+import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.operator.ContentVerifierProvider;
+import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequest;
@@ -43,9 +50,26 @@ public class ArtifactParser
         {
             subject.verify(signingCert.getPublicKey());
 
+            X509CertificateHolder certHolder = new X509CertificateHolder(subject.getEncoded());
+            if (certHolder.hasExtensions())
+            {
+                Extensions exts = certHolder.getExtensions();
+                Extension  ext = exts.getExtension(Extension.altSignatureAlgorithm);
+
+                if (ext != null)
+                {
+                    X509CertificateHolder sigHolder = new X509CertificateHolder(signingCert.getEncoded());
+                    ContentVerifierProvider vProv = new JcaContentVerifierProviderBuilder().build(
+                                            SubjectPublicKeyInfo.getInstance(sigHolder.getExtension(Extension.subjectAltPublicKeyInfo).getParsedValue()));
+                    if (!certHolder.isAlternativeSignatureValid(vProv))
+                    {
+                         System.err.println("Entry " + entryName + " failed to verify alt signature");
+                    }
+                }
+            }
             return true;
         }
-        catch (GeneralSecurityException e)
+        catch (GeneralSecurityException | IOException | CertException | OperatorCreationException e)
         {
             System.err.println("Entry " + entryName + " failed to verify: " + e);
             return false;
@@ -57,10 +81,27 @@ public class ArtifactParser
         try
         {
             subject.verify(signingCert.getPublicKey());
+            X509CRLHolder crlHolder = new X509CRLHolder(subject.getEncoded());
+            if (crlHolder.hasExtensions())
+            {
+                Extensions exts = crlHolder.getExtensions();
+                Extension  ext = exts.getExtension(Extension.altSignatureAlgorithm);
+
+                if (ext != null)
+                {
+                    X509CertificateHolder sigHolder = new X509CertificateHolder(signingCert.getEncoded());
+                    ContentVerifierProvider vProv = new JcaContentVerifierProviderBuilder().build(
+                                            SubjectPublicKeyInfo.getInstance(sigHolder.getExtension(Extension.subjectAltPublicKeyInfo).getParsedValue()));
+                    if (!crlHolder.isAlternativeSignatureValid(vProv))
+                    {
+                         System.err.println("Entry " + entryName + " failed to verify alt signature");
+                    }
+                }
+            }
 
             return true;
         }
-        catch (GeneralSecurityException e)
+        catch (GeneralSecurityException | IOException | CertException | OperatorCreationException e)
         {
             System.err.println("Entry " + entryName + " failed to verify: " + e);
             return false;
@@ -96,14 +137,14 @@ public class ArtifactParser
         }
     }
 
-    private static Set<String> getMatching(Set<String> ignored, String entry)
+    private static Set<String> getMatching(Set<String> inputSet, String entry)
     {
         Set<String> thisIgnored = new HashSet<>();
-        for (String ignoredEntry : ignored)
+        for (String inputEntry : inputSet)
         {
-            if (ignoredEntry.contains(entry))
+            if (inputEntry.contains(entry))
             {
-                thisIgnored.add(ignoredEntry);
+                thisIgnored.add(inputEntry);
             }
         }
         return thisIgnored;
@@ -357,14 +398,14 @@ public class ArtifactParser
             {
                 if (checkCRL(taCrlName, taCrl, taCert))
                 {
-                    passed.add(eeName);
+                    passed.add(taCrlName);
                 }
             }
             if (caCrl != null && caCert != null)
             {
                 if (checkCRL(caCrlName, caCrl, caCert))
                 {
-                    passed.add(eeName);
+                    passed.add(caCrlName);
                 }
             }
 
@@ -624,14 +665,14 @@ public class ArtifactParser
             {
                 if (checkCRL(taCrlName, taCrl, taCert))
                 {
-                    passed.add(eeName);
+                    passed.add(taCrlName);
                 }
             }
             if (caCrl != null && caCert != null)
             {
                 if (checkCRL(caCrlName, caCrl, caCert))
                 {
-                    passed.add(eeName);
+                    passed.add(caCrlName);
                 }
             }
 
@@ -677,8 +718,8 @@ public class ArtifactParser
             System.exit(1);
         }
 
-        Security.addProvider(new BouncyCastleProvider());
-        Security.addProvider(new BouncyCastlePQCProvider());
+        Security.insertProviderAt(new BouncyCastleProvider(), 2);
+        Security.insertProviderAt(new BouncyCastlePQCProvider(), 3);
 
         if (args[0].endsWith(".zip"))
         {
