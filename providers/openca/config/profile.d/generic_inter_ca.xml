@@ -10,8 +10,8 @@
       <pki:c required="yes" max="1" min="1">US</pki:c>
    </pki:subject>
    <pki:keyParams>
-      <pki:algorithm>RSA-SHA384</pki:algorithm>
-      <pki:bits>3072</pki:bits>
+      <!-- <pki:algorithm>RSA-SHA384</pki:algorithm> -->
+      <!-- <pki:bits>3072</pki:bits> -->
       <pki:mode /> <!-- { AES } -->
       <pki:curveName /> <!-- { secp256v1, ... } -->
       <pki:pointType /> <!-- { compressed, uncompressed, hybrid } -->
