@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.OutputStream;
 import java.math.BigInteger;
@@ -24,14 +25,21 @@ import java.util.Date;
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.ASN1Encoding;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.ASN1OctetString;
+import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
+import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
+import org.bouncycastle.asn1.util.ASN1Dump;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.CRLReason;
 import org.bouncycastle.asn1.x509.Extension;
+import org.bouncycastle.asn1.x509.Extensions;
 import org.bouncycastle.asn1.x509.KeyUsage;
+import org.bouncycastle.asn1.x509.SubjectAltPublicKeyInfo;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.asn1.x9.X9ObjectIdentifiers;
 import org.bouncycastle.cert.CertException;
 import org.bouncycastle.cert.X509CRLHolder;
 import org.bouncycastle.cert.X509CertificateHolder;
@@ -44,6 +52,7 @@ import org.bouncycastle.jcajce.CompositePublicKey;
 import org.bouncycastle.jcajce.spec.CompositeAlgorithmSpec;
 import org.bouncycastle.jcajce.spec.EdDSAParameterSpec;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.ContentVerifierProvider;
@@ -56,6 +65,7 @@ import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
 import org.bouncycastle.pqc.jcajce.spec.DilithiumParameterSpec;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.Pack;
+import org.bouncycastle.util.io.Streams;
 
 public class ArtifactGenerator
 {
@@ -163,6 +173,78 @@ public class ArtifactGenerator
         ContentSigner signer = new JcaContentSignerBuilder(algName).build(caKp.getPrivate());
 
         return crlBuilder.build(signer);
+    }
+
+    private static X509Certificate createHybridTACertificate(String algName, KeyPair taKp, String altAlgName, KeyPair taAltKp)
+        throws Exception
+    {
+        X509v3CertificateBuilder crtBld = new X509v3CertificateBuilder(
+            new X500Name("CN=BC " + algName + " Test TA"),
+            generateSerialNumber(),
+            new Date(System.currentTimeMillis() - BEFORE_DELTA),
+            new Date(System.currentTimeMillis() + AFTER_DELTA),
+            new X500Name("CN=BC " + algName + " Test TA"),
+            SubjectPublicKeyInfo.getInstance(taKp.getPublic().getEncoded()));
+
+        crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(1));
+        crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyCertSign | KeyUsage.cRLSign));
+        crtBld.addExtension(Extension.subjectAltPublicKeyInfo, true, SubjectAltPublicKeyInfo.getInstance(taAltKp.getPublic().getEncoded()));
+
+        ContentSigner signer = new JcaContentSignerBuilder(algName).build(taKp.getPrivate());
+        ContentSigner altSigner = new JcaContentSignerBuilder(altAlgName).build(taAltKp.getPrivate());
+
+        return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer, true, altSigner));
+    }
+
+    private static X509CRLHolder createHybridTACrl(String algName, KeyPair taKp, String altAlgName, KeyPair taAltKp)
+        throws Exception
+    {
+        X509v2CRLBuilder crlBuilder = new X509v2CRLBuilder(
+            new X500Name("CN=BC " + algName + " Test TA"),
+            new Date(System.currentTimeMillis()));
+
+        crlBuilder.addCRLEntry(BigInteger.ONE, new Date(), CRLReason.cessationOfOperation);
+
+        ContentSigner signer = new JcaContentSignerBuilder(algName).build(taKp.getPrivate());
+        ContentSigner altSigner = new JcaContentSignerBuilder(altAlgName).build(taAltKp.getPrivate());
+
+        return crlBuilder.build(signer, true, altSigner);
+    }
+
+    private static X509Certificate createHybridCACertificate(String algName, KeyPair taKp, KeyPair caKp, String altAlgName, KeyPair altTaKp, KeyPair altCaKp)
+        throws Exception
+    {
+        X509v3CertificateBuilder crtBld = new X509v3CertificateBuilder(
+            new X500Name("CN=BC " + algName + " Test TA"),
+            generateSerialNumber(),
+            new Date(System.currentTimeMillis() - BEFORE_DELTA),
+            new Date(System.currentTimeMillis() + AFTER_DELTA),
+            new X500Name("CN=BC " + algName + " Test CA"),
+            SubjectPublicKeyInfo.getInstance(caKp.getPublic().getEncoded()));
+
+        crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(0));
+        crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyCertSign | KeyUsage.cRLSign));
+        crtBld.addExtension(Extension.subjectAltPublicKeyInfo, true, SubjectAltPublicKeyInfo.getInstance(altCaKp.getPublic().getEncoded()));
+
+        ContentSigner signer = new JcaContentSignerBuilder(algName).build(taKp.getPrivate());
+        ContentSigner altSigner = new JcaContentSignerBuilder(altAlgName).build(altTaKp.getPrivate());
+
+        return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer, true, altSigner));
+    }
+
+    private static X509CRLHolder createHybridCACrl(String algName, KeyPair caKp, String altAlgName, KeyPair altCaKp)
+        throws Exception
+    {
+        X509v2CRLBuilder crlBuilder = new X509v2CRLBuilder(
+            new X500Name("CN=BC " + algName + " Test CA"),
+            new Date(System.currentTimeMillis()));
+
+        crlBuilder.addCRLEntry(BigInteger.TEN, new Date(), CRLReason.cessationOfOperation);
+
+        ContentSigner signer = new JcaContentSignerBuilder(algName).build(caKp.getPrivate());
+        ContentSigner altSigner = new JcaContentSignerBuilder(altAlgName).build(altCaKp.getPrivate());
+
+        return crlBuilder.build(signer, true, altSigner);
     }
 
     private static PKCS10CertificationRequest createCACSR(String algName, KeyPair caKp)
@@ -530,8 +612,16 @@ public class ArtifactGenerator
             derOutput(crlDir, "crl_ca.crl", caCrl.toASN1Structure());
         }
 
+        File oidDir = new File(aDir, X9ObjectIdentifiers.ecdsa_with_SHA256.getId());
 
-        File oidDir = new File(aDir, MiscObjectIdentifiers.id_composite_key.getId());
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("EC");
+        KeyPairGenerator altKpGen = KeyPairGenerator.getInstance(BCObjectIdentifiers.dilithium3.getId());
+
+        KeyPair taKp = kpGen.generateKeyPair();
+        KeyPair altTaKp = altKpGen.generateKeyPair();
+
+        X509Certificate taCert = createHybridTACertificate("SHA256withECDSA", taKp, "Dilithium3", altTaKp);
+        X509CRLHolder taCrl = createHybridTACrl("SHA256withECDSA", taKp, "Dilithium3", altTaKp);
 
         oidDir.mkdir();
 
@@ -539,13 +629,49 @@ public class ArtifactGenerator
 
         taDir.mkdir();
 
-        X509Certificate taCert = createDilithiumECNistP256Composite();
+        pemOutput(taDir, "ta.pem", taCert);
+
+        KeyPair caKp = kpGen.generateKeyPair();
+        KeyPair altCaKp = altKpGen.generateKeyPair();
+
+        X509Certificate caCert = createHybridCACertificate("SHA256withECDSA", taKp, caKp, "Dilithium3", altTaKp, altCaKp);
+        X509CRLHolder caCrl = createHybridCACrl("SHA256withECDSA", caKp, "Dilithium3", altCaKp);
+
+        File caDir = new File(oidDir, "ca");
+
+        caDir.mkdir();
+
+        pemOutput(caDir, "ca.pem", caCert);
+
+        File crlDir = new File(oidDir, "crl");
+
+        crlDir.mkdir();
+
+        derOutput(crlDir, "crl_ta.crl", taCrl.toASN1Structure());
+        derOutput(crlDir, "crl_ca.crl", caCrl.toASN1Structure());
+
+        //
+        // composite
+        //
+        oidDir = new File(aDir, MiscObjectIdentifiers.id_composite_key.getId());
+
+        oidDir.mkdir();
+
+        taDir = new File(oidDir, "ta");
+
+        taDir.mkdir();
+
+        taCert = createDilithiumECNistP256Composite();
 
         pemOutput(taDir, "ta-ecp256Dil3.pem", taCert);
 
         taCert = createDilithiumECBrainPoolComposite();
 
         pemOutput(taDir, "ta-ecbrainp256Dil3.pem", taCert);
+
+        taCert = createDilithiumEd25519Composite();
+
+        pemOutput(taDir, "ta-ed25519Dil3.pem", taCert);
 
         taCert = createDilithiumEd25519Composite();
 
