@@ -78,7 +78,7 @@ EOF
    # ================
 
    # Generate key pair
-   $CERTTOOL --generate-privkey --key-type=dilithium3 --outder --outfile ee/ee_priv.der
+   $CERTTOOL --generate-privkey --key-type=dilithium3 --outder --outfile ee/cert_priv.der
 
    # Generate cert in DER
    cat >ee/ee.tmpl <<EOF
@@ -89,10 +89,10 @@ encryption_key
 signing_key
 dns_name = test.gnutls.org
 EOF
-   $CERTTOOL --generate-certificate --inder --load-ca-privkey ca/ca_priv.der --load-ca-certificate ca/ca.der --load-privkey ee/ee_priv.der --outder --outfile ee/ee.der --template ee/ee.tmpl
+   $CERTTOOL --generate-certificate --inder --load-ca-privkey ca/ca_priv.der --load-ca-certificate ca/ca.der --load-privkey ee/cert_priv.der --outder --outfile ee/cert.der --template ee/ee.tmpl
 
    # Convert it to PEM
-   $CERTTOOL -i --inder --infile ee/ee.der --outfile ee/ee.pem
+   $CERTTOOL -i --inder --infile ee/cert.der --outfile ee/cert.pem
 }
 
 gen dilithium3 1.3.6.1.4.1.2.267.7.6.5
