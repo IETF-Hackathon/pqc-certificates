@@ -111,7 +111,7 @@ def main():
         m = _FILENAME_REGEX.match(os.path.basename(file))
 
         if m is None:
-            raise ValueError(f'Invalid file name: "{file}"')
+            raise ValueError(f'File name does not match naming convention: "{os.path.basename(file)}"')
 
         with open(file, 'r') as f:
             generator = m['generator']
