@@ -93,26 +93,49 @@ def command_generate_csr(algorithm_name, subject="/CN=test subject"):
     return run_command(command)
 
 
-def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111'):
+def command_generate_cmp_ir_unprotected(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111'):
     command = f'openssl cmp -cmd ir -server {server} -recipient "{recipient}" -ref {reference} ' \
               f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
               f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
-              f'-unprotected_requests -reqout {OUTPUT_PATH}req-ir-{algorithm_name}.pkimessage'
+              f'-unprotected_requests -reqout {OUTPUT_PATH}req-ir-{algorithm_name}-prot_none.pkimessage'
     return run_command(command)
 
 
-def command_generate_cmp_cr(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111'):
+def command_generate_cmp_ir_protectpass(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password="aaaaa"):
+    command = f'openssl cmp -cmd ir -server {server} -recipient "{recipient}" -ref {reference} ' \
+              f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
+              f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
+              f'-secret pass:{password} -reqout {OUTPUT_PATH}req-ir-{algorithm_name}-prot_pass.pkimessage'
+    return run_command(command)
+
+
+def command_generate_cmp_cr_unprotected(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111'):
     command = f'openssl cmp -cmd cr -server {server} -recipient "{recipient}" -ref {reference} ' \
               f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
               f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
-              f'-unprotected_requests -reqout {OUTPUT_PATH}req-cr-{algorithm_name}.pkimessage'
+              f'-unprotected_requests -reqout {OUTPUT_PATH}req-cr-{algorithm_name}-prot_none.pkimessage'
     return run_command(command)
 
 
-def command_generate_cmp_p10cr(algorithm_name, server='127.17.0.2:8000/pkix', reference='11111'):
+def command_generate_cmp_cr_protectpass(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password="aaaaa"):
+    command = f'openssl cmp -cmd cr -server {server} -recipient "{recipient}" -ref {reference} ' \
+              f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
+              f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
+              f'-secret pass:{password} -reqout {OUTPUT_PATH}req-cr-{algorithm_name}-prot_pass.pkimessage'
+    return run_command(command)
+
+
+def command_generate_cmp_p10cr_unprotected(algorithm_name, server='127.17.0.2:8000/pkix', reference='11111'):
     command = f'openssl cmp -cmd p10cr -server {server} -unprotected_requests -ref {reference} ' \
               f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
-              f'-reqout {OUTPUT_PATH}req-p10cr-{algorithm_name}.pkimessage'
+              f'-reqout {OUTPUT_PATH}req-p10cr-{algorithm_name}-prot_none.pkimessage'
+    return run_command(command)
+
+
+def command_generate_cmp_p10cr_protpass(algorithm_name, server='127.17.0.2:8000/pkix', reference='11111', password="aaaaa"):
+    command = f'openssl cmp -cmd p10cr -server {server} -secret pass:{password} -ref {reference} ' \
+              f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
+              f'-reqout {OUTPUT_PATH}req-p10cr-{algorithm_name}-prot_pass.pkimessage'
     return run_command(command)
 
 
@@ -120,7 +143,6 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(message)s')
 
     for algorithm in ALGORITHMS:
-        # breakpoint()
         LOG.info('Processing %s, generating key-pair', algorithm)
         output, status = command_generate_keypair(algorithm)
         if status:
@@ -129,16 +151,31 @@ if __name__ == '__main__':
         output, status = command_generate_csr(algorithm)
         if status:
             LOG.error('Failed, status %s, %s', status, output)
-        LOG.info('Generating CMP IR')
-        output, status = command_generate_cmp_ir(algorithm)
+
+        LOG.info('Generating CMP IR, unprotected')
+        output, status = command_generate_cmp_ir_unprotected(algorithm)
         if status:
             LOG.error('Failed, status %s %s', status, output)
-        LOG.info('Generating CMP CR')
-        output, status = command_generate_cmp_cr(algorithm)
+        LOG.info('Generating CMP IR, password protection')
+        output, status = command_generate_cmp_ir_protectpass(algorithm)
         if status:
             LOG.error('Failed, status %s %s', status, output)
-        LOG.info('Generating CMP P10CR')
-        output, status = command_generate_cmp_p10cr(algorithm)
+
+        LOG.info('Generating CMP CR, unprotected')
+        output, status = command_generate_cmp_cr_unprotected(algorithm)
+        if status:
+            LOG.error('Failed, status %s %s', status, output)
+        LOG.info('Generating CMP CR, password protection')
+        output, status = command_generate_cmp_cr_protectpass(algorithm)
+        if status:
+            LOG.error('Failed, status %s %s', status, output)
+
+        LOG.info('Generating CMP P10CR, unprotected')
+        output, status = command_generate_cmp_p10cr_unprotected(algorithm)
+        if status:
+            LOG.error('Failed, status %s %s', status, output)
+        LOG.info('Generating CMP P10CR, password protection')
+        output, status = command_generate_cmp_p10cr_protpass(algorithm)
         if status:
             LOG.error('Failed, status %s %s', status, output)
     LOG.info('Done')
