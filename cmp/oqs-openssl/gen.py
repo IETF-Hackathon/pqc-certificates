@@ -7,16 +7,14 @@ What it does, in pseudocode:
     - for each algorithm
         - generate key-pair
         - generate a CSR
-        - generate a CMP IR request
-        - generate a CMP CR request
-        - generate a CMP P10CR request
+        - generate a CMP IR, CR, P10CR request, with all possible combinations of protection and proof of possession
         # all of the above are saved to a file
 
 
 NOTE: adjust OUTPUT_PATH and COMMAND_PREFIX before running the tool."""
 import subprocess
 import logging
-
+from itertools import product
 
 LOG = logging.getLogger('pqcmp')
 
@@ -62,6 +60,20 @@ OUTPUT_PATH = '/data/'
 # needs. If you run it directly on system, set this to an empty string.
 COMMAND_PREFIX = 'docker run -it --rm --volume /home/debdeveu/code/pq-crypto-experiment/dockerdata:/data openquantumsafe/oqs-ossl3'
 
+# Different types of proof of possession, see `-popo` in https://www.openssl.org/docs/manmaster/man1/openssl-cmp.html
+POP_NONE = -1
+POP_RA_VERIFIED = 0
+POP_SIG = 1
+POP_KEY_ENC = 2
+
+POP = {
+    'none': POP_NONE,
+    'raverified': POP_RA_VERIFIED,
+    'sig': POP_SIG,
+    'keyenc': POP_KEY_ENC
+}
+POP_INVERTED = {v: k for k, v in POP.items()}
+
 
 def run_command(command):
     LOG.info(f'Running: `{COMMAND_PREFIX} {command}`')
@@ -93,54 +105,56 @@ def command_generate_csr(algorithm_name, subject="/CN=test subject"):
     return run_command(command)
 
 
-def command_generate_cmp_ir_unprotected(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111'):
+def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password=None, popo=POP_SIG):
+    features = 'prot_pass' if password else 'prot_none'
+    features += f'-pop_{POP_INVERTED[popo]}'
+
+    resulting_file = f'{OUTPUT_PATH}req-ir-{algorithm_name}-{features}.pkimessage'
+    protection = f'-secret pass:{password}' if password else '-unprotected_requests'
+
     command = f'openssl cmp -cmd ir -server {server} -recipient "{recipient}" -ref {reference} ' \
               f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
               f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
-              f'-unprotected_requests -reqout {OUTPUT_PATH}req-ir-{algorithm_name}-prot_none.pkimessage'
+              f'-popo {popo} {protection} ' \
+              f'-reqout {resulting_file}'
     return run_command(command)
 
+def command_generate_cmp_cr(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password=None, popo=POP_SIG):
+    features = 'prot_pass' if password else 'prot_none'
+    features += f'-pop_{POP_INVERTED[popo]}'
 
-def command_generate_cmp_ir_protectpass(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password="aaaaa"):
-    command = f'openssl cmp -cmd ir -server {server} -recipient "{recipient}" -ref {reference} ' \
-              f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
-              f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
-              f'-secret pass:{password} -reqout {OUTPUT_PATH}req-ir-{algorithm_name}-prot_pass.pkimessage'
-    return run_command(command)
+    resulting_file = f'{OUTPUT_PATH}req-cr-{algorithm_name}-{features}.pkimessage'
+    protection = f'-secret pass:{password}' if password else '-unprotected_requests'
 
-
-def command_generate_cmp_cr_unprotected(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111'):
     command = f'openssl cmp -cmd cr -server {server} -recipient "{recipient}" -ref {reference} ' \
               f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
               f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
-              f'-unprotected_requests -reqout {OUTPUT_PATH}req-cr-{algorithm_name}-prot_none.pkimessage'
+              f'-popo {popo} {protection} ' \
+              f'-reqout {resulting_file}'
     return run_command(command)
 
 
-def command_generate_cmp_cr_protectpass(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password="aaaaa"):
-    command = f'openssl cmp -cmd cr -server {server} -recipient "{recipient}" -ref {reference} ' \
-              f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
-              f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
-              f'-secret pass:{password} -reqout {OUTPUT_PATH}req-cr-{algorithm_name}-prot_pass.pkimessage'
-    return run_command(command)
+def command_generate_cmp_p10cr(algorithm_name, server='127.17.0.2:8000/pkix', reference='11111', password=None, popo=POP_SIG):
+    features = 'prot_pass' if password else 'prot_none'
+    features += f'-pop_{POP_INVERTED[popo]}'
 
+    resulting_file = f'{OUTPUT_PATH}req-p10cr-{algorithm_name}-{features}.pkimessage'
+    protection = f'-secret pass:{password}' if password else '-unprotected_requests'
 
-def command_generate_cmp_p10cr_unprotected(algorithm_name, server='127.17.0.2:8000/pkix', reference='11111'):
-    command = f'openssl cmp -cmd p10cr -server {server} -unprotected_requests -ref {reference} ' \
-              f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
-              f'-reqout {OUTPUT_PATH}req-p10cr-{algorithm_name}-prot_none.pkimessage'
-    return run_command(command)
-
-
-def command_generate_cmp_p10cr_protpass(algorithm_name, server='127.17.0.2:8000/pkix', reference='11111', password="aaaaa"):
     command = f'openssl cmp -cmd p10cr -server {server} -secret pass:{password} -ref {reference} ' \
               f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
-              f'-reqout {OUTPUT_PATH}req-p10cr-{algorithm_name}-prot_pass.pkimessage'
+              f'-popo {popo} {protection} ' \
+              f'-reqout {resulting_file}'
     return run_command(command)
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(message)s')
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(message)s', datefmt='%H:%M:%S')
+
+    passwords = ['aaaa', None]
+    popos = POP.values()
+
+    functions = [command_generate_cmp_ir, command_generate_cmp_cr, command_generate_cmp_p10cr]
 
     for algorithm in ALGORITHMS:
         LOG.info('Processing %s, generating key-pair', algorithm)
@@ -152,30 +166,12 @@ if __name__ == '__main__':
         if status:
             LOG.error('Failed, status %s, %s', status, output)
 
-        LOG.info('Generating CMP IR, unprotected')
-        output, status = command_generate_cmp_ir_unprotected(algorithm)
-        if status:
-            LOG.error('Failed, status %s %s', status, output)
-        LOG.info('Generating CMP IR, password protection')
-        output, status = command_generate_cmp_ir_protectpass(algorithm)
-        if status:
-            LOG.error('Failed, status %s %s', status, output)
+        for function in functions:
+            LOG.info('--------------- Generating %s', function.__name__)
+            for password, popo in product(passwords, popos):
+                LOG.info(f'Protection: {f"password {password}" if password else "none"}, Proof-of-possession: {POP_INVERTED[popo]}')
+                output, status = function(algorithm, password=password, popo=popo)
+                if status:
+                    LOG.error('Failed, status %s %s', status, output)
 
-        LOG.info('Generating CMP CR, unprotected')
-        output, status = command_generate_cmp_cr_unprotected(algorithm)
-        if status:
-            LOG.error('Failed, status %s %s', status, output)
-        LOG.info('Generating CMP CR, password protection')
-        output, status = command_generate_cmp_cr_protectpass(algorithm)
-        if status:
-            LOG.error('Failed, status %s %s', status, output)
-
-        LOG.info('Generating CMP P10CR, unprotected')
-        output, status = command_generate_cmp_p10cr_unprotected(algorithm)
-        if status:
-            LOG.error('Failed, status %s %s', status, output)
-        LOG.info('Generating CMP P10CR, password protection')
-        output, status = command_generate_cmp_p10cr_protpass(algorithm)
-        if status:
-            LOG.error('Failed, status %s %s', status, output)
     LOG.info('Done')

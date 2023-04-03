@@ -2,7 +2,7 @@
 This directory contains examples of CMP payloads generated using different tools.
 
 # Naming conventions
-The subdirectories in `cmp/` correspong to the tools (e.g., OpenSSL, BouncyCastle) used to generate the artifacts.
+The subdirectories in `cmp/` correspond to the tools (e.g., OpenSSL, BouncyCastle) used to generate the artifacts.
 
 Each subdirectory contains
 - The artifacts themselves
