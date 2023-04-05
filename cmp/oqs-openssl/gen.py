@@ -122,7 +122,7 @@ def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recip
     features += f'-pop_{POP_INVERTED[popo]}'
 
     # since these request types are virtually identical, we only need to change this string in one place
-    ir_or_cr = {"ir" if not cr else "cr"}
+    ir_or_cr = "ir" if not cr else "cr"
 
     resulting_file = f'{OUTPUT_PATH}req-{ir_or_cr}-{algorithm_name}-{features}.pkimessage'
     protection = f'-secret pass:{password}' if password else '-unprotected_requests'
