@@ -66,11 +66,12 @@ POP_RA_VERIFIED = 0
 POP_SIG = 1
 POP_KEY_ENC = 2
 
+# for now the only form of "proof of possession" that is relevant is signature based, so we disable other modes
 POP = {
-    'none': POP_NONE,
-    'raverified': POP_RA_VERIFIED,
+    # 'none': POP_NONE,
+    # 'raverified': POP_RA_VERIFIED,
     'sig': POP_SIG,
-    'keyenc': POP_KEY_ENC
+    # 'keyenc': POP_KEY_ENC
 }
 POP_INVERTED = {v: k for k, v in POP.items()}
 
