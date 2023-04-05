@@ -64,6 +64,9 @@ OUTPUT_PATH = '/data/'
 # COMMAND_PREFIX = 'docker run -it --rm --volume /home/debdeveu/code/pq-crypto-experiment/dockerdata:/data openquantumsafe/oqs-ossl3'
 COMMAND_PREFIX = ''
 
+# If True, the commands will not be executed, but only printed to stdout
+DRY_RUN = False
+
 # Different types of proof of possession, see `-popo` in https://www.openssl.org/docs/manmaster/man1/openssl-cmp.html
 POP_NONE = -1
 POP_RA_VERIFIED = 0
@@ -82,6 +85,10 @@ POP_INVERTED = {v: k for k, v in POP.items()}
 
 def run_command(command):
     LOG.info(f'Running: `{COMMAND_PREFIX} {command}`')
+    if DRY_RUN:
+        # Don't do anything
+        return '', None
+
     command = f'{COMMAND_PREFIX} {command}'
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     process.wait()
@@ -153,6 +160,7 @@ if __name__ == '__main__':
     parser.add_argument("output", help="Output directory", type=str)
     parser.add_argument("--algorithm", help="Generate payloads for specific algorithm", choices=ALGORITHMS, default="")
     parser.add_argument("--docker", help="Use this prefix to run the commands inside a docker container", default="")
+    parser.add_argument("--dryrun", help="Only print the commands, rather than run them", default=False, action="store_true")
 
     args = parser.parse_args()
 
@@ -171,6 +179,10 @@ if __name__ == '__main__':
         COMMAND_PREFIX = args.docker
     else:
         LOG.info("Running directly in your system, OpenSSL with the OQS provider must be installed")
+
+    DRY_RUN = args.dryrun
+    if DRY_RUN:
+        LOG.info("This is a dry run, commands will be printed, but not executed")
 
 
     passwords = ['aaaa', None]
