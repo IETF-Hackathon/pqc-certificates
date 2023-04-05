@@ -15,6 +15,7 @@ NOTE: adjust OUTPUT_PATH and COMMAND_PREFIX before running the tool."""
 import subprocess
 import logging
 from itertools import product
+import argparse
 
 LOG = logging.getLogger('pqcmp')
 
@@ -54,11 +55,14 @@ sphincsshake256128fsimple
 p256_sphincsshake256128fsimple
 rsa3072_sphincsshake256128fsimple'''.splitlines(keepends=False)
 
+# will be overridden by the mandatory `output` command line argument
 OUTPUT_PATH = '/data/'
 
 # Add this prefix in front of every command if you want to run OpenSSL/OQS from within docker, adjusting paths to your
 # needs. If you run it directly on system, set this to an empty string.
-COMMAND_PREFIX = 'docker run -it --rm --volume /home/debdeveu/code/pq-crypto-experiment/dockerdata:/data openquantumsafe/oqs-ossl3'
+# This will be set by the --docker command line argument, an example value might be this one
+# COMMAND_PREFIX = 'docker run -it --rm --volume /home/debdeveu/code/pq-crypto-experiment/dockerdata:/data openquantumsafe/oqs-ossl3'
+COMMAND_PREFIX = ''
 
 # Different types of proof of possession, see `-popo` in https://www.openssl.org/docs/manmaster/man1/openssl-cmp.html
 POP_NONE = -1
@@ -144,6 +148,30 @@ def command_generate_cmp_p10cr(algorithm_name, server='127.17.0.2:8000/pkix', re
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(message)s', datefmt='%H:%M:%S')
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("output", help="Output directory", type=str)
+    parser.add_argument("--algorithm", help="Generate payloads for specific algorithm", choices=ALGORITHMS, default="")
+    parser.add_argument("--docker", help="Use this prefix to run the commands inside a docker container", default="")
+
+    args = parser.parse_args()
+
+    if args.algorithm:
+        LOG.info("Running only for algorithm %s", args.algorithm)
+        ALGORITHMS = [args.algorithm]
+
+    OUTPUT_PATH = args.output
+    if not OUTPUT_PATH.endswith('/'):
+        # always add a trailing slash to the end, so we can concatenate it "as is" when building command line strings
+        OUTPUT_PATH += '/'
+    LOG.info("Saving output to %s", OUTPUT_PATH)
+
+    if args.docker:
+        LOG.info("Running under docker with `%s`", args.docker)
+        COMMAND_PREFIX = args.docker
+    else:
+        LOG.info("Running directly in your system, OpenSSL with the OQS provider must be installed")
+
 
     passwords = ['aaaa', None]
     popos = POP.values()
