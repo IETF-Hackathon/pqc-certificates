@@ -105,33 +105,26 @@ def command_generate_csr(algorithm_name, subject="/CN=test subject"):
     return run_command(command)
 
 
-def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password=None, popo=POP_SIG):
+def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password=None, popo=POP_SIG, cr=False):
     features = 'prot_pass' if password else 'prot_none'
     features += f'-pop_{POP_INVERTED[popo]}'
 
-    resulting_file = f'{OUTPUT_PATH}req-ir-{algorithm_name}-{features}.pkimessage'
+    # since these request types are virtually identical, we only need to change this string in one place
+    ir_or_cr = {"ir" if not cr else "cr"}
+
+    resulting_file = f'{OUTPUT_PATH}req-{ir_or_cr}-{algorithm_name}-{features}.pkimessage'
     protection = f'-secret pass:{password}' if password else '-unprotected_requests'
 
-    command = f'openssl cmp -cmd ir -server {server} -recipient "{recipient}" -ref {reference} ' \
+    command = f'openssl cmp -cmd {ir_or_cr} -server {server} -recipient "{recipient}" -ref {reference} ' \
               f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
               f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
               f'-popo {popo} {protection} ' \
               f'-reqout {resulting_file}'
     return run_command(command)
+
 
 def command_generate_cmp_cr(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password=None, popo=POP_SIG):
-    features = 'prot_pass' if password else 'prot_none'
-    features += f'-pop_{POP_INVERTED[popo]}'
-
-    resulting_file = f'{OUTPUT_PATH}req-cr-{algorithm_name}-{features}.pkimessage'
-    protection = f'-secret pass:{password}' if password else '-unprotected_requests'
-
-    command = f'openssl cmp -cmd cr -server {server} -recipient "{recipient}" -ref {reference} ' \
-              f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
-              f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
-              f'-popo {popo} {protection} ' \
-              f'-reqout {resulting_file}'
-    return run_command(command)
+    return command_generate_cmp_ir(algorithm_name, server, recipient, reference, password, popo, cr=True)
 
 
 def command_generate_cmp_p10cr(algorithm_name, server='127.17.0.2:8000/pkix', reference='11111', password=None, popo=POP_SIG):
@@ -154,7 +147,9 @@ if __name__ == '__main__':
     passwords = ['aaaa', None]
     popos = POP.values()
 
-    functions = [command_generate_cmp_ir, command_generate_cmp_cr, command_generate_cmp_p10cr]
+    # command_generate_cmp_cr is left out, because it is the same as ir under the hood, if you really want it,
+    # add it to the list below
+    functions = [command_generate_cmp_ir, command_generate_cmp_p10cr]
 
     for algorithm in ALGORITHMS:
         LOG.info('Processing %s, generating key-pair', algorithm)
