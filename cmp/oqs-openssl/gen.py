@@ -141,7 +141,7 @@ def command_generate_cmp_p10cr(algorithm_name, server='127.17.0.2:8000/pkix', re
     resulting_file = f'{OUTPUT_PATH}req-p10cr-{algorithm_name}-{features}.pkimessage'
     protection = f'-secret pass:{password}' if password else '-unprotected_requests'
 
-    command = f'openssl cmp -cmd p10cr -server {server} -secret pass:{password} -ref {reference} ' \
+    command = f'openssl cmp -cmd p10cr -server {server} -ref {reference} ' \
               f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
               f'-popo {popo} {protection} ' \
               f'-reqout {resulting_file}'
