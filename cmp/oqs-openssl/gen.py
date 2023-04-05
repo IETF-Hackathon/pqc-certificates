@@ -17,6 +17,8 @@ import logging
 from itertools import product
 import argparse
 
+from algorithm_oids import ALG_OID
+
 LOG = logging.getLogger('pqcmp')
 
 # this list is derived from the output of `openssl list -signature-algorithms -provider oqsprovider`
@@ -106,13 +108,19 @@ def run_command(command):
 
 
 def command_generate_keypair(algorithm_name):
-    command = f'openssl genpkey -algorithm {algorithm_name} -out {OUTPUT_PATH}key-{algorithm_name}.pem'
+    extended_algorithm_name = f'{ALG_OID[algorithm_name]}-{algorithm_name}'
+    extended_path = f'{OUTPUT_PATH}{extended_algorithm_name}/'
+
+    command = f'openssl genpkey -algorithm {algorithm_name} -out {extended_path}key.pem'
     return run_command(command)
 
 
 def command_generate_csr(algorithm_name, subject="/CN=test subject"):
-    command = f'openssl req -out {OUTPUT_PATH}csr-{algorithm_name}.pem -new ' \
-              f'-key {OUTPUT_PATH}key-{algorithm_name}.pem ' \
+    extended_algorithm_name = f'{ALG_OID[algorithm_name]}-{algorithm_name}'
+    extended_path = f'{OUTPUT_PATH}{extended_algorithm_name}/'
+
+    command = f'openssl req -out {extended_path}csr.pem -new ' \
+              f'-key {extended_path}key.pem ' \
               f'-nodes -subj "{subject}"'
     return run_command(command)
 
@@ -124,12 +132,15 @@ def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recip
     # since these request types are virtually identical, we only need to change this string in one place
     ir_or_cr = "ir" if not cr else "cr"
 
-    resulting_file = f'{OUTPUT_PATH}req-{ir_or_cr}-{algorithm_name}-{features}.pkimessage'
+    extended_algorithm_name = f'{ALG_OID[algorithm_name]}-{algorithm_name}'
+    extended_path = f'{OUTPUT_PATH}{extended_algorithm_name}/'
+
+    resulting_file = f'{extended_path}req-{ir_or_cr}-{features}.pkimessage'
     protection = f'-secret pass:{password}' if password else '-unprotected_requests'
 
     command = f'openssl cmp -cmd {ir_or_cr} -server {server} -recipient "{recipient}" -ref {reference} ' \
-              f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
-              f'-certout {OUTPUT_PATH}cl_cert-{algorithm_name}.pem -newkey {OUTPUT_PATH}key-{algorithm_name}.pem ' \
+              f'-csr {extended_path}csr.pem ' \
+              f'-certout {extended_path}cl_cert.pem -newkey {extended_path}key.pem ' \
               f'-popo {popo} {protection} ' \
               f'-reqout {resulting_file}'
     return run_command(command)
@@ -143,11 +154,14 @@ def command_generate_cmp_p10cr(algorithm_name, server='127.17.0.2:8000/pkix', re
     features = 'prot_pass' if password else 'prot_none'
     features += f'-pop_{POP_INVERTED[popo]}'
 
-    resulting_file = f'{OUTPUT_PATH}req-p10cr-{algorithm_name}-{features}.pkimessage'
+    extended_algorithm_name = f'{ALG_OID[algorithm_name]}-{algorithm_name}'
+    extended_path = f'{OUTPUT_PATH}{extended_algorithm_name}/'
+
+    resulting_file = f'{extended_path}req-p10cr-{features}.pkimessage'
     protection = f'-secret pass:{password}' if password else '-unprotected_requests'
 
     command = f'openssl cmp -cmd p10cr -server {server} -ref {reference} ' \
-              f'-csr {OUTPUT_PATH}csr-{algorithm_name}.pem ' \
+              f'-csr {extended_path}csr.pem ' \
               f'-popo {popo} {protection} ' \
               f'-reqout {resulting_file}'
     return run_command(command)
@@ -193,7 +207,20 @@ if __name__ == '__main__':
     functions = [command_generate_cmp_ir, command_generate_cmp_p10cr]
 
     for algorithm in ALGORITHMS:
-        LOG.info('Processing %s, generating key-pair', algorithm)
+        LOG.info('Processing %s, creating output directory', algorithm)
+
+        try:
+            extended_algorithm_name = f'{ALG_OID[algorithm]}-{algorithm}'
+        except KeyError as err:
+            LOG.error("OID for `%s` unknown, skipping", algorithm)
+            continue
+        else:
+            extended_path = f'{OUTPUT_PATH}{extended_algorithm_name}/'
+            # note that we create them with bash, rather than Python, such that it plays nicely with the scenario when
+            # this runs under docker
+            run_command(f"mkdir -p {extended_path}")
+
+        LOG.info('Generating key-pair: %s', algorithm)
         output, status = command_generate_keypair(algorithm)
         if status:
             LOG.error('Failed, status %s: %s', status, output)
