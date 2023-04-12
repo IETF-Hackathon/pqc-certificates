@@ -774,13 +774,15 @@ gen() {
    KEY_FILE="ta/ta_priv"
    REQ_FILE="ta/ta_req"
    CER_FILE="ta/ta"
-   DIGEST=""
+   DIGEST=
 
    # Modifies names when hashing is used
-   if ! [ "${HASH}" = "null" -o "x${HASH}" = "x" ] ; then
-      REQ_FILE="ta/ta_req_${HASH}"
-      CER_FILE="ta/ta_${HASH}"
+   if ! [ "x${HASH}" = "x" ] ; then
       DIGEST="-digest ${HASH}"
+      if ! [ "${HASH}" = "null" ] ; then
+         REQ_FILE="ta/ta_req_${HASH}"
+         CER_FILE="ta/ta_${HASH}"
+      fi
    fi
 
    # Generates the key (PEM)
@@ -827,10 +829,12 @@ gen() {
    CER_FILE="ca/ca"
    DIGEST=
 
-   if ! [ "${HASH}" = "null" ] ; then
-      REQ_FILE="ca/ca_req_${HASH}"
-      CER_FILE="ca/ca_${HASH}"
+   if ! [ "x${HASH}" = "x" ] ; then
       DIGEST="-digest ${HASH}"
+      if ! [ "x${HASH}" = "null" ] ; then
+         REQ_FILE="ca/ca_req_${HASH}"
+         CER_FILE="ca/ca_${HASH}"
+      fi
    fi
 
    # Generates the key (PEM)
@@ -878,10 +882,12 @@ gen() {
    CER_FILE="ee/ee"
    DIGEST=
 
-   if ! [ "${HASH}" = "null" ] ; then
-      REQ_FILE="ee/ee_req_${HASH}"
-      CER_FILE="ee/ee_${HASH}"
+   if ! [ "x$HASH" = "x" ] ; then
       DIGEST="-digest ${HASH}"
+      if ! [ "$HASH" = "null" ] ; then
+         REQ_FILE="ee/ee_req_${HASH}"
+         CER_FILE="ee/ee_${HASH}"
+      fi
    fi
 
    # Generates the key (PEM)
@@ -981,12 +987,14 @@ for dir in ${ARTIFACTS_PREFIX} ; do
 
    # Cycle through generation of signed material
    # both in direct-sign and hash-n-sign paradigms (classic ECDSA and RSA)
-   for hash in null sha256 sha384 sha512 ; do
+   for hash in sha256 sha384 sha512; do
 
       # Classic Implementation: ECDSA
+      echo "* Generating Artifacts for Classic ECDSA"
       result=$(cd ${dir} && gen ecdsa 1.2.840.10045.2.1 ${hash} && cd ..)
 
       # Classic Implementation: RSA
+      echo "* Generating Artifacts for Classic RSA"
       result=$(cd ${dir} && gen rsa 1.2.840.113549.1.1.1 ${hash} && cd ..)
 
    done
@@ -994,41 +1002,122 @@ for dir in ${ARTIFACTS_PREFIX} ; do
    # Cycle through generation of signed material
    # both in direct-sign and hash-n-sign paradigms
    # for hash in null sha256 sha384 sha512 sha3-256 sha3-384 sha3-512 shake128 shake256 ; do
-   for hash in null sha256 sha384 sha512 sha3-256 sha3-384 sha3-512 ; do
+   for hash in null sha256 sha384 sha512 sha3-256 sha3-384 sha3-512 shake128 shake256 ; do
 
       # PQC Implementation: Dilithium
+      echo "* Generating Artifacts for PQC dilithium2"
       result=$(cd ${dir} && gen dilithium2 ${OID_DILITHIUM2} ${hash} && cd .. )
       # result=$(cd ${dir} && ln -s "${OID_DILITHIUM2}" "dilithium2" && cd .. )
 
+      echo "* Generating Artifacts for PQC dilithium3"
       result=$(cd ${dir} && gen dilithium3 ${OID_DILITHIUM3} ${hash} && cd .. )
       # result=$(cd ${dir} && ln -s "${OID_DILITHIUM3}" "dilithium3" && cd .. )
       
+      echo "* Generating Artifacts for PQC dilithium5"
       result=$(cd ${dir} && gen dilithium5 ${OID_DILITHIUM5} ${hash} && cd .. )
       # result=$(cd ${dir} && ln -s "${OID_DILITHIUM5}" "dilithium5" && cd .. )
 
       # PQC Implementation: Falcon
+      echo "* Generating Artifacts for PQC falcon512"
       result=$(cd ${dir} && gen falcon512 ${OID_FALCON512} ${hash} && cd .. )
       # result=$(cd ${dir} && ln -s "${OID_FALCON512}" "falcon512" && cd .. )
 
+      echo "* Generating Artifacts for PQC falcon1024"
       result=$(cd ${dir} && gen falcon1024 ${OID_FALCON1024} ${hash} && cd .. )
       # result=$(cd ${dir} && ln -s "${OID_FALCON1024}" "falcon1024" && cd .. )
+   
+   done
+
+   # Cycle through generation of signed material
+   # both in direct-sign and hash-n-sign paradigms
+   # for hash in null sha256 sha384 sha512 sha3-256 sha3-384 sha3-512 shake128 shake256 ; do
+   for hash in sha256 sha384 sha512 ; do
 
       #  Composite Implementation - traditional (H/T)
+      echo "* Generating Artifacts for H/T ECDSA and RSA"
       result=$(cd ${dir} && gen composite ${OID_COMPOSITE}_generic_traditional ${hash} ecdsa rsa && cd .. )
       # result=$(cd ${dir} && ln -s "${OID_COMPOSITE}" "composite_generic" && cd .. )
 
-      #  Composite Implementation - post-quantum and classic (H/PQT)
+   done
+
+   # Cycle through generation of signed material
+   # both in direct-sign and hash-n-sign paradigms
+   # for hash in null sha256 sha384 sha512 sha3-256 sha3-384 sha3-512 shake128 shake256 ; do
+   for hash in sha256 sha384 sha512 sha3-256 sha3-384 sha3-512 shake128 ; do
+
+      # Composite Implementation - post-quantum and classic (H/PQT)
+      echo "* Generating Artifacts for H/PQT Dilithium2 and RSA ($hash)"
       result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} dilithium2 rsa && cd .. )
       # result=$(cd ${dir} && ln -s "${OID_COMPOSITE}" "composite_generic" && cd .. )
 
-      # Explicit Composite - this is a HACK, needs fixing
-      result=$(cd ${dir} && gen composite ${OID_EXP_DILITHIUM3_P256_SHA256} ${hash} dilithium3 ecdsa && cd .. )
-      # result=$(cd ${dir} && ln -s "${OID_EXP_DILITHIUM3_P256_SHA256}" "composite_explicit" && cd .. )
+      # Composite Implementation - post-quantum and classic (H/PQT)
+      echo "* Generating Artifacts for H/PQT Dilithium2 and ECDSA ($hash)"
+      result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} dilithium2 ecdsa && cd .. )
+      # result=$(cd ${dir}
 
-      # # PQC Implementation: Sphincs+
-      # # result=$(cd ${dir}/artifacts && gen sphincssha256128frobust 1.3.9999.6.4.1)
+      # Composite Implementation - post-quantum and classic (H/PQT)
+      echo "* Generating Artifacts for H/PQT Dilithium3 and RSA ($hash)"
+      result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} dilithium3 rsa && cd .. )
+      # result=$(cd ${dir}
+
+      # Composite Implementation - post-quantum and classic (H/PQT)
+      echo "* Generating Artifacts for H/PQT Falcon512 and RSA ($hash)"
+      result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} falcon512 rsa && cd .. )
+      # result=$(cd ${dir}
+
+      # Composite Implementation - post-quantum and classic (H/PQT)
+      echo "* Generating Artifacts for H/PQT Falcon512 and ECDSA ($hash)"
+      result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} falcon512 ecdsa && cd .. )
+      # result=$(cd ${dir}
+
+      # Composite Implementation - post-quantum and classic (H/PQT)
+      echo "* Generating Artifacts for H/PQT Falcon1024 and RSA ($hash)"
+      result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} falcon1024 rsa && cd .. )
+      # result=$(cd ${dir}
+
+      # Composite Implementation - post-quantum and classic (H/PQT)
+      echo "* Generating Artifacts for H/PQT Dilithium2 and Falcon512 and RSA ($hash)"
+      result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} dilithium2 falcon512 rsa && cd .. )
+      # result=$(cd ${dir}
+
+      # Composite Implementation - post-quantum and classic (H/PQT)
+      echo "* Generating Artifacts for H/PQT Dilithium2 and Falcon512 and ECDSA ($hash)"
+      result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} dilithium2 falcon512 ecdsa && cd .. )
+      # result=$(cd ${dir}
+
+      # Composite Implementation - post-quantum and classic (H/PQT)
+      echo "* Generating Artifacts for H/PQT Dilithium5 and Falcon1024 and P521 ($hash)"
+      result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} dilithium5 falcon1024 p521 && cd .. )
+      # result=$(cd ${dir}
+
+      # # # PQC Implementation: Sphincs+
+      # # # result=$(cd ${dir}/artifacts && gen sphincssha256128frobust 1.3.9999.6.4.1)
    
    done
+
+   # # Cycle explicit Composite
+   # # for hash in null sha256 sha384 sha512 sha3-256 sha3-384 sha3-512 shake128 shake256 ; do
+   # for hash in sha256 sha384 sha512 sha3-256 sha3-384 sha3-512 shake128 ; do
+
+   #    # Composite Implementation - post-quantum and classic (H/PQQ)
+   #    result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} dilithium2 falcon512 && cd .. )
+   #    # result=$(cd ${dir}
+
+   #    # Composite Implementation - post-quantum and classic (H/PQQ)
+   #    result=$(cd ${dir} && gen composite ${OID_COMPOSITE} ${hash} dilithium5 falcon1024 && cd .. )
+   #    # result=$(cd ${dir}
+   
+   # done
+
+   # # Cycle explicit Composite
+   # # for hash in null sha256 sha384 sha512 sha3-256 sha3-384 sha3-512 shake128 shake256 ; do
+   # for hash in null sha256 ; do
+
+   #    # Explicit Composite - this is a HACK, needs fixing
+   #    result=$(cd ${dir} && gen composite ${OID_EXP_DILITHIUM3_P256_SHA256} ${hash} dilithium3 ecdsa && cd .. )
+   #    # result=$(cd ${dir} && ln -s "${OID_EXP_DILITHIUM3_P256_SHA256}" "composite_explicit" && cd .. )
+   
+   # done
 
 done
 
