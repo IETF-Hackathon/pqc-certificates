@@ -9,6 +9,11 @@ This directory contains examples of CMP payloads generated with OpenSSL and the 
 
 If you use OpenSSL with OQS via docker, you can rely on the `--docker` parameter, e.g.: `python3 gen.py --docker="docker run -it --rm --volume /home/debdeveu/code/pq-crypto-experiment/dockerdata:/data openquantumsafe/oqs-ossl3" /data/`. It will mount the path `/home/debdeveu/code/pq-crypto-experiment/dockerdata` to `/data` inside the container, and store the output in `/data` (relative to the container).
 
+## Using QSCKeys
+A family of RFC drafts describes a way to encode keys. This alternative encoding can be enabled by setting specific environment variables in your system, or passing them to `docker`. The variables are stored in `qsckeys.env`, and an example docker command for it would be: `python3 gen.py --docker="docker run -it --rm --env-file qsckeys.env --volume /home/debdeveu/code/pq-crypto-experiment/dockerdata-qsc:/data-qsc openquantumsafe/oqs-ossl3" /data-qsc/`.
+
+For details about this encoding, see https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md#key-encodings
+
 # What it does
 Essentially, it concatenates strings to build a command line for `openssl` and stores the outputs in files. Here is an example of such commands from the log, in case you want to run them by hand:
 
