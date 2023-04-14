@@ -1,25 +1,29 @@
 package org.example;
 
 import org.bouncycastle.asn1.ASN1Integer;
-import org.bouncycastle.asn1.cmp.*;
+import org.bouncycastle.asn1.cmp.PKIBody;
+import org.bouncycastle.asn1.cmp.PKIMessage;
+import org.bouncycastle.asn1.cmp.PKIStatus;
+import org.bouncycastle.asn1.cmp.PKIStatusInfo;
 import org.bouncycastle.asn1.crmf.CertTemplate;
 import org.bouncycastle.asn1.pkcs.CertificationRequest;
 import org.bouncycastle.asn1.pkcs.CertificationRequestInfo;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.*;
-import org.bouncycastle.asn1.x509.Certificate;
 import org.bouncycastle.cert.CertException;
 import org.bouncycastle.cert.CertIOException;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
-import org.bouncycastle.cert.cmp.*;
+import org.bouncycastle.cert.cmp.ProtectedPKIMessage;
+import org.bouncycastle.cert.cmp.ProtectedPKIMessageBuilder;
 import org.bouncycastle.cert.crmf.*;
 import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.operator.*;
+import org.bouncycastle.operator.ContentSigner;
+import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.bouncycastle.pqc.jcajce.spec.DilithiumParameterSpec;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
+import org.bouncycastle.pqc.jcajce.spec.DilithiumParameterSpec;
 import org.bouncycastle.util.io.Streams;
 
 import java.io.FileInputStream;
@@ -29,7 +33,9 @@ import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.*;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.Security;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
@@ -91,9 +97,7 @@ public class Main {
             filesProcessed++;
         }
 
-
         System.out.printf("Done! %d files", filesProcessed);
-
     }
 
     private static void processCmpRequest(Path path) throws Exception {
@@ -101,9 +105,6 @@ public class Main {
         byte[] data = Streams.readAll(new FileInputStream(path.toString()));
 
         ProtectedPKIMessage pkiMessage = issueWithDilithiumCA(data);
-
-
-
         String signAlgorithmOid = signer.getAlgorithmIdentifier().getAlgorithm().getId();
 
         // req-ir-prot_none-pop_sig.pkimessage
@@ -112,8 +113,6 @@ public class Main {
         String signatureNameSuffix = String.format("-sig_%s_%s.pkimessage", signAlgorithmOid, SignAlgorithmName);
         modifiedName = modifiedName.replace(".pkimessage", signatureNameSuffix);
         Path parentDir = path.getParent();
-
-
 
         // Write the PKIMessage answer that would've been sent to the client
         FileOutputStream resp = new FileOutputStream(parentDir.resolve(modifiedName).toString());
@@ -133,7 +132,7 @@ public class Main {
         certWriter.close();
     }
 
-//    Used for issuing the self-signed certificate
+    //    Used for issuing the self-signed certificate
     private static X509CertificateHolder makeV3Certificate(String _subDN, KeyPair issKP)
             throws OperatorCreationException, CertException, CertIOException {
         X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(
@@ -177,7 +176,7 @@ public class Main {
         if (initMessage.getBody().getType() == PKIBody.TYPE_P10_CERT_REQ) {
             CertificationRequest csr = (CertificationRequest) initMessage.getBody().getContent();
             CertificationRequestInfo requestInfo = csr.getCertificationRequestInfo();
-            subject =  requestInfo.getSubject();
+            subject = requestInfo.getSubject();
             cert = makeV3Certificate(requestInfo.getSubjectPublicKeyInfo(), subject, issuerName.getName().toString());
 
         } else {
