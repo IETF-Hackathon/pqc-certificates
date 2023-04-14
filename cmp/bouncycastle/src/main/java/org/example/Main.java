@@ -1,14 +1,10 @@
 package org.example;
 
-import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.ASN1Integer;
 import org.bouncycastle.asn1.cmp.*;
 import org.bouncycastle.asn1.crmf.CertTemplate;
-import org.bouncycastle.asn1.crmf.SubsequentMessage;
-import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.CertificationRequest;
 import org.bouncycastle.asn1.pkcs.CertificationRequestInfo;
-import org.bouncycastle.asn1.util.ASN1Dump;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.*;
 import org.bouncycastle.asn1.x509.Certificate;
@@ -18,24 +14,11 @@ import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
 import org.bouncycastle.cert.cmp.*;
 import org.bouncycastle.cert.crmf.*;
-import org.bouncycastle.cert.crmf.jcajce.JcaCertificateRequestMessageBuilder;
-import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
-import org.bouncycastle.cms.*;
-import org.bouncycastle.cms.jcajce.JceCMSContentEncryptorBuilder;
-import org.bouncycastle.cms.jcajce.JceKEMEnvelopedRecipient;
-import org.bouncycastle.cms.jcajce.JceKEMRecipientInfoGenerator;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.*;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
-import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
-import org.bouncycastle.pkcs.jcajce.JcePBMac1CalculatorBuilder;
-import org.bouncycastle.pkcs.jcajce.JcePBMac1CalculatorProviderBuilder;
 import org.bouncycastle.pqc.jcajce.spec.DilithiumParameterSpec;
-import org.bouncycastle.pqc.jcajce.spec.KyberParameterSpec;
-import org.bouncycastle.util.BigIntegers;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
 import org.bouncycastle.util.io.Streams;
 
@@ -49,12 +32,10 @@ import java.nio.file.Paths;
 import java.security.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 
 
 public class Main {
-    //    char[] senderMacPassword = "secret".toCharArray();
     static GeneralName issuerName = new GeneralName(new X500Name("CN=Dilithium Issuer"));
     static String SignAlgorithmName = "Dilithium";
 
@@ -63,10 +44,6 @@ public class Main {
     private static ContentSigner signer;
 
     private static X509CertificateHolder caCert;
-
-
-//    private static Map<int, int> reqRepMap = Map.of()
-
 
     public static void main(String[] args) throws Exception {
         if (args.length < 1) {
@@ -128,8 +105,6 @@ public class Main {
 
 
         String signAlgorithmOid = signer.getAlgorithmIdentifier().getAlgorithm().getId();
-        String signAlgorithmName = signer.getAlgorithmIdentifier().toString();
-
 
         // req-ir-prot_none-pop_sig.pkimessage
         Path originalName = path.getFileName();
@@ -145,19 +120,10 @@ public class Main {
         resp.write(pkiMessage.toASN1Structure().getEncoded());
         resp.close();
 
-        // optional check
-//        result.verify(new JcaContentVerifierProviderBuilder().build(caCert));
-
-
         // take certificate from response
         CertificateRepMessage certRepMessage = CertificateRepMessage.fromPKIBody(pkiMessage.getBody());
         CertificateResponse certResp = certRepMessage.getResponses()[0];
         Certificate cert = certResp.getCertificate().getX509v3PKCert();
-
-
-//        CMPCertificate receivedEnvelope = certResp.getCertificate();
-//        Certificate recipients = receivedEnvelope.getX509v3PKCert();
-
 
         String certName = String.format("issued-cert-sig_%s.crt", SignAlgorithmName);
 
@@ -165,17 +131,11 @@ public class Main {
         FileOutputStream certWriter = new FileOutputStream(parentDir.resolve(certName).toString());
         certWriter.write(cert.getEncoded());
         certWriter.close();
-
-
-
-//        System.err.println(ASN1Dump.dumpAsString(recipients.toASN1Primitive(), true));
     }
 
+//    Used for issuing the self-signed certificate
     private static X509CertificateHolder makeV3Certificate(String _subDN, KeyPair issKP)
             throws OperatorCreationException, CertException, CertIOException {
-        PrivateKey issPriv = issKP.getPrivate();
-        PublicKey issPub = issKP.getPublic();
-
         X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(
                 new X500Name(_subDN),
                 BigInteger.valueOf(System.currentTimeMillis()),
@@ -186,21 +146,12 @@ public class Main {
 
         certGen.addExtension(Extension.basicConstraints, true, new BasicConstraints(0));
 
-//        ContentSigner signer = new JcaContentSignerBuilder(SignAlgorithmName).build(issPriv);
-
         X509CertificateHolder certHolder = certGen.build(signer);
-
-        ContentVerifierProvider verifier = new JcaContentVerifierProviderBuilder().build(issPub);
-
-//        assertTrue(certHolder.isSignatureValid(verifier));
-
         return certHolder;
     }
 
-    private static X509CertificateHolder makeV3Certificate(SubjectPublicKeyInfo pubKey, X500Name _subDN, KeyPair issKP, String _issDN)
+    private static X509CertificateHolder makeV3Certificate(SubjectPublicKeyInfo pubKey, X500Name _subDN, String _issDN)
             throws OperatorCreationException, CertException, CertIOException {
-        PrivateKey issPriv = issKP.getPrivate();
-        PublicKey issPub = issKP.getPublic();
 
         X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(
                 new X500Name(_issDN),
@@ -211,15 +162,7 @@ public class Main {
                 pubKey);
 
         certGen.addExtension(Extension.basicConstraints, true, new BasicConstraints(false));
-
-//        ContentSigner signer = new JcaContentSignerBuilder(SignAlgorithmName).build(issPriv);
-
         X509CertificateHolder certHolder = certGen.build(signer);
-
-        ContentVerifierProvider verifier = new JcaContentVerifierProviderBuilder().build(issPub);
-
-//        assertTrue(certHolder.isSignatureValid(verifier));
-
         return certHolder;
     }
 
@@ -232,25 +175,12 @@ public class Main {
         X500Name subject = null;
         ASN1Integer requestId = new ASN1Integer(1); //
         if (initMessage.getBody().getType() == PKIBody.TYPE_P10_CERT_REQ) {
-            System.out.println("here");
-//            byte[] content = initMessage.getBody().getEncoded();
-//            CertificationRequestInfo cri = initMessage.getCertReqMsg().getCertReq().getCertReqInfo();
-
-//            PKCS10CertificationRequest csr = new PKCS10CertificationRequest(content);
-//            PKCS10CertificationRequest csr = new PKCS10CertificationRequest(initMessage.getBody().getEncoded());
-//            subject = csr.getSubject();
-//            CertTemplate certTemplate2 = csr.
-//            X500Name subject = csr.getSubject();
             CertificationRequest csr = (CertificationRequest) initMessage.getBody().getContent();
             CertificationRequestInfo requestInfo = csr.getCertificationRequestInfo();
             subject =  requestInfo.getSubject();
-//            ((CertificationRequest) initMessage.body.body).reqInfo.subjectPKInfo
-            cert = makeV3Certificate(requestInfo.getSubjectPublicKeyInfo(), subject, dilKp, issuerName.getName().toString());
+            cert = makeV3Certificate(requestInfo.getSubjectPublicKeyInfo(), subject, issuerName.getName().toString());
 
         } else {
-
-//        System.out.printf("CMP request type %i", initMessage.getBody().getType());
-//        assertEquals(PKIBody.TYPE_INIT_REQ, initMessage.getBody().getType());
 
             CertificateReqMessages requestMessages = CertificateReqMessages.fromPKIBody(initMessage.getBody());
             // TODO consider adding test cases of inputs with multiple requests in a payload
@@ -260,7 +190,7 @@ public class Main {
 
             requestId = senderReqMessage.getCertReqId();
 
-            cert = makeV3Certificate(certTemplate.getPublicKey(), certTemplate.getSubject(), dilKp, issuerName.getName().toString());
+            cert = makeV3Certificate(certTemplate.getPublicKey(), certTemplate.getSubject(), issuerName.getName().toString());
         }
 
         // response generation
