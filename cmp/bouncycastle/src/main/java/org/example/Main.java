@@ -172,7 +172,10 @@ public class Main {
 
         X509CertificateHolder cert;
         X500Name subject = null;
-        ASN1Integer requestId = new ASN1Integer(1); //
+        ASN1Integer requestId = new ASN1Integer(1);
+
+        // TODO: check the signature before issuing the cert
+
         if (initMessage.getBody().getType() == PKIBody.TYPE_P10_CERT_REQ) {
             CertificationRequest csr = (CertificationRequest) initMessage.getBody().getContent();
             CertificationRequestInfo requestInfo = csr.getCertificationRequestInfo();
