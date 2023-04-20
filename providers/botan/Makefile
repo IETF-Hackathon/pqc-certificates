@@ -2,6 +2,9 @@
 #
 # PQC Certificates Tests
 
+MAKEFILE := $(abspath $(lastword $(MAKEFILE_LIST)))
+CURR_PATH := $(dir $(MAKEFILE))
+
 # Name for this provider
 PROVIDER_NAME := botan
 
@@ -11,12 +14,12 @@ PROVIDER_NAME := botan
 DIRS := default
 
 # Script for Generating the artifacts (if any)
-GEN_SCRIPT := ./gen.sh
-GEN_LOGFILE := logs/generate_log.txt
+GEN_SCRIPT := $(CURR_PATH)/gen.sh
+GEN_LOGFILE := $(CURR_PATH)logs/generate_log.txt
 
 # Script for Verifying the artifacts (if any)
-VERIFY_SCRIPT := ./check.sh
-VERIFY_LOGFILE := logs/verify_log.txt
+VERIFY_SCRIPT := $(CURR_PATH)/check.sh
+VERIFY_LOGFILE := $(CURR_PATH)/logs/verify_log.txt
 
 # Time
 NOW := `date +%Y%m%d`
@@ -68,6 +71,9 @@ unzip: requirements/unzip
 	   if [ -f "$$i/artifacts.zip" ] ; then \
 	     result=`cd "$$i" && unzip -q "artifacts.zip"` ; \
 	   fi ; \
+	   if [ -f "$$i/crypto_tests.zip" ] ; then \
+	     result=`cd "$$i" && unzip -q "crypto_tests.zip"` ; \
+	   fi ; \
 	   echo "[ $(PROVIDER_NAME) ] Done" ; \
 	 done
 
@@ -77,6 +83,7 @@ generate: requirements/generate
 	@if [ -f "$(GEN_SCRIPT)" ] ; then \
 		echo "[ $(PROVIDER_NAME) ] Generating Artifacts:" ; \
 		result=`$(GEN_SCRIPT) 2>&1 > "$(GEN_LOGFILE)"` ; \
+		echo "$$result" >> "$(GEN_LOGFILE)" ; \
 		if [ $$? -gt 0 ] ; then \
 			echo "[ $(PROVIDER_NAME) ] Done (Errors)" ; \
 		else \
@@ -94,6 +101,7 @@ verify: requirements/verify
 		for i in $(DIRS) ; do \
 			echo "[ $(PROVIDER_NAME) ] Product: $$i" ; \
 			echo "PRODUCT : $$i" >> "$(VERIFY_LOGFILE)" ; \
+			echo "CURR DIR: $(PWD) " >> "$(VERIFY_LOGFILE)" ; \
 			echo >> "$(VERIFY_LOGFILE)" ; \
 			result=`$(VERIFY_SCRIPT) "$$i" 2>&1 >> "$(VERIFY_LOGFILE)" `; \
 			echo $$result >> "$(VERIFY_LOGFILE)" ; \
@@ -109,20 +117,21 @@ verify: requirements/verify
 cross_verify: requirements/verify
 	@if [ -f "$(VERIFY_SCRIPT)" ] ; then \
 		echo && echo "[ $(PROVIDER_NAME) ] Cross Verifying Artifacts:" ; \
-		echo > $(VERIFY_LOG) ; \
+		echo $(PWD) ; \
+		echo > "$(VERIFY_LOGFILE)" ; \
 		for i in ../* ; do \
 			echo "  -  $$i" ; \
 			result=`cd "$$i" && make verify 2>&1 > "$(VERIFY_LOGFILE)" ` ; \
 		done ; \
-		echo "[ $(PROVIDER_NAME) ] Done (Ok)." && echo; \
+		echo "[ $(PROVIDER_NAME) ] Done (Ok)." && echo ; \
 	 fi
 
 # Cleans up the provider's directories
 clean:
 	@rm -rf generate_log.txt verify_log.txt
 	@for i in $(DIRS) ; do \
+	   rm -rf $$i/1.3.* ; \
 	   rm -rf $$i/artifacts ; \
-	   rm -rf $$i/1.3.6* ; \
 	 done
 
 distclean: clean
