@@ -37,6 +37,16 @@ that the same OID is often used in the single algorithm non-hash signatures.
 | SPHINCS+-SHA256-256s-robust | 1.3.9999.6.6.5* | SPHINCS+-SHA256-256s-robust |
 | SPHINCS+-SHA256-256s-simple | 1.3.9999.6.6.7* | SPHINCS+-SHA256-256s-simple |
 
+# KEM Algorithm OIDs
+| KEM Algorithm Name | OID |
+| ----------- | ----------- |
+| kyber512 |   1.3.6.1.4.1.22554.5.6.1 |
+| kyber768 |  1.3.6.1.4.1.22554.5.6.2 |
+| kyber1024 | 1.3.6.1.4.1.22554.5.6.3 |
+| kyber512_aes | 1.3.6.1.4.1.22554.5.6.4 |
+| kyber768_aes | 1.3.6.1.4.1.22554.5.6.5 |
+| kyber1024_aes | 1.3.6.1.4.1.22554.5.6.6 |
+
 
 # Composite Keys OIDs
 
