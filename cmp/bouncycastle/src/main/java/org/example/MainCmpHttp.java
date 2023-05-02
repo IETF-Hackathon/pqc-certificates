@@ -21,7 +21,7 @@ public class MainCmpHttp {
         server.createContext("/pkix", new CmpHandler());
         server.setExecutor(null);
 
-        CmpLogic.init();
+        CmpLogic.init("Dilithium");
         System.out.println("Starting HTTP server");
         server.start();
     }
@@ -61,7 +61,7 @@ public class MainCmpHttp {
             byte[] requestBodyBytes = baos.toByteArray();
             System.out.println("Got request: " + requestBodyBytes.length);
             try {
-                ProtectedPKIMessage cmpResponse = CmpLogic.issueWithDilithiumCA(requestBodyBytes);
+                ProtectedPKIMessage cmpResponse = CmpLogic.issueCertificate(requestBodyBytes);
                 System.out.println("Issued cert");
                 // Send response headers
                 Headers responseHeaders = t.getResponseHeaders();

@@ -28,7 +28,7 @@ import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
-import org.bouncycastle.pqc.jcajce.spec.DilithiumParameterSpec;
+import org.bouncycastle.pqc.jcajce.spec.*;
 import org.bouncycastle.util.io.Streams;
 
 import java.io.FileInputStream;
@@ -38,47 +38,82 @@ import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.Security;
+import java.security.Signature;
+import java.security.spec.AlgorithmParameterSpec;
 import java.util.Date;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import static java.util.Map.entry;
 
 
 public class CmpLogic {
-    static GeneralName issuerName = new GeneralName(new X500Name("CN=Dilithium Issuer"));
-    static String SignAlgorithmName = "Dilithium";
-
-    private static KeyPair dilKp;  // issuer's key
+    private static final Logger log = Logger.getLogger("cmp");
+    private static GeneralName issuerName = null;
+    private static String signAlgorithmName = null;
 
     private static ContentSigner signer;
 
     private static X509CertificateHolder caCert;
 
-    public static void init() throws Exception {
+    // parameters are hardcoded for now; only tested with a few algorithms - others need to be reviewed
+    private static final Map<String, AlgorithmParameterSpec> keyParameters = Map.ofEntries(
+            entry("Dilithium", DilithiumParameterSpec.dilithium2),
+//            entry("Kyber", KyberParameterSpec.kyber512),
+//            entry("NTRU", NTRUParameterSpec.ntruhps2048509),
+//            entry("Falcon", FalconParameterSpec.falcon_512),
+//            entry("NTRUPrime", SNTRUPrimeParameterSpec.sntrup653),
+//            entry("Rainbow", RainbowParameterSpec.rainbowIIIclassic),
+            entry("Picnic", PicnicParameterSpec.picnic3l1),
+//            entry("BIKE", BIKEParameterSpec.bike128),
+//            entry("HQC", HQCParameterSpec.hqc128),
+            entry("XMSS", XMSSParameterSpec.SHA2_10_256),
+//            entry("Frodo", FrodoParameterSpec.frodokem640aes),
+//            entry("CMCE", CMCEParameterSpec.mceliece348864),
+            entry("SPHINCSPlus", SPHINCSPlusParameterSpec.haraka_128f)
+
+//            entry("NH", ),
+//            entry("SPHINCS", SPHINCSKeyParameters.SHA3_256),
+//            entry("LMS", LMS, -> this requires more effort, e.g. handling the key index
+//            entry("SABER", SABERParameterSpec.),
+            );
+
+    public static void init(String algorithm) throws Exception {
         // initialize BouncyCastle Providers for classic and post-quantum crypto
         Security.addProvider(new BouncyCastlePQCProvider());
         Security.addProvider(new BouncyCastleProvider());
 
+        signAlgorithmName = algorithm;
+        String rawIssuerName = String.format("CN=%s Issuer", algorithm);
+        issuerName = new GeneralName(new X500Name(rawIssuerName));
 
         // generate key-pairs
-        KeyPairGenerator dilKpGen = KeyPairGenerator.getInstance(SignAlgorithmName, "BCPQC");
-        dilKpGen.initialize(DilithiumParameterSpec.dilithium2);
-        dilKp = dilKpGen.generateKeyPair();
+        log.info("Generating key pair for algorithm: " + signAlgorithmName);
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance(signAlgorithmName, "BCPQC");
 
-        signer = new JcaContentSignerBuilder(SignAlgorithmName).setProvider("BCPQC").build(dilKp.getPrivate());
+        AlgorithmParameterSpec algorithmParameters = keyParameters.get(algorithm);
+        kpGen.initialize(algorithmParameters);
+        KeyPair issuerKeypair = kpGen.generateKeyPair();
 
-        caCert = makeV3Certificate("CN=Dilithium Issuer", dilKp);
+        signer = new JcaContentSignerBuilder(signAlgorithmName).setProvider("BCPQC").build(issuerKeypair.getPrivate());
+
+        log.info("Creating issuer certifcate for: " + rawIssuerName);
+        caCert = makeV3Certificate(rawIssuerName, issuerKeypair);
 
     }
 
     public static void processCmpRequest(Path path) throws Exception {
-        System.out.printf("Processing %s", path.toString());
+        log.info("Processing " + path.toString());
         byte[] data = Streams.readAll(new FileInputStream(path.toString()));
 
-        ProtectedPKIMessage pkiMessage = issueWithDilithiumCA(data);
+        ProtectedPKIMessage pkiMessage = issueCertificate(data);
+        if (pkiMessage == null) return;
         String signAlgorithmOid = signer.getAlgorithmIdentifier().getAlgorithm().getId();
 
         // req-ir-prot_none-pop_sig.pkimessage
         Path originalName = path.getFileName();
-        String modifiedName = originalName.toString().replace("req-ir", "resp-ip");
-        String signatureNameSuffix = String.format("-sig_%s_%s.pkimessage", signAlgorithmOid, SignAlgorithmName);
+        String modifiedName = originalName.toString().replace("req-", "resp-");
+        String signatureNameSuffix = String.format("-sig_%s_%s.pkimessage", signAlgorithmOid, signAlgorithmName);
         modifiedName = modifiedName.replace(".pkimessage", signatureNameSuffix);
         Path parentDir = path.getParent();
 
@@ -92,7 +127,7 @@ public class CmpLogic {
         CertificateResponse certResp = certRepMessage.getResponses()[0];
         Certificate cert = certResp.getCertificate().getX509v3PKCert();
 
-        String certName = String.format("issued-cert-sig_%s.crt", SignAlgorithmName);
+        String certName = String.format("issued-cert-sig_%s.crt", signAlgorithmName);
 
 
         FileOutputStream certWriter = new FileOutputStream(parentDir.resolve(certName).toString());
@@ -120,6 +155,7 @@ public class CmpLogic {
     private static X509CertificateHolder makeV3Certificate(SubjectPublicKeyInfo pubKey, X500Name _subDN, String _issDN)
             throws OperatorCreationException, CertException, CertIOException {
 
+        log.info("Issuing cert for: " + _subDN);
         X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(
                 new X500Name(_issDN),
                 BigInteger.valueOf(System.currentTimeMillis()),
@@ -133,7 +169,7 @@ public class CmpLogic {
         return certHolder;
     }
 
-    public static ProtectedPKIMessage issueWithDilithiumCA(byte[] rawRequest)
+    public static ProtectedPKIMessage issueCertificate(byte[] rawRequest)
             throws Exception {
         PKIMessage initMessage = PKIMessage.getInstance(rawRequest);
 
@@ -150,8 +186,7 @@ public class CmpLogic {
             subject = requestInfo.getSubject();
             cert = makeV3Certificate(requestInfo.getSubjectPublicKeyInfo(), subject, issuerName.getName().toString());
 
-        } else {
-
+        } else if (initMessage.getBody().getType() == PKIBody.TYPE_INIT_REQ) {
             CertificateReqMessages requestMessages = CertificateReqMessages.fromPKIBody(initMessage.getBody());
             // TODO consider adding test cases of inputs with multiple requests in a payload
             CertificateRequestMessage senderReqMessage = requestMessages.getRequests()[0];
@@ -161,6 +196,9 @@ public class CmpLogic {
             requestId = senderReqMessage.getCertReqId();
 
             cert = makeV3Certificate(certTemplate.getPublicKey(), certTemplate.getSubject(), issuerName.getName().toString());
+        } else {
+            log.warning("Ignoring unsupported request type " + initMessage.getBody().getType());
+            return null;
         }
 
         // response generation
