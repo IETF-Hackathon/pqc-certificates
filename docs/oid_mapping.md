@@ -11,6 +11,10 @@ Note: asterisk "*" means experimental; ie likely to change after the hackathon.
 
 This section provides the individual OIDs used for the different algorithms. Notice
 that the same OID is often used in the single algorithm non-hash signatures.
+The strike thru indicates algorithms that have been used by this
+group in the past, but are no longer recommended for testing because of anticipated
+changes in the algorithms.   For example, the AES variants used in Dilithium are 
+not expected in the final standard, and neither are the robust variant of SPHINCS+. 
 
 | Algorithm Name | OID | Signature Algorithm |
 | ----------- | ----------- | ----------- |
@@ -24,17 +28,17 @@ that the same OID is often used in the single algorithm non-hash signatures.
 | ~~DilithiumAES5~~ | ~~1.3.6.1.4.1.2.267.11.8.7*~~ | ~~Dilithium5-AES~~ |
 | Falcon-512 | 1.3.9999.3.1* | Falcon-512 |
 | Falcon-1024 | 1.3.9999.3.4* | Falcon-1024 |
-| SPHINCS+-SHA256-128f-robust | 1.3.9999.6.4.1* | SPHINCS+-SHA256-128f-robust |
+| ~~SPHINCS+-SHA256-128f-robust~~ | ~~1.3.9999.6.4.1*~~ | ~~SPHINCS+-SHA256-128f-robust~~ |
 | SPHINCS+-SHA256-128f-simple | 1.3.9999.6.4.4* | SPHINCS+-SHA256-128f-simple |
-| SPHINCS+-SHA256-128s-robust | 1.3.9999.6.4.7* | SPHINCS+-SHA256-128s-robust |
+| ~~SPHINCS+-SHA256-128s-robust~~ | ~~1.3.9999.6.4.7*~~ | ~~SPHINCS+-SHA256-128s-robust~~ |
 | SPHINCS+-SHA256-128s-simple | 1.3.9999.6.4.10* | SPHINCS+-SHA256-128s-simple |
-| SPHINCS+-SHA256-192f-robust | 1.3.9999.6.5.1* | SPHINCS+-SHA256-192f-robust |
+| ~~SPHINCS+-SHA256-192f-robust~~ | ~~1.3.9999.6.5.1*~~ | ~~SPHINCS+-SHA256-192f-robust~~ |
 | SPHINCS+-SHA256-192f-simple | 1.3.9999.6.5.3* | SPHINCS+-SHA256-192f-simple |
-| SPHINCS+-SHA256-192s-robust | 1.3.9999.6.5.5 | SPHINCS+-SHA256-192s-robust |
+| ~~SPHINCS+-SHA256-192s-robust~~ | ~~1.3.9999.6.5.5~~ | ~~SPHINCS+-SHA256-192s-robust~~ |
 | SPHINCS+-SHA256-192s-simple | 1.3.9999.6.5.7* | SPHINCS+-SHA256-192s-simple |
-| SPHINCS+-SHA256-256f-robust | 1.3.9999.6.6.1* | SPHINCS+-SHA256-256f-robust |
+| ~~SPHINCS+-SHA256-256f-robust~~ | ~~1.3.9999.6.6.1*~~ | ~~SPHINCS+-SHA256-256f-robust~~ |
 | SPHINCS+-SHA256-256f-simple | 1.3.9999.6.6.3* | SPHINCS+-SHA256-256f-simple |
-| SPHINCS+-SHA256-256s-robust | 1.3.9999.6.6.5* | SPHINCS+-SHA256-256s-robust |
+| ~~SPHINCS+-SHA256-256s-robust~~ | ~~1.3.9999.6.6.5*~~ | ~~SPHINCS+-SHA256-256s-robust~~ |
 | SPHINCS+-SHA256-256s-simple | 1.3.9999.6.6.7* | SPHINCS+-SHA256-256s-simple |
 
 # KEM Algorithm OIDs
