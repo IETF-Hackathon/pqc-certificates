@@ -19,9 +19,9 @@ that the same OID is often used in the single algorithm non-hash signatures.
 | Dilithium2 | 1.3.6.1.4.1.2.267.7.4.4* | Dilithium2 |
 | Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
 | Dilithium5 | 1.3.6.1.4.1.2.267.7.8.7* | Dilithium5 |
-| DilithiumAES2 | 1.3.6.1.4.1.2.267.11.4.4* | Dilithium2-AES |
-| DilithiumAES3 | 1.3.6.1.4.1.2.267.11.6.5* | Dilithium3-AES |
-| DilithiumAES5 | 1.3.6.1.4.1.2.267.11.8.7* | Dilithium5-AES |
+| ~~DilithiumAES2~~ | ~~1.3.6.1.4.1.2.267.11.4.4*~~ | ~~Dilithium2-AES~~ |
+| ~~DilithiumAES3~~ | ~~1.3.6.1.4.1.2.267.11.6.5*~~ | ~~Dilithium3-AES~~ |
+| ~~DilithiumAES5~~ | ~~1.3.6.1.4.1.2.267.11.8.7*~~ | ~~Dilithium5-AES~~ |
 | Falcon-512 | 1.3.9999.3.1* | Falcon-512 |
 | Falcon-1024 | 1.3.9999.3.4* | Falcon-1024 |
 | SPHINCS+-SHA256-128f-robust | 1.3.9999.6.4.1* | SPHINCS+-SHA256-128f-robust |
@@ -43,9 +43,9 @@ that the same OID is often used in the single algorithm non-hash signatures.
 | kyber512 |   1.3.6.1.4.1.22554.5.6.1 |
 | kyber768 |  1.3.6.1.4.1.22554.5.6.2 |
 | kyber1024 | 1.3.6.1.4.1.22554.5.6.3 |
-| kyber512_aes | 1.3.6.1.4.1.22554.5.6.4 |
-| kyber768_aes | 1.3.6.1.4.1.22554.5.6.5 |
-| kyber1024_aes | 1.3.6.1.4.1.22554.5.6.6 |
+| ~~kyber512_aes~~ | ~~1.3.6.1.4.1.22554.5.6.4~~ |
+| ~~kyber768_aes~~ | ~~1.3.6.1.4.1.22554.5.6.5~~ |
+| ~~kyber1024_aes~~ | ~~1.3.6.1.4.1.22554.5.6.6~~ |
 
 
 # Composite Keys OIDs
