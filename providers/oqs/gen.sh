@@ -177,8 +177,8 @@ for dir in ${SUBDIRS} ; do
    runandlog ${dir} dilithium5_aes 1.3.6.1.4.1.2.267.11.8.7
 
    # Falcon
-   runandlog ${dir} falcon512 1.3.9999.3.1
-   runandlog ${dir} falcon1024 1.3.9999.3.4
+   runandlog ${dir} falcon512 1.3.9999.3.6
+   runandlog ${dir} falcon1024 1.3.9999.3.9
 
    # Sphincs+
    runandlog ${dir} sphincssha256128frobust 1.3.9999.6.4.1
