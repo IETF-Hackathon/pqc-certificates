@@ -47,9 +47,9 @@ function check() {
 
 	# Perform some actions
 
-	CERTTOOL="docker run --rm -v $(pwd):/artifacts -w /artifacts ghcr.io/ueno/oqs-gnutls:main /install/bin/certtool"
+	CERTTOOL="docker run --rm -v $(pwd):/artifacts:Z -w /artifacts ghcr.io/ueno/oqs-gnutls:main /install/bin/certtool"
 
-	cat ee/ee.pem ca/ca.pem > chain.pem
+	cat ee/cert.pem ca/ca.pem > chain.pem
 	$CERTTOOL --verify --load-ca-certificate ta/ta.pem --infile chain.pem
 	# Returns
 	cd -

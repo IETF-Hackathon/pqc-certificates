@@ -12,7 +12,7 @@
    </pki:subject>
    <pki:keyParams>
       <!-- <pki:algorithm>RSA-SHA256</pki:algorithm> -->
-      <!-- <pki:bits>4096</pki:bits> -->
+      <!-- <pki:bits>512</pki:bits> -->
       <pki:mode /> <!-- { AES } -->
       <pki:curveName /> <!-- { secp256v1, ... } -->
       <pki:pointType /> <!-- { compressed, uncompressed, hybrid } -->

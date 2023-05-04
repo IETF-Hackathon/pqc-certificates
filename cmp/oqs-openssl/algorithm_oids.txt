@@ -1,0 +1,1316 @@
+# list of algorithms and their OIDs, obtained with `openssl list -objects -provider oqsprovider`
+rsadsi = RSA Data Security, Inc., 1.2.840.113549
+pkcs = RSA Data Security, Inc. PKCS, 1.2.840.113549.1
+MD2 = md2, 1.2.840.113549.2.2
+MD5 = md5, 1.2.840.113549.2.5
+RC4 = rc4, 1.2.840.113549.3.4
+rsaEncryption = 1.2.840.113549.1.1.1
+RSA-MD2 = md2WithRSAEncryption, 1.2.840.113549.1.1.2
+RSA-MD5 = md5WithRSAEncryption, 1.2.840.113549.1.1.4
+PBE-MD2-DES = pbeWithMD2AndDES-CBC, 1.2.840.113549.1.5.1
+PBE-MD5-DES = pbeWithMD5AndDES-CBC, 1.2.840.113549.1.5.3
+X500 = directory services (X.500), 2.5
+X509 = 2.5.4
+CN = commonName, 2.5.4.3
+C = countryName, 2.5.4.6
+L = localityName, 2.5.4.7
+ST = stateOrProvinceName, 2.5.4.8
+O = organizationName, 2.5.4.10
+OU = organizationalUnitName, 2.5.4.11
+RSA = rsa, 2.5.8.1.1
+pkcs7 = 1.2.840.113549.1.7
+pkcs7-data = 1.2.840.113549.1.7.1
+pkcs7-signedData = 1.2.840.113549.1.7.2
+pkcs7-envelopedData = 1.2.840.113549.1.7.3
+pkcs7-signedAndEnvelopedData = 1.2.840.113549.1.7.4
+pkcs7-digestData = 1.2.840.113549.1.7.5
+pkcs7-encryptedData = 1.2.840.113549.1.7.6
+pkcs3 = 1.2.840.113549.1.3
+dhKeyAgreement = 1.2.840.113549.1.3.1
+DES-ECB = des-ecb, 1.3.14.3.2.6
+DES-CFB = des-cfb, 1.3.14.3.2.9
+DES-CBC = des-cbc, 1.3.14.3.2.7
+DES-EDE = des-ede, 1.3.14.3.2.17
+# None-OID object: DES-EDE3, des-ede3
+IDEA-CBC = idea-cbc, 1.3.6.1.4.1.188.7.1.1.2
+# None-OID object: IDEA-CFB, idea-cfb
+# None-OID object: IDEA-ECB, idea-ecb
+RC2-CBC = rc2-cbc, 1.2.840.113549.3.2
+# None-OID object: RC2-ECB, rc2-ecb
+# None-OID object: RC2-CFB, rc2-cfb
+# None-OID object: RC2-OFB, rc2-ofb
+SHA = sha, 1.3.14.3.2.18
+RSA-SHA = shaWithRSAEncryption, 1.3.14.3.2.15
+# None-OID object: DES-EDE-CBC, des-ede-cbc
+DES-EDE3-CBC = des-ede3-cbc, 1.2.840.113549.3.7
+DES-OFB = des-ofb, 1.3.14.3.2.8
+# None-OID object: IDEA-OFB, idea-ofb
+pkcs9 = 1.2.840.113549.1.9
+emailAddress = 1.2.840.113549.1.9.1
+unstructuredName = 1.2.840.113549.1.9.2
+contentType = 1.2.840.113549.1.9.3
+messageDigest = 1.2.840.113549.1.9.4
+signingTime = 1.2.840.113549.1.9.5
+countersignature = 1.2.840.113549.1.9.6
+challengePassword = 1.2.840.113549.1.9.7
+unstructuredAddress = 1.2.840.113549.1.9.8
+extendedCertificateAttributes = 1.2.840.113549.1.9.9
+Netscape = Netscape Communications Corp., 2.16.840.1.113730
+nsCertExt = Netscape Certificate Extension, 2.16.840.1.113730.1
+nsDataType = Netscape Data Type, 2.16.840.1.113730.2
+# None-OID object: DES-EDE-CFB, des-ede-cfb
+# None-OID object: DES-EDE3-CFB, des-ede3-cfb
+# None-OID object: DES-EDE-OFB, des-ede-ofb
+# None-OID object: DES-EDE3-OFB, des-ede3-ofb
+SHA1 = sha1, 1.3.14.3.2.26
+RSA-SHA1 = sha1WithRSAEncryption, 1.2.840.113549.1.1.5
+DSA-SHA = dsaWithSHA, 1.3.14.3.2.13
+DSA-old = dsaEncryption-old, 1.3.14.3.2.12
+PBE-SHA1-RC2-64 = pbeWithSHA1AndRC2-CBC, 1.2.840.113549.1.5.11
+PBKDF2 = 1.2.840.113549.1.5.12
+DSA-SHA1-old = dsaWithSHA1-old, 1.3.14.3.2.27
+nsCertType = Netscape Cert Type, 2.16.840.1.113730.1.1
+nsBaseUrl = Netscape Base Url, 2.16.840.1.113730.1.2
+nsRevocationUrl = Netscape Revocation Url, 2.16.840.1.113730.1.3
+nsCaRevocationUrl = Netscape CA Revocation Url, 2.16.840.1.113730.1.4
+nsRenewalUrl = Netscape Renewal Url, 2.16.840.1.113730.1.7
+nsCaPolicyUrl = Netscape CA Policy Url, 2.16.840.1.113730.1.8
+nsSslServerName = Netscape SSL Server Name, 2.16.840.1.113730.1.12
+nsComment = Netscape Comment, 2.16.840.1.113730.1.13
+nsCertSequence = Netscape Certificate Sequence, 2.16.840.1.113730.2.5
+# None-OID object: DESX-CBC, desx-cbc
+id-ce = 2.5.29
+subjectKeyIdentifier = X509v3 Subject Key Identifier, 2.5.29.14
+keyUsage = X509v3 Key Usage, 2.5.29.15
+privateKeyUsagePeriod = X509v3 Private Key Usage Period, 2.5.29.16
+subjectAltName = X509v3 Subject Alternative Name, 2.5.29.17
+issuerAltName = X509v3 Issuer Alternative Name, 2.5.29.18
+basicConstraints = X509v3 Basic Constraints, 2.5.29.19
+crlNumber = X509v3 CRL Number, 2.5.29.20
+certificatePolicies = X509v3 Certificate Policies, 2.5.29.32
+authorityKeyIdentifier = X509v3 Authority Key Identifier, 2.5.29.35
+BF-CBC = bf-cbc, 1.3.6.1.4.1.3029.1.2
+# None-OID object: BF-ECB, bf-ecb
+# None-OID object: BF-CFB, bf-cfb
+# None-OID object: BF-OFB, bf-ofb
+MDC2 = mdc2, 2.5.8.3.101
+RSA-MDC2 = mdc2WithRSA, 2.5.8.3.100
+# None-OID object: RC4-40, rc4-40
+# None-OID object: RC2-40-CBC, rc2-40-cbc
+GN = givenName, 2.5.4.42
+SN = surname, 2.5.4.4
+initials = 2.5.4.43
+uid = uniqueIdentifier, 0.9.2342.19200300.100.1.44
+crlDistributionPoints = X509v3 CRL Distribution Points, 2.5.29.31
+RSA-NP-MD5 = md5WithRSA, 1.3.14.3.2.3
+serialNumber = 2.5.4.5
+title = 2.5.4.12
+description = 2.5.4.13
+CAST5-CBC = cast5-cbc, 1.2.840.113533.7.66.10
+# None-OID object: CAST5-ECB, cast5-ecb
+# None-OID object: CAST5-CFB, cast5-cfb
+# None-OID object: CAST5-OFB, cast5-ofb
+pbeWithMD5AndCast5CBC = 1.2.840.113533.7.66.12
+DSA-SHA1 = dsaWithSHA1, 1.2.840.10040.4.3
+# None-OID object: MD5-SHA1, md5-sha1
+RSA-SHA1-2 = sha1WithRSA, 1.3.14.3.2.29
+DSA = dsaEncryption, 1.2.840.10040.4.1
+RIPEMD160 = ripemd160, 1.3.36.3.2.1
+RSA-RIPEMD160 = ripemd160WithRSA, 1.3.36.3.3.1.2
+RC5-CBC = rc5-cbc, 1.2.840.113549.3.8
+# None-OID object: RC5-ECB, rc5-ecb
+# None-OID object: RC5-CFB, rc5-cfb
+# None-OID object: RC5-OFB, rc5-ofb
+ZLIB = zlib compression, 1.2.840.113549.1.9.16.3.8
+extendedKeyUsage = X509v3 Extended Key Usage, 2.5.29.37
+PKIX = 1.3.6.1.5.5.7
+id-kp = 1.3.6.1.5.5.7.3
+serverAuth = TLS Web Server Authentication, 1.3.6.1.5.5.7.3.1
+clientAuth = TLS Web Client Authentication, 1.3.6.1.5.5.7.3.2
+codeSigning = Code Signing, 1.3.6.1.5.5.7.3.3
+emailProtection = E-mail Protection, 1.3.6.1.5.5.7.3.4
+timeStamping = Time Stamping, 1.3.6.1.5.5.7.3.8
+msCodeInd = Microsoft Individual Code Signing, 1.3.6.1.4.1.311.2.1.21
+msCodeCom = Microsoft Commercial Code Signing, 1.3.6.1.4.1.311.2.1.22
+msCTLSign = Microsoft Trust List Signing, 1.3.6.1.4.1.311.10.3.1
+msSGC = Microsoft Server Gated Crypto, 1.3.6.1.4.1.311.10.3.3
+msEFS = Microsoft Encrypted File System, 1.3.6.1.4.1.311.10.3.4
+nsSGC = Netscape Server Gated Crypto, 2.16.840.1.113730.4.1
+deltaCRL = X509v3 Delta CRL Indicator, 2.5.29.27
+CRLReason = X509v3 CRL Reason Code, 2.5.29.21
+invalidityDate = Invalidity Date, 2.5.29.24
+SXNetID = Strong Extranet ID, 1.3.101.1.4.1
+PBE-SHA1-RC4-128 = pbeWithSHA1And128BitRC4, 1.2.840.113549.1.12.1.1
+PBE-SHA1-RC4-40 = pbeWithSHA1And40BitRC4, 1.2.840.113549.1.12.1.2
+PBE-SHA1-3DES = pbeWithSHA1And3-KeyTripleDES-CBC, 1.2.840.113549.1.12.1.3
+PBE-SHA1-2DES = pbeWithSHA1And2-KeyTripleDES-CBC, 1.2.840.113549.1.12.1.4
+PBE-SHA1-RC2-128 = pbeWithSHA1And128BitRC2-CBC, 1.2.840.113549.1.12.1.5
+PBE-SHA1-RC2-40 = pbeWithSHA1And40BitRC2-CBC, 1.2.840.113549.1.12.1.6
+keyBag = 1.2.840.113549.1.12.10.1.1
+pkcs8ShroudedKeyBag = 1.2.840.113549.1.12.10.1.2
+certBag = 1.2.840.113549.1.12.10.1.3
+crlBag = 1.2.840.113549.1.12.10.1.4
+secretBag = 1.2.840.113549.1.12.10.1.5
+safeContentsBag = 1.2.840.113549.1.12.10.1.6
+friendlyName = 1.2.840.113549.1.9.20
+localKeyID = 1.2.840.113549.1.9.21
+x509Certificate = 1.2.840.113549.1.9.22.1
+sdsiCertificate = 1.2.840.113549.1.9.22.2
+x509Crl = 1.2.840.113549.1.9.23.1
+PBES2 = 1.2.840.113549.1.5.13
+PBMAC1 = 1.2.840.113549.1.5.14
+hmacWithSHA1 = 1.2.840.113549.2.7
+id-qt-cps = Policy Qualifier CPS, 1.3.6.1.5.5.7.2.1
+id-qt-unotice = Policy Qualifier User Notice, 1.3.6.1.5.5.7.2.2
+# None-OID object: RC2-64-CBC, rc2-64-cbc
+SMIME-CAPS = S/MIME Capabilities, 1.2.840.113549.1.9.15
+PBE-MD2-RC2-64 = pbeWithMD2AndRC2-CBC, 1.2.840.113549.1.5.4
+PBE-MD5-RC2-64 = pbeWithMD5AndRC2-CBC, 1.2.840.113549.1.5.6
+PBE-SHA1-DES = pbeWithSHA1AndDES-CBC, 1.2.840.113549.1.5.10
+msExtReq = Microsoft Extension Request, 1.3.6.1.4.1.311.2.1.14
+extReq = Extension Request, 1.2.840.113549.1.9.14
+name = 2.5.4.41
+dnQualifier = 2.5.4.46
+id-pe = 1.3.6.1.5.5.7.1
+id-ad = 1.3.6.1.5.5.7.48
+authorityInfoAccess = Authority Information Access, 1.3.6.1.5.5.7.1.1
+OCSP = 1.3.6.1.5.5.7.48.1
+caIssuers = CA Issuers, 1.3.6.1.5.5.7.48.2
+OCSPSigning = OCSP Signing, 1.3.6.1.5.5.7.3.9
+# None-OID object: ISO, iso
+member-body = ISO Member Body, 1.2
+ISO-US = ISO US Member Body, 1.2.840
+X9-57 = X9.57, 1.2.840.10040
+X9cm = X9.57 CM ?, 1.2.840.10040.4
+pkcs1 = 1.2.840.113549.1.1
+pkcs5 = 1.2.840.113549.1.5
+SMIME = S/MIME, 1.2.840.113549.1.9.16
+id-smime-mod = 1.2.840.113549.1.9.16.0
+id-smime-ct = 1.2.840.113549.1.9.16.1
+id-smime-aa = 1.2.840.113549.1.9.16.2
+id-smime-alg = 1.2.840.113549.1.9.16.3
+id-smime-cd = 1.2.840.113549.1.9.16.4
+id-smime-spq = 1.2.840.113549.1.9.16.5
+id-smime-cti = 1.2.840.113549.1.9.16.6
+id-smime-mod-cms = 1.2.840.113549.1.9.16.0.1
+id-smime-mod-ess = 1.2.840.113549.1.9.16.0.2
+id-smime-mod-oid = 1.2.840.113549.1.9.16.0.3
+id-smime-mod-msg-v3 = 1.2.840.113549.1.9.16.0.4
+id-smime-mod-ets-eSignature-88 = 1.2.840.113549.1.9.16.0.5
+id-smime-mod-ets-eSignature-97 = 1.2.840.113549.1.9.16.0.6
+id-smime-mod-ets-eSigPolicy-88 = 1.2.840.113549.1.9.16.0.7
+id-smime-mod-ets-eSigPolicy-97 = 1.2.840.113549.1.9.16.0.8
+id-smime-ct-receipt = 1.2.840.113549.1.9.16.1.1
+id-smime-ct-authData = 1.2.840.113549.1.9.16.1.2
+id-smime-ct-publishCert = 1.2.840.113549.1.9.16.1.3
+id-smime-ct-TSTInfo = 1.2.840.113549.1.9.16.1.4
+id-smime-ct-TDTInfo = 1.2.840.113549.1.9.16.1.5
+id-smime-ct-contentInfo = 1.2.840.113549.1.9.16.1.6
+id-smime-ct-DVCSRequestData = 1.2.840.113549.1.9.16.1.7
+id-smime-ct-DVCSResponseData = 1.2.840.113549.1.9.16.1.8
+id-smime-aa-receiptRequest = 1.2.840.113549.1.9.16.2.1
+id-smime-aa-securityLabel = 1.2.840.113549.1.9.16.2.2
+id-smime-aa-mlExpandHistory = 1.2.840.113549.1.9.16.2.3
+id-smime-aa-contentHint = 1.2.840.113549.1.9.16.2.4
+id-smime-aa-msgSigDigest = 1.2.840.113549.1.9.16.2.5
+id-smime-aa-encapContentType = 1.2.840.113549.1.9.16.2.6
+id-smime-aa-contentIdentifier = 1.2.840.113549.1.9.16.2.7
+id-smime-aa-macValue = 1.2.840.113549.1.9.16.2.8
+id-smime-aa-equivalentLabels = 1.2.840.113549.1.9.16.2.9
+id-smime-aa-contentReference = 1.2.840.113549.1.9.16.2.10
+id-smime-aa-encrypKeyPref = 1.2.840.113549.1.9.16.2.11
+id-smime-aa-signingCertificate = 1.2.840.113549.1.9.16.2.12
+id-smime-aa-smimeEncryptCerts = 1.2.840.113549.1.9.16.2.13
+id-smime-aa-timeStampToken = 1.2.840.113549.1.9.16.2.14
+id-smime-aa-ets-sigPolicyId = 1.2.840.113549.1.9.16.2.15
+id-smime-aa-ets-commitmentType = 1.2.840.113549.1.9.16.2.16
+id-smime-aa-ets-signerLocation = 1.2.840.113549.1.9.16.2.17
+id-smime-aa-ets-signerAttr = 1.2.840.113549.1.9.16.2.18
+id-smime-aa-ets-otherSigCert = 1.2.840.113549.1.9.16.2.19
+id-smime-aa-ets-contentTimestamp = 1.2.840.113549.1.9.16.2.20
+id-smime-aa-ets-CertificateRefs = 1.2.840.113549.1.9.16.2.21
+id-smime-aa-ets-RevocationRefs = 1.2.840.113549.1.9.16.2.22
+id-smime-aa-ets-certValues = 1.2.840.113549.1.9.16.2.23
+id-smime-aa-ets-revocationValues = 1.2.840.113549.1.9.16.2.24
+id-smime-aa-ets-escTimeStamp = 1.2.840.113549.1.9.16.2.25
+id-smime-aa-ets-certCRLTimestamp = 1.2.840.113549.1.9.16.2.26
+id-smime-aa-ets-archiveTimeStamp = 1.2.840.113549.1.9.16.2.27
+id-smime-aa-signatureType = 1.2.840.113549.1.9.16.2.28
+id-smime-aa-dvcs-dvc = 1.2.840.113549.1.9.16.2.29
+id-smime-alg-ESDHwith3DES = 1.2.840.113549.1.9.16.3.1
+id-smime-alg-ESDHwithRC2 = 1.2.840.113549.1.9.16.3.2
+id-smime-alg-3DESwrap = 1.2.840.113549.1.9.16.3.3
+id-smime-alg-RC2wrap = 1.2.840.113549.1.9.16.3.4
+id-smime-alg-ESDH = 1.2.840.113549.1.9.16.3.5
+id-smime-alg-CMS3DESwrap = 1.2.840.113549.1.9.16.3.6
+id-smime-alg-CMSRC2wrap = 1.2.840.113549.1.9.16.3.7
+id-smime-cd-ldap = 1.2.840.113549.1.9.16.4.1
+id-smime-spq-ets-sqt-uri = 1.2.840.113549.1.9.16.5.1
+id-smime-spq-ets-sqt-unotice = 1.2.840.113549.1.9.16.5.2
+id-smime-cti-ets-proofOfOrigin = 1.2.840.113549.1.9.16.6.1
+id-smime-cti-ets-proofOfReceipt = 1.2.840.113549.1.9.16.6.2
+id-smime-cti-ets-proofOfDelivery = 1.2.840.113549.1.9.16.6.3
+id-smime-cti-ets-proofOfSender = 1.2.840.113549.1.9.16.6.4
+id-smime-cti-ets-proofOfApproval = 1.2.840.113549.1.9.16.6.5
+id-smime-cti-ets-proofOfCreation = 1.2.840.113549.1.9.16.6.6
+MD4 = md4, 1.2.840.113549.2.4
+id-pkix-mod = 1.3.6.1.5.5.7.0
+id-qt = 1.3.6.1.5.5.7.2
+id-it = 1.3.6.1.5.5.7.4
+id-pkip = 1.3.6.1.5.5.7.5
+id-alg = 1.3.6.1.5.5.7.6
+id-cmc = 1.3.6.1.5.5.7.7
+id-on = 1.3.6.1.5.5.7.8
+id-pda = 1.3.6.1.5.5.7.9
+id-aca = 1.3.6.1.5.5.7.10
+id-qcs = 1.3.6.1.5.5.7.11
+id-cct = 1.3.6.1.5.5.7.12
+id-pkix1-explicit-88 = 1.3.6.1.5.5.7.0.1
+id-pkix1-implicit-88 = 1.3.6.1.5.5.7.0.2
+id-pkix1-explicit-93 = 1.3.6.1.5.5.7.0.3
+id-pkix1-implicit-93 = 1.3.6.1.5.5.7.0.4
+id-mod-crmf = 1.3.6.1.5.5.7.0.5
+id-mod-cmc = 1.3.6.1.5.5.7.0.6
+id-mod-kea-profile-88 = 1.3.6.1.5.5.7.0.7
+id-mod-kea-profile-93 = 1.3.6.1.5.5.7.0.8
+id-mod-cmp = 1.3.6.1.5.5.7.0.9
+id-mod-qualified-cert-88 = 1.3.6.1.5.5.7.0.10
+id-mod-qualified-cert-93 = 1.3.6.1.5.5.7.0.11
+id-mod-attribute-cert = 1.3.6.1.5.5.7.0.12
+id-mod-timestamp-protocol = 1.3.6.1.5.5.7.0.13
+id-mod-ocsp = 1.3.6.1.5.5.7.0.14
+id-mod-dvcs = 1.3.6.1.5.5.7.0.15
+id-mod-cmp2000 = 1.3.6.1.5.5.7.0.16
+biometricInfo = Biometric Info, 1.3.6.1.5.5.7.1.2
+qcStatements = 1.3.6.1.5.5.7.1.3
+ac-auditEntity = 1.3.6.1.5.5.7.1.4
+ac-targeting = 1.3.6.1.5.5.7.1.5
+aaControls = 1.3.6.1.5.5.7.1.6
+sbgp-ipAddrBlock = 1.3.6.1.5.5.7.1.7
+sbgp-autonomousSysNum = 1.3.6.1.5.5.7.1.8
+sbgp-routerIdentifier = 1.3.6.1.5.5.7.1.9
+textNotice = 1.3.6.1.5.5.7.2.3
+ipsecEndSystem = IPSec End System, 1.3.6.1.5.5.7.3.5
+ipsecTunnel = IPSec Tunnel, 1.3.6.1.5.5.7.3.6
+ipsecUser = IPSec User, 1.3.6.1.5.5.7.3.7
+DVCS = dvcs, 1.3.6.1.5.5.7.3.10
+id-it-caProtEncCert = 1.3.6.1.5.5.7.4.1
+id-it-signKeyPairTypes = 1.3.6.1.5.5.7.4.2
+id-it-encKeyPairTypes = 1.3.6.1.5.5.7.4.3
+id-it-preferredSymmAlg = 1.3.6.1.5.5.7.4.4
+id-it-caKeyUpdateInfo = 1.3.6.1.5.5.7.4.5
+id-it-currentCRL = 1.3.6.1.5.5.7.4.6
+id-it-unsupportedOIDs = 1.3.6.1.5.5.7.4.7
+id-it-subscriptionRequest = 1.3.6.1.5.5.7.4.8
+id-it-subscriptionResponse = 1.3.6.1.5.5.7.4.9
+id-it-keyPairParamReq = 1.3.6.1.5.5.7.4.10
+id-it-keyPairParamRep = 1.3.6.1.5.5.7.4.11
+id-it-revPassphrase = 1.3.6.1.5.5.7.4.12
+id-it-implicitConfirm = 1.3.6.1.5.5.7.4.13
+id-it-confirmWaitTime = 1.3.6.1.5.5.7.4.14
+id-it-origPKIMessage = 1.3.6.1.5.5.7.4.15
+id-regCtrl = 1.3.6.1.5.5.7.5.1
+id-regInfo = 1.3.6.1.5.5.7.5.2
+id-regCtrl-regToken = 1.3.6.1.5.5.7.5.1.1
+id-regCtrl-authenticator = 1.3.6.1.5.5.7.5.1.2
+id-regCtrl-pkiPublicationInfo = 1.3.6.1.5.5.7.5.1.3
+id-regCtrl-pkiArchiveOptions = 1.3.6.1.5.5.7.5.1.4
+id-regCtrl-oldCertID = 1.3.6.1.5.5.7.5.1.5
+id-regCtrl-protocolEncrKey = 1.3.6.1.5.5.7.5.1.6
+id-regInfo-utf8Pairs = 1.3.6.1.5.5.7.5.2.1
+id-regInfo-certReq = 1.3.6.1.5.5.7.5.2.2
+id-alg-des40 = 1.3.6.1.5.5.7.6.1
+id-alg-noSignature = 1.3.6.1.5.5.7.6.2
+id-alg-dh-sig-hmac-sha1 = 1.3.6.1.5.5.7.6.3
+id-alg-dh-pop = 1.3.6.1.5.5.7.6.4
+id-cmc-statusInfo = 1.3.6.1.5.5.7.7.1
+id-cmc-identification = 1.3.6.1.5.5.7.7.2
+id-cmc-identityProof = 1.3.6.1.5.5.7.7.3
+id-cmc-dataReturn = 1.3.6.1.5.5.7.7.4
+id-cmc-transactionId = 1.3.6.1.5.5.7.7.5
+id-cmc-senderNonce = 1.3.6.1.5.5.7.7.6
+id-cmc-recipientNonce = 1.3.6.1.5.5.7.7.7
+id-cmc-addExtensions = 1.3.6.1.5.5.7.7.8
+id-cmc-encryptedPOP = 1.3.6.1.5.5.7.7.9
+id-cmc-decryptedPOP = 1.3.6.1.5.5.7.7.10
+id-cmc-lraPOPWitness = 1.3.6.1.5.5.7.7.11
+id-cmc-getCert = 1.3.6.1.5.5.7.7.15
+id-cmc-getCRL = 1.3.6.1.5.5.7.7.16
+id-cmc-revokeRequest = 1.3.6.1.5.5.7.7.17
+id-cmc-regInfo = 1.3.6.1.5.5.7.7.18
+id-cmc-responseInfo = 1.3.6.1.5.5.7.7.19
+id-cmc-queryPending = 1.3.6.1.5.5.7.7.21
+id-cmc-popLinkRandom = 1.3.6.1.5.5.7.7.22
+id-cmc-popLinkWitness = 1.3.6.1.5.5.7.7.23
+id-cmc-confirmCertAcceptance = 1.3.6.1.5.5.7.7.24
+id-on-personalData = 1.3.6.1.5.5.7.8.1
+id-pda-dateOfBirth = 1.3.6.1.5.5.7.9.1
+id-pda-placeOfBirth = 1.3.6.1.5.5.7.9.2
+id-pda-gender = 1.3.6.1.5.5.7.9.3
+id-pda-countryOfCitizenship = 1.3.6.1.5.5.7.9.4
+id-pda-countryOfResidence = 1.3.6.1.5.5.7.9.5
+id-aca-authenticationInfo = 1.3.6.1.5.5.7.10.1
+id-aca-accessIdentity = 1.3.6.1.5.5.7.10.2
+id-aca-chargingIdentity = 1.3.6.1.5.5.7.10.3
+id-aca-group = 1.3.6.1.5.5.7.10.4
+id-aca-role = 1.3.6.1.5.5.7.10.5
+id-qcs-pkixQCSyntax-v1 = 1.3.6.1.5.5.7.11.1
+id-cct-crs = 1.3.6.1.5.5.7.12.1
+id-cct-PKIData = 1.3.6.1.5.5.7.12.2
+id-cct-PKIResponse = 1.3.6.1.5.5.7.12.3
+ad_timestamping = AD Time Stamping, 1.3.6.1.5.5.7.48.3
+AD_DVCS = ad dvcs, 1.3.6.1.5.5.7.48.4
+basicOCSPResponse = Basic OCSP Response, 1.3.6.1.5.5.7.48.1.1
+Nonce = OCSP Nonce, 1.3.6.1.5.5.7.48.1.2
+CrlID = OCSP CRL ID, 1.3.6.1.5.5.7.48.1.3
+acceptableResponses = Acceptable OCSP Responses, 1.3.6.1.5.5.7.48.1.4
+noCheck = OCSP No Check, 1.3.6.1.5.5.7.48.1.5
+archiveCutoff = OCSP Archive Cutoff, 1.3.6.1.5.5.7.48.1.6
+serviceLocator = OCSP Service Locator, 1.3.6.1.5.5.7.48.1.7
+extendedStatus = Extended OCSP Status, 1.3.6.1.5.5.7.48.1.8
+valid = 1.3.6.1.5.5.7.48.1.9
+path = 1.3.6.1.5.5.7.48.1.10
+trustRoot = Trust Root, 1.3.6.1.5.5.7.48.1.11
+algorithm = 1.3.14.3.2
+rsaSignature = 1.3.14.3.2.11
+X500algorithms = directory services - algorithms, 2.5.8
+ORG = org, 1.3
+DOD = dod, 1.3.6
+IANA = iana, 1.3.6.1
+directory = Directory, 1.3.6.1.1
+mgmt = Management, 1.3.6.1.2
+experimental = Experimental, 1.3.6.1.3
+private = Private, 1.3.6.1.4
+security = Security, 1.3.6.1.5
+snmpv2 = SNMPv2, 1.3.6.1.6
+Mail = 1.3.6.1.7
+enterprises = Enterprises, 1.3.6.1.4.1
+dcobject = dcObject, 1.3.6.1.4.1.1466.344
+DC = domainComponent, 0.9.2342.19200300.100.1.25
+domain = Domain, 0.9.2342.19200300.100.4.13
+# None-OID object: NULL, NULL
+selected-attribute-types = Selected Attribute Types, 2.5.1.5
+clearance = 2.5.1.5.55
+RSA-MD4 = md4WithRSAEncryption, 1.2.840.113549.1.1.3
+ac-proxying = 1.3.6.1.5.5.7.1.10
+subjectInfoAccess = Subject Information Access, 1.3.6.1.5.5.7.1.11
+id-aca-encAttrs = 1.3.6.1.5.5.7.10.6
+role = 2.5.4.72
+policyConstraints = X509v3 Policy Constraints, 2.5.29.36
+targetInformation = X509v3 AC Targeting, 2.5.29.55
+noRevAvail = X509v3 No Revocation Available, 2.5.29.56
+# None-OID object: NULL, NULL
+ansi-X9-62 = ANSI X9.62, 1.2.840.10045
+prime-field = 1.2.840.10045.1.1
+characteristic-two-field = 1.2.840.10045.1.2
+id-ecPublicKey = 1.2.840.10045.2.1
+prime192v1 = 1.2.840.10045.3.1.1
+prime192v2 = 1.2.840.10045.3.1.2
+prime192v3 = 1.2.840.10045.3.1.3
+prime239v1 = 1.2.840.10045.3.1.4
+prime239v2 = 1.2.840.10045.3.1.5
+prime239v3 = 1.2.840.10045.3.1.6
+prime256v1 = 1.2.840.10045.3.1.7
+ecdsa-with-SHA1 = 1.2.840.10045.4.1
+CSPName = Microsoft CSP Name, 1.3.6.1.4.1.311.17.1
+AES-128-ECB = aes-128-ecb, 2.16.840.1.101.3.4.1.1
+AES-128-CBC = aes-128-cbc, 2.16.840.1.101.3.4.1.2
+AES-128-OFB = aes-128-ofb, 2.16.840.1.101.3.4.1.3
+AES-128-CFB = aes-128-cfb, 2.16.840.1.101.3.4.1.4
+AES-192-ECB = aes-192-ecb, 2.16.840.1.101.3.4.1.21
+AES-192-CBC = aes-192-cbc, 2.16.840.1.101.3.4.1.22
+AES-192-OFB = aes-192-ofb, 2.16.840.1.101.3.4.1.23
+AES-192-CFB = aes-192-cfb, 2.16.840.1.101.3.4.1.24
+AES-256-ECB = aes-256-ecb, 2.16.840.1.101.3.4.1.41
+AES-256-CBC = aes-256-cbc, 2.16.840.1.101.3.4.1.42
+AES-256-OFB = aes-256-ofb, 2.16.840.1.101.3.4.1.43
+AES-256-CFB = aes-256-cfb, 2.16.840.1.101.3.4.1.44
+holdInstructionCode = Hold Instruction Code, 2.5.29.23
+holdInstructionNone = Hold Instruction None, 1.2.840.10040.2.1
+holdInstructionCallIssuer = Hold Instruction Call Issuer, 1.2.840.10040.2.2
+holdInstructionReject = Hold Instruction Reject, 1.2.840.10040.2.3
+data = 0.9
+pss = 0.9.2342
+ucl = 0.9.2342.19200300
+pilot = 0.9.2342.19200300.100
+pilotAttributeType = 0.9.2342.19200300.100.1
+pilotAttributeSyntax = 0.9.2342.19200300.100.3
+pilotObjectClass = 0.9.2342.19200300.100.4
+pilotGroups = 0.9.2342.19200300.100.10
+iA5StringSyntax = 0.9.2342.19200300.100.3.4
+caseIgnoreIA5StringSyntax = 0.9.2342.19200300.100.3.5
+pilotObject = 0.9.2342.19200300.100.4.3
+pilotPerson = 0.9.2342.19200300.100.4.4
+account = 0.9.2342.19200300.100.4.5
+document = 0.9.2342.19200300.100.4.6
+room = 0.9.2342.19200300.100.4.7
+documentSeries = 0.9.2342.19200300.100.4.9
+rFC822localPart = 0.9.2342.19200300.100.4.14
+dNSDomain = 0.9.2342.19200300.100.4.15
+domainRelatedObject = 0.9.2342.19200300.100.4.17
+friendlyCountry = 0.9.2342.19200300.100.4.18
+simpleSecurityObject = 0.9.2342.19200300.100.4.19
+pilotOrganization = 0.9.2342.19200300.100.4.20
+pilotDSA = 0.9.2342.19200300.100.4.21
+qualityLabelledData = 0.9.2342.19200300.100.4.22
+UID = userId, 0.9.2342.19200300.100.1.1
+textEncodedORAddress = 0.9.2342.19200300.100.1.2
+mail = rfc822Mailbox, 0.9.2342.19200300.100.1.3
+info = 0.9.2342.19200300.100.1.4
+favouriteDrink = 0.9.2342.19200300.100.1.5
+roomNumber = 0.9.2342.19200300.100.1.6
+photo = 0.9.2342.19200300.100.1.7
+userClass = 0.9.2342.19200300.100.1.8
+host = 0.9.2342.19200300.100.1.9
+manager = 0.9.2342.19200300.100.1.10
+documentIdentifier = 0.9.2342.19200300.100.1.11
+documentTitle = 0.9.2342.19200300.100.1.12
+documentVersion = 0.9.2342.19200300.100.1.13
+documentAuthor = 0.9.2342.19200300.100.1.14
+documentLocation = 0.9.2342.19200300.100.1.15
+homeTelephoneNumber = 0.9.2342.19200300.100.1.20
+secretary = 0.9.2342.19200300.100.1.21
+otherMailbox = 0.9.2342.19200300.100.1.22
+lastModifiedTime = 0.9.2342.19200300.100.1.23
+lastModifiedBy = 0.9.2342.19200300.100.1.24
+aRecord = 0.9.2342.19200300.100.1.26
+pilotAttributeType27 = 0.9.2342.19200300.100.1.27
+mXRecord = 0.9.2342.19200300.100.1.28
+nSRecord = 0.9.2342.19200300.100.1.29
+sOARecord = 0.9.2342.19200300.100.1.30
+cNAMERecord = 0.9.2342.19200300.100.1.31
+associatedDomain = 0.9.2342.19200300.100.1.37
+associatedName = 0.9.2342.19200300.100.1.38
+homePostalAddress = 0.9.2342.19200300.100.1.39
+personalTitle = 0.9.2342.19200300.100.1.40
+mobileTelephoneNumber = 0.9.2342.19200300.100.1.41
+pagerTelephoneNumber = 0.9.2342.19200300.100.1.42
+friendlyCountryName = 0.9.2342.19200300.100.1.43
+organizationalStatus = 0.9.2342.19200300.100.1.45
+janetMailbox = 0.9.2342.19200300.100.1.46
+mailPreferenceOption = 0.9.2342.19200300.100.1.47
+buildingName = 0.9.2342.19200300.100.1.48
+dSAQuality = 0.9.2342.19200300.100.1.49
+singleLevelQuality = 0.9.2342.19200300.100.1.50
+subtreeMinimumQuality = 0.9.2342.19200300.100.1.51
+subtreeMaximumQuality = 0.9.2342.19200300.100.1.52
+personalSignature = 0.9.2342.19200300.100.1.53
+dITRedirect = 0.9.2342.19200300.100.1.54
+audio = 0.9.2342.19200300.100.1.55
+documentPublisher = 0.9.2342.19200300.100.1.56
+x500UniqueIdentifier = 2.5.4.45
+mime-mhs = MIME MHS, 1.3.6.1.7.1
+mime-mhs-headings = 1.3.6.1.7.1.1
+mime-mhs-bodies = 1.3.6.1.7.1.2
+id-hex-partial-message = 1.3.6.1.7.1.1.1
+id-hex-multipart-message = 1.3.6.1.7.1.1.2
+generationQualifier = 2.5.4.44
+pseudonym = 2.5.4.65
+id-set = Secure Electronic Transactions, 2.23.42
+set-ctype = content types, 2.23.42.0
+set-msgExt = message extensions, 2.23.42.1
+set-attr = 2.23.42.3
+set-policy = 2.23.42.5
+set-certExt = certificate extensions, 2.23.42.7
+set-brand = 2.23.42.8
+setct-PANData = 2.23.42.0.0
+setct-PANToken = 2.23.42.0.1
+setct-PANOnly = 2.23.42.0.2
+setct-OIData = 2.23.42.0.3
+setct-PI = 2.23.42.0.4
+setct-PIData = 2.23.42.0.5
+setct-PIDataUnsigned = 2.23.42.0.6
+setct-HODInput = 2.23.42.0.7
+setct-AuthResBaggage = 2.23.42.0.8
+setct-AuthRevReqBaggage = 2.23.42.0.9
+setct-AuthRevResBaggage = 2.23.42.0.10
+setct-CapTokenSeq = 2.23.42.0.11
+setct-PInitResData = 2.23.42.0.12
+setct-PI-TBS = 2.23.42.0.13
+setct-PResData = 2.23.42.0.14
+setct-AuthReqTBS = 2.23.42.0.16
+setct-AuthResTBS = 2.23.42.0.17
+setct-AuthResTBSX = 2.23.42.0.18
+setct-AuthTokenTBS = 2.23.42.0.19
+setct-CapTokenData = 2.23.42.0.20
+setct-CapTokenTBS = 2.23.42.0.21
+setct-AcqCardCodeMsg = 2.23.42.0.22
+setct-AuthRevReqTBS = 2.23.42.0.23
+setct-AuthRevResData = 2.23.42.0.24
+setct-AuthRevResTBS = 2.23.42.0.25
+setct-CapReqTBS = 2.23.42.0.26
+setct-CapReqTBSX = 2.23.42.0.27
+setct-CapResData = 2.23.42.0.28
+setct-CapRevReqTBS = 2.23.42.0.29
+setct-CapRevReqTBSX = 2.23.42.0.30
+setct-CapRevResData = 2.23.42.0.31
+setct-CredReqTBS = 2.23.42.0.32
+setct-CredReqTBSX = 2.23.42.0.33
+setct-CredResData = 2.23.42.0.34
+setct-CredRevReqTBS = 2.23.42.0.35
+setct-CredRevReqTBSX = 2.23.42.0.36
+setct-CredRevResData = 2.23.42.0.37
+setct-PCertReqData = 2.23.42.0.38
+setct-PCertResTBS = 2.23.42.0.39
+setct-BatchAdminReqData = 2.23.42.0.40
+setct-BatchAdminResData = 2.23.42.0.41
+setct-CardCInitResTBS = 2.23.42.0.42
+setct-MeAqCInitResTBS = 2.23.42.0.43
+setct-RegFormResTBS = 2.23.42.0.44
+setct-CertReqData = 2.23.42.0.45
+setct-CertReqTBS = 2.23.42.0.46
+setct-CertResData = 2.23.42.0.47
+setct-CertInqReqTBS = 2.23.42.0.48
+setct-ErrorTBS = 2.23.42.0.49
+setct-PIDualSignedTBE = 2.23.42.0.50
+setct-PIUnsignedTBE = 2.23.42.0.51
+setct-AuthReqTBE = 2.23.42.0.52
+setct-AuthResTBE = 2.23.42.0.53
+setct-AuthResTBEX = 2.23.42.0.54
+setct-AuthTokenTBE = 2.23.42.0.55
+setct-CapTokenTBE = 2.23.42.0.56
+setct-CapTokenTBEX = 2.23.42.0.57
+setct-AcqCardCodeMsgTBE = 2.23.42.0.58
+setct-AuthRevReqTBE = 2.23.42.0.59
+setct-AuthRevResTBE = 2.23.42.0.60
+setct-AuthRevResTBEB = 2.23.42.0.61
+setct-CapReqTBE = 2.23.42.0.62
+setct-CapReqTBEX = 2.23.42.0.63
+setct-CapResTBE = 2.23.42.0.64
+setct-CapRevReqTBE = 2.23.42.0.65
+setct-CapRevReqTBEX = 2.23.42.0.66
+setct-CapRevResTBE = 2.23.42.0.67
+setct-CredReqTBE = 2.23.42.0.68
+setct-CredReqTBEX = 2.23.42.0.69
+setct-CredResTBE = 2.23.42.0.70
+setct-CredRevReqTBE = 2.23.42.0.71
+setct-CredRevReqTBEX = 2.23.42.0.72
+setct-CredRevResTBE = 2.23.42.0.73
+setct-BatchAdminReqTBE = 2.23.42.0.74
+setct-BatchAdminResTBE = 2.23.42.0.75
+setct-RegFormReqTBE = 2.23.42.0.76
+setct-CertReqTBE = 2.23.42.0.77
+setct-CertReqTBEX = 2.23.42.0.78
+setct-CertResTBE = 2.23.42.0.79
+setct-CRLNotificationTBS = 2.23.42.0.80
+setct-CRLNotificationResTBS = 2.23.42.0.81
+setct-BCIDistributionTBS = 2.23.42.0.82
+setext-genCrypt = generic cryptogram, 2.23.42.1.1
+setext-miAuth = merchant initiated auth, 2.23.42.1.3
+setext-pinSecure = 2.23.42.1.4
+setext-pinAny = 2.23.42.1.5
+setext-track2 = 2.23.42.1.7
+setext-cv = additional verification, 2.23.42.1.8
+set-policy-root = 2.23.42.5.0
+setCext-hashedRoot = 2.23.42.7.0
+setCext-certType = 2.23.42.7.1
+setCext-merchData = 2.23.42.7.2
+setCext-cCertRequired = 2.23.42.7.3
+setCext-tunneling = 2.23.42.7.4
+setCext-setExt = 2.23.42.7.5
+setCext-setQualf = 2.23.42.7.6
+setCext-PGWYcapabilities = 2.23.42.7.7
+setCext-TokenIdentifier = 2.23.42.7.8
+setCext-Track2Data = 2.23.42.7.9
+setCext-TokenType = 2.23.42.7.10
+setCext-IssuerCapabilities = 2.23.42.7.11
+setAttr-Cert = 2.23.42.3.0
+setAttr-PGWYcap = payment gateway capabilities, 2.23.42.3.1
+setAttr-TokenType = 2.23.42.3.2
+setAttr-IssCap = issuer capabilities, 2.23.42.3.3
+set-rootKeyThumb = 2.23.42.3.0.0
+set-addPolicy = 2.23.42.3.0.1
+setAttr-Token-EMV = 2.23.42.3.2.1
+setAttr-Token-B0Prime = 2.23.42.3.2.2
+setAttr-IssCap-CVM = 2.23.42.3.3.3
+setAttr-IssCap-T2 = 2.23.42.3.3.4
+setAttr-IssCap-Sig = 2.23.42.3.3.5
+setAttr-GenCryptgrm = generate cryptogram, 2.23.42.3.3.3.1
+setAttr-T2Enc = encrypted track 2, 2.23.42.3.3.4.1
+setAttr-T2cleartxt = cleartext track 2, 2.23.42.3.3.4.2
+setAttr-TokICCsig = ICC or token signature, 2.23.42.3.3.5.1
+setAttr-SecDevSig = secure device signature, 2.23.42.3.3.5.2
+set-brand-IATA-ATA = 2.23.42.8.1
+set-brand-Diners = 2.23.42.8.30
+set-brand-AmericanExpress = 2.23.42.8.34
+set-brand-JCB = 2.23.42.8.35
+set-brand-Visa = 2.23.42.8.4
+set-brand-MasterCard = 2.23.42.8.5
+set-brand-Novus = 2.23.42.8.6011
+DES-CDMF = des-cdmf, 1.2.840.113549.3.10
+rsaOAEPEncryptionSET = 1.2.840.113549.1.1.6
+# None-OID object: ITU-T, itu-t
+# None-OID object: JOINT-ISO-ITU-T, joint-iso-itu-t
+international-organizations = International Organizations, 2.23
+msSmartcardLogin = Microsoft Smartcard Login, 1.3.6.1.4.1.311.20.2.2
+msUPN = Microsoft User Principal Name, 1.3.6.1.4.1.311.20.2.3
+# None-OID object: AES-128-CFB1, aes-128-cfb1
+# None-OID object: AES-192-CFB1, aes-192-cfb1
+# None-OID object: AES-256-CFB1, aes-256-cfb1
+# None-OID object: AES-128-CFB8, aes-128-cfb8
+# None-OID object: AES-192-CFB8, aes-192-cfb8
+# None-OID object: AES-256-CFB8, aes-256-cfb8
+# None-OID object: DES-CFB1, des-cfb1
+# None-OID object: DES-CFB8, des-cfb8
+# None-OID object: DES-EDE3-CFB1, des-ede3-cfb1
+# None-OID object: DES-EDE3-CFB8, des-ede3-cfb8
+street = streetAddress, 2.5.4.9
+postalCode = 2.5.4.17
+id-ppl = 1.3.6.1.5.5.7.21
+proxyCertInfo = Proxy Certificate Information, 1.3.6.1.5.5.7.1.14
+id-ppl-anyLanguage = Any language, 1.3.6.1.5.5.7.21.0
+id-ppl-inheritAll = Inherit all, 1.3.6.1.5.5.7.21.1
+nameConstraints = X509v3 Name Constraints, 2.5.29.30
+id-ppl-independent = Independent, 1.3.6.1.5.5.7.21.2
+RSA-SHA256 = sha256WithRSAEncryption, 1.2.840.113549.1.1.11
+RSA-SHA384 = sha384WithRSAEncryption, 1.2.840.113549.1.1.12
+RSA-SHA512 = sha512WithRSAEncryption, 1.2.840.113549.1.1.13
+RSA-SHA224 = sha224WithRSAEncryption, 1.2.840.113549.1.1.14
+SHA256 = sha256, 2.16.840.1.101.3.4.2.1
+SHA384 = sha384, 2.16.840.1.101.3.4.2.2
+SHA512 = sha512, 2.16.840.1.101.3.4.2.3
+SHA224 = sha224, 2.16.840.1.101.3.4.2.4
+identified-organization = 1.3
+certicom-arc = 1.3.132
+wap = 2.23.43
+wap-wsg = 2.23.43.1
+id-characteristic-two-basis = 1.2.840.10045.1.2.3
+onBasis = 1.2.840.10045.1.2.3.1
+tpBasis = 1.2.840.10045.1.2.3.2
+ppBasis = 1.2.840.10045.1.2.3.3
+c2pnb163v1 = 1.2.840.10045.3.0.1
+c2pnb163v2 = 1.2.840.10045.3.0.2
+c2pnb163v3 = 1.2.840.10045.3.0.3
+c2pnb176v1 = 1.2.840.10045.3.0.4
+c2tnb191v1 = 1.2.840.10045.3.0.5
+c2tnb191v2 = 1.2.840.10045.3.0.6
+c2tnb191v3 = 1.2.840.10045.3.0.7
+c2onb191v4 = 1.2.840.10045.3.0.8
+c2onb191v5 = 1.2.840.10045.3.0.9
+c2pnb208w1 = 1.2.840.10045.3.0.10
+c2tnb239v1 = 1.2.840.10045.3.0.11
+c2tnb239v2 = 1.2.840.10045.3.0.12
+c2tnb239v3 = 1.2.840.10045.3.0.13
+c2onb239v4 = 1.2.840.10045.3.0.14
+c2onb239v5 = 1.2.840.10045.3.0.15
+c2pnb272w1 = 1.2.840.10045.3.0.16
+c2pnb304w1 = 1.2.840.10045.3.0.17
+c2tnb359v1 = 1.2.840.10045.3.0.18
+c2pnb368w1 = 1.2.840.10045.3.0.19
+c2tnb431r1 = 1.2.840.10045.3.0.20
+secp112r1 = 1.3.132.0.6
+secp112r2 = 1.3.132.0.7
+secp128r1 = 1.3.132.0.28
+secp128r2 = 1.3.132.0.29
+secp160k1 = 1.3.132.0.9
+secp160r1 = 1.3.132.0.8
+secp160r2 = 1.3.132.0.30
+secp192k1 = 1.3.132.0.31
+secp224k1 = 1.3.132.0.32
+secp224r1 = 1.3.132.0.33
+secp256k1 = 1.3.132.0.10
+secp384r1 = 1.3.132.0.34
+secp521r1 = 1.3.132.0.35
+sect113r1 = 1.3.132.0.4
+sect113r2 = 1.3.132.0.5
+sect131r1 = 1.3.132.0.22
+sect131r2 = 1.3.132.0.23
+sect163k1 = 1.3.132.0.1
+sect163r1 = 1.3.132.0.2
+sect163r2 = 1.3.132.0.15
+sect193r1 = 1.3.132.0.24
+sect193r2 = 1.3.132.0.25
+sect233k1 = 1.3.132.0.26
+sect233r1 = 1.3.132.0.27
+sect239k1 = 1.3.132.0.3
+sect283k1 = 1.3.132.0.16
+sect283r1 = 1.3.132.0.17
+sect409k1 = 1.3.132.0.36
+sect409r1 = 1.3.132.0.37
+sect571k1 = 1.3.132.0.38
+sect571r1 = 1.3.132.0.39
+wap-wsg-idm-ecid-wtls1 = 2.23.43.1.4.1
+wap-wsg-idm-ecid-wtls3 = 2.23.43.1.4.3
+wap-wsg-idm-ecid-wtls4 = 2.23.43.1.4.4
+wap-wsg-idm-ecid-wtls5 = 2.23.43.1.4.5
+wap-wsg-idm-ecid-wtls6 = 2.23.43.1.4.6
+wap-wsg-idm-ecid-wtls7 = 2.23.43.1.4.7
+wap-wsg-idm-ecid-wtls8 = 2.23.43.1.4.8
+wap-wsg-idm-ecid-wtls9 = 2.23.43.1.4.9
+wap-wsg-idm-ecid-wtls10 = 2.23.43.1.4.10
+wap-wsg-idm-ecid-wtls11 = 2.23.43.1.4.11
+wap-wsg-idm-ecid-wtls12 = 2.23.43.1.4.12
+anyPolicy = X509v3 Any Policy, 2.5.29.32.0
+policyMappings = X509v3 Policy Mappings, 2.5.29.33
+inhibitAnyPolicy = X509v3 Inhibit Any Policy, 2.5.29.54
+# None-OID object: Oakley-EC2N-3, ipsec3
+# None-OID object: Oakley-EC2N-4, ipsec4
+CAMELLIA-128-CBC = camellia-128-cbc, 1.2.392.200011.61.1.1.1.2
+CAMELLIA-192-CBC = camellia-192-cbc, 1.2.392.200011.61.1.1.1.3
+CAMELLIA-256-CBC = camellia-256-cbc, 1.2.392.200011.61.1.1.1.4
+CAMELLIA-128-ECB = camellia-128-ecb, 0.3.4401.5.3.1.9.1
+CAMELLIA-192-ECB = camellia-192-ecb, 0.3.4401.5.3.1.9.21
+CAMELLIA-256-ECB = camellia-256-ecb, 0.3.4401.5.3.1.9.41
+CAMELLIA-128-CFB = camellia-128-cfb, 0.3.4401.5.3.1.9.4
+CAMELLIA-192-CFB = camellia-192-cfb, 0.3.4401.5.3.1.9.24
+CAMELLIA-256-CFB = camellia-256-cfb, 0.3.4401.5.3.1.9.44
+# None-OID object: CAMELLIA-128-CFB1, camellia-128-cfb1
+# None-OID object: CAMELLIA-192-CFB1, camellia-192-cfb1
+# None-OID object: CAMELLIA-256-CFB1, camellia-256-cfb1
+# None-OID object: CAMELLIA-128-CFB8, camellia-128-cfb8
+# None-OID object: CAMELLIA-192-CFB8, camellia-192-cfb8
+# None-OID object: CAMELLIA-256-CFB8, camellia-256-cfb8
+CAMELLIA-128-OFB = camellia-128-ofb, 0.3.4401.5.3.1.9.3
+CAMELLIA-192-OFB = camellia-192-ofb, 0.3.4401.5.3.1.9.23
+CAMELLIA-256-OFB = camellia-256-ofb, 0.3.4401.5.3.1.9.43
+subjectDirectoryAttributes = X509v3 Subject Directory Attributes, 2.5.29.9
+issuingDistributionPoint = X509v3 Issuing Distribution Point, 2.5.29.28
+certificateIssuer = X509v3 Certificate Issuer, 2.5.29.29
+KISA = kisa, 1.2.410.200004
+SEED-ECB = seed-ecb, 1.2.410.200004.1.3
+SEED-CBC = seed-cbc, 1.2.410.200004.1.4
+SEED-OFB = seed-ofb, 1.2.410.200004.1.6
+SEED-CFB = seed-cfb, 1.2.410.200004.1.5
+HMAC-MD5 = hmac-md5, 1.3.6.1.5.5.8.1.1
+HMAC-SHA1 = hmac-sha1, 1.3.6.1.5.5.8.1.2
+id-PasswordBasedMAC = password based MAC, 1.2.840.113533.7.66.13
+id-DHBasedMac = Diffie-Hellman based MAC, 1.2.840.113533.7.66.30
+id-it-suppLangTags = 1.3.6.1.5.5.7.4.16
+caRepository = CA Repository, 1.3.6.1.5.5.7.48.5
+id-smime-ct-compressedData = 1.2.840.113549.1.9.16.1.9
+id-ct-asciiTextWithCRLF = 1.2.840.113549.1.9.16.1.27
+id-aes128-wrap = 2.16.840.1.101.3.4.1.5
+id-aes192-wrap = 2.16.840.1.101.3.4.1.25
+id-aes256-wrap = 2.16.840.1.101.3.4.1.45
+ecdsa-with-Recommended = 1.2.840.10045.4.2
+ecdsa-with-Specified = 1.2.840.10045.4.3
+ecdsa-with-SHA224 = 1.2.840.10045.4.3.1
+ecdsa-with-SHA256 = 1.2.840.10045.4.3.2
+ecdsa-with-SHA384 = 1.2.840.10045.4.3.3
+ecdsa-with-SHA512 = 1.2.840.10045.4.3.4
+hmacWithMD5 = 1.2.840.113549.2.6
+hmacWithSHA224 = 1.2.840.113549.2.8
+hmacWithSHA256 = 1.2.840.113549.2.9
+hmacWithSHA384 = 1.2.840.113549.2.10
+hmacWithSHA512 = 1.2.840.113549.2.11
+dsa_with_SHA224 = 2.16.840.1.101.3.4.3.1
+dsa_with_SHA256 = 2.16.840.1.101.3.4.3.2
+whirlpool = 1.0.10118.3.0.55
+cryptopro = 1.2.643.2.2
+cryptocom = 1.2.643.2.9
+id-GostR3411-94-with-GostR3410-2001 = GOST R 34.11-94 with GOST R 34.10-2001, 1.2.643.2.2.3
+id-GostR3411-94-with-GostR3410-94 = GOST R 34.11-94 with GOST R 34.10-94, 1.2.643.2.2.4
+md_gost94 = GOST R 34.11-94, 1.2.643.2.2.9
+id-HMACGostR3411-94 = HMAC GOST 34.11-94, 1.2.643.2.2.10
+gost2001 = GOST R 34.10-2001, 1.2.643.2.2.19
+gost94 = GOST R 34.10-94, 1.2.643.2.2.20
+gost89 = GOST 28147-89, 1.2.643.2.2.21
+# None-OID object: gost89-cnt, gost89-cnt
+gost-mac = GOST 28147-89 MAC, 1.2.643.2.2.22
+prf-gostr3411-94 = GOST R 34.11-94 PRF, 1.2.643.2.2.23
+id-GostR3410-2001DH = GOST R 34.10-2001 DH, 1.2.643.2.2.98
+id-GostR3410-94DH = GOST R 34.10-94 DH, 1.2.643.2.2.99
+id-Gost28147-89-CryptoPro-KeyMeshing = 1.2.643.2.2.14.1
+id-Gost28147-89-None-KeyMeshing = 1.2.643.2.2.14.0
+id-GostR3411-94-TestParamSet = 1.2.643.2.2.30.0
+id-GostR3411-94-CryptoProParamSet = 1.2.643.2.2.30.1
+id-Gost28147-89-TestParamSet = 1.2.643.2.2.31.0
+id-Gost28147-89-CryptoPro-A-ParamSet = 1.2.643.2.2.31.1
+id-Gost28147-89-CryptoPro-B-ParamSet = 1.2.643.2.2.31.2
+id-Gost28147-89-CryptoPro-C-ParamSet = 1.2.643.2.2.31.3
+id-Gost28147-89-CryptoPro-D-ParamSet = 1.2.643.2.2.31.4
+id-Gost28147-89-CryptoPro-Oscar-1-1-ParamSet = 1.2.643.2.2.31.5
+id-Gost28147-89-CryptoPro-Oscar-1-0-ParamSet = 1.2.643.2.2.31.6
+id-Gost28147-89-CryptoPro-RIC-1-ParamSet = 1.2.643.2.2.31.7
+id-GostR3410-94-TestParamSet = 1.2.643.2.2.32.0
+id-GostR3410-94-CryptoPro-A-ParamSet = 1.2.643.2.2.32.2
+id-GostR3410-94-CryptoPro-B-ParamSet = 1.2.643.2.2.32.3
+id-GostR3410-94-CryptoPro-C-ParamSet = 1.2.643.2.2.32.4
+id-GostR3410-94-CryptoPro-D-ParamSet = 1.2.643.2.2.32.5
+id-GostR3410-94-CryptoPro-XchA-ParamSet = 1.2.643.2.2.33.1
+id-GostR3410-94-CryptoPro-XchB-ParamSet = 1.2.643.2.2.33.2
+id-GostR3410-94-CryptoPro-XchC-ParamSet = 1.2.643.2.2.33.3
+id-GostR3410-2001-TestParamSet = 1.2.643.2.2.35.0
+id-GostR3410-2001-CryptoPro-A-ParamSet = 1.2.643.2.2.35.1
+id-GostR3410-2001-CryptoPro-B-ParamSet = 1.2.643.2.2.35.2
+id-GostR3410-2001-CryptoPro-C-ParamSet = 1.2.643.2.2.35.3
+id-GostR3410-2001-CryptoPro-XchA-ParamSet = 1.2.643.2.2.36.0
+id-GostR3410-2001-CryptoPro-XchB-ParamSet = 1.2.643.2.2.36.1
+id-GostR3410-94-a = 1.2.643.2.2.20.1
+id-GostR3410-94-aBis = 1.2.643.2.2.20.2
+id-GostR3410-94-b = 1.2.643.2.2.20.3
+id-GostR3410-94-bBis = 1.2.643.2.2.20.4
+id-Gost28147-89-cc = GOST 28147-89 Cryptocom ParamSet, 1.2.643.2.9.1.6.1
+gost94cc = GOST 34.10-94 Cryptocom, 1.2.643.2.9.1.5.3
+gost2001cc = GOST 34.10-2001 Cryptocom, 1.2.643.2.9.1.5.4
+id-GostR3411-94-with-GostR3410-94-cc = GOST R 34.11-94 with GOST R 34.10-94 Cryptocom, 1.2.643.2.9.1.3.3
+id-GostR3411-94-with-GostR3410-2001-cc = GOST R 34.11-94 with GOST R 34.10-2001 Cryptocom, 1.2.643.2.9.1.3.4
+id-GostR3410-2001-ParamSet-cc = GOST R 3410-2001 Parameter Set Cryptocom, 1.2.643.2.9.1.8.1
+# None-OID object: HMAC, hmac
+LocalKeySet = Microsoft Local Key set, 1.3.6.1.4.1.311.17.2
+freshestCRL = X509v3 Freshest CRL, 2.5.29.46
+id-on-permanentIdentifier = Permanent Identifier, 1.3.6.1.5.5.7.8.3
+searchGuide = 2.5.4.14
+businessCategory = 2.5.4.15
+postalAddress = 2.5.4.16
+postOfficeBox = 2.5.4.18
+physicalDeliveryOfficeName = 2.5.4.19
+telephoneNumber = 2.5.4.20
+telexNumber = 2.5.4.21
+teletexTerminalIdentifier = 2.5.4.22
+facsimileTelephoneNumber = 2.5.4.23
+x121Address = 2.5.4.24
+internationaliSDNNumber = 2.5.4.25
+registeredAddress = 2.5.4.26
+destinationIndicator = 2.5.4.27
+preferredDeliveryMethod = 2.5.4.28
+presentationAddress = 2.5.4.29
+supportedApplicationContext = 2.5.4.30
+member = 2.5.4.31
+owner = 2.5.4.32
+roleOccupant = 2.5.4.33
+seeAlso = 2.5.4.34
+userPassword = 2.5.4.35
+userCertificate = 2.5.4.36
+cACertificate = 2.5.4.37
+authorityRevocationList = 2.5.4.38
+certificateRevocationList = 2.5.4.39
+crossCertificatePair = 2.5.4.40
+enhancedSearchGuide = 2.5.4.47
+protocolInformation = 2.5.4.48
+distinguishedName = 2.5.4.49
+uniqueMember = 2.5.4.50
+houseIdentifier = 2.5.4.51
+supportedAlgorithms = 2.5.4.52
+deltaRevocationList = 2.5.4.53
+dmdName = 2.5.4.54
+id-alg-PWRI-KEK = 1.2.840.113549.1.9.16.3.9
+# None-OID object: CMAC, cmac
+id-aes128-GCM = aes-128-gcm, 2.16.840.1.101.3.4.1.6
+id-aes128-CCM = aes-128-ccm, 2.16.840.1.101.3.4.1.7
+id-aes128-wrap-pad = 2.16.840.1.101.3.4.1.8
+id-aes192-GCM = aes-192-gcm, 2.16.840.1.101.3.4.1.26
+id-aes192-CCM = aes-192-ccm, 2.16.840.1.101.3.4.1.27
+id-aes192-wrap-pad = 2.16.840.1.101.3.4.1.28
+id-aes256-GCM = aes-256-gcm, 2.16.840.1.101.3.4.1.46
+id-aes256-CCM = aes-256-ccm, 2.16.840.1.101.3.4.1.47
+id-aes256-wrap-pad = 2.16.840.1.101.3.4.1.48
+# None-OID object: AES-128-CTR, aes-128-ctr
+# None-OID object: AES-192-CTR, aes-192-ctr
+# None-OID object: AES-256-CTR, aes-256-ctr
+id-camellia128-wrap = 1.2.392.200011.61.1.1.3.2
+id-camellia192-wrap = 1.2.392.200011.61.1.1.3.3
+id-camellia256-wrap = 1.2.392.200011.61.1.1.3.4
+anyExtendedKeyUsage = Any Extended Key Usage, 2.5.29.37.0
+MGF1 = mgf1, 1.2.840.113549.1.1.8
+RSASSA-PSS = rsassaPss, 1.2.840.113549.1.1.10
+AES-128-XTS = aes-128-xts, 1.3.111.2.1619.0.1.1
+AES-256-XTS = aes-256-xts, 1.3.111.2.1619.0.1.2
+# None-OID object: RC4-HMAC-MD5, rc4-hmac-md5
+# None-OID object: AES-128-CBC-HMAC-SHA1, aes-128-cbc-hmac-sha1
+# None-OID object: AES-192-CBC-HMAC-SHA1, aes-192-cbc-hmac-sha1
+# None-OID object: AES-256-CBC-HMAC-SHA1, aes-256-cbc-hmac-sha1
+RSAES-OAEP = rsaesOaep, 1.2.840.113549.1.1.7
+dhpublicnumber = X9.42 DH, 1.2.840.10046.2.1
+brainpoolP160r1 = 1.3.36.3.3.2.8.1.1.1
+brainpoolP160t1 = 1.3.36.3.3.2.8.1.1.2
+brainpoolP192r1 = 1.3.36.3.3.2.8.1.1.3
+brainpoolP192t1 = 1.3.36.3.3.2.8.1.1.4
+brainpoolP224r1 = 1.3.36.3.3.2.8.1.1.5
+brainpoolP224t1 = 1.3.36.3.3.2.8.1.1.6
+brainpoolP256r1 = 1.3.36.3.3.2.8.1.1.7
+brainpoolP256t1 = 1.3.36.3.3.2.8.1.1.8
+brainpoolP320r1 = 1.3.36.3.3.2.8.1.1.9
+brainpoolP320t1 = 1.3.36.3.3.2.8.1.1.10
+brainpoolP384r1 = 1.3.36.3.3.2.8.1.1.11
+brainpoolP384t1 = 1.3.36.3.3.2.8.1.1.12
+brainpoolP512r1 = 1.3.36.3.3.2.8.1.1.13
+brainpoolP512t1 = 1.3.36.3.3.2.8.1.1.14
+PSPECIFIED = pSpecified, 1.2.840.113549.1.1.9
+dhSinglePass-stdDH-sha1kdf-scheme = 1.3.133.16.840.63.0.2
+dhSinglePass-stdDH-sha224kdf-scheme = 1.3.132.1.11.0
+dhSinglePass-stdDH-sha256kdf-scheme = 1.3.132.1.11.1
+dhSinglePass-stdDH-sha384kdf-scheme = 1.3.132.1.11.2
+dhSinglePass-stdDH-sha512kdf-scheme = 1.3.132.1.11.3
+dhSinglePass-cofactorDH-sha1kdf-scheme = 1.3.133.16.840.63.0.3
+dhSinglePass-cofactorDH-sha224kdf-scheme = 1.3.132.1.14.0
+dhSinglePass-cofactorDH-sha256kdf-scheme = 1.3.132.1.14.1
+dhSinglePass-cofactorDH-sha384kdf-scheme = 1.3.132.1.14.2
+dhSinglePass-cofactorDH-sha512kdf-scheme = 1.3.132.1.14.3
+# None-OID object: dh-std-kdf, dh-std-kdf
+# None-OID object: dh-cofactor-kdf, dh-cofactor-kdf
+# None-OID object: AES-128-CBC-HMAC-SHA256, aes-128-cbc-hmac-sha256
+# None-OID object: AES-192-CBC-HMAC-SHA256, aes-192-cbc-hmac-sha256
+# None-OID object: AES-256-CBC-HMAC-SHA256, aes-256-cbc-hmac-sha256
+ct_precert_scts = CT Precertificate SCTs, 1.3.6.1.4.1.11129.2.4.2
+ct_precert_poison = CT Precertificate Poison, 1.3.6.1.4.1.11129.2.4.3
+ct_precert_signer = CT Precertificate Signer, 1.3.6.1.4.1.11129.2.4.4
+ct_cert_scts = CT Certificate SCTs, 1.3.6.1.4.1.11129.2.4.5
+jurisdictionL = jurisdictionLocalityName, 1.3.6.1.4.1.311.60.2.1.1
+jurisdictionST = jurisdictionStateOrProvinceName, 1.3.6.1.4.1.311.60.2.1.2
+jurisdictionC = jurisdictionCountryName, 1.3.6.1.4.1.311.60.2.1.3
+# None-OID object: AES-128-OCB, aes-128-ocb
+# None-OID object: AES-192-OCB, aes-192-ocb
+# None-OID object: AES-256-OCB, aes-256-ocb
+CAMELLIA-128-GCM = camellia-128-gcm, 0.3.4401.5.3.1.9.6
+CAMELLIA-128-CCM = camellia-128-ccm, 0.3.4401.5.3.1.9.7
+CAMELLIA-128-CTR = camellia-128-ctr, 0.3.4401.5.3.1.9.9
+CAMELLIA-128-CMAC = camellia-128-cmac, 0.3.4401.5.3.1.9.10
+CAMELLIA-192-GCM = camellia-192-gcm, 0.3.4401.5.3.1.9.26
+CAMELLIA-192-CCM = camellia-192-ccm, 0.3.4401.5.3.1.9.27
+CAMELLIA-192-CTR = camellia-192-ctr, 0.3.4401.5.3.1.9.29
+CAMELLIA-192-CMAC = camellia-192-cmac, 0.3.4401.5.3.1.9.30
+CAMELLIA-256-GCM = camellia-256-gcm, 0.3.4401.5.3.1.9.46
+CAMELLIA-256-CCM = camellia-256-ccm, 0.3.4401.5.3.1.9.47
+CAMELLIA-256-CTR = camellia-256-ctr, 0.3.4401.5.3.1.9.49
+CAMELLIA-256-CMAC = camellia-256-cmac, 0.3.4401.5.3.1.9.50
+id-scrypt = scrypt, 1.3.6.1.4.1.11591.4.11
+id-tc26 = 1.2.643.7.1
+# None-OID object: gost89-cnt-12, gost89-cnt-12
+# None-OID object: gost-mac-12, gost-mac-12
+id-tc26-algorithms = 1.2.643.7.1.1
+id-tc26-sign = 1.2.643.7.1.1.1
+gost2012_256 = GOST R 34.10-2012 with 256 bit modulus, 1.2.643.7.1.1.1.1
+gost2012_512 = GOST R 34.10-2012 with 512 bit modulus, 1.2.643.7.1.1.1.2
+id-tc26-digest = 1.2.643.7.1.1.2
+md_gost12_256 = GOST R 34.11-2012 with 256 bit hash, 1.2.643.7.1.1.2.2
+md_gost12_512 = GOST R 34.11-2012 with 512 bit hash, 1.2.643.7.1.1.2.3
+id-tc26-signwithdigest = 1.2.643.7.1.1.3
+id-tc26-signwithdigest-gost3410-2012-256 = GOST R 34.10-2012 with GOST R 34.11-2012 (256 bit), 1.2.643.7.1.1.3.2
+id-tc26-signwithdigest-gost3410-2012-512 = GOST R 34.10-2012 with GOST R 34.11-2012 (512 bit), 1.2.643.7.1.1.3.3
+id-tc26-mac = 1.2.643.7.1.1.4
+id-tc26-hmac-gost-3411-2012-256 = HMAC GOST 34.11-2012 256 bit, 1.2.643.7.1.1.4.1
+id-tc26-hmac-gost-3411-2012-512 = HMAC GOST 34.11-2012 512 bit, 1.2.643.7.1.1.4.2
+id-tc26-cipher = 1.2.643.7.1.1.5
+id-tc26-agreement = 1.2.643.7.1.1.6
+id-tc26-agreement-gost-3410-2012-256 = 1.2.643.7.1.1.6.1
+id-tc26-agreement-gost-3410-2012-512 = 1.2.643.7.1.1.6.2
+id-tc26-constants = 1.2.643.7.1.2
+id-tc26-sign-constants = 1.2.643.7.1.2.1
+id-tc26-gost-3410-2012-512-constants = 1.2.643.7.1.2.1.2
+id-tc26-gost-3410-2012-512-paramSetTest = GOST R 34.10-2012 (512 bit) testing parameter set, 1.2.643.7.1.2.1.2.0
+id-tc26-gost-3410-2012-512-paramSetA = GOST R 34.10-2012 (512 bit) ParamSet A, 1.2.643.7.1.2.1.2.1
+id-tc26-gost-3410-2012-512-paramSetB = GOST R 34.10-2012 (512 bit) ParamSet B, 1.2.643.7.1.2.1.2.2
+id-tc26-digest-constants = 1.2.643.7.1.2.2
+id-tc26-cipher-constants = 1.2.643.7.1.2.5
+id-tc26-gost-28147-constants = 1.2.643.7.1.2.5.1
+id-tc26-gost-28147-param-Z = GOST 28147-89 TC26 parameter set, 1.2.643.7.1.2.5.1.1
+INN = 1.2.643.3.131.1.1
+OGRN = 1.2.643.100.1
+SNILS = 1.2.643.100.3
+subjectSignTool = Signing Tool of Subject, 1.2.643.100.111
+issuerSignTool = Signing Tool of Issuer, 1.2.643.100.112
+# None-OID object: gost89-cbc, gost89-cbc
+# None-OID object: gost89-ecb, gost89-ecb
+# None-OID object: gost89-ctr, gost89-ctr
+# None-OID object: kuznyechik-ecb, kuznyechik-ecb
+# None-OID object: kuznyechik-ctr, kuznyechik-ctr
+# None-OID object: kuznyechik-ofb, kuznyechik-ofb
+# None-OID object: kuznyechik-cbc, kuznyechik-cbc
+# None-OID object: kuznyechik-cfb, kuznyechik-cfb
+# None-OID object: kuznyechik-mac, kuznyechik-mac
+# None-OID object: ChaCha20-Poly1305, chacha20-poly1305
+# None-OID object: ChaCha20, chacha20
+tlsfeature = TLS Feature, 1.3.6.1.5.5.7.1.24
+# None-OID object: TLS1-PRF, tls1-prf
+ipsecIKE = ipsec Internet Key Exchange, 1.3.6.1.5.5.7.3.17
+capwapAC = Ctrl/provision WAP Access, 1.3.6.1.5.5.7.3.18
+capwapWTP = Ctrl/Provision WAP Termination, 1.3.6.1.5.5.7.3.19
+secureShellClient = SSH Client, 1.3.6.1.5.5.7.3.21
+secureShellServer = SSH Server, 1.3.6.1.5.5.7.3.22
+sendRouter = Send Router, 1.3.6.1.5.5.7.3.23
+sendProxiedRouter = Send Proxied Router, 1.3.6.1.5.5.7.3.24
+sendOwner = Send Owner, 1.3.6.1.5.5.7.3.25
+sendProxiedOwner = Send Proxied Owner, 1.3.6.1.5.5.7.3.26
+id-pkinit = 1.3.6.1.5.2.3
+pkInitClientAuth = PKINIT Client Auth, 1.3.6.1.5.2.3.4
+pkInitKDC = Signing KDC Response, 1.3.6.1.5.2.3.5
+X25519 = 1.3.101.110
+X448 = 1.3.101.111
+# None-OID object: HKDF, hkdf
+# None-OID object: KxRSA, kx-rsa
+# None-OID object: KxECDHE, kx-ecdhe
+# None-OID object: KxDHE, kx-dhe
+# None-OID object: KxECDHE-PSK, kx-ecdhe-psk
+# None-OID object: KxDHE-PSK, kx-dhe-psk
+# None-OID object: KxRSA_PSK, kx-rsa-psk
+# None-OID object: KxPSK, kx-psk
+# None-OID object: KxSRP, kx-srp
+# None-OID object: KxGOST, kx-gost
+# None-OID object: AuthRSA, auth-rsa
+# None-OID object: AuthECDSA, auth-ecdsa
+# None-OID object: AuthPSK, auth-psk
+# None-OID object: AuthDSS, auth-dss
+# None-OID object: AuthGOST01, auth-gost01
+# None-OID object: AuthGOST12, auth-gost12
+# None-OID object: AuthSRP, auth-srp
+# None-OID object: AuthNULL, auth-null
+BLAKE2b512 = blake2b512, 1.3.6.1.4.1.1722.12.2.1.16
+BLAKE2s256 = blake2s256, 1.3.6.1.4.1.1722.12.2.2.8
+id-smime-ct-contentCollection = 1.2.840.113549.1.9.16.1.19
+id-smime-ct-authEnvelopedData = 1.2.840.113549.1.9.16.1.23
+id-ct-xml = 1.2.840.113549.1.9.16.1.28
+# None-OID object: Poly1305, poly1305
+# None-OID object: SipHash, siphash
+# None-OID object: KxANY, kx-any
+# None-OID object: AuthANY, auth-any
+ARIA-128-ECB = aria-128-ecb, 1.2.410.200046.1.1.1
+ARIA-128-CBC = aria-128-cbc, 1.2.410.200046.1.1.2
+ARIA-128-CFB = aria-128-cfb, 1.2.410.200046.1.1.3
+ARIA-128-OFB = aria-128-ofb, 1.2.410.200046.1.1.4
+ARIA-128-CTR = aria-128-ctr, 1.2.410.200046.1.1.5
+ARIA-192-ECB = aria-192-ecb, 1.2.410.200046.1.1.6
+ARIA-192-CBC = aria-192-cbc, 1.2.410.200046.1.1.7
+ARIA-192-CFB = aria-192-cfb, 1.2.410.200046.1.1.8
+ARIA-192-OFB = aria-192-ofb, 1.2.410.200046.1.1.9
+ARIA-192-CTR = aria-192-ctr, 1.2.410.200046.1.1.10
+ARIA-256-ECB = aria-256-ecb, 1.2.410.200046.1.1.11
+ARIA-256-CBC = aria-256-cbc, 1.2.410.200046.1.1.12
+ARIA-256-CFB = aria-256-cfb, 1.2.410.200046.1.1.13
+ARIA-256-OFB = aria-256-ofb, 1.2.410.200046.1.1.14
+ARIA-256-CTR = aria-256-ctr, 1.2.410.200046.1.1.15
+# None-OID object: ARIA-128-CFB1, aria-128-cfb1
+# None-OID object: ARIA-192-CFB1, aria-192-cfb1
+# None-OID object: ARIA-256-CFB1, aria-256-cfb1
+# None-OID object: ARIA-128-CFB8, aria-128-cfb8
+# None-OID object: ARIA-192-CFB8, aria-192-cfb8
+# None-OID object: ARIA-256-CFB8, aria-256-cfb8
+id-smime-aa-signingCertificateV2 = 1.2.840.113549.1.9.16.2.47
+ED25519 = 1.3.101.112
+ED448 = 1.3.101.113
+organizationIdentifier = 2.5.4.97
+c3 = countryCode3c, 2.5.4.98
+n3 = countryCode3n, 2.5.4.99
+dnsName = 2.5.4.100
+x509ExtAdmission = Professional Information or basis for Admission, 1.3.36.8.3.3
+SHA512-224 = sha512-224, 2.16.840.1.101.3.4.2.5
+SHA512-256 = sha512-256, 2.16.840.1.101.3.4.2.6
+SHA3-224 = sha3-224, 2.16.840.1.101.3.4.2.7
+SHA3-256 = sha3-256, 2.16.840.1.101.3.4.2.8
+SHA3-384 = sha3-384, 2.16.840.1.101.3.4.2.9
+SHA3-512 = sha3-512, 2.16.840.1.101.3.4.2.10
+SHAKE128 = shake128, 2.16.840.1.101.3.4.2.11
+SHAKE256 = shake256, 2.16.840.1.101.3.4.2.12
+id-hmacWithSHA3-224 = hmac-sha3-224, 2.16.840.1.101.3.4.2.13
+id-hmacWithSHA3-256 = hmac-sha3-256, 2.16.840.1.101.3.4.2.14
+id-hmacWithSHA3-384 = hmac-sha3-384, 2.16.840.1.101.3.4.2.15
+id-hmacWithSHA3-512 = hmac-sha3-512, 2.16.840.1.101.3.4.2.16
+id-dsa-with-sha384 = dsa_with_SHA384, 2.16.840.1.101.3.4.3.3
+id-dsa-with-sha512 = dsa_with_SHA512, 2.16.840.1.101.3.4.3.4
+id-dsa-with-sha3-224 = dsa_with_SHA3-224, 2.16.840.1.101.3.4.3.5
+id-dsa-with-sha3-256 = dsa_with_SHA3-256, 2.16.840.1.101.3.4.3.6
+id-dsa-with-sha3-384 = dsa_with_SHA3-384, 2.16.840.1.101.3.4.3.7
+id-dsa-with-sha3-512 = dsa_with_SHA3-512, 2.16.840.1.101.3.4.3.8
+id-ecdsa-with-sha3-224 = ecdsa_with_SHA3-224, 2.16.840.1.101.3.4.3.9
+id-ecdsa-with-sha3-256 = ecdsa_with_SHA3-256, 2.16.840.1.101.3.4.3.10
+id-ecdsa-with-sha3-384 = ecdsa_with_SHA3-384, 2.16.840.1.101.3.4.3.11
+id-ecdsa-with-sha3-512 = ecdsa_with_SHA3-512, 2.16.840.1.101.3.4.3.12
+id-rsassa-pkcs1-v1_5-with-sha3-224 = RSA-SHA3-224, 2.16.840.1.101.3.4.3.13
+id-rsassa-pkcs1-v1_5-with-sha3-256 = RSA-SHA3-256, 2.16.840.1.101.3.4.3.14
+id-rsassa-pkcs1-v1_5-with-sha3-384 = RSA-SHA3-384, 2.16.840.1.101.3.4.3.15
+id-rsassa-pkcs1-v1_5-with-sha3-512 = RSA-SHA3-512, 2.16.840.1.101.3.4.3.16
+ARIA-128-CCM = aria-128-ccm, 1.2.410.200046.1.1.37
+ARIA-192-CCM = aria-192-ccm, 1.2.410.200046.1.1.38
+ARIA-256-CCM = aria-256-ccm, 1.2.410.200046.1.1.39
+ARIA-128-GCM = aria-128-gcm, 1.2.410.200046.1.1.34
+ARIA-192-GCM = aria-192-gcm, 1.2.410.200046.1.1.35
+ARIA-256-GCM = aria-256-gcm, 1.2.410.200046.1.1.36
+# None-OID object: ffdhe2048, ffdhe2048
+# None-OID object: ffdhe3072, ffdhe3072
+# None-OID object: ffdhe4096, ffdhe4096
+# None-OID object: ffdhe6144, ffdhe6144
+# None-OID object: ffdhe8192, ffdhe8192
+cmcCA = CMC Certificate Authority, 1.3.6.1.5.5.7.3.27
+cmcRA = CMC Registration Authority, 1.3.6.1.5.5.7.3.28
+SM4-ECB = sm4-ecb, 1.2.156.10197.1.104.1
+SM4-CBC = sm4-cbc, 1.2.156.10197.1.104.2
+SM4-OFB = sm4-ofb, 1.2.156.10197.1.104.3
+SM4-CFB1 = sm4-cfb1, 1.2.156.10197.1.104.5
+SM4-CFB = sm4-cfb, 1.2.156.10197.1.104.4
+SM4-CFB8 = sm4-cfb8, 1.2.156.10197.1.104.6
+SM4-CTR = sm4-ctr, 1.2.156.10197.1.104.7
+ISO-CN = ISO CN Member Body, 1.2.156
+oscca = 1.2.156.10197
+sm-scheme = 1.2.156.10197.1
+SM3 = sm3, 1.2.156.10197.1.401
+RSA-SM3 = sm3WithRSAEncryption, 1.2.156.10197.1.504
+RSA-SHA512/224 = sha512-224WithRSAEncryption, 1.2.840.113549.1.1.15
+RSA-SHA512/256 = sha512-256WithRSAEncryption, 1.2.840.113549.1.1.16
+id-tc26-gost-3410-2012-256-constants = 1.2.643.7.1.2.1.1
+id-tc26-gost-3410-2012-256-paramSetA = GOST R 34.10-2012 (256 bit) ParamSet A, 1.2.643.7.1.2.1.1.1
+id-tc26-gost-3410-2012-512-paramSetC = GOST R 34.10-2012 (512 bit) ParamSet C, 1.2.643.7.1.2.1.2.3
+ISO-UA = 1.2.804
+ua-pki = 1.2.804.2.1.1.1
+dstu28147 = DSTU Gost 28147-2009, 1.2.804.2.1.1.1.1.1.1
+dstu28147-ofb = DSTU Gost 28147-2009 OFB mode, 1.2.804.2.1.1.1.1.1.1.2
+dstu28147-cfb = DSTU Gost 28147-2009 CFB mode, 1.2.804.2.1.1.1.1.1.1.3
+dstu28147-wrap = DSTU Gost 28147-2009 key wrap, 1.2.804.2.1.1.1.1.1.1.5
+hmacWithDstu34311 = HMAC DSTU Gost 34311-95, 1.2.804.2.1.1.1.1.1.2
+dstu34311 = DSTU Gost 34311-95, 1.2.804.2.1.1.1.1.2.1
+dstu4145le = DSTU 4145-2002 little endian, 1.2.804.2.1.1.1.1.3.1.1
+dstu4145be = DSTU 4145-2002 big endian, 1.2.804.2.1.1.1.1.3.1.1.1.
+uacurve0 = DSTU curve 0, 1.2.804.2.1.1.1.1.3.1.1.2.
+uacurve1 = DSTU curve 1, 1.2.804.2.1.1.1.1.3.1.1.2.
+uacurve2 = DSTU curve 2, 1.2.804.2.1.1.1.1.3.1.1.2.
+uacurve3 = DSTU curve 3, 1.2.804.2.1.1.1.1.3.1.1.2.
+uacurve4 = DSTU curve 4, 1.2.804.2.1.1.1.1.3.1.1.2.
+uacurve5 = DSTU curve 5, 1.2.804.2.1.1.1.1.3.1.1.2.
+uacurve6 = DSTU curve 6, 1.2.804.2.1.1.1.1.3.1.1.2.
+uacurve7 = DSTU curve 7, 1.2.804.2.1.1.1.1.3.1.1.2.
+uacurve8 = DSTU curve 8, 1.2.804.2.1.1.1.1.3.1.1.2.
+uacurve9 = DSTU curve 9, 1.2.804.2.1.1.1.1.3.1.1.2.
+ieee = 1.3.111
+ieee-siswg = IEEE Security in Storage Working Group, 1.3.111.2.1619
+SM2 = sm2, 1.2.156.10197.1.301
+id-tc26-cipher-gostr3412-2015-magma = 1.2.643.7.1.1.5.1
+magma-ctr-acpkm = 1.2.643.7.1.1.5.1.1
+magma-ctr-acpkm-omac = 1.2.643.7.1.1.5.1.2
+id-tc26-cipher-gostr3412-2015-kuznyechik = 1.2.643.7.1.1.5.2
+kuznyechik-ctr-acpkm = 1.2.643.7.1.1.5.2.1
+kuznyechik-ctr-acpkm-omac = 1.2.643.7.1.1.5.2.2
+id-tc26-wrap = 1.2.643.7.1.1.7
+id-tc26-wrap-gostr3412-2015-magma = 1.2.643.7.1.1.7.1
+magma-kexp15 = 1.2.643.7.1.1.7.1.1
+id-tc26-wrap-gostr3412-2015-kuznyechik = 1.2.643.7.1.1.7.2
+kuznyechik-kexp15 = 1.2.643.7.1.1.7.2.1
+id-tc26-gost-3410-2012-256-paramSetB = GOST R 34.10-2012 (256 bit) ParamSet B, 1.2.643.7.1.2.1.1.2
+id-tc26-gost-3410-2012-256-paramSetC = GOST R 34.10-2012 (256 bit) ParamSet C, 1.2.643.7.1.2.1.1.3
+id-tc26-gost-3410-2012-256-paramSetD = GOST R 34.10-2012 (256 bit) ParamSet D, 1.2.643.7.1.2.1.1.4
+# None-OID object: magma-ecb, magma-ecb
+# None-OID object: magma-ctr, magma-ctr
+# None-OID object: magma-ofb, magma-ofb
+# None-OID object: magma-cbc, magma-cbc
+# None-OID object: magma-cfb, magma-cfb
+# None-OID object: magma-mac, magma-mac
+hmacWithSHA512-224 = 1.2.840.113549.2.12
+hmacWithSHA512-256 = 1.2.840.113549.2.13
+GMAC = gmac, 1.0.9797.3.4
+KMAC128 = kmac128, 2.16.840.1.101.3.4.2.19
+KMAC256 = kmac256, 2.16.840.1.101.3.4.2.20
+# None-OID object: AES-128-SIV, aes-128-siv
+# None-OID object: AES-192-SIV, aes-192-siv
+# None-OID object: AES-256-SIV, aes-256-siv
+BLAKE2BMAC = blake2bmac, 1.3.6.1.4.1.1722.12.2.1
+BLAKE2SMAC = blake2smac, 1.3.6.1.4.1.1722.12.2.2
+# None-OID object: SSHKDF, sshkdf
+SM2-SM3 = SM2-with-SM3, 1.2.156.10197.1.501
+# None-OID object: SSKDF, sskdf
+# None-OID object: X963KDF, x963kdf
+# None-OID object: X942KDF, x942kdf
+id-on-SmtpUTF8Mailbox = Smtp UTF8 Mailbox, 1.3.6.1.5.5.7.8.9
+id-on-xmppAddr = XmppAddr, 1.3.6.1.5.5.7.8.5
+id-on-dnsSRV = SRVName, 1.3.6.1.5.5.7.8.7
+id-on-NAIRealm = NAIRealm, 1.3.6.1.5.5.7.8.8
+# None-OID object: modp_1536, modp_1536
+# None-OID object: modp_2048, modp_2048
+# None-OID object: modp_3072, modp_3072
+# None-OID object: modp_4096, modp_4096
+# None-OID object: modp_6144, modp_6144
+# None-OID object: modp_8192, modp_8192
+# None-OID object: KxGOST18, kx-gost18
+cmcArchive = CMC Archive Server, 1.3.6.1.5.5.7.3.29
+id-kp-bgpsec-router = BGPsec Router, 1.3.6.1.5.5.7.3.30
+id-kp-BrandIndicatorforMessageIdentification = Brand Indicator for Message Identification, 1.3.6.1.5.5.7.3.31
+cmKGA = Certificate Management Key Generation Authority, 1.3.6.1.5.5.7.3.32
+id-it-caCerts = 1.3.6.1.5.5.7.4.17
+id-it-rootCaKeyUpdate = 1.3.6.1.5.5.7.4.18
+id-it-certReqTemplate = 1.3.6.1.5.5.7.4.19
+OGRNIP = 1.2.643.100.5
+classSignTool = Class of Signing Tool, 1.2.643.100.113
+classSignToolKC1 = Class of Signing Tool KC1, 1.2.643.100.113.1
+classSignToolKC2 = Class of Signing Tool KC2, 1.2.643.100.113.2
+classSignToolKC3 = Class of Signing Tool KC3, 1.2.643.100.113.3
+classSignToolKB1 = Class of Signing Tool KB1, 1.2.643.100.113.4
+classSignToolKB2 = Class of Signing Tool KB2, 1.2.643.100.113.5
+classSignToolKA1 = Class of Signing Tool KA1, 1.2.643.100.113.6
+id-ct-routeOriginAuthz = 1.2.840.113549.1.9.16.1.24
+id-ct-rpkiManifest = 1.2.840.113549.1.9.16.1.26
+id-ct-rpkiGhostbusters = 1.2.840.113549.1.9.16.1.35
+id-ct-resourceTaggedAttest = 1.2.840.113549.1.9.16.1.36
+id-cp = 1.3.6.1.5.5.7.14
+sbgp-ipAddrBlockv2 = 1.3.6.1.5.5.7.1.28
+sbgp-autonomousSysNumv2 = 1.3.6.1.5.5.7.1.29
+ipAddr-asNumber = 1.3.6.1.5.5.7.14.2
+ipAddr-asNumberv2 = 1.3.6.1.5.5.7.14.3
+rpkiManifest = RPKI Manifest, 1.3.6.1.5.5.7.48.10
+signedObject = Signed Object, 1.3.6.1.5.5.7.48.11
+rpkiNotify = RPKI Notify, 1.3.6.1.5.5.7.48.13
+id-ct-geofeedCSVwithCRLF = 1.2.840.113549.1.9.16.1.47
+id-ct-signedChecklist = 1.2.840.113549.1.9.16.1.48
+SM4-GCM = sm4-gcm, 1.2.156.10197.1.104.8
+SM4-CCM = sm4-ccm, 1.2.156.10197.1.104.9
+id-ct-ASPA = 1.2.840.113549.1.9.16.1.49
+id-mod-cmp2000-02 = 1.3.6.1.5.5.7.0.50
+id-mod-cmp2021-88 = 1.3.6.1.5.5.7.0.99
+id-mod-cmp2021-02 = 1.3.6.1.5.5.7.0.100
+id-it-rootCaCert = 1.3.6.1.5.5.7.4.20
+id-it-certProfile = 1.3.6.1.5.5.7.4.21
+id-it-crlStatusList = 1.3.6.1.5.5.7.4.22
+id-it-crls = 1.3.6.1.5.5.7.4.23
+id-regCtrl-altCertTemplate = 1.3.6.1.5.5.7.5.1.7
+id-regCtrl-algId = 1.3.6.1.5.5.7.5.1.11
+id-regCtrl-rsaKeyLen = 1.3.6.1.5.5.7.5.1.12
+id-aa-ets-attrCertificateRefs = 1.2.840.113549.1.9.16.2.44
+id-aa-ets-attrRevocationRefs = 1.2.840.113549.1.9.16.2.45
+id-aa-CMSAlgorithmProtection = 1.2.840.113549.1.9.52
+itu-t-identified-organization = 0.4
+etsi = 0.4.0
+electronic-signature-standard = 0.4.0.1733
+ess-attributes = 0.4.0.1733.2
+id-aa-ets-mimeType = 0.4.0.1733.2.1
+id-aa-ets-longTermValidation = 0.4.0.1733.2.2
+id-aa-ets-SignaturePolicyDocument = 0.4.0.1733.2.3
+id-aa-ets-archiveTimestampV3 = 0.4.0.1733.2.4
+id-aa-ATSHashIndex = 0.4.0.1733.2.5
+cades = 0.4.0.19122
+cades-attributes = 0.4.0.19122.1
+id-aa-ets-signerAttrV2 = 0.4.0.19122.1.1
+id-aa-ets-sigPolicyStore = 0.4.0.19122.1.3
+id-aa-ATSHashIndex-v2 = 0.4.0.19122.1.4
+id-aa-ATSHashIndex-v3 = 0.4.0.19122.1.5
+signedAssertion = 0.4.0.19122.1.6
+id-aa-ets-archiveTimestampV2 = 1.2.840.113549.1.9.16.2.48
+hmacWithSM3 = 1.2.156.10197.1.401.3.1
+oracle-organization = Oracle organization, 2.16.840.1.113894
+oracle-jdk-trustedkeyusage = Trusted key usage (Oracle), 2.16.840.1.113894.746875.1.1
+id-ct-signedTAL = 1.2.840.113549.1.9.16.1.50
+# None-OID object: brainpoolP256r1tls13, brainpoolP256r1tls13
+# None-OID object: brainpoolP384r1tls13, brainpoolP384r1tls13
+# None-OID object: brainpoolP512r1tls13, brainpoolP512r1tls13
+# None-OID object: brotli, Brotli compression
+# None-OID object: zstd, Zstandard compression
+SM4-XTS = sm4-xts, 1.2.156.10197.1.104.10
+dilithium2 = 1.3.6.1.4.1.2.267.7.4.4
+p256_dilithium2 = 1.3.9999.2.7.1
+rsa3072_dilithium2 = 1.3.9999.2.7.2
+dilithium3 = 1.3.6.1.4.1.2.267.7.6.5
+p384_dilithium3 = 1.3.9999.2.7.3
+dilithium5 = 1.3.6.1.4.1.2.267.7.8.7
+p521_dilithium5 = 1.3.9999.2.7.4
+dilithium2_aes = 1.3.6.1.4.1.2.267.11.4.4
+p256_dilithium2_aes = 1.3.9999.2.11.1
+rsa3072_dilithium2_aes = 1.3.9999.2.11.2
+dilithium3_aes = 1.3.6.1.4.1.2.267.11.6.5
+p384_dilithium3_aes = 1.3.9999.2.11.3
+dilithium5_aes = 1.3.6.1.4.1.2.267.11.8.7
+p521_dilithium5_aes = 1.3.9999.2.11.4
+falcon512 = 1.3.9999.3.1
+p256_falcon512 = 1.3.9999.3.2
+rsa3072_falcon512 = 1.3.9999.3.3
+falcon1024 = 1.3.9999.3.4
+p521_falcon1024 = 1.3.9999.3.5
+sphincsharaka128frobust = 1.3.9999.6.1.1
+p256_sphincsharaka128frobust = 1.3.9999.6.1.2
+rsa3072_sphincsharaka128frobust = 1.3.9999.6.1.3
+sphincsharaka128fsimple = 1.3.9999.6.1.4
+p256_sphincsharaka128fsimple = 1.3.9999.6.1.5
+rsa3072_sphincsharaka128fsimple = 1.3.9999.6.1.6
+sphincssha256128frobust = 1.3.9999.6.4.1
+p256_sphincssha256128frobust = 1.3.9999.6.4.2
+rsa3072_sphincssha256128frobust = 1.3.9999.6.4.3
+sphincssha256128ssimple = 1.3.9999.6.4.10
+p256_sphincssha256128ssimple = 1.3.9999.6.4.11
+rsa3072_sphincssha256128ssimple = 1.3.9999.6.4.12
+sphincsshake256128fsimple = 1.3.9999.6.7.4
+p256_sphincsshake256128fsimple = 1.3.9999.6.7.5
+rsa3072_sphincsshake256128fsimple = 1.3.9999.6.7.6

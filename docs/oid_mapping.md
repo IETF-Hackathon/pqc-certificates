@@ -11,6 +11,10 @@ Note: asterisk "*" means experimental; ie likely to change after the hackathon.
 
 This section provides the individual OIDs used for the different algorithms. Notice
 that the same OID is often used in the single algorithm non-hash signatures.
+The strike thru indicates algorithms that have been used by this
+group in the past, but are no longer recommended for testing because of anticipated
+changes in the algorithms.   For example, the AES variants used in Dilithium are 
+not expected in the final standard, and neither are the robust variant of SPHINCS+. 
 
 | Algorithm Name | OID | Signature Algorithm |
 | ----------- | ----------- | ----------- |
@@ -19,25 +23,35 @@ that the same OID is often used in the single algorithm non-hash signatures.
 | Dilithium2 | 1.3.6.1.4.1.2.267.7.4.4* | Dilithium2 |
 | Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
 | Dilithium5 | 1.3.6.1.4.1.2.267.7.8.7* | Dilithium5 |
-| DilithiumAES2 | 1.3.6.1.4.1.2.267.11.4.4* | Dilithium2-AES |
-| DilithiumAES3 | 1.3.6.1.4.1.2.267.11.6.5* | Dilithium3-AES |
-| DilithiumAES5 | 1.3.6.1.4.1.2.267.11.8.7* | Dilithium5-AES |
+| ~~DilithiumAES2~~ | ~~1.3.6.1.4.1.2.267.11.4.4*~~ | ~~Dilithium2-AES~~ |
+| ~~DilithiumAES3~~ | ~~1.3.6.1.4.1.2.267.11.6.5*~~ | ~~Dilithium3-AES~~ |
+| ~~DilithiumAES5~~ | ~~1.3.6.1.4.1.2.267.11.8.7*~~ | ~~Dilithium5-AES~~ |
 | ~~Falcon-512~~ | ~~1.3.9999.3.1*~~ | ~~Falcon-512~~ |
 | ~~Falcon-1024~~ | ~~1.3.9999.3.4*~~ | ~~Falcon-1024~~ |
 | Falcon-512 | 1.3.9999.3.6* | Falcon-512 |
 | Falcon-1024 | 1.3.9999.3.9* | Falcon-1024 |
-| SPHINCS+-SHA256-128f-robust | 1.3.9999.6.4.1* | SPHINCS+-SHA256-128f-robust |
+| ~~SPHINCS+-SHA256-128f-robust~~ | ~~1.3.9999.6.4.1*~~ | ~~SPHINCS+-SHA256-128f-robust~~ |
 | SPHINCS+-SHA256-128f-simple | 1.3.9999.6.4.4* | SPHINCS+-SHA256-128f-simple |
-| SPHINCS+-SHA256-128s-robust | 1.3.9999.6.4.7* | SPHINCS+-SHA256-128s-robust |
+| ~~SPHINCS+-SHA256-128s-robust~~ | ~~1.3.9999.6.4.7*~~ | ~~SPHINCS+-SHA256-128s-robust~~ |
 | SPHINCS+-SHA256-128s-simple | 1.3.9999.6.4.10* | SPHINCS+-SHA256-128s-simple |
-| SPHINCS+-SHA256-192f-robust | 1.3.9999.6.5.1* | SPHINCS+-SHA256-192f-robust |
+| ~~SPHINCS+-SHA256-192f-robust~~ | ~~1.3.9999.6.5.1*~~ | ~~SPHINCS+-SHA256-192f-robust~~ |
 | SPHINCS+-SHA256-192f-simple | 1.3.9999.6.5.3* | SPHINCS+-SHA256-192f-simple |
-| SPHINCS+-SHA256-192s-robust | 1.3.9999.6.5.5 | SPHINCS+-SHA256-192s-robust |
+| ~~SPHINCS+-SHA256-192s-robust~~ | ~~1.3.9999.6.5.5~~ | ~~SPHINCS+-SHA256-192s-robust~~ |
 | SPHINCS+-SHA256-192s-simple | 1.3.9999.6.5.7* | SPHINCS+-SHA256-192s-simple |
-| SPHINCS+-SHA256-256f-robust | 1.3.9999.6.6.1* | SPHINCS+-SHA256-256f-robust |
+| ~~SPHINCS+-SHA256-256f-robust~~ | ~~1.3.9999.6.6.1*~~ | ~~SPHINCS+-SHA256-256f-robust~~ |
 | SPHINCS+-SHA256-256f-simple | 1.3.9999.6.6.3* | SPHINCS+-SHA256-256f-simple |
-| SPHINCS+-SHA256-256s-robust | 1.3.9999.6.6.5* | SPHINCS+-SHA256-256s-robust |
+| ~~SPHINCS+-SHA256-256s-robust~~ | ~~1.3.9999.6.6.5*~~ | ~~SPHINCS+-SHA256-256s-robust~~ |
 | SPHINCS+-SHA256-256s-simple | 1.3.9999.6.6.7* | SPHINCS+-SHA256-256s-simple |
+
+# KEM Algorithm OIDs
+| KEM Algorithm Name | OID |
+| ----------- | ----------- |
+| kyber512 |   1.3.6.1.4.1.22554.5.6.1 |
+| kyber768 |  1.3.6.1.4.1.22554.5.6.2 |
+| kyber1024 | 1.3.6.1.4.1.22554.5.6.3 |
+| ~~kyber512_aes~~ | ~~1.3.6.1.4.1.22554.5.6.4~~ |
+| ~~kyber768_aes~~ | ~~1.3.6.1.4.1.22554.5.6.5~~ |
+| ~~kyber1024_aes~~ | ~~1.3.6.1.4.1.22554.5.6.6~~ |
 
 
 # Composite Keys OIDs
@@ -75,9 +89,9 @@ Explicit Composite Key and for the Composite Signature Algorithm.
 | id-Falcon512-ECDSA-P256-SHA256        | 2.16.840.1.114027.80.5.1.8 | 
 | id-Falcon512-ECDSA-brainpoolP256r1-SHA256  | 2.16.840.1.114027.80.5.1.9 | 
 | id-Falcon512-Ed25519                       | 2.16.840.1.114027.80.5.1.10| 
-| id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256            | 2.16.840.1.114027.80.5.1.11| 
-| id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 | 2.16.840.1.114027.80.5.1.12 | 
-| id-SPHINCSplusSHA256128sSimple-Ed25519               | 2.16.840.1.114027.80.5.1.13 |  
+| ~~id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256~~ | ~~2.16.840.1.114027.80.5.1.11~~ | 
+| ~~id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256~~ | ~~2.16.840.1.114027.80.5.1.12~~ | 
+| ~~id-SPHINCSplusSHA256128sSimple-Ed25519~~  |~~2.16.840.1.114027.80.5.1.13~~ |  
 | id-Dilithium3-RSA-PSS-SHA256                   | 2.16.840.1.114027.80.5.1.14 |  
 
 # Composite Signatures OIDs
@@ -156,40 +170,40 @@ to 1.3.6.1.4.1.18227.999.1.1 and the DILITHIUM-SHA256 would be changed to
 | ----------- | ----------- | ----------- |
 | Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
 | Dilithium3WithSha256 | 1.3.6.1.4.1.18227.999.1.2.1 | DILITHIUM3-SHA256 |
-| ~~Dilithium3WithSha384 | 1.3.6.1.4.1.18227.999.1.2.2 | DILITHIUM3-SHA384~~ |
+| ~~Dilithium3WithSha384~~ | ~~1.3.6.1.4.1.18227.999.1.2.2~~ | ~~DILITHIUM3-SHA384~~ |
 | Dilithium3WithSha512 | 1.3.6.1.4.1.18227.999.1.2.3 | DILITHIUM3-SHA512 |
-| ~~Dilithium3WithSha3At256 | 1.3.6.1.4.1.18227.999.1.2.4 | DILITHIUM3-SHA3_256~~ |
-| ~~Dilithium3WithSha3At384 | 1.3.6.1.4.1.18227.999.1.2.5 | DILITHIUM3-SHA3_384~~ |
-| ~~Dilithium3WithSha3At512 | 1.3.6.1.4.1.18227.999.1.2.6 | DILITHIUM3-SHA3_512~~ |
-| ~~Dilithium3WithShake128 | 1.3.6.1.4.1.18227.999.1.2.7 | DILITHIUM3-SHAKE128~~ |
-| ~~Dilithium3WithShake256 | 1.3.6.1.4.1.18227.999.1.2.8 | DILITHIUM3-SHAKE256~~ |
+| ~~Dilithium3WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.1.2.4~~ | ~~DILITHIUM3-SHA3_256~~ |
+| ~~Dilithium3WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.1.2.5~~ | ~~DILITHIUM3-SHA3_384~~ |
+| ~~Dilithium3WithSha3At512~~ | ~~1.3.6.1.4.1.18227.999.1.2.6~~ | ~~DILITHIUM3-SHA3_512~~ |
+| ~~Dilithium3WithShake128~~ | ~~1.3.6.1.4.1.18227.999.1.2.7~~ | ~~DILITHIUM3-SHAKE128~~ |
+| ~~Dilithium3WithShake256~~ | ~~1.3.6.1.4.1.18227.999.1.2.8~~ | ~~DILITHIUM3-SHAKE256~~ |
 | Dilithium5 | 1.3.6.1.4.1.2.267.7.8.7* | Dilithium5 |
 | Dilithium5WithSha256 | 1.3.6.1.4.1.18227.999.1.2.1 | DILITHIUM5-SHA256 |
-| ~~Dilithium5WithSha384 | 1.3.6.1.4.1.18227.999.1.2.2 | DILITHIUM5-SHA384~~ |
+| ~~Dilithium5WithSha384~~ | ~~1.3.6.1.4.1.18227.999.1.2.2~~ | ~~DILITHIUM5-SHA384~~ |
 | Dilithium5WithSha512 | 1.3.6.1.4.1.18227.999.1.2.3 | DILITHIUM5-SHA512 |
-| ~~Dilithium5WithSha3At256 | 1.3.6.1.4.1.18227.999.1.2.4 | DILITHIUM5-SHA3_256~~ |
-| ~~Dilithium5WithSha3At384 | 1.3.6.1.4.1.18227.999.1.2.5 | DILITHIUM5-SHA3_384~~ |
-| ~~Dilithium5WithSha3At512 | 1.3.6.1.4.1.18227.999.1.2.6 | DILITHIUM5-SHA3_512~~ |
-| ~~Dilithium5WithShake128 | 1.3.6.1.4.1.18227.999.1.2.7 | DILITHIUM5-SHAKE128~~ |
-| ~~Dilithium5WithShake256 | 1.3.6.1.4.1.18227.999.1.2.8 | DILITHIUM5-SHAKE256~~ |
+| ~~Dilithium5WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.1.2.4~~ | ~~DILITHIUM5-SHA3_256~~ |
+| ~~Dilithium5WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.1.2.5~~ | ~~DILITHIUM5-SHA3_384~~ |
+| ~~Dilithium5WithSha3At512~~ | ~~1.3.6.1.4.1.18227.999.1.2.6~~ | ~~DILITHIUM5-SHA3_512~~ |
+| ~~Dilithium5WithShake128~~ | ~~1.3.6.1.4.1.18227.999.1.2.7~~ | ~~DILITHIUM5-SHAKE128~~ |
+| ~~Dilithium5WithShake256~~ | ~~1.3.6.1.4.1.18227.999.1.2.8~~ | ~~DILITHIUM5-SHAKE256~~ |
 | Falcon512 | 1.3.9999.3.1* | Falcon-512 |
 | Falcon512WithSha256 | 1.3.6.1.4.1.18227.999.2.1.1 | FALCON512-SHA256 |
-| ~~Falcon512WithSha384 | 1.3.6.1.4.1.18227.999.2.1.2 | FALCON512-SHA384 ~~ |
+| ~~Falcon512WithSha384~~ | ~~1.3.6.1.4.1.18227.999.2.1.2~~ | ~~FALCON512-SHA384~~ |
 | Falcon512WithSha512 | 1.3.6.1.4.1.18227.999.2.1.3 | FALCON512-SHA512 |
-~~| Falcon512WithSha3At256 | 1.3.6.1.4.1.18227.999.2.1.4 | FALCON512-SHA3_256~~ |
-~~| Falcon512WithSha3At384 | 1.3.6.1.4.1.18227.999.2.1.5 | FALCON512-SHA3_384~~ |
-~~| Falcon512WithSha3At512 | 1.3.6.1.4.1.18227.999.2.1.6 | FALCON512-SHA3_512~~ |
-~~| Falcon512WithShake128 | 1.3.6.1.4.1.18227.999.2.1.7 | FALCON512-SHAKE128~~ |
-~~| Falcon512WithShake256 | 1.3.6.1.4.1.18227.999.2.1.8 | FALCON512-SHAKE256~~ |
+| ~~Falcon512WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.2.1.4~~ | ~~FALCON512-SHA3_256~~ |
+| ~~Falcon512WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.2.1.5~~ | ~~FALCON512-SHA3_384~~ |
+| ~~Falcon512WithSha3At512~~ | ~~1.3.6.1.4.1.18227.999.2.1.6~~ | ~~FALCON512-SHA3_512~~ |
+| ~~Falcon512WithShake128~~ | ~~1.3.6.1.4.1.18227.999.2.1.7~~ | ~~FALCON512-SHAKE128~~ |
+| ~~Falcon512WithShake256~~ | ~~1.3.6.1.4.1.18227.999.2.1.8~~ | ~~FALCON512-SHAKE256~~ |
 | Falcon1024 | 1.3.9999.3.4* | Falcon-1024 |
 | Falcon1024WithSha256 | 1.3.6.1.4.1.18227.999.2.2.1 | FALCON1024-SHA256 |
-| ~~Falcon1024WithSha384 | 1.3.6.1.4.1.18227.999.2.2.2 | FALCON1024-SHA384 |
+| ~~Falcon1024WithSha384~~ | ~~1.3.6.1.4.1.18227.999.2.2.2~~ | ~~FALCON1024-SHA384~~ |
 | Falcon1024WithSha512 | 1.3.6.1.4.1.18227.999.2.2.3 | FALCON1024-SHA512 |
-| ~~Falcon1024WithSha3At256 | 1.3.6.1.4.1.18227.999.2.2.4 | FALCON1024-SHA3_256~~ |
-| ~~Falcon1024WithSha3At384 | 1.3.6.1.4.1.18227.999.2.2.5 | FALCON1024-SHA3_384~~ |
-| ~~Falcon1024WithSha3At512 | 1.3.6.1.4.1.18227.999.2.2.6 | FALCON1024-SHA3_512~~ |
-| ~~Falcon1024WithShake128 | 1.3.6.1.4.1.18227.999.2.2.7 | FALCON1024-SHAKE128~~ |
-| ~~Falcon1024WithShake256 | 1.3.6.1.4.1.18227.999.2.2.8 | FALCON1024-SHAKE256~~ |
+| ~~Falcon1024WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.2.2.4~~ | ~~FALCON1024-SHA3_256~~ |
+| ~~Falcon1024WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.2.2.5~~ | ~~FALCON1024-SHA3_384~~ |
+| ~~Falcon1024WithSha3At512~~ | ~~1.3.6.1.4.1.18227.999.2.2.6~~ | ~~FALCON1024-SHA3_512~~ |
+| ~~Falcon1024WithShake128~~ | ~~1.3.6.1.4.1.18227.999.2.2.7~~ | ~~FALCON1024-SHAKE128~~ |
+| ~~Falcon1024WithShake256~~ | ~~1.3.6.1.4.1.18227.999.2.2.8~~ | ~~FALCON1024-SHAKE256~~ |
 | SPHINCS+-SHA256-128f-simple | 1.3.9999.6.4.4* | SPHINCS+-SHA256-128f-simple |
 | SPHINCS+-SHA256-128s-simple | 1.3.9999.6.4.10* | SPHINCS+-SHA256-128s-simple |
 | SPHINCS+-SHA256-192f-simple | 1.3.9999.6.5.3* | SPHINCS+-SHA256-192f-simple |

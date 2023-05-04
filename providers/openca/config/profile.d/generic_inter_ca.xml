@@ -12,6 +12,7 @@
    <pki:keyParams>
       <!-- <pki:algorithm>RSA-SHA384</pki:algorithm> -->
       <!-- <pki:bits>3072</pki:bits> -->
+      <!-- <pki:bits>384</pki:bits> -->
       <pki:mode /> <!-- { AES } -->
       <pki:curveName /> <!-- { secp256v1, ... } -->
       <pki:pointType /> <!-- { compressed, uncompressed, hybrid } -->
@@ -43,9 +44,9 @@
       <pki:extension name="subjectKeyIdentifier" critical="no">
          <pki:value>hash</pki:value>
       </pki:extension>
-      <pki:extension name="authorityKeyIdentifier" critical="no">
+      <!-- <pki:extension name="authorityKeyIdentifier" critical="no">
          <pki:value>keyid</pki:value>
-      </pki:extension>
+      </pki:extension> -->
       <pki:extension name="crlDistributionPoints" critical="no">
          <pki:value type="URI">http://testpqc.root.crl.local</pki:value>
       </pki:extension>
