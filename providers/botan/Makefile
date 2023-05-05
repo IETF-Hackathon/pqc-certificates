@@ -11,7 +11,7 @@ PROVIDER_NAME := botan
 # Directories for (possibly) multiple products
 # supported by the same provider
 # DIRS := <product_1> <product_2> ...
-DIRS := default
+DIRS := "default/artifacts"
 
 # Script for Generating the artifacts (if any)
 GEN_SCRIPT := $(CURR_PATH)/gen.sh
@@ -19,7 +19,11 @@ GEN_LOGFILE := $(CURR_PATH)logs/generate_log.txt
 
 # Script for Verifying the artifacts (if any)
 VERIFY_SCRIPT := $(CURR_PATH)/check.sh
-VERIFY_LOGFILE := $(CURR_PATH)/logs/verify_log.txt
+VERIFY_LOGPATH := $(CURR_PATH)/logs
+
+ARTIFACTS="default/artifacts"
+
+PROVIDERS= $(shell basename -a $(shell ls -A $(CURR_PATH)/..))
 
 # Time
 NOW := `date +%Y%m%d`
@@ -56,6 +60,16 @@ requirements/verify:
 	@[ -d logs ] || mkdir -p "logs"
 	@echo && echo "[ $(PROVIDER_NAME) ] Checking Requirements (Verify):"
 	@echo "[ $(PROVIDER_NAME) ] Done (Ok)"
+	
+
+bc: ARTIFACTS="java-artifacts/artifacts"
+entrust: ARTIFACTS="default"
+kris: ARTIFACTS="default"
+openca: ARTIFACTS="libpki/artifacts"
+oqs: ARTIFACTS="openssl111/artifacts" "oqsprovider/artifacts"
+oqs-gnutls: ARTIFACTS="default"
+
+
 
 # ==========================
 # Functional targets Section
@@ -96,34 +110,58 @@ generate: requirements/generate
 verify: requirements/verify
 	@if [ -f "$(VERIFY_SCRIPT)" ] ; then \
 		echo && echo "[ $(PROVIDER_NAME) ] Verifying Artifacts:" ; \
-		echo "----- BEGIN PROVIDER $(PROVIDER_NAME) -----" > $(VERIFY_LOGFILE); \
-		echo "TEST RUN: $(NOW)" >> $(VERIFY_LOGFILE); \
+		echo "----- BEGIN PROVIDER $(PROVIDER_NAME) -----" > $(VERIFY_LOGPATH)/$(PROVIDER_NAME)_verify_log.txt; \
+		echo "TEST RUN: $(NOW)" >> $(VERIFY_LOGPATH)/$(PROVIDER_NAME)_verify_log.txt; \
 		for i in $(DIRS) ; do \
 			echo "[ $(PROVIDER_NAME) ] Product: $$i" ; \
-			echo "PRODUCT : $$i" >> "$(VERIFY_LOGFILE)" ; \
-			echo "CURR DIR: $(PWD) " >> "$(VERIFY_LOGFILE)" ; \
-			echo >> "$(VERIFY_LOGFILE)" ; \
-			result=`$(VERIFY_SCRIPT) "$$i" 2>&1 >> "$(VERIFY_LOGFILE)" `; \
-			echo $$result >> "$(VERIFY_LOGFILE)" ; \
-			echo >> "$(VERIFY_LOGFILE)"; \
+			echo "PRODUCT : $$i" >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)_verify_log.txt" ; \
+			echo "CURR DIR: $(PWD) " >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)_verify_log.txt" ; \
+			echo >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)_verify_log.txt" ; \
+			result=`$(VERIFY_SCRIPT) "$$i" 2>&1 >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)_verify_log.txt" `; \
+			echo $$result >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)_verify_log.txt" ; \
+			echo >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)_verify_log.txt"; \
 		done ; \
-		echo "----- END PROVIDER $(PROVIDER_NAME) -----" >> $(VERIFY_LOGFILE); \
+		echo "----- END PROVIDER $(PROVIDER_NAME) -----" >> $(VERIFY_LOGPATH)/$(PROVIDER_NAME)_verify_log.txt; \
 		echo "[ $(PROVIDER_NAME) ] Done (Ok)." && echo ; \
 	 fi
 
 # Cross Verify Target, it invokes the same verify
 # script but it uses the base directory of a different
 # provider to make use of another provider's artifacts
-cross_verify: requirements/verify
+
+$(PROVIDERS): requirements/verify
 	@if [ -f "$(VERIFY_SCRIPT)" ] ; then \
-		echo && echo "[ $(PROVIDER_NAME) ] Cross Verifying Artifacts:" ; \
+		echo && echo "[ $(PROVIDER_NAME) ] Verifying Artifacts: $@" ; \
 		echo $(PWD) ; \
-		echo > "$(VERIFY_LOGFILE)" ; \
-		for i in ../* ; do \
-			echo "  -  $$i" ; \
-			result=`cd "$$i" && make verify 2>&1 > "$(VERIFY_LOGFILE)" ` ; \
+		echo $(shell date --iso=seconds) > "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)-$@_verify_log.txt" ; \
+		echo >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)-$@_verify_log.txt" ; \
+		for i in $(ARTIFACTS) ; do \
+			echo "[ $(PROVIDER_NAME) ] Product: $$i" ; \
+			echo "PRODUCT : $@-$$i " >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)-$@_verify_log.txt" ; \
+			echo "CURR DIR: $(PWD) " >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)-$@_verify_log.txt" ; \
+			echo >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)-$@_verify_log.txt" ; \
+			result=`$(VERIFY_SCRIPT) "../$@/$$i" >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)-$@_verify_log.txt" 2>&1 `; \
+			echo $$result >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)-$@_verify_log.txt" ; \
+			echo >> "$(VERIFY_LOGPATH)/$(PROVIDER_NAME)-$@_verify_log.txt"; \
 		done ; \
 		echo "[ $(PROVIDER_NAME) ] Done (Ok)." && echo ; \
+	 fi
+	 
+verify-all: $(PROVIDERS)
+
+# Cross Verify Target, it invokes the same verify
+# script but it uses the base directory of a different
+# provider to make use of another provider's artifacts
+cross_verify: requirements/verify
+	@echo "[ $(PROVIDER_NAME) ] Cross Verifying Artifacts:"
+	@if [ -f "$(VERIFY_SCRIPT)" ] ; then \
+		echo && echo "[ $(PROVIDER_NAME) ] Cross Verifying Artifacts:" ; \
+		echo > $(VERIFY_LOG) ; \
+		for i in ../* ; do \
+			echo "  -  $$i" ; \
+			result=`cd "$$i" && make verify > "$(VERIFY_LOGFILE)" 2>&1` ; \
+		done ; \
+		echo "[ $(PROVIDER_NAME) ] Done (Ok)." && echo; \
 	 fi
 
 # Cleans up the provider's directories
