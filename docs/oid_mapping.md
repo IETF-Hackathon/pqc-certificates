@@ -68,8 +68,21 @@ This section provides the OIDs associated with Generic Composite Keys
 | Algorithm Name | OID | Signature Algorithm |
 | ----------- | ----------- | ----------- |
 | COMPOSITE-KEY | 2.16.840.1.114027.80.4.1 | COMPOSITE-KEY |
-| COMPOSITE | 1.3.6.1.4.1.18227.2.1.999.1 | COMPOSITE-NONE |
-| MULTIKEY | 1.3.6.1.4.1.18227.2.1.999.1 | MULTIKEY-NONE |
+| ~~COMPOSITE~~ | ~~1.3.6.1.4.1.18227.2.1.999.1~~ | ~~COMPOSITE-NONE~~ |
+| ~~MULTIKEY~~ | ~~1.3.6.1.4.1.18227.2.1.999.1~~ | ~~MULTIKEY-NONE~~ |
+
+The MULTIKEY option has been integrated into the generic composite and does not
+need a separate OID. When the optional parameter (K of N) is present, the
+validation policy leverage the `K` parameter. When the key parameter is not
+present, the validation is equivalent to the case where `K == N`.
+
+Alongside the OID for generic Composite Keys, explicit combinations are defined
+that are aimed at providing standard combinations based on the characteristics of
+the combined algorithms.
+
+Given the impossibility to define all possible combinations, for use-cases where
+the proposed combination of algorithms might not work, the use of the generic keys
+might be appropriate.
 
 ## Explicit Composite Key and Signature OIDs 
 
