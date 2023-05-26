@@ -7,19 +7,22 @@ Taken from:
 
 Note: asterisk "*" means experimental; ie likely to change after the hackathon.
 
-# Single-algorithm OIDs
+## Single-algorithm OIDs
 
-This section provides the individual OIDs used for the different algorithms. Notice
-that the same OID is often used in the single algorithm non-hash signatures.
-The strike thru indicates algorithms that have been used by this
-group in the past, but are no longer recommended for testing because of anticipated
-changes in the algorithms.   For example, the AES variants used in Dilithium are 
-not expected in the final standard, and neither are the robust variant of SPHINCS+. 
+This section provides the individual OIDs used for the different algorithms.
 
-| Algorithm Name | OID | Signature Algorithm |
+Currently PQC signatures are defined for direct signing (i.e., no use of intermediary hash
+function) and, therefore, the OID used for signature generation is the same as the
+algorithm OID. Although this choice makes the OID to identify both a public key and a
+signature, this choice reduces the number of OIDs that is needed to be defined.
+
+The strike thru indicates algorithms that have been used by this group in the past,
+but are no longer recommended for testing because of anticipated changes in the algorithms.
+For example, the AES variants used in Dilithium are not expected in the final standard,
+and neither are the robust variant of SPHINCS+.
+
+| Key Algorithm Name | Signature OID | Signature Name |
 | ----------- | ----------- | ----------- |
-| RSA | 1.2.840.113549.1.1.1 | SHA256withRSA, SHA384withRSA, SHA512withRSA |
-| ECDSA |  1.2.840.10045.2.1 | SHA256withECDSA, SHA384withECDSA, SHA512withECDSA |
 | Dilithium2 | 1.3.6.1.4.1.2.267.7.4.4* | Dilithium2 |
 | Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
 | Dilithium5 | 1.3.6.1.4.1.2.267.7.8.7* | Dilithium5 |
@@ -43,7 +46,19 @@ not expected in the final standard, and neither are the robust variant of SPHINC
 | ~~SPHINCS+-SHA256-256s-robust~~ | ~~1.3.9999.6.6.5*~~ | ~~SPHINCS+-SHA256-256s-robust~~ |
 | SPHINCS+-SHA256-256s-simple | 1.3.9999.6.6.7* | SPHINCS+-SHA256-256s-simple |
 
-# KEM Algorithm OIDs
+Update: The AES version of Dilithium were removed due to their exclusion from the NIST
+standardization process.
+
+Update: The Falcon-512 and Falcon-1024 OIDs have been updated due to the updates to the
+algorithm's parameters.
+
+Update: The SPHINCS+ robust variants have been removed due to their drop from the NIST
+standardization process.
+
+## KEM Algorithm OIDs
+
+This section provides the list of OIDs for composite KEMs.
+
 | KEM Algorithm Name | OID |
 | ----------- | ----------- |
 | kyber512 |   1.3.6.1.4.1.22554.5.6.1 |
@@ -52,117 +67,108 @@ not expected in the final standard, and neither are the robust variant of SPHINC
 | ~~kyber512_aes~~ | ~~1.3.6.1.4.1.22554.5.6.4~~ |
 | ~~kyber768_aes~~ | ~~1.3.6.1.4.1.22554.5.6.5~~ |
 | ~~kyber1024_aes~~ | ~~1.3.6.1.4.1.22554.5.6.6~~ |
+| bike1 | TBD |
+| bike3 | TBD |
+| hqc128 | TBD |
+| hqc192 | TBD |
+| hqc256 | TBD |
+| mceliece348864 | TBD |
+| mceliece460896 | TBD |
+| mceliece6688128 | TBD |
+| mceliece6960119 | TBD |
+| mceliece8192128 | TBD |
 
+Update: Support for the AES version of Kyber has been removed due to its
+drop from NIST standardization process.
 
-# Composite Keys OIDs
+## Explicit Composite Key and Direct Signature OIDs
 
-The Composite paradigm works with two different sets of OIDs. The first set is
-the one related to the generic composite where the component keys are not
-pre-determined by the OID (generic), and a second set where the component keys
-are explicitly associated with the OID (explicit).
+This section provides the OIDs associated with Explicit algorithm combinations for
+Composite Keys and Composite Signatures.  
 
-## Generic Composite Keys OIDs
+The Algorithm OID is the same for both the Explicit Composite Key and for the
+Composite Signature Algorithm. For example, when using the explicit composite key
+identified by the `id-Dilithium3-RSA-PKCS15-SHA256` OID, the same OID MUST be
+used to identify the signatures generated with the said key, i.e. `id-Dilithium3-RSA-PKCS15-SHA256`.
 
-This section provides the OIDs associated with Generic Composite Keys
+| Key Algorithm | Key and Signature OID |
+| ----------- | ----------- |
+| id-Dilithium3-RSA-PKCS15-SHA256         | 2.16.840.1.114027.80.5.1.1 |
+| id-Dilithium3-ECDSA-P256-SHA256            | 2.16.840.1.114027.80.5.1.2 |
+| id-Dilithium3-ECDSA-brainpoolP256r1-SHA256 | 2.16.840.1.114027.80.5.1.3 |
+| id-Dilithium3-Ed25519               | 2.16.840.1.114027.80.5.1.4 |
+| id-Dilithium5-ECDSA-P384-SHA384            | 2.16.840.1.114027.80.5.1.5 |
+| id-Dilithium5-ECDSA-brainpoolP384r1-SHA384 | 2.16.840.1.114027.80.5.1.6 |
+| id-Dilithium5-Ed448                   | 2.16.840.1.114027.80.5.1.7 |
+| ~~id-Falcon512-ECDSA-P256-SHA256~~        | ~~2.16.840.1.114027.80.5.1.8~~ |
+| ~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~  | ~~2.16.840.1.114027.80.5.1.9~~ |
+| ~~id-Falcon512-Ed25519~~ | ~~2.16.840.1.114027.80.5.1.10~~ |
+| id-Falcon512-ECDSA-P256-SHA256        | 2.16.840.1.114027.80.5.1.8.1 |
+| id-Falcon512-ECDSA-brainpoolP256r1-SHA256  | 2.16.840.1.114027.80.5.1.9.1 |
+| id-Falcon512-Ed25519                       | 2.16.840.1.114027.80.5.1.10.1 |
+| ~~id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256~~ | ~~2.16.840.1.114027.80.5.1.11~~ |
+| ~~id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256~~ | ~~2.16.840.1.114027.80.5.1.12~~ |
+| ~~id-SPHINCSplusSHA256128sSimple-Ed25519~~  |~~2.16.840.1.114027.80.5.1.13~~ |
+| id-Dilithium3-RSA-PSS-SHA256                   | 2.16.840.1.114027.80.5.1.14 |
 
-| Algorithm Name | OID | Signature Algorithm |
+Update: The SPHINCS+ combinations have been removed because the need for
+composite is very minimal given the conservative design of the algorithm.
+
+Update: The Falcon512 combinations have been updated because of the changes
+in the Falcon512 parameters (May 2023).
+
+## Generic Composite Keys and Direct Signature OIDs
+
+This section provides the OIDs associated with Generic Composite Keys and
+Direct Signatures. Specifically, we define the OID for a Generic Composite
+Key as follows:
+
+| Public Key Alg Name | OID | Alias |
 | ----------- | ----------- | ----------- |
-| COMPOSITE-KEY | 2.16.840.1.114027.80.4.1 | COMPOSITE-KEY |
-| ~~COMPOSITE~~ | ~~1.3.6.1.4.1.18227.2.1.999.1~~ | ~~COMPOSITE-NONE~~ |
-| ~~MULTIKEY~~ | ~~1.3.6.1.4.1.18227.2.1.999.1~~ | ~~MULTIKEY-NONE~~ |
+| COMPOSITE-KEY | 2.16.840.1.114027.80.4.1 | id-Composite-Key |
+| ~~COMPOSITE~~ | ~~1.3.6.1.4.1.18227.2.1.999.1~~ | ~~id-Composite-Key~~ |
+| ~~MULTIKEY~~ | ~~1.3.6.1.4.1.18227.2.1.999.1~~ | ~~id-Multi-Key~~ |
 
-The MULTIKEY option has been integrated into the generic composite and does not
+Update: The MULTIKEY option has been integrated into the generic composite and does not
 need a separate OID. When the optional parameter (K of N) is present, the
 validation policy leverage the `K` parameter. When the key parameter is not
 present, the validation is equivalent to the case where `K == N`.
 
-Alongside the OID for generic Composite Keys, explicit combinations are defined
-that are aimed at providing standard combinations based on the characteristics of
-the combined algorithms.
+Differently from the Explicit use-case, for Generic Composite Direct Signature, the
+signature OID is not the same as the Key, but uses the following arc. The direct
+signature OID for Composite is defined as follows:
 
-Given the impossibility to define all possible combinations, for use-cases where
-the proposed combination of algorithms might not work, the use of the generic keys
-might be appropriate.
-
-## Explicit Composite Key and Signature OIDs 
-
-This section provides the OIDs associated with Explicit algorithm combinations for
-Composite Keys and Composite Signatures.  The Algorithm OID is the same for both the 
-Explicit Composite Key and for the Composite Signature Algorithm.  
-
-| AlgorithmID for both Composite Key and Signature Algorithms | OID | 
-| ----------- | ----------- | 
-| id-Dilithium3-RSA-PKCS15-SHA256         | 2.16.840.1.114027.80.5.1.1 |
-| id-Dilithium3-ECDSA-P256-SHA256            | 2.16.840.1.114027.80.5.1.2 | 
-| id-Dilithium3-ECDSA-brainpoolP256r1-SHA256 | 2.16.840.1.114027.80.5.1.3 | 
-| id-Dilithium3-Ed25519               | 2.16.840.1.114027.80.5.1.4 | 
-| id-Dilithium5-ECDSA-P384-SHA384            | 2.16.840.1.114027.80.5.1.5 |
-| id-Dilithium5-ECDSA-brainpoolP384r1-SHA384 | 2.16.840.1.114027.80.5.1.6 | 
-| id-Dilithium5-Ed448                   | 2.16.840.1.114027.80.5.1.7 | 
-| id-Falcon512-ECDSA-P256-SHA256        | 2.16.840.1.114027.80.5.1.8 | 
-| id-Falcon512-ECDSA-brainpoolP256r1-SHA256  | 2.16.840.1.114027.80.5.1.9 | 
-| id-Falcon512-Ed25519                       | 2.16.840.1.114027.80.5.1.10| 
-| ~~id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256~~ | ~~2.16.840.1.114027.80.5.1.11~~ | 
-| ~~id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256~~ | ~~2.16.840.1.114027.80.5.1.12~~ | 
-| ~~id-SPHINCSplusSHA256128sSimple-Ed25519~~  |~~2.16.840.1.114027.80.5.1.13~~ |  
-| id-Dilithium3-RSA-PSS-SHA256                   | 2.16.840.1.114027.80.5.1.14 |  
-
-# Composite Signatures OIDs
-
-This section provides two sets of algorithms. The first set is the set of
-signatures related to generic composite (both native and hash-n-sign paradigms)
-and explicit composite (only native at the moment).
-
-## Generic Composite Signatures OIDs
-
-This section provides the set of algorithms for native and hash-n-sign paradigm
-when using the generic composite OIDs
-
-### No Hash Signatures
-
-| Algorithm Name | OID | Signature Algorithm |
+| Algorithm Name | OID | Alias |
 | ----------- | ----------- | ----------- |
-| CompositeWithNoHash | 1.3.6.1.4.1.18227.2.1 | COMPOSITE-NONE |
+| CompositeWithNoHash | 1.3.6.1.4.1.18227.2.1 | COMPOSITE |
 
-### Standard Hash-n-Sign Signatures
+## Generic Composite and Hash-n-Sign
 
-In this case, we use a base OID for composite (1.3.6.1.4.1.18227.2.1)
-signatures and the sub-arcs for the combination of the supported
-hash algorithms.
+Generic Composite supports both signing with or without pre-hashing.
 
-By updating/replacing the base composite OID, all supported algorithm
-combinations can be easily updated to the new value.
+When using pre-hashing (hash-n-sign), we map the differet OIDs from
+the base OID for composite (1.3.6.1.4.1.18227.2.1). By updating/replacing
+the base composite OID, all supported algorithm combinations can be easily
+updated to the new value.
 
-| Algorithm Name | OID | Signature Algorithm |
+The list of suggested hash-n-sign combinations (also supported by NIST in
+informal conversation with the standardization team) are:
+
+| Algorithm Name | OID | Alias |
 | ----------- | ----------- | ----------- |
 | CompositeWithSha256 | 1.3.6.1.4.1.18227.2.1.2 | COMPOSITE-SHA256 |
 | CompositeWithSha512 | 1.3.6.1.4.1.18227.2.1.4 | COMPOSITE-SHA512 |
 
-# PQC Signatures OIDs
+Other supported hash-n-sign combinations are:
 
-Currently PQC signatures are defined for direct signing (i.e., no use of
-intermediary hash function). In this section, we provide a definition for
-both the direct and hash-n-sign paradigms.
-
-## No Hash PQC Signatures OIDs
-
-For PQC signatures, when no hash-n-sign is used, the OIDs match the OID for
-the individual algorithms. Here's the same table from the first section of this
-document:
-
-| Algorithm Name | OID | Signature Algorithm |
+| Algorithm Name | OID | Alias |
 | ----------- | ----------- | ----------- |
-| Dilithium2 | 1.3.6.1.4.1.2.267.7.4.4* | Dilithium2 |
-| Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
-| Dilithium5 | 1.3.6.1.4.1.2.267.7.8.7* | Dilithium5 |
-| Falcon-512 | 1.3.9999.3.1* | Falcon-512 |
-| Falcon-1024 | 1.3.9999.3.4* | Falcon-1024 |
-| SPHINCS+-SHA256-128f-simple | 1.3.9999.6.4.4* | SPHINCS+-SHA256-128f-simple |
-| SPHINCS+-SHA256-128s-simple | 1.3.9999.6.4.10* | SPHINCS+-SHA256-128s-simple |
-| SPHINCS+-SHA256-192f-simple | 1.3.9999.6.5.3* | SPHINCS+-SHA256-192f-simple |
-| SPHINCS+-SHA256-192s-simple | 1.3.9999.6.5.7* | SPHINCS+-SHA256-192s-simple |
-| SPHINCS+-SHA256-256f-simple | 1.3.9999.6.6.3* | SPHINCS+-SHA256-256f-simple |
-| SPHINCS+-SHA256-256s-simple | 1.3.9999.6.6.7* | SPHINCS+-SHA256-256s-simple |
+| CompositeWithSha256 | 1.3.6.1.4.1.18227.2.1.3 | COMPOSITE-SHA384 |
+| CompositeWithSha3at256 | 1.3.6.1.4.1.18227.2.1.5 | COMPOSITE-SHA3_256 |
+| CompositeWithSha3at384 | 1.3.6.1.4.1.18227.2.1.6 | COMPOSITE-SHA3_384 |
+| CompositeWithSha3at512 | 1.3.6.1.4.1.18227.2.1.7 | COMPOSITE-SHA3_512 |
+| CompositeWithShake128 | 1.3.6.1.4.1.18227.2.1.8 | COMPOSITE-SHAKE128 |
+| CompositeWithShake256 | 1.3.6.1.4.1.18227.2.1.9 | COMPOSITE-SHAKE256 |
 
 ## Hash-n-Sign PQC Signatures OIDs
 
@@ -179,47 +185,132 @@ of the algorithms as needed (i.e., the base OID for the DILITHIUM would be updat
 to 1.3.6.1.4.1.18227.999.1.1 and the DILITHIUM-SHA256 would be changed to
 1.3.6.1.4.1.18227.999.1.1.1.1).
 
-| Algorithm Name | OID | Signature Algorithm |
-| ----------- | ----------- | ----------- |
-| Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
-| Dilithium3WithSha256 | 1.3.6.1.4.1.18227.999.1.2.1 | DILITHIUM3-SHA256 |
-| ~~Dilithium3WithSha384~~ | ~~1.3.6.1.4.1.18227.999.1.2.2~~ | ~~DILITHIUM3-SHA384~~ |
-| Dilithium3WithSha512 | 1.3.6.1.4.1.18227.999.1.2.3 | DILITHIUM3-SHA512 |
-| ~~Dilithium3WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.1.2.4~~ | ~~DILITHIUM3-SHA3_256~~ |
-| ~~Dilithium3WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.1.2.5~~ | ~~DILITHIUM3-SHA3_384~~ |
-| ~~Dilithium3WithSha3At512~~ | ~~1.3.6.1.4.1.18227.999.1.2.6~~ | ~~DILITHIUM3-SHA3_512~~ |
-| ~~Dilithium3WithShake128~~ | ~~1.3.6.1.4.1.18227.999.1.2.7~~ | ~~DILITHIUM3-SHAKE128~~ |
-| ~~Dilithium3WithShake256~~ | ~~1.3.6.1.4.1.18227.999.1.2.8~~ | ~~DILITHIUM3-SHAKE256~~ |
-| Dilithium5 | 1.3.6.1.4.1.2.267.7.8.7* | Dilithium5 |
-| Dilithium5WithSha256 | 1.3.6.1.4.1.18227.999.1.2.1 | DILITHIUM5-SHA256 |
-| ~~Dilithium5WithSha384~~ | ~~1.3.6.1.4.1.18227.999.1.2.2~~ | ~~DILITHIUM5-SHA384~~ |
-| Dilithium5WithSha512 | 1.3.6.1.4.1.18227.999.1.2.3 | DILITHIUM5-SHA512 |
-| ~~Dilithium5WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.1.2.4~~ | ~~DILITHIUM5-SHA3_256~~ |
-| ~~Dilithium5WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.1.2.5~~ | ~~DILITHIUM5-SHA3_384~~ |
-| ~~Dilithium5WithSha3At512~~ | ~~1.3.6.1.4.1.18227.999.1.2.6~~ | ~~DILITHIUM5-SHA3_512~~ |
-| ~~Dilithium5WithShake128~~ | ~~1.3.6.1.4.1.18227.999.1.2.7~~ | ~~DILITHIUM5-SHAKE128~~ |
-| ~~Dilithium5WithShake256~~ | ~~1.3.6.1.4.1.18227.999.1.2.8~~ | ~~DILITHIUM5-SHAKE256~~ |
-| Falcon512 | 1.3.9999.3.1* | Falcon-512 |
-| Falcon512WithSha256 | 1.3.6.1.4.1.18227.999.2.1.1 | FALCON512-SHA256 |
-| ~~Falcon512WithSha384~~ | ~~1.3.6.1.4.1.18227.999.2.1.2~~ | ~~FALCON512-SHA384~~ |
-| Falcon512WithSha512 | 1.3.6.1.4.1.18227.999.2.1.3 | FALCON512-SHA512 |
-| ~~Falcon512WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.2.1.4~~ | ~~FALCON512-SHA3_256~~ |
-| ~~Falcon512WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.2.1.5~~ | ~~FALCON512-SHA3_384~~ |
-| ~~Falcon512WithSha3At512~~ | ~~1.3.6.1.4.1.18227.999.2.1.6~~ | ~~FALCON512-SHA3_512~~ |
-| ~~Falcon512WithShake128~~ | ~~1.3.6.1.4.1.18227.999.2.1.7~~ | ~~FALCON512-SHAKE128~~ |
-| ~~Falcon512WithShake256~~ | ~~1.3.6.1.4.1.18227.999.2.1.8~~ | ~~FALCON512-SHAKE256~~ |
-| Falcon1024 | 1.3.9999.3.4* | Falcon-1024 |
-| Falcon1024WithSha256 | 1.3.6.1.4.1.18227.999.2.2.1 | FALCON1024-SHA256 |
-| ~~Falcon1024WithSha384~~ | ~~1.3.6.1.4.1.18227.999.2.2.2~~ | ~~FALCON1024-SHA384~~ |
-| Falcon1024WithSha512 | 1.3.6.1.4.1.18227.999.2.2.3 | FALCON1024-SHA512 |
-| ~~Falcon1024WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.2.2.4~~ | ~~FALCON1024-SHA3_256~~ |
-| ~~Falcon1024WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.2.2.5~~ | ~~FALCON1024-SHA3_384~~ |
-| ~~Falcon1024WithSha3At512~~ | ~~1.3.6.1.4.1.18227.999.2.2.6~~ | ~~FALCON1024-SHA3_512~~ |
-| ~~Falcon1024WithShake128~~ | ~~1.3.6.1.4.1.18227.999.2.2.7~~ | ~~FALCON1024-SHAKE128~~ |
-| ~~Falcon1024WithShake256~~ | ~~1.3.6.1.4.1.18227.999.2.2.8~~ | ~~FALCON1024-SHAKE256~~ |
-| SPHINCS+-SHA256-128f-simple | 1.3.9999.6.4.4* | SPHINCS+-SHA256-128f-simple |
-| SPHINCS+-SHA256-128s-simple | 1.3.9999.6.4.10* | SPHINCS+-SHA256-128s-simple |
-| SPHINCS+-SHA256-192f-simple | 1.3.9999.6.5.3* | SPHINCS+-SHA256-192f-simple |
-| SPHINCS+-SHA256-192s-simple | 1.3.9999.6.5.7* | SPHINCS+-SHA256-192s-simple |
-| SPHINCS+-SHA256-256f-simple | 1.3.9999.6.6.3* | SPHINCS+-SHA256-256f-simple |
-| SPHINCS+-SHA256-256s-simple | 1.3.9999.6.6.7* | SPHINCS+-SHA256-256s-simple |
+### Dilithium2 Hash-n-Sign Algorithm Identifiers
+
+The list of suggested hash-n-sign combinations is as follows:
+
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
+| ----------- | ----------- | ----------- |  ----------- |
+| Dilithium2WithSha256 | 1.3.6.1.4.1.18227.999.1.1.1 | Dilithium2 | SHA256 |
+| Dilithium2WithSha512 | 1.3.6.1.4.1.18227.999.1.1.3 | Dilithium2 | SHA512 |
+
+The full list of supported hash-n-sign combinations also comprises the following:
+
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
+| ----------- | ----------- | ----------- |  ----------- |
+| Dilithium2WithSha384 | 1.3.6.1.4.1.18227.999.1.1.2 | Dilithium2 | SHA384 |
+| Dilithium2WithSha3At256 | 1.3.6.1.4.1.18227.999.1.1.4 | Dilithium2 | SHA3_256 |
+| Dilithium2WithSha3At384 | 1.3.6.1.4.1.18227.999.1.1.5 | Dilithium2 | SHA3_384 |
+| Dilithium2WithSha3At512 | 1.3.6.1.4.1.18227.999.1.1.6 | Dilithium2 | SHA3_512 |
+| Dilithium2WithShake128 | 1.3.6.1.4.1.18227.999.1.1.7 | Dilithium2 | SHAKE128 |
+| Dilithium2WithShake256 | 1.3.6.1.4.1.18227.999.1.1.8 | Dilithium2 | SHAKE256 |
+
+### Dilithium3 Hash-n-Sign Algorithm Identifiers
+
+The list of suggested hash-n-sign combinations is as follows:
+
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
+| ----------- | ----------- | ----------- |  ----------- |
+| Dilithium3WithSha256 | 1.3.6.1.4.1.18227.999.1.2.1 | Dilithium3 | SHA256 |
+| Dilithium3WithSha512 | 1.3.6.1.4.1.18227.999.1.2.3 | Dilithium3 | SHA512 |
+
+The full list of supported hash-n-sign combinations also comprises the following:
+
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
+| ----------- | ----------- | ----------- |  ----------- |
+| Dilithium3WithSha384 | 1.3.6.1.4.1.18227.999.1.2.2 | Dilithium3 | SHA384 |
+| Dilithium3WithSha3At256 | 1.3.6.1.4.1.18227.999.1.2.4 | Dilithium3 | SHA3_256 |
+| Dilithium3WithSha3At384 | 1.3.6.1.4.1.18227.999.1.2.5 | Dilithium3 | SHA3_384 |
+| Dilithium3WithSha3At512 | 1.3.6.1.4.1.18227.999.1.2.6 | Dilithium3 | SHA3_512 |
+| Dilithium3WithShake128 | 1.3.6.1.4.1.18227.999.1.2.7 | Dilithium3 | SHAKE128 |
+| Dilithium3WithShake256 | 1.3.6.1.4.1.18227.999.1.2.8 | Dilithium3 | SHAKE256 |
+
+### Dilithium5 Hash-n-Sign Algorithm Identifiers
+
+The list of suggested hash-n-sign combinations is as follows:
+
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
+| ----------- | ----------- | ----------- |  ----------- |
+| Dilithium5WithSha256 | 1.3.6.1.4.1.18227.999.1.2.1 | Dilithium5 | SHA256 |
+| Dilithium5WithSha512 | 1.3.6.1.4.1.18227.999.1.2.3 | Dilithium5 | SHA512 |
+
+The full list of supported hash-n-sign combinations also comprises the following:
+
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
+| ----------- | ----------- | ----------- |  ----------- |
+| Dilithium5WithSha384 | 1.3.6.1.4.1.18227.999.1.2.2 | Dilithium5 | SHA384 |
+| Dilithium5WithSha3At256 | 1.3.6.1.4.1.18227.999.1.2.4 | Dilithium5 | SHA3_256 |
+| Dilithium5WithSha3At384 | 1.3.6.1.4.1.18227.999.1.2.5 | Dilithium5 | SHA3_384 |
+| Dilithium5WithSha3At512 | 1.3.6.1.4.1.18227.999.1.2.6 | Dilithium5 | SHA3_512 |
+| Dilithium5WithShake128 | 1.3.6.1.4.1.18227.999.1.2.7 | Dilithium5 | SHAKE128 |
+| Dilithium5WithShake256 | 1.3.6.1.4.1.18227.999.1.2.8 | Dilithium5 | SHAKE256 |
+
+### Falcon512 Hash-n-Sign Algorithm Identifiers
+
+The list of suggested hash-n-sign combinations is as follows:
+
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
+| ----------- | ----------- | ----------- |  ----------- |
+| ~~Falcon512WithSha256~~ | ~~1.3.6.1.4.1.18227.999.2.1.1~~ | ~~Falcon512~~ | ~~SHA256~~ |
+| ~~Falcon512WithSha512~~ | ~~1.3.6.1.4.1.18227.999.2.3.3~~ | ~~Falcon512~~ | ~~SHA512~~ |
+| Falcon512WithSha256 | 1.3.6.1.4.1.18227.999.2.3.1.1 | Falcon512 | SHA256 |
+| Falcon512WithSha512 | 1.3.6.1.4.1.18227.999.2.3.3.1 | Falcon512 | SHA512 |
+
+The full list of supported hash-n-sign combinations also comprises the following:
+
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
+| ----------- | ----------- | ----------- |  ----------- |
+| ~~Falcon512WithSha384~~ | ~~1.3.6.1.4.1.18227.999.2.1.2~~ | ~~Falcon512~~ | ~~SHA384~~ |
+| ~~Falcon512WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.2.1.4~~ | ~~Falcon512~~ | ~~SHA3_256~~ |
+| ~~Falcon512WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.2.1.5~~ | ~~Falcon512~~ | ~~SHA3_384~~ |
+| ~~Falcon512WithSha3At512~~ | ~~.3.6.1.4.1.18227.999.2.1.6~~ | ~~Falcon512~~ | ~~SHA3_512~~ |
+| ~~Falcon512WithShake128~~ | ~~1.3.6.1.4.1.18227.999.2.1.7~~ | ~~Falcon512~~ | ~~SHAKE128~~ |
+| ~~Falcon512WithShake256~~ | ~~1.3.6.1.4.1.18227.999.2.1.8~~ | ~~Falcon512~~ | ~~SHAKE256~~ |
+| Falcon512WithSha384 | 1.3.6.1.4.1.18227.999.2.3.2.1 | Falcon512 | SHA384 |
+| Falcon512WithSha3At256 | 1.3.6.1.4.1.18227.999.2.3.4.1 | Falcon512 | SHA3_256 |
+| Falcon512WithSha3At384 | 1.3.6.1.4.1.18227.999.2.3.5.1 | Falcon512 | SHA3_384 |
+| Falcon512WithSha3At512 | 1.3.6.1.4.1.18227.999.2.3.6.1 | Falcon512 | SHA3_512 |
+| Falcon512WithShake128 | 1.3.6.1.4.1.18227.999.2.3.7.1 | Falcon512 | SHAKE128 |
+| Falcon512WithShake256 | 1.3.6.1.4.1.18227.999.2.3.8.1 | Falcon512 | SHAKE256 |
+
+Update: The OIDs for Falcon combinations have been updated to reflect the changes
+in the algorithm's parameters (May 2023)
+
+### Falcon1024 Hash-n-Sign Algorithm Identifiers
+
+The list of suggested hash-n-sign combinations is as follows:
+
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
+| ----------- | ----------- | ----------- |  ----------- |
+~~| Falcon1024WithSha256 | 1.3.6.1.4.1.18227.999.2.2.1 | FALCON1024-SHA256 |~~
+~~| Falcon1024WithSha512 | 1.3.6.1.4.1.18227.999.2.2.3 | FALCON1024-SHA512 |~~
+| Falcon1024WithSha256 | 1.3.6.1.4.1.18227.999.2.2.1.1 | FALCON1024-SHA256 |
+| Falcon1024WithSha512 | 1.3.6.1.4.1.18227.999.2.2.3.1 | FALCON1024-SHA512 |
+
+The full list of supported hash-n-sign combinations also comprises the following:
+
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
+| ----------- | ----------- | ----------- |  ----------- |
+~~| Falcon1024WithSha384 | 1.3.6.1.4.1.18227.999.2.2.2 | FALCON1024-SHA384 |~~
+~~| Falcon1024WithSha3At256 | 1.3.6.1.4.1.18227.999.2.2.4 | FALCON1024-SHA3_256 |~~
+~~| Falcon1024WithSha3At384 | 1.3.6.1.4.1.18227.999.2.2.5 | FALCON1024-SHA3_384 |~~
+~~| Falcon1024WithSha3At512 | 1.3.6.1.4.1.18227.999.2.2.6 | FALCON1024-SHA3_512 |~~
+~~| Falcon1024WithShake128 | 1.3.6.1.4.1.18227.999.2.2.7 | FALCON1024-SHAKE128 |~~
+~~| Falcon1024WithShake256 | 1.3.6.1.4.1.18227.999.2.2.8 | FALCON1024-SHAKE256 |~~
+| Falcon1024WithSha384 | 1.3.6.1.4.1.18227.999.2.2.2.1 | FALCON1024-SHA384 |
+| Falcon1024WithSha3At256 | 1.3.6.1.4.1.18227.999.2.2.4.1 | FALCON1024-SHA3_256 |
+| Falcon1024WithSha3At384 | 1.3.6.1.4.1.18227.999.2.2.5.1 | FALCON1024-SHA3_384 |
+| Falcon1024WithSha3At512 | 1.3.6.1.4.1.18227.999.2.2.6.1 | FALCON1024-SHA3_512 |
+| Falcon1024WithShake128 | 1.3.6.1.4.1.18227.999.2.2.7.1 | FALCON1024-SHAKE128 |
+| Falcon1024WithShake256 | 1.3.6.1.4.1.18227.999.2.2.8.1 | FALCON1024-SHAKE256 |
+
+Update: The OIDs for Falcon combinations have been updated to reflect the changes
+in the algorithm's parameters (May 2023)
+
+### SPHINCS+ Hash-n-Sign Algorithm Identifiers
+
+Because of the characteristics of SPHINCS+, the risk associated with the algorithm,
+when compared to classic ones, is low enough that the use of hybrid is not felt
+as compelling as other use-cases.
+
+Update: We removed the support for hash-n-sign for SPHINCS+.
