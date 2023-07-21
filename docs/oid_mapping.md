@@ -34,17 +34,23 @@ and neither are the robust variant of SPHINCS+.
 | Falcon-512 | 1.3.9999.3.6* | Falcon-512 |
 | Falcon-1024 | 1.3.9999.3.9* | Falcon-1024 |
 | ~~SPHINCS+-SHA256-128f-robust~~ | ~~1.3.9999.6.4.1*~~ | ~~SPHINCS+-SHA256-128f-robust~~ |
-| SPHINCS+-SHA256-128f-simple | 1.3.9999.6.4.4* | SPHINCS+-SHA256-128f-simple |
+| ~~SPHINCS+-SHA256-128f-simple~~ | ~~1.3.9999.6.4.4*~~ | ~~SPHINCS+-SHA256-128f-simple~~ |
+| SPHINCS+-SHA2-128f-simple | 1.3.9999.6.4.13* | SPHINCS+-SHA2-128f-simple |
 | ~~SPHINCS+-SHA256-128s-robust~~ | ~~1.3.9999.6.4.7*~~ | ~~SPHINCS+-SHA256-128s-robust~~ |
-| SPHINCS+-SHA256-128s-simple | 1.3.9999.6.4.10* | SPHINCS+-SHA256-128s-simple |
+| ~~SPHINCS+-SHA256-128s-simple~~ | ~~1.3.9999.6.4.10*~~ | ~~SPHINCS+-SHA256-128s-simple~~ |
+| SPHINCS+-SHA2-128s-simple | 1.3.9999.6.4.16* | SPHINCS+-SHA2-128s-simple |
 | ~~SPHINCS+-SHA256-192f-robust~~ | ~~1.3.9999.6.5.1*~~ | ~~SPHINCS+-SHA256-192f-robust~~ |
-| SPHINCS+-SHA256-192f-simple | 1.3.9999.6.5.3* | SPHINCS+-SHA256-192f-simple |
+| ~~SPHINCS+-SHA256-192f-simple~~ | ~~1.3.9999.6.5.3*~~ | ~~SPHINCS+-SHA256-192f-simple~~ |
+| SPHINCS+-SHA2-192f-simple | 1.3.9999.6.5.10* | SPHINCS+-SHA2-192f-simple |
 | ~~SPHINCS+-SHA256-192s-robust~~ | ~~1.3.9999.6.5.5~~ | ~~SPHINCS+-SHA256-192s-robust~~ |
-| SPHINCS+-SHA256-192s-simple | 1.3.9999.6.5.7* | SPHINCS+-SHA256-192s-simple |
+| ~~SPHINCS+-SHA256-192s-simple~~ | ~~1.3.9999.6.5.7*~~ | ~~SPHINCS+-SHA256-192s-simple~~ |
+| SPHINCS+-SHA2-192s-simple | 1.3.9999.6.5.12* | SPHINCS+-SHA2-192s-simple |
 | ~~SPHINCS+-SHA256-256f-robust~~ | ~~1.3.9999.6.6.1*~~ | ~~SPHINCS+-SHA256-256f-robust~~ |
-| SPHINCS+-SHA256-256f-simple | 1.3.9999.6.6.3* | SPHINCS+-SHA256-256f-simple |
+| ~~SPHINCS+-SHA256-256f-simple~~ | ~~1.3.9999.6.6.3*~~ | ~~SPHINCS+-SHA256-256f-simple~~ |
+| SPHINCS+-SHA2-256f-simple | 1.3.9999.6.6.10* | SPHINCS+-SHA2-256f-simple |
 | ~~SPHINCS+-SHA256-256s-robust~~ | ~~1.3.9999.6.6.5*~~ | ~~SPHINCS+-SHA256-256s-robust~~ |
-| SPHINCS+-SHA256-256s-simple | 1.3.9999.6.6.7* | SPHINCS+-SHA256-256s-simple |
+| ~~SPHINCS+-SHA256-256s-simple~~ | ~~1.3.9999.6.6.7*~~ | ~~SPHINCS+-SHA256-256s-simple~~ |
+| SPHINCS+-SHA2-256s-simple | 1.3.9999.6.6.12* | SPHINCS+-SHA2-256s-simple |
 
 Update: The AES version of Dilithium were removed due to their exclusion from the NIST
 standardization process.
@@ -53,7 +59,9 @@ Update: The Falcon-512 and Falcon-1024 OIDs have been updated due to the updates
 algorithm's parameters.
 
 Update: The SPHINCS+ robust variants have been removed due to their drop from the NIST
-standardization process.
+standardization process.  SPHINCS+ OIDs were updated in LibOQS in May 2023 to reflect the 
+algorithm changes in SPHINCS+.   Therefore, the OIDs were up-versioned in LibOQS to
+prevent compatiblity issues and we have accomodated those changes here as well.
 
 ## KEM Algorithm OIDs
 
