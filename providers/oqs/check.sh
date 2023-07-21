@@ -102,7 +102,7 @@ check() {
 
 # Checks for the input
 # List of Sub Directories
-SUBDIRS="openssl111 oqsprovider"
+SUBDIRS="oqsprovider"
 
 # Checks for the input
 if ! [ "x$1" = "x" ] ; then
@@ -119,14 +119,6 @@ for sd in ${SUBDIRS}; do
            openssl list --providers 2>&1 | grep oqsprovider > /dev/null
            if [ $? -ne 0 ]; then
                    echo "oqsprovider not available"
-                   continue
-           fi
-    fi
-    if [ $sd == "openssl111" ]; then
-           # check oqs-openssl111 runs
-           openssl version | grep "Open Quantum Safe" > /dev/null
-           if [ $? -ne 0 ]; then
-                   echo "OQS-openssl not active"
                    continue
            fi
     fi

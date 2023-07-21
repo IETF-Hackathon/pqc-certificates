@@ -139,7 +139,7 @@ runandlog() {
    
 rm -rf log
 # Sub folders for the provider
-SUBDIRS="openssl111 oqsprovider"
+SUBDIRS="oqsprovider"
 
 for dir in ${SUBDIRS} ; do 
 
@@ -148,14 +148,6 @@ for dir in ${SUBDIRS} ; do
 	   openssl list --providers | grep oqsprovider > /dev/null
 	   if [ $? -ne 0 ]; then
 		   echo "oqsprovider not available"
-		   continue
-	   fi
-   fi
-   if [ $dir == "openssl111" ]; then
-	   # check oqs-openssl111 runs
-	   openssl version | grep "Open Quantum Safe" > /dev/null
-	   if [ $? -ne 0 ]; then
-		   echo "OQS-openssl not active"
 		   continue
 	   fi
    fi
@@ -171,17 +163,23 @@ for dir in ${SUBDIRS} ; do
    runandlog ${dir} dilithium3 1.3.6.1.4.1.2.267.7.6.5
    runandlog ${dir} dilithium5 1.3.6.1.4.1.2.267.7.8.7
 
-   # Dilitium AES
-   runandlog ${dir} dilithium2_aes 1.3.6.1.4.1.2.267.11.4.4
-   runandlog ${dir} dilithium3_aes 1.3.6.1.4.1.2.267.11.6.5
-   runandlog ${dir} dilithium5_aes 1.3.6.1.4.1.2.267.11.8.7
-
    # Falcon
    runandlog ${dir} falcon512 1.3.9999.3.6
    runandlog ${dir} falcon1024 1.3.9999.3.9
 
    # Sphincs+
-   runandlog ${dir} sphincssha256128frobust 1.3.9999.6.4.1
+   runandlog ${dir} sphincssha2128fsimple 1.3.9999.6.4.13
+   runandlog ${dir} sphincssha2128ssimple 1.3.9999.6.4.16
+   runandlog ${dir} sphincssha2192fsimple 1.3.9999.6.5.10
+   runandlog ${dir} sphincssha2192ssimple 1.3.9999.6.5.12
+   runandlog ${dir} sphincssha2256fsimple 1.3.9999.6.6.10
+   runandlog ${dir} sphincssha2256ssimple 1.3.9999.6.6.12
+   runandlog ${dir} sphincsshake128fsimple 1.3.9999.6.7.13
+   runandlog ${dir} sphincsshake128ssimple 1.3.9999.6.7.16
+   runandlog ${dir} sphincsshake192fsimple 1.3.9999.6.8.10
+   runandlog ${dir} sphincsshake192ssimple 1.3.9999.6.8.12
+   runandlog ${dir} sphincsshake256fsimple 1.3.9999.6.9.10
+   runandlog ${dir} sphincsshake256ssimple 1.3.9999.6.9.12
 
 done
 echo "All data successfully generated."
