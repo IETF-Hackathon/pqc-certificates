@@ -63,11 +63,11 @@ def _format_result_cell(avr) -> str:
         display_key = artifact_key.upper().replace('_', ' ')
 
         if r is None:
-            display_result = ':question:'
+            display_result = '?'
         elif r:
-            display_result = ':heavy_check_mark:'
+            display_result = '✓'
         else:
-            display_result = ':x:'
+            display_result = 'X'
 
         result_lines.append(f'{display_key}: {display_result}')
 
