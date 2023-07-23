@@ -37,4 +37,4 @@ Run `python3 pqc_report_writer.py OID_MAPPING_FILE FILES`, where:
 * `OID_MAPPING_FILE` is the file that contains the mapping of OIDs to their long names
 * `FILES` is the list of result files
 
-The resulting Markdown file will be output to `stdout`.
+The resulting Markdown file will be output to `pqc_hackathon_results.md`.
