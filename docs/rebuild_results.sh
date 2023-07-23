@@ -13,3 +13,6 @@ done
 # echo "files:"
 # echo $files
 python3 ../src/pqc_report_writer.py oid_mapping.md $files
+
+# convert to html
+pandoc -f markdown pqc_hackathon_results.md > pqc_hackathon_results.html
