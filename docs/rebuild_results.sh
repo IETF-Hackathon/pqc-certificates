@@ -12,4 +12,4 @@ done
 # build the compat matrix
 # echo "files:"
 # echo $files
-python3 ../src/pqc_report_writer.py oid_mapping.md $files > compat_matrix.md
+python3 ../src/pqc_report_writer.py oid_mapping.md $files
