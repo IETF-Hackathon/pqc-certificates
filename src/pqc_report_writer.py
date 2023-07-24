@@ -8,7 +8,7 @@ from mdutils.mdutils import MdUtils
 
 
 _FILENAME_REGEX = re.compile('^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
-_OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\|\s*(?P<oid>\d+(\.\d+)+)\*?\s*\|.+\|$')
+_OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.+\|$')
 
 
 class AlgorithmVerificationResult(NamedTuple):
