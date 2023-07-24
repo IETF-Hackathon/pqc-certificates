@@ -10,8 +10,7 @@ for dir in $dirs; do
 done
 
 # build the compat matrix
-# echo "files:"
-# echo $files
+# outputs to `pqc_hackathon_results.md`
 python3 pqc_report_writer.py ../docs/oid_mapping.md $files
 
 # convert to html

@@ -7,6 +7,14 @@ Taken from:
 
 Note: asterisk "*" means experimental; ie likely to change after the hackathon.
 
+# MikeTest
+
+| Name                 | OID                         |
+| -------------------- | --------------------------- |
+| MikeTest    | 1.2.840.10045.2.1 | huh |
+| ecPublicKey | 1.2.840.10045.2.1 |
+| prime256v1  | 1.2.840.10045.3.1.7 |
+
 ## Single-algorithm OIDs
 
 This section provides the individual OIDs used for the different algorithms.
@@ -272,7 +280,7 @@ The full list of supported hash-n-sign combinations also comprises the following
 | ~~Falcon512WithSha384~~ | ~~1.3.6.1.4.1.18227.999.2.1.2~~ | ~~Falcon512~~ | ~~SHA384~~ |
 | ~~Falcon512WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.2.1.4~~ | ~~Falcon512~~ | ~~SHA3_256~~ |
 | ~~Falcon512WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.2.1.5~~ | ~~Falcon512~~ | ~~SHA3_384~~ |
-| ~~Falcon512WithSha3At512~~ | ~~.3.6.1.4.1.18227.999.2.1.6~~ | ~~Falcon512~~ | ~~SHA3_512~~ |
+| ~~Falcon512WithSha3At512~~ | ~~1.3.6.1.4.1.18227.999.2.1.6~~ | ~~Falcon512~~ | ~~SHA3_512~~ |
 | ~~Falcon512WithShake128~~ | ~~1.3.6.1.4.1.18227.999.2.1.7~~ | ~~Falcon512~~ | ~~SHAKE128~~ |
 | ~~Falcon512WithShake256~~ | ~~1.3.6.1.4.1.18227.999.2.1.8~~ | ~~Falcon512~~ | ~~SHAKE256~~ |
 | Falcon512WithSha384 | 1.3.6.1.4.1.18227.999.2.3.2.1 | Falcon512 | SHA384 |
@@ -291,8 +299,8 @@ The list of suggested hash-n-sign combinations is as follows:
 
 | Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
 | ----------- | ----------- | ----------- |  ----------- |
-~~| Falcon1024WithSha256 | 1.3.6.1.4.1.18227.999.2.2.1 | FALCON1024-SHA256 |~~
-~~| Falcon1024WithSha512 | 1.3.6.1.4.1.18227.999.2.2.3 | FALCON1024-SHA512 |~~
+| ~~Falcon1024WithSha256~~ | ~~1.3.6.1.4.1.18227.999.2.2.1~~ | ~~FALCON1024-SHA256~~ |
+| ~~Falcon1024WithSha512~~ | ~~1.3.6.1.4.1.18227.999.2.2.3~~ | ~~FALCON1024-SHA512~~ |
 | Falcon1024WithSha256 | 1.3.6.1.4.1.18227.999.2.2.1.1 | FALCON1024-SHA256 |
 | Falcon1024WithSha512 | 1.3.6.1.4.1.18227.999.2.2.3.1 | FALCON1024-SHA512 |
 
@@ -300,12 +308,12 @@ The full list of supported hash-n-sign combinations also comprises the following
 
 | Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
 | ----------- | ----------- | ----------- |  ----------- |
-~~| Falcon1024WithSha384 | 1.3.6.1.4.1.18227.999.2.2.2 | FALCON1024-SHA384 |~~
-~~| Falcon1024WithSha3At256 | 1.3.6.1.4.1.18227.999.2.2.4 | FALCON1024-SHA3_256 |~~
-~~| Falcon1024WithSha3At384 | 1.3.6.1.4.1.18227.999.2.2.5 | FALCON1024-SHA3_384 |~~
-~~| Falcon1024WithSha3At512 | 1.3.6.1.4.1.18227.999.2.2.6 | FALCON1024-SHA3_512 |~~
-~~| Falcon1024WithShake128 | 1.3.6.1.4.1.18227.999.2.2.7 | FALCON1024-SHAKE128 |~~
-~~| Falcon1024WithShake256 | 1.3.6.1.4.1.18227.999.2.2.8 | FALCON1024-SHAKE256 |~~
+| ~~Falcon1024WithSha384~~ | ~~1.3.6.1.4.1.18227.999.2.2.2~~ | ~~FALCON1024-SHA384~~ |
+| ~~Falcon1024WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.2.2.4~~ | ~~FALCON1024-SHA3_256~~ |
+| ~~Falcon1024WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.2.2.5~~ | ~~FALCON1024-SHA3_384~~ |
+| ~~Falcon1024WithSha3At512~~ | ~~1.3.6.1.4.1.18227.999.2.2.6~~ | ~~FALCON1024-SHA3_512~~ |
+| ~~Falcon1024WithShake128~~ | ~~1.3.6.1.4.1.18227.999.2.2.7~~ | ~~FALCON1024-SHAKE128~~ |
+| ~~Falcon1024WithShake256~~ | ~~1.3.6.1.4.1.18227.999.2.2.8~~ | ~~FALCON1024-SHAKE256~~ |
 | Falcon1024WithSha384 | 1.3.6.1.4.1.18227.999.2.2.2.1 | FALCON1024-SHA384 |
 | Falcon1024WithSha3At256 | 1.3.6.1.4.1.18227.999.2.2.4.1 | FALCON1024-SHA3_256 |
 | Falcon1024WithSha3At384 | 1.3.6.1.4.1.18227.999.2.2.5.1 | FALCON1024-SHA3_384 |
@@ -323,3 +331,14 @@ when compared to classic ones, is low enough that the use of hybrid is not felt
 as compelling as other use-cases.
 
 Update: We removed the support for hash-n-sign for SPHINCS+.
+
+# Other algorithm types
+
+This is non-PQC OIDs that are used in the artifacts of included providers.
+(included here to make the results table easier to read)
+
+| Name                 | OID                         |
+| -------------------- | --------------------------- |
+| MikeTest     | 1.2.840.10045.2.1 | huh |
+| ecPublicKey | 1.2.840.10045.2.1 |
+| prime256v1  | 1.2.840.10045.3.1.7 |
