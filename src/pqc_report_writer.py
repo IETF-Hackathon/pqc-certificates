@@ -65,9 +65,9 @@ def _format_result_cell(avr) -> str:
         if r is None:
             display_result = '?'
         elif r:
-            display_result = '✓'
+            display_result = '✅'
         else:
-            display_result = 'X'
+            display_result = '❌'
 
         # if the result is '?', then do not pring the line
         if (display_result != '?'):
