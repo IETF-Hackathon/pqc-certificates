@@ -3,6 +3,10 @@
 This tool parses interoperability results files and creates Markdown-based
 tables.
 
+The `rebuild_results.sh` script will compile the interop test results from all providers.
+If you have updated your test results, then please re-run `rebuild_reselts.sh` before committing.
+https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html displays the /docs folder of the `master` branch.
+
 ## The interoperability results format
 
 Interoperability result files are CSV-formatted. JSON support is planned.
@@ -29,6 +33,7 @@ In this example, the root and ICA signatures validated, but the end-entity certi
 
 1. Install Python 3
 2. Install [mdutils](https://github.com/didix21/mdutils): `pip3 install -r requirements.txt`
+3. `apt install pandoc`
 
 ## Execution
 

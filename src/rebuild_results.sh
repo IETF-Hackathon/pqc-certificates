@@ -12,7 +12,8 @@ done
 # build the compat matrix
 # echo "files:"
 # echo $files
-python3 ../src/pqc_report_writer.py oid_mapping.md $files
+python3 pqc_report_writer.py ../docs/oid_mapping.md $files
 
 # convert to html
 pandoc -f markdown pqc_hackathon_results.md > pqc_hackathon_results.html
+mv pqc_hackathon_results.md pqc_hackathon_results.html ../docs
