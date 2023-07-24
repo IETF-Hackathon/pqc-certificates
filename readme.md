@@ -9,6 +9,13 @@ This repo represents work done between IETF 115 - 117.
 A summary table of the ongoing interoperability testing can be found here:
 https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html
 
+## Goals
+- Adding PQ algorithm support into existing X.509 structures (keys, signatures, certificates and protocols)
+- Test and interoperate with newer draft updated to support the migration to PQ 
+- provide an artifact repository for interoperability testing
+- Provide a comprehensive compatibility matrix to show results
+- Provide feedback to the standards groups about practical usage
+
 ## Folder structure of this repo
 
 The project's directory structure is as follows:

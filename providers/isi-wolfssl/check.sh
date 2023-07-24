@@ -5,18 +5,17 @@
 # * George Tasopoulos (Industrial Systems Institute / ATHENA R.C.) at 22-23 July 2023.
 # */
 
-	dir_list="bc/java-artifacts botan/default carl_redhound/default \
-	corey_digicert/default cryptonext/default entrust/oqs kris/default \
+	dir_list="bc/java-artifacts botan/default carl-redhound/default \
+	corey-digicert/default cryptonext/default entrust/oqs kris/default \
 	openca/libpki oqs/openssl111 oqs/oqsprovider oqs-gnutls/default" 
 
 
 	# Build the C program that we are using
 	make
 
-
-	# Checks if the comptMatrices directory exists and created it if not
-	if ! [[ -d "comptMatrices" ]]; then
-		mkdir comptMatrices
+	# Checks if the compatMatrices directory exists and created it if not
+	if ! [[ -d "compatMatrices" ]]; then
+		mkdir compatMatrices
 	fi
 	
 	# Change directory providers
@@ -28,19 +27,26 @@
 	# Traverse into each one of the prociders in dir_list
 	for d in ${dir_list}; do
 
-		# Get the name of the provider without the subdirectory: bc/jana=artifacts --> bc
-		provider_without_subdir=${d%/*}
-
-		# Delete any _ characters
-		provider="${provider_without_subdir//_}"
+		# Get the name of the provider without the subdirectory except for oqs:
+		# bc/janva-artifacts --> bc 
+		# oqs/oqsprovider --> oqs-provider
+		# ...
+		if [[ ${d} == oqs/openssl111 ]]; then
+        	provider="oqs-openssl111"
+        elif [[ ${d} == oqs/oqsprovider ]]; then
+        	provider="oqs-provider"
+		else
+			provider=${d%/*}
+		fi
+		
 
 		# Delete the csv file if it already exists
-		if [[ -f "isi_wolfssl/comptMatrices/${provider}_isiwolfssl.csv" ]]; then
-			rm isi_wolfssl/comptMatrices/${provider}_isiwolfssl.csv
+		if [[ -f "isi-wolfssl/compatMatrices/${provider}_isi-wolfssl.csv" ]]; then
+			rm isi-wolfssl/compatMatrices/${provider}_isi-wolfssl.csv
 		fi
 
 		# Create the csv file from scratch
-		echo "key_algorithm_oid,ta,ca,ee,crl_ta,crl_ca" > isi_wolfssl/comptMatrices/${provider}_isiwolfssl.csv
+		echo "key_algorithm_oid,ta,ca,ee,crl_ta,crl_ca" > isi-wolfssl/compatMatrices/${provider}_isi-wolfssl.csv
 
 		# Push the current dir to stack
 		pushd . > /dev/null
@@ -57,7 +63,7 @@
 		# The case that the artifact.zip is missing the proper directory artifact so we create it and unzip all in there
 		if ! [ -d "artifacts" ] ; then
 
-			# # Delete the mess
+			# # Uncomment to delete the mess
 			# while read -r _ _ _ file; do
 			#   arr+=("$file")
 			# done < <(unzip -qql artifacts.zip)
@@ -76,10 +82,10 @@
 		    if [ -d "$f" ]; then
 
 		    	# Set the path to the current csv file
-		        csv_file="../../../isi_wolfssl/comptMatrices/${provider}_isiwolfssl.csv"
+		        csv_file="../../../isi-wolfssl/compatMatrices/${provider}_isi-wolfssl.csv"
 
 		        # Set path to executable program
-		        verify_program="./../../../isi_wolfssl/verify_certs"
+		        verify_program="./../../../isi-wolfssl/verify_certs"
 
 				# echo ${f}
 		        
