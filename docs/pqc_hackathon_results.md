@@ -205,14 +205,14 @@ Rows are producers. Columns are parsers.
 |bc||TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |botan|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅|||||TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |carl-redhound|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅|||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|||||||
+|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-provider|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 
 # ~~DilithiumAES3~~ (1.3.6.1.4.1.2.267.11.6.5)
@@ -222,14 +222,14 @@ Rows are producers. Columns are parsers.
 |bc||TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |botan|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅|||||TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |carl-redhound|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅|||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|||||||
+|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-provider|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 
 # ~~DilithiumAES5~~ (1.3.6.1.4.1.2.267.11.8.7)
@@ -239,14 +239,14 @@ Rows are producers. Columns are parsers.
 |bc||TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |botan|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅|||||TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |carl-redhound|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅|||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|||||||
+|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-provider|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 
 # Dilithium2 (1.3.6.1.4.1.2.267.7.4.4)
@@ -263,7 +263,7 @@ Rows are producers. Columns are parsers.
 |kris|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |openca|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||TA: ✅<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|||||||
+|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-provider|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 
 # Dilithium3 (1.3.6.1.4.1.2.267.7.6.5)
@@ -280,7 +280,7 @@ Rows are producers. Columns are parsers.
 |kris|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |openca|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||TA: ✅<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-gnutls|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ✅<br>EE: ✅||||||
-|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|||||||
+|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-provider|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 
 # Dilithium5 (1.3.6.1.4.1.2.267.7.8.7)
@@ -297,7 +297,7 @@ Rows are producers. Columns are parsers.
 |kris|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |openca|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||TA: ✅<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|||||||
+|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-provider|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ✅<br>CA: ✅<br>EE: ✅||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 
 # kyber512 (1.3.6.1.4.1.22554.5.6.1)
@@ -358,14 +358,14 @@ Rows are producers. Columns are parsers.
 |bc||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ✅<br>EE: ✅||||||
 |botan|||||||||||||
 |carl-redhound|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |entrust|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
 |kris|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |openca|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|||||||
+|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-provider|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 
 # ~~Falcon-1024~~ (1.3.9999.3.4)
@@ -375,14 +375,14 @@ Rows are producers. Columns are parsers.
 |bc||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ✅<br>EE: ✅||||||
 |botan|||||||||||||
 |carl-redhound|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ✅<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |entrust|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
 |kris|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |openca|TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|||||||
+|oqs-openssl111|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-provider|TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 
 # Falcon-512 (1.3.9999.3.6)
@@ -392,7 +392,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound|||||||||||||
-|corey-digicert||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||||
+|corey-digicert||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |cryptonext|||||||||||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
@@ -409,7 +409,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound|||||||||||||
-|corey-digicert||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||||
+|corey-digicert||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |cryptonext|||||||||||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
@@ -426,14 +426,14 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
-|oqs-openssl111||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|||||||
+|oqs-openssl111||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 |oqs-provider||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ❌<br>CA: ❌<br>EE: ❌<br>CRL TA: ❌<br>CRL CA: ❌|TA: ❌<br>CA: ❌<br>EE: ❌||||||
 
 # ~~SPHINCS+-SHA256-128s-simple~~ (1.3.9999.6.4.10)
@@ -443,7 +443,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
@@ -460,7 +460,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
@@ -477,7 +477,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
@@ -494,7 +494,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
@@ -511,7 +511,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
@@ -528,7 +528,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
@@ -545,7 +545,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
@@ -562,7 +562,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
@@ -579,7 +579,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
@@ -596,7 +596,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
@@ -613,7 +613,7 @@ Rows are producers. Columns are parsers.
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
-|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|TA: ❌<br>CA: ❌<br>EE: ❌||||||
+|corey-digicert||TA: ❌<br>CA: ❌<br>EE: ❌||||TA: ✅<br>CA: ✅<br>EE: ✅<br>CRL TA: ✅<br>CRL CA: ✅|||||||
 |cryptonext|||||||||||||
 |entrust||TA: ❌<br>CA: ❌<br>EE: ❌|||||||||||
 |isi-wolfssl|||||||||||||
