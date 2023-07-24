@@ -8,7 +8,7 @@ from mdutils.mdutils import MdUtils
 
 
 _FILENAME_REGEX = re.compile('^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
-_OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\|\s*(?P<oid>\d+(\.\d+)+)\*?\s*\|.+\|$')
+_OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.+\|$')
 
 
 class AlgorithmVerificationResult(NamedTuple):
@@ -65,11 +65,13 @@ def _format_result_cell(avr) -> str:
         if r is None:
             display_result = '?'
         elif r:
-            display_result = '✓'
+            display_result = '✅'
         else:
-            display_result = 'X'
+            display_result = '❌'
 
-        result_lines.append(f'{display_key}: {display_result}')
+        # if the result is '?', then do not pring the line
+        if (display_result != '?'):
+            result_lines.append(f'{display_key}: {display_result}')
 
     return '<br>'.join(result_lines)
 
@@ -142,7 +144,7 @@ def main():
 
     md_file = MdUtils(file_name='pqc_hackathon_results.md', title='IETF PQC Hackathon Interoperability Results')
 
-    md_file.new_paragraph(text='Rows are producers. Columns are parsers.')
+    md_file.new_paragraph(text='Rows are producers. Columns are parsers.\n')
 
     for alg_oid, avrs in avrs_by_alg.items():
         alg_name = _get_alg_name_by_oid_str(oid_name_mappings, alg_oid)

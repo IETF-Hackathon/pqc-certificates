@@ -6,7 +6,7 @@ tables.
 ## The interoperability results format
 
 Interoperability result files are CSV-formatted. JSON support is planned.
-The result file names have the following format: `PRODUCER_CONSUMER.csv`, where `PRODUCER` is the name of the implementation that generated the artifacts, and `CONSUMER` is the name of the implementation that verified the artifacts.
+The result files should be placed in your provider's dir in a compatMatrices/ subdir. The file names have the following format: `PRODUCER_CONSUMER.csv`, where `PRODUCER` is the name of the implementation that generated the artifacts, and `CONSUMER` is the name of the implementation that verified the artifacts.
 
 The header line for the result file has the following columns:
 
@@ -37,4 +37,4 @@ Run `python3 pqc_report_writer.py OID_MAPPING_FILE FILES`, where:
 * `OID_MAPPING_FILE` is the file that contains the mapping of OIDs to their long names
 * `FILES` is the list of result files
 
-The resulting Markdown file will be output to `stdout`.
+The resulting Markdown file will be output to `pqc_hackathon_results.md`.

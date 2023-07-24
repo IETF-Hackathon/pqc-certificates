@@ -18,6 +18,10 @@ The project's directory structure is as follows:
                 - artifacts.zip
             - implementation_name_2/
                 - artifacts.zip
+            - compatMatrices
+                - prov2_prov1.csv
+                - prov3_prov1.csv
+                - ...
             - gen.sh
             - check.sh
             - Makefile
