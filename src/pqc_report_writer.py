@@ -69,7 +69,9 @@ def _format_result_cell(avr) -> str:
         else:
             display_result = 'X'
 
-        result_lines.append(f'{display_key}: {display_result}')
+        # if the result is '?', then do not pring the line
+        if (display_result != '?'):
+            result_lines.append(f'{display_key}: {display_result}')
 
     return '<br>'.join(result_lines)
 
@@ -142,7 +144,7 @@ def main():
 
     md_file = MdUtils(file_name='pqc_hackathon_results.md', title='IETF PQC Hackathon Interoperability Results')
 
-    md_file.new_paragraph(text='Rows are producers. Columns are parsers.')
+    md_file.new_paragraph(text='Rows are producers. Columns are parsers.\n')
 
     for alg_oid, avrs in avrs_by_alg.items():
         alg_name = _get_alg_name_by_oid_str(oid_name_mappings, alg_oid)
