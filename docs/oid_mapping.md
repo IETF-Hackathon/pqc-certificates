@@ -5,7 +5,9 @@ The following are is the OID mapping to be used for the hackathon.
 Taken from: 
 * https://docs.google.com/document/d/1A2-D82du0qJjygvBuOlG8Xao3MzDYz1pRDzjT9eY6ls/edit#
 
-Note: asterisk "*" means experimental; ie likely to change after the hackathon.
+Notes: 
+1. Asterisk "*" means experimental; ie likely to change after the hackathon.
+2. ~~Strikethrough~~ means that this is a deprecated OID as it refers to an older (non-compatible) version of the algorithm spec.
 
 ## Single-algorithm OIDs
 
