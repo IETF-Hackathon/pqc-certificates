@@ -33,7 +33,7 @@ In this example, the root and ICA signatures validated, but the end-entity certi
 
 1. Install Python 3
 2. Install [mdutils](https://github.com/didix21/mdutils): `pip3 install -r requirements.txt`
-3. `apt install pandoc`
+3. `apt install pandoc` (for `rebuild_results.sh`).
 
 ## Execution
 
@@ -43,3 +43,5 @@ Run `python3 pqc_report_writer.py OID_MAPPING_FILE FILES`, where:
 * `FILES` is the list of result files
 
 The resulting Markdown file will be output to `pqc_hackathon_results.md`.
+
+The script `rebuild_results.sh` includes calling pqc_report_writer.py, so you can just use that.
