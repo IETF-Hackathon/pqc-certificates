@@ -11,8 +11,8 @@ Algorithms
 * [prime256v1 & Dilithium2 & ~~Falcon-1024~~ (1.2.840.10045.3.1.7_1.3.6.1.4.1.2.267.7.4.4_1.3.9999.3.4)](#prime256v1--dilithium2--falcon-1024-1284010045317_1361412267744_13999934)
 * [prime256v1 & Dilithium3 (1.2.840.10045.3.1.7_1.3.6.1.4.1.2.267.7.6.5)](#prime256v1--dilithium3-1284010045317_1361412267765)
 * [prime256v1 & Dilithium3 & ~~Falcon-512~~ (1.2.840.10045.3.1.7_1.3.6.1.4.1.2.267.7.6.5_1.3.9999.3.1)](#prime256v1--dilithium3--falcon-512-1284010045317_1361412267765_13999931)
-* [Unknown (1.2.840.10045.4.3.2)](#unknown-1284010045432)
-* [Unknown (1.2.840.113549.1.1.1)](#unknown-12840113549111)
+* [ecdsa-with-SHA256 (1.2.840.10045.4.3.2)](#ecdsa-with-sha256-1284010045432)
+* [rsaEncryption (1.2.840.113549.1.1.1)](#rsaencryption-12840113549111)
 * [~~DilithiumAES2~~ (1.3.6.1.4.1.2.267.11.4.4)](#dilithiumaes2-13614122671144)
 * [~~DilithiumAES3~~ (1.3.6.1.4.1.2.267.11.6.5)](#dilithiumaes3-13614122671165)
 * [~~DilithiumAES5~~ (1.3.6.1.4.1.2.267.11.8.7)](#dilithiumaes5-13614122671187)
@@ -38,13 +38,13 @@ Algorithms
 * [~~SPHINCS+-SHA256-256f-simple~~ (1.3.9999.6.6.3)](#sphincs-sha256-256f-simple-139999663)
 * [~~SPHINCS+-SHA256-256s-robust~~ (1.3.9999.6.6.5)](#sphincs-sha256-256s-robust-139999665)
 * [~~SPHINCS+-SHA256-256s-simple~~ (1.3.9999.6.6.7)](#sphincs-sha256-256s-simple-139999667)
-* [Unknown (1.3.9999.6.7.4)](#unknown-139999674)
-* [Unknown (1.3.9999.6.8.3)](#unknown-139999683)
-* [Unknown (1.3.9999.6.9.3)](#unknown-139999693)
+* [sphincsshake128fsimple (1.3.9999.6.7.4)](#sphincsshake128fsimple-139999674)
+* [sphincsshake192fsimple (1.3.9999.6.8.3)](#sphincsshake192fsimple-139999683)
+* [sphincsshake256fsimple (1.3.9999.6.9.3)](#sphincsshake256fsimple-139999693)
 * [COMPOSITE-KEY (2.16.840.1.114027.80.4.1)](#composite-key-21684011140278041)
 * [Unknown (2.16.840.1.114027.80.4.1.2)](#unknown-216840111402780412)
 * [COMPOSITE-KEY & Unknown (2.16.840.1.114027.80.4.1_generic_traditional)](#composite-key--unknown-21684011140278041_generic_traditional)
-* [Unknown (2.16.840.1.114027.80.5.1)](#unknown-21684011140278051)
+* [ExplicitCompositeSignature (2.16.840.1.114027.80.5.1)](#explicitcompositesignature-21684011140278051)
 * [id-Dilithium3-RSA-PKCS15-SHA256 (2.16.840.1.114027.80.5.1.1)](#id-dilithium3-rsa-pkcs15-sha256-216840111402780511)
 * [id-Dilithium3-RSA-PSS-SHA256 (2.16.840.1.114027.80.5.1.14)](#id-dilithium3-rsa-pss-sha256-2168401114027805114)
 * [id-Dilithium3-ECDSA-P256-SHA256 (2.16.840.1.114027.80.5.1.2)](#id-dilithium3-ecdsa-p256-sha256-216840111402780512)
@@ -54,10 +54,10 @@ Algorithms
 * [~~id-Falcon512-ECDSA-P256-SHA256~~ (2.16.840.1.114027.80.5.1.8)](#id-falcon512-ecdsa-p256-sha256-216840111402780518)
 * [~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~ (2.16.840.1.114027.80.5.1.9)](#id-falcon512-ecdsa-brainpoolp256r1-sha256-216840111402780519)
 * [Unknown & Unknown (artifacts)](#unknown--unknown-artifacts)
-* [Unknown & Unknown (base)](#unknown--unknown-base)
-* [Unknown & Unknown (delta)](#unknown--unknown-delta)
-* [Unknown & Unknown (extracted)](#unknown--unknown-extracted)
-* [Unknown & Unknown (hybrid)](#unknown--unknown-hybrid)
+* [Unknown & Unknown (chameleon-base)](#unknown--unknown-chameleon-base)
+* [Unknown & Unknown (chameleon-delta)](#unknown--unknown-chameleon-delta)
+* [Unknown & Unknown (chameleon-extracted-delta)](#unknown--unknown-chameleon-extracted-delta)
+* [Unknown & Unknown (hybrid-catalyst)](#unknown--unknown-hybrid-catalyst)
 
 
 Rows are producers. Columns are parsers.
@@ -164,7 +164,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown (1.2.840.10045.4.3.2)
+# ecdsa-with-SHA256 (1.2.840.10045.4.3.2)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -181,7 +181,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown (1.2.840.113549.1.1.1)
+# rsaEncryption (1.2.840.113549.1.1.1)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -623,7 +623,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown (1.3.9999.6.7.4)
+# sphincsshake128fsimple (1.3.9999.6.7.4)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -640,7 +640,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown (1.3.9999.6.8.3)
+# sphincsshake192fsimple (1.3.9999.6.8.3)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -657,7 +657,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown (1.3.9999.6.9.3)
+# sphincsshake256fsimple (1.3.9999.6.9.3)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -725,7 +725,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown (2.16.840.1.114027.80.5.1)
+# ExplicitCompositeSignature (2.16.840.1.114027.80.5.1)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -895,7 +895,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown & Unknown (base)
+# Unknown & Unknown (chameleon-base)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -912,7 +912,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown & Unknown (delta)
+# Unknown & Unknown (chameleon-delta)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -929,7 +929,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown & Unknown (extracted)
+# Unknown & Unknown (chameleon-extracted-delta)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -946,7 +946,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown & Unknown (hybrid)
+# Unknown & Unknown (hybrid-catalyst)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |

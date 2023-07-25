@@ -61,6 +61,9 @@ and neither are the robust variant of SPHINCS+.
 | ~~SPHINCS+-SHA256-256s-robust~~ | ~~1.3.9999.6.6.5*~~ | ~~SPHINCS+-SHA256-256s-robust~~ |
 | ~~SPHINCS+-SHA256-256s-simple~~ | ~~1.3.9999.6.6.7*~~ | ~~SPHINCS+-SHA256-256s-simple~~ |
 | SPHINCS+-SHA2-256s-simple | 1.3.9999.6.6.12* | SPHINCS+-SHA2-256s-simple |
+| sphincsshake128fsimple | 1.3.9999.6.7.4 | sphincsshake128fsimple |
+| sphincsshake192fsimple | 1.3.9999.6.8.3 | sphincsshake192fsimple |
+| sphincsshake256fsimple | 1.3.9999.6.9.3 | sphincsshake256fsimple |
 
 Update: The AES version of Dilithium were removed due to their exclusion from the NIST
 standardization process.
@@ -112,6 +115,7 @@ used to identify the signatures generated with the said key, i.e. `id-Dilithium3
 
 | Key Algorithm | Key and Signature OID |
 | ----------- | ----------- |
+| ExplicitCompositeSignature | 2.16.840.1.114027.80.5.1 |
 | id-Dilithium3-RSA-PKCS15-SHA256         | 2.16.840.1.114027.80.5.1.1 |
 | id-Dilithium3-ECDSA-P256-SHA256            | 2.16.840.1.114027.80.5.1.2 |
 | id-Dilithium3-ECDSA-brainpoolP256r1-SHA256 | 2.16.840.1.114027.80.5.1.3 |
@@ -344,3 +348,5 @@ This is non-PQC OIDs that are used in the artifacts of included providers.
 | MikeTest     | 1.2.840.10045.2.1 | huh |
 | ecPublicKey | 1.2.840.10045.2.1 |
 | prime256v1  | 1.2.840.10045.3.1.7 |
+| ecdsa-with-SHA256 | 1.2.840.10045.4.3.2 |
+| rsaEncryption | 1.2.840.113549.1.1.1 |
