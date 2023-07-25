@@ -42,7 +42,7 @@ Algorithms
 * [sphincsshake192fsimple (1.3.9999.6.8.3)](#sphincsshake192fsimple-139999683)
 * [sphincsshake256fsimple (1.3.9999.6.9.3)](#sphincsshake256fsimple-139999693)
 * [COMPOSITE-KEY (2.16.840.1.114027.80.4.1)](#composite-key-21684011140278041)
-* [Unknown (2.16.840.1.114027.80.4.1.2)](#unknown-216840111402780412)
+* [COMPOSITE_KEY_HASH_N_SIGN (2.16.840.1.114027.80.4.1.2)](#composite_key_hash_n_sign-216840111402780412)
 * [COMPOSITE-KEY & Unknown (2.16.840.1.114027.80.4.1_generic_traditional)](#composite-key--unknown-21684011140278041_generic_traditional)
 * [ExplicitCompositeSignature (2.16.840.1.114027.80.5.1)](#explicitcompositesignature-21684011140278051)
 * [id-Dilithium3-RSA-PKCS15-SHA256 (2.16.840.1.114027.80.5.1.1)](#id-dilithium3-rsa-pkcs15-sha256-216840111402780511)
@@ -691,7 +691,7 @@ Rows are producers. Columns are parsers.
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# Unknown (2.16.840.1.114027.80.4.1.2)
+# COMPOSITE_KEY_HASH_N_SIGN (2.16.840.1.114027.80.4.1.2)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |

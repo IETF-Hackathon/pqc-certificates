@@ -208,6 +208,10 @@ of the algorithms as needed (i.e., the base OID for the DILITHIUM would be updat
 to 1.3.6.1.4.1.18227.999.1.1 and the DILITHIUM-SHA256 would be changed to
 1.3.6.1.4.1.18227.999.1.1.1.1).
 
+
+| Alg Name | OID |
+| COMPOSITE_KEY_HASH_N_SIGN | 2.16.840.1.114027.80.4.1.2 |
+
 ### Dilithium2 Hash-n-Sign Algorithm Identifiers
 
 The list of suggested hash-n-sign combinations is as follows:
