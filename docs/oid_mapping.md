@@ -9,13 +9,6 @@ Notes:
 1. Asterisk "*" means experimental; ie likely to change after the hackathon.
 2. ~~Strikethrough~~ means that this is a deprecated OID as it refers to an older (non-compatible) version of the algorithm spec.
 
-# MikeTest
-
-| Name                 | OID                         |
-| -------------------- | --------------------------- |
-| MikeTest    | 1.2.840.10045.2.1 | huh |
-| ecPublicKey | 1.2.840.10045.2.1 |
-| prime256v1  | 1.2.840.10045.3.1.7 |
 
 ## Single-algorithm OIDs
 
@@ -349,7 +342,6 @@ This is non-PQC OIDs that are used in the artifacts of included providers.
 
 | Name                 | OID                         |
 | -------------------- | --------------------------- |
-| MikeTest     | 1.2.840.10045.2.1 | huh |
 | ecPublicKey | 1.2.840.10045.2.1 |
 | prime256v1  | 1.2.840.10045.3.1.7 |
 | ecdsa-with-SHA256 | 1.2.840.10045.4.3.2 |
