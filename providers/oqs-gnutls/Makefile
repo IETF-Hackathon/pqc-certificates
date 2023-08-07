@@ -109,7 +109,7 @@ verify: requirements/verify
 cross_verify: requirements/verify
 	@if [ -f "$(VERIFY_SCRIPT)" ] ; then \
 		echo && echo "[ $(PROVIDER_NAME) ] Cross Verifying Artifacts:" ; \
-		echo > $(VERIFY_LOG) ; \
+		echo > $(VERIFY_LOGFILE) ; \
 		for i in ../* ; do \
 			echo "  -  $$i" ; \
 			result=`cd "$$i" && make verify 2>&1 > "$(VERIFY_LOGFILE)" ` ; \
