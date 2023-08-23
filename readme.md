@@ -77,13 +77,38 @@ Where:
     generated via the implementation. See the `Zip format` section
     for more information about its structure.
 
-## Zip format (R2)
+## Zip Format (R3)
+
+Starting with artifacts for the NIST Draft standards released 2023-08-24, we will use a much simpler artifact format:
+
+* Only produce a self-signed certificate (TAs). Let's not bother with CA / EE / CRL / OCSP; those are begging for compatibility issues that have nothing to do with the PQ algs.
+* We will restrict the R3 artifacts to only the algorithms with NIST draft standards.
+* Use PEM formats.
+* Switch to a flat folder structure with filenames <oid>_ta.pem
+* For Kyber, use the the Dilithium TA of the equivalent security level to sign a <kyber_oid>_ee.pem
+
+- artifacts_r3.zip
+  - 1.3.6.1.4.1.2.267.7.4.4_ta.pem  # Dilithium2
+  - 1.3.6.1.4.1.2.267.7.6.5_ta.pem  # Dilithium3
+  - 1.3.6.1.4.1.2.267.7.8.7_ta.pem  # Dilithium5
+  - 1.3.6.1.4.1.22554.5.6.1_ee.pem  # Kyber512  - signed with Dilithium2
+  - 1.3.6.1.4.1.22554.5.6.2_ee.pem  # Kyber768  - signed with Dilithium3
+  - 1.3.6.1.4.1.22554.5.6.3_ee.pem  # Kyber1024 - signed with Dilithium5
+  - 1.3.9999.6.6.12_ta.pem  # SPHINCS+-SHA2-256s-simple
+  - 1.3.9999.6.7.4_ta.pem   # sphincsshake128fsimple
+  - 1.3.9999.6.8.3_ta.pem   # sphincsshake192fsimple
+  - 1.3.9999.6.9.3_ta.pem   # sphincsshake256fsimple
+  - 1.3.9999.6.4.13_ta.pem  # SPHINCS+-SHA2-128f-simple
+
+## Zip Format (R2)
+
+OLD -- IF YOU ARE SUBMITTING ARTIFACTS AGAINST THE NIST DRAFT SPECS AS OF 2023-08-24, THEN PLEASE USE THE R3 FORMAT ABOVE.
 
 At the hackathon, we are all going to script our PKI toolkit to produce and read zip bundles of certs in the following format. Scripts should place data into files with the following names so that parsing scripts 
 
 (parentheses denotes optional files)
 
-- artifacts.zip
+- artifacts_r2.zip
   - artifacts/
     - alg_oid_dir/
         - ta/     # trust anchor, aka root CA, aka self-signed
