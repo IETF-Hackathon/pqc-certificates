@@ -94,11 +94,16 @@ Starting with artifacts for the NIST Draft standards released 2023-08-24, we wil
   - 1.3.6.1.4.1.22554.5.6.1_ee.pem  # Kyber512  - signed with Dilithium2
   - 1.3.6.1.4.1.22554.5.6.2_ee.pem  # Kyber768  - signed with Dilithium3
   - 1.3.6.1.4.1.22554.5.6.3_ee.pem  # Kyber1024 - signed with Dilithium5
-  - 1.3.9999.6.6.12_ta.pem  # SPHINCS+-SHA2-256s-simple
-  - 1.3.9999.6.7.4_ta.pem   # sphincsshake128fsimple
-  - 1.3.9999.6.8.3_ta.pem   # sphincsshake192fsimple
-  - 1.3.9999.6.9.3_ta.pem   # sphincsshake256fsimple
   - 1.3.9999.6.4.13_ta.pem  # SPHINCS+-SHA2-128f-simple
+  - 1.3.9999.6.4.16_ta.pem  # SPHINCS+-SHA2-128s-simple
+  - 1.3.9999.6.5.10_ta.pem  # SPHINCS+-SHA2-192f-simple
+  - 1.3.9999.6.5.12_ta.pem  # SPHINCS+-SHA2-192s-simple
+  - 1.3.9999.6.6.10_ta.pem  # SPHINCS+-SHA2-256f-simple
+  - 1.3.9999.6.6.12_ta.pem  # SPHINCS+-SHA2-256s-simple
+  - 1.3.9999.6.7.4_ta.pem   # SPHINCS+-SHAKE128f-simple
+  - 1.3.9999.6.8.3_ta.pem   # SPHINCS+-SHAKE192f-simple
+  - 1.3.9999.6.9.3_ta.pem   # SPHINCS+sSHAKE256f-simple
+
 
 ## Zip Format (R2)
 
