@@ -1,8 +1,44 @@
 # Object Identifiers for PQC and Composite
 
-The following are is the OID mapping to be used for the hackathon.
+The following are is the OID mapping to be used for the PQ in X.509 Project
 
-Taken from: 
+Notes: 
+1. Asterisk "*" means experimental; ie likely to change after the hackathon.
+
+## NIST Draft Standard Algorithm OIDs
+
+This section provides the individual OIDs for the NIST draft standard OIDs
+
+Until we have final standard OIDs, this list will be used for interoperability 
+testing of the NIST Draft standard OIDs
+
+| Key Algorithm Name | Signature OID | Signature Name |
+| ----------- | ----------- | ----------- |
+| Dilithium2 | 1.3.6.1.4.1.2.267.7.4.4* | Dilithium2 |
+| Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
+| Dilithium5 | 1.3.6.1.4.1.2.267.7.8.7* | Dilithium5 |
+| Falcon-512 | 1.3.9999.3.6* | Falcon-512 |
+| Falcon-1024 | 1.3.9999.3.9* | Falcon-1024 |
+| SPHINCS+-SHA2-128f-simple | 1.3.9999.6.4.13* | SPHINCS+-SHA2-128f-simple |
+| SPHINCS+-SHA2-128s-simple | 1.3.9999.6.4.16* | SPHINCS+-SHA2-128s-simple |
+| SPHINCS+-SHA2-192f-simple | 1.3.9999.6.5.10* | SPHINCS+-SHA2-192f-simple |
+| SPHINCS+-SHA2-192s-simple | 1.3.9999.6.5.12* | SPHINCS+-SHA2-192s-simple |
+| SPHINCS+-SHA2-256f-simple | 1.3.9999.6.6.10* | SPHINCS+-SHA2-256f-simple |
+| SPHINCS+-SHA2-256s-simple | 1.3.9999.6.6.12* | SPHINCS+-SHA2-256s-simple |
+| sphincsshake128fsimple | 1.3.9999.6.7.4 | sphincsshake128fsimple |
+| sphincsshake192fsimple | 1.3.9999.6.8.3 | sphincsshake192fsimple |
+| sphincsshake256fsimple | 1.3.9999.6.9.3 | sphincsshake256fsimple |
+
+| KEM Algorithm Name | OID |
+| ----------- | ----------- |
+| kyber512 |   1.3.6.1.4.1.22554.5.6.1 |
+| kyber768 |  1.3.6.1.4.1.22554.5.6.2 |
+| kyber1024 | 1.3.6.1.4.1.22554.5.6.3 |
+
+# Experimental and Historical OID's
+The following are historical or experimental OIDs used in this project.     
+
+Historical document: 
 * https://docs.google.com/document/d/1A2-D82du0qJjygvBuOlG8Xao3MzDYz1pRDzjT9eY6ls/edit#
 
 Notes: 
@@ -10,9 +46,9 @@ Notes:
 2. ~~Strikethrough~~ means that this is a deprecated OID as it refers to an older (non-compatible) version of the algorithm spec.
 
 
-## Single-algorithm OIDs
+## Deprecated Single-algorithm OIDs used previously
 
-This section provides the individual OIDs used for the different algorithms.
+This section provides the individual OIDs used for the different algorithms.  They should no longer be used.  
 
 Currently PQC signatures are defined for direct signing (i.e., no use of intermediary hash
 function) and, therefore, the OID used for signature generation is the same as the
@@ -26,58 +62,41 @@ and neither are the robust variant of SPHINCS+.
 
 | Key Algorithm Name | Signature OID | Signature Name |
 | ----------- | ----------- | ----------- |
-| Dilithium2 | 1.3.6.1.4.1.2.267.7.4.4* | Dilithium2 |
-| Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
-| Dilithium5 | 1.3.6.1.4.1.2.267.7.8.7* | Dilithium5 |
 | ~~DilithiumAES2~~ | ~~1.3.6.1.4.1.2.267.11.4.4*~~ | ~~Dilithium2-AES~~ |
 | ~~DilithiumAES3~~ | ~~1.3.6.1.4.1.2.267.11.6.5*~~ | ~~Dilithium3-AES~~ |
 | ~~DilithiumAES5~~ | ~~1.3.6.1.4.1.2.267.11.8.7*~~ | ~~Dilithium5-AES~~ |
 | ~~Falcon-512~~ | ~~1.3.9999.3.1*~~ | ~~Falcon-512~~ |
 | ~~Falcon-1024~~ | ~~1.3.9999.3.4*~~ | ~~Falcon-1024~~ |
-| Falcon-512 | 1.3.9999.3.6* | Falcon-512 |
-| Falcon-1024 | 1.3.9999.3.9* | Falcon-1024 |
 | ~~SPHINCS+-SHA256-128f-robust~~ | ~~1.3.9999.6.4.1*~~ | ~~SPHINCS+-SHA256-128f-robust~~ |
 | ~~SPHINCS+-SHA256-128f-simple~~ | ~~1.3.9999.6.4.4*~~ | ~~SPHINCS+-SHA256-128f-simple~~ |
-| SPHINCS+-SHA2-128f-simple | 1.3.9999.6.4.13* | SPHINCS+-SHA2-128f-simple |
 | ~~SPHINCS+-SHA256-128s-robust~~ | ~~1.3.9999.6.4.7*~~ | ~~SPHINCS+-SHA256-128s-robust~~ |
 | ~~SPHINCS+-SHA256-128s-simple~~ | ~~1.3.9999.6.4.10*~~ | ~~SPHINCS+-SHA256-128s-simple~~ |
-| SPHINCS+-SHA2-128s-simple | 1.3.9999.6.4.16* | SPHINCS+-SHA2-128s-simple |
 | ~~SPHINCS+-SHA256-192f-robust~~ | ~~1.3.9999.6.5.1*~~ | ~~SPHINCS+-SHA256-192f-robust~~ |
 | ~~SPHINCS+-SHA256-192f-simple~~ | ~~1.3.9999.6.5.3*~~ | ~~SPHINCS+-SHA256-192f-simple~~ |
-| SPHINCS+-SHA2-192f-simple | 1.3.9999.6.5.10* | SPHINCS+-SHA2-192f-simple |
 | ~~SPHINCS+-SHA256-192s-robust~~ | ~~1.3.9999.6.5.5~~ | ~~SPHINCS+-SHA256-192s-robust~~ |
 | ~~SPHINCS+-SHA256-192s-simple~~ | ~~1.3.9999.6.5.7*~~ | ~~SPHINCS+-SHA256-192s-simple~~ |
-| SPHINCS+-SHA2-192s-simple | 1.3.9999.6.5.12* | SPHINCS+-SHA2-192s-simple |
 | ~~SPHINCS+-SHA256-256f-robust~~ | ~~1.3.9999.6.6.1*~~ | ~~SPHINCS+-SHA256-256f-robust~~ |
 | ~~SPHINCS+-SHA256-256f-simple~~ | ~~1.3.9999.6.6.3*~~ | ~~SPHINCS+-SHA256-256f-simple~~ |
-| SPHINCS+-SHA2-256f-simple | 1.3.9999.6.6.10* | SPHINCS+-SHA2-256f-simple |
 | ~~SPHINCS+-SHA256-256s-robust~~ | ~~1.3.9999.6.6.5*~~ | ~~SPHINCS+-SHA256-256s-robust~~ |
 | ~~SPHINCS+-SHA256-256s-simple~~ | ~~1.3.9999.6.6.7*~~ | ~~SPHINCS+-SHA256-256s-simple~~ |
-| SPHINCS+-SHA2-256s-simple | 1.3.9999.6.6.12* | SPHINCS+-SHA2-256s-simple |
-| sphincsshake128fsimple | 1.3.9999.6.7.4 | sphincsshake128fsimple |
-| sphincsshake192fsimple | 1.3.9999.6.8.3 | sphincsshake192fsimple |
-| sphincsshake256fsimple | 1.3.9999.6.9.3 | sphincsshake256fsimple |
 
 Update: The AES version of Dilithium were removed due to their exclusion from the NIST
 standardization process.
 
 Update: The Falcon-512 and Falcon-1024 OIDs have been updated due to the updates to the
-algorithm's parameters.
+algorithm's parameters.  See draft standards OIDS at the top for the latest OIDs.
 
 Update: The SPHINCS+ robust variants have been removed due to their drop from the NIST
 standardization process.  SPHINCS+ OIDs were updated in LibOQS in May 2023 to reflect the 
 algorithm changes in SPHINCS+.   Therefore, the OIDs were up-versioned in LibOQS to
 prevent compatiblity issues and we have accomodated those changes here as well.
 
-## KEM Algorithm OIDs
+## NIST Round 4 KEM Algorithm OIDs and deprecated KEM OIDS
 
 This section provides the list of OIDs for composite KEMs.
 
 | KEM Algorithm Name | OID |
 | ----------- | ----------- |
-| kyber512 |   1.3.6.1.4.1.22554.5.6.1 |
-| kyber768 |  1.3.6.1.4.1.22554.5.6.2 |
-| kyber1024 | 1.3.6.1.4.1.22554.5.6.3 |
 | ~~kyber512_aes~~ | ~~1.3.6.1.4.1.22554.5.6.4~~ |
 | ~~kyber768_aes~~ | ~~1.3.6.1.4.1.22554.5.6.5~~ |
 | ~~kyber1024_aes~~ | ~~1.3.6.1.4.1.22554.5.6.6~~ |
@@ -96,10 +115,11 @@ This section provides the list of OIDs for composite KEMs.
 Update: Support for the AES version of Kyber has been removed due to its
 drop from NIST standardization process.
 
-## Explicit Composite Key and Direct Signature OIDs
+## Experimental Explicit Composite Key and Direct Signature OIDs
 
 This section provides the OIDs associated with Explicit algorithm combinations for
-Composite Keys and Composite Signatures.  
+Composite Keys and Composite Signatures.   
+See https://datatracker.ietf.org/doc/draft-ounsworth-pq-composite-sigs/
 
 The Algorithm OID is the same for both the Explicit Composite Key and for the
 Composite Signature Algorithm. For example, when using the explicit composite key
