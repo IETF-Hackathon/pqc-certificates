@@ -16,6 +16,7 @@ Algorithms
 * [~~Falcon-1024~~ (1.3.9999.3.4)](#falcon-1024-13999934)
 * [Falcon-512 (1.3.9999.3.6)](#falcon-512-13999936)
 * [Falcon-1024 (1.3.9999.3.9)](#falcon-1024-13999939)
+* [~~SPHINCS+-SHA256-128f-robust~~ (1.3.9999.6.4.1)](#sphincs-sha256-128f-robust-139999641)
 * [sphincsshake128fsimple (1.3.9999.6.7.4)](#sphincsshake128fsimple-139999674)
 * [sphincsshake192fsimple (1.3.9999.6.8.3)](#sphincsshake192fsimple-139999683)
 * [sphincsshake256fsimple (1.3.9999.6.9.3)](#sphincsshake256fsimple-139999693)
@@ -41,67 +42,67 @@ In all tables below, Rows are producers. Columns are parsers.
 
 To be in this table, an algorithm must have been submitted and tested by at least one other implementation.
 
-|-|Dilithium2|Dilithium3|Dilithium5|kyber512|kyber768|kyber1024|~~Falcon-512~~|~~Falcon-1024~~|Falcon-512|Falcon-1024|sphincsshake128fsimple|sphincsshake192fsimple|sphincsshake256fsimple|COMPOSITE-KEY|id-Dilithium3-RSA-PKCS15-SHA256|id-Dilithium3-RSA-PSS-SHA256|id-Dilithium3-ECDSA-P256-SHA256|id-Dilithium3-ECDSA-brainpoolP256r1-SHA256|id-Dilithium5-ECDSA-P384-SHA384|id-Dilithium5-ECDSA-brainpoolP384r1-SHA384|~~id-Falcon512-ECDSA-P256-SHA256~~|~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~|chameleon-base|chameleon-delta|chameleon-extracted-delta|hybrid-catalyst|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅||||||||||||||
-|botan|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅||||||||||||||
-|carl-redhound|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅|✅|||||||||||||
-|corey-digicert|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||✅|✅|✅|✅|
-|cryptonext|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅|✅|||||||||||||
-|entrust|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||||
-|kris|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅|✅|||||||||||||
-|openca|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅|✅|||||||||||||
-|oqs-gnutls|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅|✅|||||||||||||
-|oqs-openssl111|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅|✅|||||||||||||
-|oqs-provider|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅|✅|||||||||||||
+|-|Dilithium2|Dilithium3|Dilithium5|kyber512|kyber768|kyber1024|~~Falcon-512~~|~~Falcon-1024~~|Falcon-512|Falcon-1024|~~SPHINCS+-SHA256-128f-robust~~|sphincsshake128fsimple|sphincsshake192fsimple|sphincsshake256fsimple|COMPOSITE-KEY|id-Dilithium3-RSA-PKCS15-SHA256|id-Dilithium3-RSA-PSS-SHA256|id-Dilithium3-ECDSA-P256-SHA256|id-Dilithium3-ECDSA-brainpoolP256r1-SHA256|id-Dilithium5-ECDSA-P384-SHA384|id-Dilithium5-ECDSA-brainpoolP384r1-SHA384|~~id-Falcon512-ECDSA-P256-SHA256~~|~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~|chameleon-base|chameleon-delta|chameleon-extracted-delta|hybrid-catalyst|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅|✅|✅|✅|✅|✅|✅||||✅|✅|✅||||||||||||||
+|botan|✅|✅|✅|✅|✅|✅|✅|✅||||✅|✅|✅||||||||||||||
+|carl-redhound|✅|✅|✅|✅|✅|✅|✅|✅||||✅|✅|✅|✅|||||||||||||
+|corey-digicert|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||✅|✅|✅|✅|||||||||✅|✅|✅|✅|
+|cryptonext|✅|✅|✅|✅|✅|✅|✅|✅||||✅|✅|✅|✅|||||||||||||
+|entrust|✅|✅|✅|✅|✅|✅|✅|✅||||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||||
+|kris|✅|✅|✅|✅|✅|✅|✅|✅||||✅|✅|✅|✅|||||||||||||
+|openca|✅|✅|✅|✅|✅|✅|✅|✅||||✅|✅|✅|✅|||||||||||||
+|oqs-gnutls|✅|✅|✅|✅|✅|✅|✅|✅||||✅|✅|✅|✅|||||||||||||
+|oqs-openssl111|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅|✅|✅|||||||||||||
+|oqs-provider|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅|✅|✅|✅|||||||||||||
 
 # Dilithium2 (1.3.6.1.4.1.2.267.7.4.4)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|✅||✅|✅|||||||
+|bc|✅|✅||✅|✅|✅||||||
 |botan|❌|✅||✅|❌|||||||
-|carl-redhound|✅|❌||✅|✅|||||||
-|corey-digicert|✅|✅||✅|✅|||||||
-|cryptonext||✅||✅|✅|||||||
+|carl-redhound|✅|❌||✅|✅|✅||||||
+|corey-digicert|✅|✅||✅|✅|✅||||||
+|cryptonext||✅||✅|✅|✅||||||
 |entrust|❌|✅||❌|✅|||||||
-|kris|❌|❌|||❌|||||||
-|openca|❌|❌||✅|❌|||||||
+|kris|❌|❌|||❌|❌||||||
+|openca|❌|❌||✅|❌|❌||||||
 |oqs-gnutls|||||❌|||||||
-|oqs-openssl111|✅|✅||✅|✅|||||||
-|oqs-provider|✅|✅|||✅|||||||
+|oqs-openssl111|✅|✅||✅|✅|❌||||||
+|oqs-provider|✅|✅|||✅|❌||||||
 
 # Dilithium3 (1.3.6.1.4.1.2.267.7.6.5)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|✅||✅|✅|||||||
+|bc|✅|✅||✅|✅|✅||||||
 |botan|❌|✅||✅|❌|||||||
-|carl-redhound|✅|❌||✅|✅|||||||
-|corey-digicert|✅|✅||✅|✅|||||||
-|cryptonext||✅||✅|✅|||||||
+|carl-redhound|✅|❌||✅|✅|✅||||||
+|corey-digicert|✅|✅||✅|✅|✅||||||
+|cryptonext||✅||✅|✅|✅||||||
 |entrust|❌|✅||❌|✅|||||||
-|kris|❌|❌|||❌|||||||
-|openca|❌|❌||✅|❌|||||||
-|oqs-gnutls|❌|✅||✅|✅|||||||
-|oqs-openssl111|✅|✅||✅|✅|||||||
-|oqs-provider|✅|✅|||✅|||||||
+|kris|❌|❌|||❌|❌||||||
+|openca|❌|❌||✅|❌|❌||||||
+|oqs-gnutls|❌|✅||✅|✅|✅||||||
+|oqs-openssl111|✅|✅||✅|✅|❌||||||
+|oqs-provider|✅|✅|||✅|❌||||||
 
 # Dilithium5 (1.3.6.1.4.1.2.267.7.8.7)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|✅||✅|✅|||||||
+|bc|✅|✅||✅|✅|✅||||||
 |botan|❌|✅||✅|❌|||||||
-|carl-redhound|✅|❌||✅|✅|||||||
-|corey-digicert|✅|✅||✅|✅|||||||
-|cryptonext||✅||✅|✅|||||||
+|carl-redhound|✅|❌||✅|✅|✅||||||
+|corey-digicert|✅|✅||✅|✅|✅||||||
+|cryptonext||✅||✅|✅|✅||||||
 |entrust|❌|✅||❌|✅|||||||
-|kris|❌|❌|||❌|||||||
-|openca|❌|❌||✅|❌|||||||
+|kris|❌|❌|||❌|❌||||||
+|openca|❌|❌||✅|❌|❌||||||
 |oqs-gnutls|||||❌|||||||
-|oqs-openssl111|✅|✅||✅|✅|||||||
-|oqs-provider|✅|✅|||✅|||||||
+|oqs-openssl111|✅|✅||✅|✅|❌||||||
+|oqs-provider|✅|✅|||✅|❌||||||
 
 # kyber512 (1.3.6.1.4.1.22554.5.6.1)
 
@@ -157,31 +158,31 @@ To be in this table, an algorithm must have been submitted and tested by at leas
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅|❌|||❌|||||||
 |botan|||||❌|||||||
-|carl-redhound|✅|❌|||❌|||||||
-|corey-digicert|✅|❌|||❌|||||||
-|cryptonext||❌|||✅|||||||
+|carl-redhound|✅|❌|||❌|✅||||||
+|corey-digicert|✅|❌|||❌|✅||||||
+|cryptonext||❌|||✅|❌||||||
 |entrust|❌|❌|||❌|||||||
-|kris|❌|❌|||❌|||||||
-|openca|❌|❌|||❌|||||||
+|kris|❌|❌|||❌|❌||||||
+|openca|❌|❌|||❌|❌||||||
 |oqs-gnutls|||||❌|||||||
-|oqs-openssl111|✅|❌|||❌|||||||
-|oqs-provider|✅|❌|||❌|||||||
+|oqs-openssl111|✅|❌|||❌|❌||||||
+|oqs-provider|✅|❌|||❌|❌||||||
 
 # ~~Falcon-1024~~ (1.3.9999.3.4)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|❌|||❌|||||||
+|bc|✅|❌|||❌|✅||||||
 |botan|||||❌|||||||
-|carl-redhound|✅|❌|||❌|||||||
-|corey-digicert|✅|❌|||❌|||||||
-|cryptonext||❌|||✅|||||||
+|carl-redhound|✅|❌|||❌|✅||||||
+|corey-digicert|✅|❌|||❌|✅||||||
+|cryptonext||❌|||✅|❌||||||
 |entrust|❌|❌|||❌|||||||
-|kris|❌|❌|||❌|||||||
-|openca|❌|❌|||❌|||||||
+|kris|❌|❌|||❌|❌||||||
+|openca|❌|❌|||❌|❌||||||
 |oqs-gnutls|||||❌|||||||
-|oqs-openssl111|✅|❌|||❌|||||||
-|oqs-provider|✅|❌|||❌|||||||
+|oqs-openssl111|✅|❌|||❌|❌||||||
+|oqs-provider|✅|❌|||❌|❌||||||
 
 # Falcon-512 (1.3.9999.3.6)
 
@@ -215,6 +216,22 @@ To be in this table, an algorithm must have been submitted and tested by at leas
 |oqs-openssl111||||||||||||
 |oqs-provider||||||||||||
 
+# ~~SPHINCS+-SHA256-128f-robust~~ (1.3.9999.6.4.1)
+
+|-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc||||||||||||
+|botan||||||||||||
+|carl-redhound||||||||||||
+|corey-digicert||||||||||||
+|cryptonext||||||||||||
+|entrust||||||||||||
+|kris||||||||||||
+|openca||||||||||||
+|oqs-gnutls||||||||||||
+|oqs-openssl111||||||❌||||||
+|oqs-provider||||||❌||||||
+
 # sphincsshake128fsimple (1.3.9999.6.7.4)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
@@ -223,7 +240,7 @@ To be in this table, an algorithm must have been submitted and tested by at leas
 |botan|||||❌|||||||
 |carl-redhound|||||❌|||||||
 |corey-digicert|||||❌|||||||
-|cryptonext||❌|||✅|||||||
+|cryptonext||❌|||✅|❌||||||
 |entrust|||||❌|||||||
 |kris|||||❌|||||||
 |openca|||||❌|||||||
@@ -239,7 +256,7 @@ To be in this table, an algorithm must have been submitted and tested by at leas
 |botan|||||❌|||||||
 |carl-redhound|||||❌|||||||
 |corey-digicert|||||❌|||||||
-|cryptonext||❌|||✅|||||||
+|cryptonext||❌|||✅|❌||||||
 |entrust|||||❌|||||||
 |kris|||||❌|||||||
 |openca|||||❌|||||||
@@ -255,7 +272,7 @@ To be in this table, an algorithm must have been submitted and tested by at leas
 |botan|||||❌|||||||
 |carl-redhound|||||❌|||||||
 |corey-digicert|||||❌|||||||
-|cryptonext||❌|||✅|||||||
+|cryptonext||❌|||✅|❌||||||
 |entrust|||||❌|||||||
 |kris|||||❌|||||||
 |openca|||||❌|||||||
@@ -462,7 +479,7 @@ To be in this table, an algorithm must have been submitted and tested by at leas
 |bc||||||||||||
 |botan||||||||||||
 |carl-redhound||||||||||||
-|corey-digicert||✅||✅||||||||
+|corey-digicert||✅||✅||✅||||||
 |cryptonext||||||||||||
 |entrust||||||||||||
 |kris||||||||||||
