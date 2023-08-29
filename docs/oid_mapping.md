@@ -9,6 +9,12 @@ Notes:
 1. Asterisk "*" means experimental; ie likely to change after the hackathon.
 2. ~~Strikethrough~~ means that this is a deprecated OID as it refers to an older (non-compatible) version of the algorithm spec.
 
+## Note on naming
+
+As of the draft NIST standards released August 24, 2023, we have the names "ML-DSA", "SLH-DSA", and "ML-KEM" to replace the names "Dilithium", "SPHINCS+", and "Kyber".
+
+In order to avoid confusion between prototype versions and the eventual final standard versions, this hackathon project will continue using the names "Dilithium", "SPHINCS+", and "Kyber".
+
 
 ## Single-algorithm OIDs
 
