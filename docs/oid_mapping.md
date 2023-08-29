@@ -14,20 +14,23 @@ testing of the NIST Draft standard OIDs
 
 | Key Algorithm Name | Signature OID | Signature Name |
 | ----------- | ----------- | ----------- |
-| Dilithium2 | 1.3.6.1.4.1.2.267.7.4.4* | Dilithium2 |
-| Dilithium3 | 1.3.6.1.4.1.2.267.7.6.5* | Dilithium3 |
-| Dilithium5 | 1.3.6.1.4.1.2.267.7.8.7* | Dilithium5 |
+| Dilithium2 | 1.3.6.1.4.1.2.267.12.4.4* | Dilithium2 |
+| Dilithium3 | 1.3.6.1.4.1.2.267.12.6.5* | Dilithium3 |
+| Dilithium5 | 1.3.6.1.4.1.2.267.12.8.7* | Dilithium5 |
 | Falcon-512 | 1.3.9999.3.6* | Falcon-512 |
 | Falcon-1024 | 1.3.9999.3.9* | Falcon-1024 |
-| SPHINCS+-SHA2-128f-simple | 1.3.9999.6.4.13* | SPHINCS+-SHA2-128f-simple |
-| SPHINCS+-SHA2-128s-simple | 1.3.9999.6.4.16* | SPHINCS+-SHA2-128s-simple |
-| SPHINCS+-SHA2-192f-simple | 1.3.9999.6.5.10* | SPHINCS+-SHA2-192f-simple |
-| SPHINCS+-SHA2-192s-simple | 1.3.9999.6.5.12* | SPHINCS+-SHA2-192s-simple |
-| SPHINCS+-SHA2-256f-simple | 1.3.9999.6.6.10* | SPHINCS+-SHA2-256f-simple |
-| SPHINCS+-SHA2-256s-simple | 1.3.9999.6.6.12* | SPHINCS+-SHA2-256s-simple |
-| sphincsshake128fsimple | 1.3.9999.6.7.4 | sphincsshake128fsimple |
-| sphincsshake192fsimple | 1.3.9999.6.8.3 | sphincsshake192fsimple |
-| sphincsshake256fsimple | 1.3.9999.6.9.3 | sphincsshake256fsimple |
+| SPHINCS+-SHA2-128s | 1.3.9999.6.4.16* | SPHINCS+-SHA2-128s |
+| SPHINCS+-SHAKE-128s | 1.3.9999.6.7.16* | SPHINCS+-SHAKE-128s  |
+| SPHINCS+-SHA2-128f | 1.3.9999.6.4.13* | SPHINCS+-SHA2-128f-simple |
+| SPHINCS+-SHAKE-128f | 1.3.9999.6.7.4 | sphincsshake128fsimple |
+| SPHINCS+-SHA2-192s | 1.3.9999.6.5.12* | SPHINCS+-SHA2-192s |
+| SPHINCS+-SHAKE-192s | 1.3.9999.6.8.12* | SPHINCS+-SHAKE-192s |
+| SPHINCS+-SHA2-192f | 1.3.9999.6.5.10* | SPHINCS+-SHA2-192f |
+| SPHINCS+-SHAKE-192f | 1.3.9999.6.8.10* | SPHINCS+-SHA2-192f |
+| SPHINCS+-SHA2-256s | 1.3.9999.6.6.12* | SPHINCS+-SHA2-256s |
+| SPHINCS+-SHAKE-256s | 1.3.9999.6.9.12* | SPHINCS+-SHAKE-256s |
+| SPHINCS+-SHA2-256f | 1.3.9999.6.6.10* | SPHINCS+-SHAKE-256f |
+| SPHINCS+-SHAKE-256f | 1.3.9999.6.9.10* | SPHINCS+-SHAKE-256f |
 
 | KEM Algorithm Name | OID |
 | ----------- | ----------- |
@@ -47,7 +50,7 @@ Notes:
 
 ## Note on naming
 
-As of the draft NIST standards released August 24, 2023, we have the names "ML-DSA", "SLH-DSA", and "ML-KEM" to replace the names "Dilithium", "SPHINCS+", and "Kyber".
+As of the draft NIST standards released August 24, 2023, we have the names "ML-DSA", "SLH-DSA", and "ML-KEM" to replace the names "Dilithium", "SPHINCS+", and "Kyber".  
 
 In order to avoid confusion between prototype versions and the eventual final standard versions, this hackathon project will continue using the names "Dilithium", "SPHINCS+", and "Kyber".
 
