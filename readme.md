@@ -79,6 +79,8 @@ Where:
 
 ## Zip Format (R3)
 
+### Certificates - artifacts_certs_r3.zip
+
 Starting with artifacts for the NIST Draft standards released 2023-08-24, we will use a much simpler artifact format:
 
 * Only produce a self-signed certificate (TAs). Let's not bother with CA / EE / CRL / OCSP; those are begging for compatibility issues that have nothing to do with the PQ algs.
@@ -87,7 +89,8 @@ Starting with artifacts for the NIST Draft standards released 2023-08-24, we wil
 * Switch to a flat folder structure with filenames <oid>_ta.pem
 * For Kyber, use the the Dilithium TA of the equivalent security level to sign a <kyber_oid>_ee.pem
 
-- artifacts_r3.zip
+Within `providers/<provider_name>/`
+- artifacts_certs_r3.zip
   - 1.3.6.1.4.1.2.267.7.4.4_ta.pem  # Dilithium2
   - 1.3.6.1.4.1.2.267.7.6.5_ta.pem  # Dilithium3
   - 1.3.6.1.4.1.2.267.7.8.7_ta.pem  # Dilithium5
@@ -104,8 +107,15 @@ Starting with artifacts for the NIST Draft standards released 2023-08-24, we wil
   - 1.3.9999.6.8.3_ta.pem   # SPHINCS+-SHAKE192f-simple
   - 1.3.9999.6.9.3_ta.pem   # SPHINCS+sSHAKE256f-simple
 
+### CMS -- artifacts_cms.zip
 
-## Zip Format (R2)
+CMS artficats should be placed into a `artifacts_cms.zip` within `providers/<provider_name>/`. We will specify the exact file format when we start to see more robust artifacts submitted.
+
+### CMP -- artifacts_cmp.zip
+
+CMP artficats should be placed into a `artifacts_cmp.zip` within `providers/<provider_name>/`. We will specify the exact file format when we start to see more robust artifacts submitted.
+
+## Old Zip Format (R2)
 
 OLD -- IF YOU ARE SUBMITTING ARTIFACTS AGAINST THE NIST DRAFT SPECS AS OF 2023-08-24, THEN PLEASE USE THE R3 FORMAT ABOVE.
 
