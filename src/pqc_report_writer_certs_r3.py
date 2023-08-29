@@ -11,6 +11,13 @@ OUTPUT_FILE = 'pqc_hackathon_results_certs_r3.md'
 _FILENAME_REGEX = re.compile('^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
 _OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.*$')
 
+class SubmittedAlgorithmResult(NamedTuple):
+    generator: str
+    key_algorithm_oid: str
+
+# set to automatically not add duplicates
+_sars = []
+_submittedAlgsList = []
 
 class AlgorithmVerificationResult(NamedTuple):
     generator: str
@@ -18,38 +25,38 @@ class AlgorithmVerificationResult(NamedTuple):
     key_algorithm_oid: str
     test_result: Optional[bool]
 
-
-_ARTIFACTS_UNDER_TEST = ['test_result']
-
-
-def _parse_cell(value: str) -> Optional[bool]:
-    if not value:
-        return None
-
-    return value.casefold() == 'y'.casefold()
-
-
 def _parse_json_file(generator, verifier, f) -> Sequence[AlgorithmVerificationResult]:
     pass
 
 
-def _parse_csv_file(generator, verifier, f) -> Sequence[AlgorithmVerificationResult]:
+def _parse_csv_file(generator, verifier, f, oid_name_mappings) -> Sequence[AlgorithmVerificationResult]:
     c = csv.DictReader(f)
 
     avrs = []
 
     for row in c:
+        key_algorithm_oid = row['key_algorithm_oid']
         d = {
             'generator': generator,
             'verifier': verifier,
-            'key_algorithm_oid': row['key_algorithm_oid'],
+            'key_algorithm_oid': key_algorithm_oid,
             'test_result': row['test_result']
         }
 
         avrs.append(AlgorithmVerificationResult(**d))
 
-    return avrs
+        e = {
+            'generator': generator,
+            'key_algorithm_oid': key_algorithm_oid
+        }
 
+        if SubmittedAlgorithmResult(**e) not in _sars:
+            _sars.append(SubmittedAlgorithmResult(**e))
+
+        if key_algorithm_oid not in _submittedAlgsList:
+            _submittedAlgsList.append( key_algorithm_oid )
+
+    return avrs
 
 def _format_result_cell(avr) -> str:
     result_lines = []
@@ -63,7 +70,7 @@ def _format_result_cell(avr) -> str:
     else:
         display_result = '❌'
 
-    # if the result is '?', then do not pring the line
+    # if the result is '?', then do not print the line
     if (display_result != '?'):
         result_lines.append(f'{display_result}')
 
@@ -87,9 +94,7 @@ def _parse_oid_name_mapping_file(f) -> Mapping[str, str]:
 
 
 def _get_alg_name_by_oid_str(oid_to_name_mappings, oid_str):
-    oids = re.split(r'[^0-9.]+', oid_str)
-
-    return ' & '.join((oid_to_name_mappings.get(o, 'Unknown') for o in oids))
+    return oid_to_name_mappings.get(oid_str, oid_str)
 
 
 def main():
@@ -114,7 +119,7 @@ def main():
             verifier = m['verifier']
 
             if m['extension'].casefold() == 'csv'.casefold():
-                avrs.extend(_parse_csv_file(generator, verifier, f))
+                avrs.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings))
             else:
                 avrs.extend(_parse_json_file(generator, verifier, f))
 
@@ -138,7 +143,39 @@ def main():
 
     md_file = MdUtils(file_name=OUTPUT_FILE, title='IETF PQC Hackathon Interoperability Results')
 
-    md_file.new_paragraph(text='Rows are producers. Columns are parsers.\n')
+    md_file.new_paragraph(text='In all tables below, Rows are producers. Columns are parsers.\n')
+
+
+    md_file.new_header(level=1, title=f'Submitted Algorithms')
+    md_file.new_paragraph(text='To be in this table, an algorithm must have been submitted and tested by at least one other implementation.\n')
+
+    _submittedAlgsList.sort()
+    submittedAlgNames = []
+    for alg_oid in _submittedAlgsList:
+        submittedAlgNames.append(_get_alg_name_by_oid_str(oid_name_mappings, alg_oid))
+
+    submittedAlgsCells = ['-'] + submittedAlgNames
+    _sars.sort(key=alg_oid_getter)
+    sars_by_alg = {k: [] for k in _submittedAlgsList}
+    for sar in _sars:
+        sars_by_alg[sar.key_algorithm_oid].append(sar)
+
+
+    for generator in implementations:
+        submittedAlgsCells.append(generator)
+        for alg_oid, sars in sars_by_alg.items():
+            relevant_sars = [sar for sar in sars if sar.generator == generator ]
+
+            if len(relevant_sars) > 1:
+                raise ValueError(f'Multiple results for {generator}')
+
+            if len(relevant_sars) == 1:
+                submittedAlgsCells.append('✅')
+            else:
+                submittedAlgsCells.append('')
+
+    
+    md_file.new_table(columns=len(_submittedAlgsList) + 1, rows=len(implementations) + 1, text=submittedAlgsCells, text_align='left')
 
     for alg_oid, avrs in avrs_by_alg.items():
         alg_name = _get_alg_name_by_oid_str(oid_name_mappings, alg_oid)
