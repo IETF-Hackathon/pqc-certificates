@@ -58,7 +58,7 @@ def _format_result_cell(avr) -> str:
 
     if r is None:
         display_result = '?'
-    elif r:
+    elif r == 'Y':
         display_result = '✅'
     else:
         display_result = '❌'
@@ -157,7 +157,7 @@ def main():
 
                 if len(relevant_avrs) == 0:
                     # synthesize a result
-                    relevant_avr = AlgorithmVerificationResult(generator, verifier, alg_oid, None, None, None, None, None)
+                    relevant_avr = AlgorithmVerificationResult(generator, verifier, alg_oid, None)
                 else:
                     relevant_avr = relevant_avrs[0]
 
