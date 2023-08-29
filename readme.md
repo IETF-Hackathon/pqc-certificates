@@ -31,6 +31,7 @@ The project's directory structure is as follows:
             - implementation_name_2/
                 - artifacts.zip
             - compatMatrices
+              - artifacts_certs_03
                 - prov2_prov1.csv
                 - prov3_prov1.csv
                 - ...
@@ -203,4 +204,4 @@ $ make verify
 
 # Interoperability Results
 
-Interop results are documented in [compat_matrix.md](docs/compat_matrix.md).
+Instructions for documenting each provider's compatibility test results can be found in [compat_matrix_intructions.md](docs/compat_matrix_instructions.md).
