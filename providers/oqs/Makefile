@@ -8,7 +8,7 @@ PROVIDER_NAME := OQS
 # Directories for (possibly) multiple products
 # supported by the same provider
 # DIRS := <product_1> <product_2> ...
-DIRS := openssl111 oqsprovider
+DIRS := oqsprovider
 
 # Script for Generating the artifacts (if any)
 GEN_SCRIPT := ./gen.sh
@@ -113,10 +113,12 @@ cross_verify: requirements/verify
 	@if [ -f "$(VERIFY_SCRIPT)" ] ; then \
 		echo && echo "[ $(PROVIDER_NAME) ] Cross Verifying Artifacts:" ; \
 		echo > "$(VERIFY_LOGFILE)" ; \
-		for i in ../* ; do \
-			echo "  -  $$i" ; \
-			result=`cd "$$i" && make verify 2>&1 > "$(VERIFY_LOGFILE)" ` ; \
-		done ; \
+		${VERIFY_SCRIPT} ../bc/java-artifacts 2>&1 > compatMatrices/bc_$(PROVIDER_NAME) ; \
+		${VERIFY_SCRIPT} ../botan/default 2>&1 > compatMatrices/botan_$(PROVIDER_NAME) ; \
+		${VERIFY_SCRIPT} ../cryptonext/default 2>&1 > compatMatrices/cryptonext_$(PROVIDER_NAME) ; \
+		${VERIFY_SCRIPT} ../corey-digicert/default 2>&1 > compatMatrices/corey-digicert_$(PROVIDER_NAME); \
+		${VERIFY_SCRIPT} ../entrust/default 2>&1 > compatMatrices/entrust_$(PROVIDER_NAME) ; \
+		${VERIFY_SCRIPT} oqsprovider 2>&1 > compatMatrices/oqsprovider_$(PROVIDER_NAME) ; \
 		echo "[ $(PROVIDER_NAME) ] Done (Ok)." && echo; \
 	 fi
 
@@ -125,7 +127,7 @@ clean:
 	@rm -rf generate_log.txt verify_log.txt
 	@for i in $(DIRS) ; do \
 	   rm -rf $$i/artifacts ; \
-	   rm -rf $$i/1.3.6* ; \
+	   rm -rf $$i/1.3.* ; \
 	 done
 
 distclean: clean
