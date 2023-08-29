@@ -7,6 +7,9 @@ structures that make use of post-quantum and composite algorithms
 This repo represents work done between IETF 115 - 117.
 
 A summary table of the ongoing interoperability testing can be found here:
+https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results_certs_r3.html
+
+An older version showing more (now obsolete) algorithms can be found here instead:
 https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html
 
 ## Goals
