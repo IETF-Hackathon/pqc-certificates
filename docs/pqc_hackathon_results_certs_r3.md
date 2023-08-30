@@ -5,7 +5,7 @@ IETF PQC Hackathon Interoperability Results
 Algorithms
 ==========
 
-* [Submitted Algorithms](#submitted-algorithms)
+* [Algorithms Tested](#algorithms-tested)
 * [Dilithium2 (1.3.6.1.4.1.2.267.7.4.4)](#dilithium2-1361412267744)
 * [Dilithium3 (1.3.6.1.4.1.2.267.7.6.5)](#dilithium3-1361412267765)
 * [Dilithium5 (1.3.6.1.4.1.2.267.7.8.7)](#dilithium5-1361412267787)
@@ -35,10 +35,10 @@ Algorithms
 
 In all tables below, Rows are producers. Columns are parsers.
 
-# Submitted Algorithms
+# Algorithms Tested
 
 
-To be in this table, an algorithm must have been submitted and tested by at least one other implementation.
+To be in this table, an algorithm must have a test result in one of the tables below (pass or fail). Algorithms for which we have artifacts but no test results are not shown.
 
 |-|Dilithium2|Dilithium3|Dilithium5|kyber512|kyber768|kyber1024|~~Falcon-512~~|~~Falcon-1024~~|Falcon-512|Falcon-1024|sphincsshake128fsimple|sphincsshake192fsimple|sphincsshake256fsimple|id-Dilithium3-RSA-PKCS15-SHA256|id-Dilithium3-RSA-PSS-SHA256|id-Dilithium3-ECDSA-P256-SHA256|id-Dilithium3-ECDSA-brainpoolP256r1-SHA256|id-Dilithium5-ECDSA-P384-SHA384|id-Dilithium5-ECDSA-brainpoolP384r1-SHA384|~~id-Falcon512-ECDSA-P256-SHA256~~|~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~|chameleon-base|chameleon-delta|chameleon-extracted-delta|hybrid-catalyst|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
