@@ -52,15 +52,18 @@ public class R3ArtifactGenerator
             BCObjectIdentifiers.dilithium2,
             BCObjectIdentifiers.dilithium3,
             BCObjectIdentifiers.dilithium5,
-            BCObjectIdentifiers.sphincsPlus_sha2_128f_simple,
-            BCObjectIdentifiers.sphincsPlus_sha2_128s_simple,
-            BCObjectIdentifiers.sphincsPlus_sha2_192f_simple,
-            BCObjectIdentifiers.sphincsPlus_sha2_192s_simple,
-            BCObjectIdentifiers.sphincsPlus_sha2_256f_simple,
-            BCObjectIdentifiers.sphincsPlus_sha2_256s_simple,
-            BCObjectIdentifiers.sphincsPlus_shake_128f_simple,
-            BCObjectIdentifiers.sphincsPlus_shake_192f_simple,
-            BCObjectIdentifiers.sphincsPlus_shake_256f_simple,
+            BCObjectIdentifiers.sphincsPlus_sha2_128f,
+            BCObjectIdentifiers.sphincsPlus_sha2_128s,
+            BCObjectIdentifiers.sphincsPlus_sha2_192f,
+            BCObjectIdentifiers.sphincsPlus_sha2_192s,
+            BCObjectIdentifiers.sphincsPlus_sha2_256f,
+            BCObjectIdentifiers.sphincsPlus_sha2_256s,
+            BCObjectIdentifiers.sphincsPlus_shake_128f,
+            BCObjectIdentifiers.sphincsPlus_shake_128s,
+            BCObjectIdentifiers.sphincsPlus_shake_192f,
+            BCObjectIdentifiers.sphincsPlus_shake_192s,
+            BCObjectIdentifiers.sphincsPlus_shake_256f,
+            BCObjectIdentifiers.sphincsPlus_shake_256s,
 //            BCObjectIdentifiers.falcon_512,
 //            BCObjectIdentifiers.falcon_1024
         };
@@ -71,6 +74,9 @@ public class R3ArtifactGenerator
             "dilithium2",
             "dilithium3",
             "dilithium5",
+            "sphincsplus",
+            "sphincsplus",
+            "sphincsplus",
             "sphincsplus",
             "sphincsplus",
             "sphincsplus",
@@ -268,7 +274,7 @@ public class R3ArtifactGenerator
         Security.insertProviderAt(new BouncyCastleProvider(), 1);
         Security.insertProviderAt(new BouncyCastlePQCProvider(), 2);
 
-        File aDir = new File("artifacts_r3");
+        File aDir = new File("artifacts_certs_r3");
 
         aDir.mkdir();
 
