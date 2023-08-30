@@ -95,21 +95,8 @@ Starting with artifacts for the NIST Draft standards released 2023-08-24, we wil
 
 Within `providers/<provider_name>/`
 - artifacts_certs_r3.zip
-  - 1.3.6.1.4.1.2.267.7.4.4_ta.pem  # Dilithium2
-  - 1.3.6.1.4.1.2.267.7.6.5_ta.pem  # Dilithium3
-  - 1.3.6.1.4.1.2.267.7.8.7_ta.pem  # Dilithium5
-  - 1.3.6.1.4.1.22554.5.6.1_ee.pem  # Kyber512  - signed with Dilithium2
-  - 1.3.6.1.4.1.22554.5.6.2_ee.pem  # Kyber768  - signed with Dilithium3
-  - 1.3.6.1.4.1.22554.5.6.3_ee.pem  # Kyber1024 - signed with Dilithium5
-  - 1.3.9999.6.4.13_ta.pem  # SPHINCS+-SHA2-128f-simple
-  - 1.3.9999.6.4.16_ta.pem  # SPHINCS+-SHA2-128s-simple
-  - 1.3.9999.6.5.10_ta.pem  # SPHINCS+-SHA2-192f-simple
-  - 1.3.9999.6.5.12_ta.pem  # SPHINCS+-SHA2-192s-simple
-  - 1.3.9999.6.6.10_ta.pem  # SPHINCS+-SHA2-256f-simple
-  - 1.3.9999.6.6.12_ta.pem  # SPHINCS+-SHA2-256s-simple
-  - 1.3.9999.6.7.4_ta.pem   # SPHINCS+-SHAKE128f-simple
-  - 1.3.9999.6.8.3_ta.pem   # SPHINCS+-SHAKE192f-simple
-  - 1.3.9999.6.9.3_ta.pem   # SPHINCS+sSHAKE256f-simple
+  - <oid>_ta.pem  # self-signed cert for signature alg oids
+  - <oid>_ee.pem  # ex.: Kyber512  - signed with Dilithium2
 
 ### CMS -- artifacts_cms.zip
 
