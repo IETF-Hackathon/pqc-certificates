@@ -7,6 +7,9 @@ structures that make use of post-quantum and composite algorithms
 This repo represents work done between IETF 115 - 117.
 
 A summary table of the ongoing interoperability testing can be found here:
+https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results_certs_r3.html
+
+An older version showing more (now obsolete) algorithms can be found here instead:
 https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html
 
 ## Goals
@@ -113,7 +116,7 @@ At the hackathon, we are all going to script our PKI toolkit to produce and read
 
 (parentheses denotes optional files)
 
-- artifacts.zip
+- artifacts_r2.zip
   - artifacts/
     - alg_oid_dir/
         - ta/     # trust anchor, aka root CA, aka self-signed
@@ -193,4 +196,4 @@ $ make verify
 
 # Interoperability Results
 
-Interop results are documented in [compat_matrix.md](docs/compat_matrix.md).
+Instructions for documenting each provider's compatibility test results can be found in [compat_matrix_intructions.md](docs/compat_matrix_instructions.md).

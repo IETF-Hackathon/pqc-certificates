@@ -1,0 +1,13 @@
+key_algorithm_oid,ta,ca,ee,csr,crl_ta,crl_ca
+1.2.840.10045.2.1,Y,Y,Y,?,Y,Y
+1.3.6.1.4.1.2.267.7.4.4,Y,Y,Y,?,Y,Y
+1.3.6.1.4.1.2.267.7.6.5,Y,Y,Y,?,Y,Y
+1.3.6.1.4.1.2.267.7.8.7,Y,Y,Y,?,Y,Y
+1.3.9999.3.6,Y,Y,Y,?,Y,Y
+1.3.9999.3.9,Y,Y,Y,?,Y,Y
+2.16.840.1.114027.80.4.1,Y,Y,Y,?,Y,Y
+2.16.840.1.114027.80.5.1,Y,Y,Y,?,Y,Y
+chameleon-base,Y,Y,Y,Y,Y,Y
+chameleon-delta,Y,Y,Y,?,Y,Y
+chameleon-extracted-delta,Y,Y,Y,?,Y,Y
+hybrid-catalyst,Y,Y,Y,?,Y,Y
