@@ -1,6 +1,8 @@
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
@@ -42,7 +44,7 @@ public class R3ArtifactParser
     private static Map<String, Map<String, ZipEntry>> algEntries = new HashMap<>();
     private static Map<String, Map<String, File>> fileAlgEntries = new HashMap<>();
 
-    private static String header = "key_algorithm_oid,ta,ca,ee,crl_ta,crl_ca";
+    private static String header = "key_algorithm_oid,test_result";
 
     private static boolean checkCertificate(String entryName, X509Certificate subject, X509Certificate signingCert)
     {
@@ -87,29 +89,6 @@ public class R3ArtifactParser
             }
         }
         return thisMatching;
-    }
-
-    private static String getStatus(String entry, String[] statusElements, Set passed, Set ignored)
-    {
-        StringBuilder statusLine = new StringBuilder();
-
-        for (String inputEntry : statusElements)
-        {
-            inputEntry = "artifacts/" + entry + "/" + inputEntry;
-            if (statusLine.length() > 0)
-            {
-                statusLine.append(",");
-            }
-            if (passed.contains(inputEntry))
-            {
-                statusLine.append("Y");
-            }
-            else if (!ignored.contains(inputEntry))
-            {
-                statusLine.append("F");
-            }
-        }
-        return statusLine.toString();
     }
 
     private static boolean isRecognizedEncoding(String name)
@@ -204,7 +183,7 @@ public class R3ArtifactParser
             }
         }
         
-        checkCertificates(certificates, ignored);
+        checkCertificates(producer, certificates, ignored);
     }
 
     public static void processArtifacts(String producer, String dirName)
@@ -245,10 +224,11 @@ public class R3ArtifactParser
             }
         }
 
-        checkCertificates(certificates, ignored);
+        checkCertificates(producer, certificates, ignored);
     }
 
-    private static void checkCertificates(Map<String, X509Certificate> certificates, Set<String> ignored)
+    private static void checkCertificates(String producer, Map<String, X509Certificate> certificates, Set<String> ignored)
+        throws IOException
     {
         Set<String> passed = new HashSet<>();
         Set<String> failed = new HashSet<>();
@@ -277,6 +257,8 @@ public class R3ArtifactParser
         System.err.println("passed: " + passed);
         System.err.println("failed: " + failed);
         System.err.println("ignored: " + ignored);
+
+        outputCSV(producer, certificates, passed);
     }
 
     private static String canonicalise(File artDir, File f)
@@ -301,21 +283,30 @@ public class R3ArtifactParser
         return fs.toArray(new File[0]);
     }
 
-    private static void outputCSV(String producer, Set<String> entriesChecked, Set<String> ignored, Set<String> passed)
+    private static void outputCSV(String producer, Map<String, X509Certificate> entriesChecked, Set<String> passed)
         throws IOException
     {
-//        FileWriter fWrt = new FileWriter(producer + "_bc.csv");
-//        BufferedWriter bWrt = new BufferedWriter(fWrt);
-//
-//        bWrt.write(header);
-//        bWrt.newLine();
-//        for (String entry : entriesChecked)
-//        {
-//            bWrt.write(entry + "," + getStatus(entry, entries, passed, ignored));
-//            bWrt.newLine();
-//        }
-//
-//        bWrt.close();
+        FileWriter fWrt = new FileWriter(producer + "_bc.csv");
+        BufferedWriter bWrt = new BufferedWriter(fWrt);
+
+        bWrt.write(header);
+        bWrt.newLine();
+        for (String entry : entriesChecked.keySet())
+        {
+            String label = entry;
+            int ind = label.lastIndexOf('_');
+            label = label.substring(0, ind);
+            if (label.contains("_"))      // hybrid
+            {
+                label = label.replace("_with_", ",");
+                label = label.replace("_", "(");
+                label = "hybrid[" + label + ")]";
+            }
+            bWrt.write(label + "," + (passed.contains(entry) ? "Y" : "N"));
+            bWrt.newLine();
+        }
+
+        bWrt.close();
     }
 
     public static void main(String[] args)
