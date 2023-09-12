@@ -243,8 +243,6 @@ public class R3ArtifactGenerator
         
         Extension deltaExt = DeltaCertificateTool.makeDeltaCertificateExtension(
             false,
-            DeltaCertificateTool.signature
-                | DeltaCertificateTool.issuer | DeltaCertificateTool.subject | DeltaCertificateTool.extensions,
             deltaCert);
         crtBld.addExtension(deltaExt);
 
