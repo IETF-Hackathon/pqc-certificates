@@ -1,7 +1,5 @@
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.OutputStream;
 import java.math.BigInteger;
@@ -17,7 +15,6 @@ import java.security.PublicKey;
 import java.security.Security;
 import java.security.SignatureException;
 import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.spec.ECGenParameterSpec;
 import java.util.Date;
@@ -25,17 +22,12 @@ import java.util.Date;
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.ASN1Encoding;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.ASN1OctetString;
-import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
-import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
-import org.bouncycastle.asn1.util.ASN1Dump;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.CRLReason;
 import org.bouncycastle.asn1.x509.Extension;
-import org.bouncycastle.asn1.x509.Extensions;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.asn1.x509.SubjectAltPublicKeyInfo;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
@@ -52,7 +44,6 @@ import org.bouncycastle.jcajce.CompositePublicKey;
 import org.bouncycastle.jcajce.spec.CompositeAlgorithmSpec;
 import org.bouncycastle.jcajce.spec.EdDSAParameterSpec;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.ContentVerifierProvider;
@@ -65,7 +56,6 @@ import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
 import org.bouncycastle.pqc.jcajce.spec.DilithiumParameterSpec;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.Pack;
-import org.bouncycastle.util.io.Streams;
 
 public class ArtifactGenerator
 {
@@ -74,11 +64,17 @@ public class ArtifactGenerator
             BCObjectIdentifiers.dilithium2,
             BCObjectIdentifiers.dilithium3,
             BCObjectIdentifiers.dilithium5,
-            BCObjectIdentifiers.dilithium2_aes,
-            BCObjectIdentifiers.dilithium3_aes,
-            BCObjectIdentifiers.dilithium5_aes,
             BCObjectIdentifiers.falcon_512,
-            BCObjectIdentifiers.falcon_1024
+            BCObjectIdentifiers.falcon_1024,
+            BCObjectIdentifiers.sphincsPlus_sha2_128f_simple,
+            BCObjectIdentifiers.sphincsPlus_sha2_128s_simple,
+            BCObjectIdentifiers.sphincsPlus_sha2_192f_simple,
+            BCObjectIdentifiers.sphincsPlus_sha2_192s_simple,
+            BCObjectIdentifiers.sphincsPlus_sha2_256f_simple,
+            BCObjectIdentifiers.sphincsPlus_sha2_256s_simple,
+            BCObjectIdentifiers.sphincsPlus_shake_128f_simple,
+            BCObjectIdentifiers.sphincsPlus_shake_192f_simple,
+            BCObjectIdentifiers.sphincsPlus_shake_256f_simple
         };
 
     private static final String[] algNames =
@@ -86,11 +82,26 @@ public class ArtifactGenerator
             "dilithium2",
             "dilithium3",
             "dilithium5",
-            "dilithium2-aes",
-            "dilithium3-aes",
-            "dilithium5-aes",
             "falcon-512",
-            "falcon-1024"
+            "falcon-1024",
+            "sphincsplus",
+            "sphincsplus",
+            "sphincsplus",
+            "sphincsplus",
+            "sphincsplus",
+            "sphincsplus",
+            "sphincsplus",
+            "sphincsplus",
+            "sphincsplus"
+//            "sphincs+_sha2_128f_simple",
+//            "sphincs+_sha2_128s_simple",
+//            "sphincs+_sha2_192f_simple",
+//            "sphincs+_sha2_192s_simple",
+//            "sphincs+_sha2_256f_simple",
+//            "sphincs+_sha2_256s_simple",
+//            "sphincs+_shake_128f_simple",
+//            "sphincs+_shake_192f_simple",
+//            "sphincs+_shake_256f_simple"
         };
     
     private static final long BEFORE_DELTA = 60 * 1000L;
