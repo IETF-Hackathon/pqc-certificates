@@ -71,6 +71,9 @@ and neither are the robust variant of SPHINCS+.
 
 | Key Algorithm Name | Signature OID | Signature Name |
 | ----------- | ----------- | ----------- |
+| ~~Dilithium2~~ | 1.3.6.1.4.1.2.267.7.4.4 | ~~Dilithium2~~ |
+| ~~Dilithium3~~ | 1.3.6.1.4.1.2.267.7.6.5 | ~~Dilithium3~~ |
+| ~~Dilithium5~~ | 1.3.6.1.4.1.2.267.7.8.7 | ~~Dilithium5~~ |
 | ~~DilithiumAES2~~ | ~~1.3.6.1.4.1.2.267.11.4.4*~~ | ~~Dilithium2-AES~~ |
 | ~~DilithiumAES3~~ | ~~1.3.6.1.4.1.2.267.11.6.5*~~ | ~~Dilithium3-AES~~ |
 | ~~DilithiumAES5~~ | ~~1.3.6.1.4.1.2.267.11.8.7*~~ | ~~Dilithium5-AES~~ |
