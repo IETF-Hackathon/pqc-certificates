@@ -13,7 +13,7 @@ Until we have final standard OIDs, this list will be used for interoperability
 testing of the NIST Draft standard OIDs
 
 | Signature Algorithm Name | Signature OID | Specification |
-| ----------- | ----------- | ----------- | ----------- |
+| ----------- | ----------- | ----------- |
 | ML-DSA-44-ipd | 1.3.6.1.4.1.2.267.12.4.4* | FIPS 204 (Initial Public Draft) |
 | ML-DSA-65-ipd | 1.3.6.1.4.1.2.267.12.6.5* | ML-DSA-65-draft1 | FIPS 204 (Initial Public Draft) |
 | ML-DSA-87-ipd | 1.3.6.1.4.1.2.267.12.8.7* | ML-DSA-87-draft1 | FIPS 204 (Initial Public Draft) |
