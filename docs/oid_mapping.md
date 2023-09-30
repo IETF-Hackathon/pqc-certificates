@@ -19,18 +19,18 @@ testing of the NIST Draft standard OIDs
 | Dilithium5 | 1.3.6.1.4.1.2.267.12.8.7* | FIPS 204 (Initial Public Draft) |
 | Falcon-512 | 1.3.9999.3.6* | ?? |
 | Falcon-1024 | 1.3.9999.3.9* | ?? |
-| SPHINCS+-SHA2-128s-ipd | 1.3.9999.6.4.16* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-128s-ipd | 1.3.9999.6.7.16* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHA2-128f-ipd | 1.3.9999.6.4.13* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-128f-ipd | 1.3.9999.6.7.13* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHA2-192s-ipd | 1.3.9999.6.5.12* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-192s-ipd | 1.3.9999.6.8.12* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHA2-192f-ipd | 1.3.9999.6.5.10* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-192f-ipd | 1.3.9999.6.8.10* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHA2-256s-ipd | 1.3.9999.6.6.12* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-256s-ipd | 1.3.9999.6.9.12* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHA2-256f-ipd | 1.3.9999.6.6.10* | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-256f-ipd | 1.3.9999.6.9.10* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHA2-128s | 1.3.9999.6.4.16* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHAKE-128s | 1.3.9999.6.7.16* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHA2-128f | 1.3.9999.6.4.13* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHAKE-128f | 1.3.9999.6.7.13* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHA2-192s | 1.3.9999.6.5.12* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHAKE-192s | 1.3.9999.6.8.12* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHA2-192f | 1.3.9999.6.5.10* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHAKE-192f | 1.3.9999.6.8.10* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHA2-256s | 1.3.9999.6.6.12* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHAKE-256s | 1.3.9999.6.9.12* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHA2-256f | 1.3.9999.6.6.10* | FIPS 205 (Initial Public Draft) |
+| SPHINCS+-SHAKE-256f | 1.3.9999.6.9.10* | FIPS 205 (Initial Public Draft) |
 
 | KEM Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
