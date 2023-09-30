@@ -12,8 +12,8 @@ This section provides the individual OIDs for the NIST draft standard OIDs
 Until we have final standard OIDs, this list will be used for interoperability 
 testing of the NIST Draft standard OIDs
 
-| Key Algorithm Name | Signature OID | Signature Name |
-| ----------- | ----------- | ----------- |
+| Key Algorithm Name | Signature OID | Signature Name | Specification |
+| ----------- | ----------- | ----------- | ----------- |
 | Dilithium2 | 1.3.6.1.4.1.2.267.12.4.4* | Dilithium2 |
 | Dilithium3 | 1.3.6.1.4.1.2.267.12.6.5* | Dilithium3 |
 | Dilithium5 | 1.3.6.1.4.1.2.267.12.8.7* | Dilithium5 |
@@ -32,8 +32,8 @@ testing of the NIST Draft standard OIDs
 | SPHINCS+-SHA2-256f | 1.3.9999.6.6.10* | SPHINCS+-SHA2-256f |
 | SPHINCS+-SHAKE-256f | 1.3.9999.6.9.10* | SPHINCS+-SHAKE-256f |
 
-| KEM Algorithm Name | OID |
-| ----------- | ----------- |
+| KEM Algorithm Name | OID | Specification |
+| ----------- | ----------- | ----------- |
 | kyber512 |   1.3.6.1.4.1.22554.5.6.1 |
 | kyber768 |  1.3.6.1.4.1.22554.5.6.2 |
 | kyber1024 | 1.3.6.1.4.1.22554.5.6.3 |
@@ -69,8 +69,8 @@ but are no longer recommended for testing because of anticipated changes in the 
 For example, the AES variants used in Dilithium are not expected in the final standard,
 and neither are the robust variant of SPHINCS+.
 
-| Key Algorithm Name | Signature OID | Signature Name |
-| ----------- | ----------- | ----------- |
+| Key Algorithm Name | Signature OID | Signature Name | Specification |
+| ----------- | ----------- | ----------- | ----------- |
 | ~~Dilithium2~~ | 1.3.6.1.4.1.2.267.7.4.4 | ~~Dilithium2~~ |
 | ~~Dilithium3~~ | 1.3.6.1.4.1.2.267.7.6.5 | ~~Dilithium3~~ |
 | ~~Dilithium5~~ | 1.3.6.1.4.1.2.267.7.8.7 | ~~Dilithium5~~ |
@@ -107,8 +107,8 @@ prevent compatiblity issues and we have accomodated those changes here as well.
 
 This section provides the list of OIDs for composite KEMs.
 
-| KEM Algorithm Name | OID |
-| ----------- | ----------- |
+| KEM Algorithm Name | OID |  Specification |
+| ----------- | ----------- | ----------- |
 | ~~kyber512_aes~~ | ~~1.3.6.1.4.1.22554.5.6.4~~ |
 | ~~kyber768_aes~~ | ~~1.3.6.1.4.1.22554.5.6.5~~ |
 | ~~kyber1024_aes~~ | ~~1.3.6.1.4.1.22554.5.6.6~~ |
@@ -138,8 +138,8 @@ Composite Signature Algorithm. For example, when using the explicit composite ke
 identified by the `id-Dilithium3-RSA-PKCS15-SHA256` OID, the same OID MUST be
 used to identify the signatures generated with the said key, i.e. `id-Dilithium3-RSA-PKCS15-SHA256`.
 
-| Key Algorithm | Key and Signature OID |
-| ----------- | ----------- |
+| Key Algorithm | Key and Signature OID | Specification |
+| ----------- | ----------- | ----------- |
 | ExplicitCompositeSignature | 2.16.840.1.114027.80.5.1 |
 | id-Dilithium3-RSA-PKCS15-SHA256         | 2.16.840.1.114027.80.5.1.1 |
 | id-Dilithium3-ECDSA-P256-SHA256            | 2.16.840.1.114027.80.5.1.2 |
@@ -171,8 +171,8 @@ This section provides the OIDs associated with Generic Composite Keys and
 Direct Signatures. Specifically, we define the OID for a Generic Composite
 Key as follows:
 
-| Public Key Alg Name | OID | Alias |
-| ----------- | ----------- | ----------- |
+| Public Key Alg Name | OID | Alias | Specification |
+| ----------- | ----------- | ----------- | ----------- |
 | COMPOSITE-KEY | 2.16.840.1.114027.80.4.1 | id-Composite-Key |
 | ~~COMPOSITE~~ | ~~1.3.6.1.4.1.18227.2.1.999.1~~ | ~~id-Composite-Key~~ |
 | ~~MULTIKEY~~ | ~~1.3.6.1.4.1.18227.2.1.999.1~~ | ~~id-Multi-Key~~ |
@@ -186,8 +186,8 @@ Differently from the Explicit use-case, for Generic Composite Direct Signature, 
 signature OID is not the same as the Key, but uses the following arc. The direct
 signature OID for Composite is defined as follows:
 
-| Algorithm Name | OID | Alias |
-| ----------- | ----------- | ----------- |
+| Algorithm Name | OID | Alias | Specification |
+| ----------- | ----------- | ----------- | ----------- |
 | CompositeWithNoHash | 1.3.6.1.4.1.18227.2.1 | COMPOSITE |
 
 ## Generic Composite and Hash-n-Sign
@@ -202,15 +202,15 @@ updated to the new value.
 The list of suggested hash-n-sign combinations (also supported by NIST in
 informal conversation with the standardization team) are:
 
-| Algorithm Name | OID | Alias |
-| ----------- | ----------- | ----------- |
+| Algorithm Name | OID | Alias | Specification |
+| ----------- | ----------- | ----------- | ----------- |
 | CompositeWithSha256 | 1.3.6.1.4.1.18227.2.1.2 | COMPOSITE-SHA256 |
 | CompositeWithSha512 | 1.3.6.1.4.1.18227.2.1.4 | COMPOSITE-SHA512 |
 
 Other supported hash-n-sign combinations are:
 
-| Algorithm Name | OID | Alias |
-| ----------- | ----------- | ----------- |
+| Algorithm Name | OID | Alias | Specification |
+| ----------- | ----------- | ----------- | ----------- |
 | CompositeWithSha256 | 1.3.6.1.4.1.18227.2.1.3 | COMPOSITE-SHA384 |
 | CompositeWithSha3at256 | 1.3.6.1.4.1.18227.2.1.5 | COMPOSITE-SHA3_256 |
 | CompositeWithSha3at384 | 1.3.6.1.4.1.18227.2.1.6 | COMPOSITE-SHA3_384 |
@@ -234,22 +234,23 @@ to 1.3.6.1.4.1.18227.999.1.1 and the DILITHIUM-SHA256 would be changed to
 1.3.6.1.4.1.18227.999.1.1.1.1).
 
 
-| Alg Name | OID |
+| Alg Name | OID | Specification |
+| ----------- | ----------- | ----------- |
 | COMPOSITE_KEY_HASH_N_SIGN | 2.16.840.1.114027.80.4.1.2 |
 
 ### Dilithium2 Hash-n-Sign Algorithm Identifiers
 
 The list of suggested hash-n-sign combinations is as follows:
 
-| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
-| ----------- | ----------- | ----------- |  ----------- |
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm | Specification |
+| ----------- | ----------- | ----------- |  ----------- | ----------- |
 | Dilithium2WithSha256 | 1.3.6.1.4.1.18227.999.1.1.1 | Dilithium2 | SHA256 |
 | Dilithium2WithSha512 | 1.3.6.1.4.1.18227.999.1.1.3 | Dilithium2 | SHA512 |
 
 The full list of supported hash-n-sign combinations also comprises the following:
 
-| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
-| ----------- | ----------- | ----------- |  ----------- |
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm | Specification |
+| ----------- | ----------- | ----------- |  ----------- | ----------- |
 | Dilithium2WithSha384 | 1.3.6.1.4.1.18227.999.1.1.2 | Dilithium2 | SHA384 |
 | Dilithium2WithSha3At256 | 1.3.6.1.4.1.18227.999.1.1.4 | Dilithium2 | SHA3_256 |
 | Dilithium2WithSha3At384 | 1.3.6.1.4.1.18227.999.1.1.5 | Dilithium2 | SHA3_384 |
@@ -261,15 +262,15 @@ The full list of supported hash-n-sign combinations also comprises the following
 
 The list of suggested hash-n-sign combinations is as follows:
 
-| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
-| ----------- | ----------- | ----------- |  ----------- |
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm | Specification |
+| ----------- | ----------- | ----------- |  ----------- | ----------- |
 | Dilithium3WithSha256 | 1.3.6.1.4.1.18227.999.1.2.1 | Dilithium3 | SHA256 |
 | Dilithium3WithSha512 | 1.3.6.1.4.1.18227.999.1.2.3 | Dilithium3 | SHA512 |
 
 The full list of supported hash-n-sign combinations also comprises the following:
 
-| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
-| ----------- | ----------- | ----------- |  ----------- |
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm | Specification |
+| ----------- | ----------- | ----------- |  ----------- | ----------- |
 | Dilithium3WithSha384 | 1.3.6.1.4.1.18227.999.1.2.2 | Dilithium3 | SHA384 |
 | Dilithium3WithSha3At256 | 1.3.6.1.4.1.18227.999.1.2.4 | Dilithium3 | SHA3_256 |
 | Dilithium3WithSha3At384 | 1.3.6.1.4.1.18227.999.1.2.5 | Dilithium3 | SHA3_384 |
@@ -281,15 +282,15 @@ The full list of supported hash-n-sign combinations also comprises the following
 
 The list of suggested hash-n-sign combinations is as follows:
 
-| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
-| ----------- | ----------- | ----------- |  ----------- |
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm | Specification |
+| ----------- | ----------- | ----------- |  ----------- | ----------- |
 | Dilithium5WithSha256 | 1.3.6.1.4.1.18227.999.1.2.1 | Dilithium5 | SHA256 |
 | Dilithium5WithSha512 | 1.3.6.1.4.1.18227.999.1.2.3 | Dilithium5 | SHA512 |
 
 The full list of supported hash-n-sign combinations also comprises the following:
 
-| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
-| ----------- | ----------- | ----------- |  ----------- |
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm | Specification |
+| ----------- | ----------- | ----------- |  ----------- | ----------- |
 | Dilithium5WithSha384 | 1.3.6.1.4.1.18227.999.1.2.2 | Dilithium5 | SHA384 |
 | Dilithium5WithSha3At256 | 1.3.6.1.4.1.18227.999.1.2.4 | Dilithium5 | SHA3_256 |
 | Dilithium5WithSha3At384 | 1.3.6.1.4.1.18227.999.1.2.5 | Dilithium5 | SHA3_384 |
@@ -301,8 +302,8 @@ The full list of supported hash-n-sign combinations also comprises the following
 
 The list of suggested hash-n-sign combinations is as follows:
 
-| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
-| ----------- | ----------- | ----------- |  ----------- |
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm | Specification |
+| ----------- | ----------- | ----------- |  ----------- | ----------- |
 | ~~Falcon512WithSha256~~ | ~~1.3.6.1.4.1.18227.999.2.1.1~~ | ~~Falcon512~~ | ~~SHA256~~ |
 | ~~Falcon512WithSha512~~ | ~~1.3.6.1.4.1.18227.999.2.3.3~~ | ~~Falcon512~~ | ~~SHA512~~ |
 | Falcon512WithSha256 | 1.3.6.1.4.1.18227.999.2.3.1.1 | Falcon512 | SHA256 |
@@ -310,8 +311,8 @@ The list of suggested hash-n-sign combinations is as follows:
 
 The full list of supported hash-n-sign combinations also comprises the following:
 
-| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
-| ----------- | ----------- | ----------- |  ----------- |
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm | Specification |
+| ----------- | ----------- | ----------- |  ----------- | ----------- |
 | ~~Falcon512WithSha384~~ | ~~1.3.6.1.4.1.18227.999.2.1.2~~ | ~~Falcon512~~ | ~~SHA384~~ |
 | ~~Falcon512WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.2.1.4~~ | ~~Falcon512~~ | ~~SHA3_256~~ |
 | ~~Falcon512WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.2.1.5~~ | ~~Falcon512~~ | ~~SHA3_384~~ |
@@ -332,8 +333,8 @@ in the algorithm's parameters (May 2023)
 
 The list of suggested hash-n-sign combinations is as follows:
 
-| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
-| ----------- | ----------- | ----------- |  ----------- |
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm | Specification |
+| ----------- | ----------- | ----------- |  ----------- | ----------- |
 | ~~Falcon1024WithSha256~~ | ~~1.3.6.1.4.1.18227.999.2.2.1~~ | ~~FALCON1024-SHA256~~ |
 | ~~Falcon1024WithSha512~~ | ~~1.3.6.1.4.1.18227.999.2.2.3~~ | ~~FALCON1024-SHA512~~ |
 | Falcon1024WithSha256 | 1.3.6.1.4.1.18227.999.2.2.1.1 | FALCON1024-SHA256 |
@@ -341,8 +342,8 @@ The list of suggested hash-n-sign combinations is as follows:
 
 The full list of supported hash-n-sign combinations also comprises the following:
 
-| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm |
-| ----------- | ----------- | ----------- |  ----------- |
+| Sig Algorithm Name | OID | Key Algorithm | Hash Algorithm | Specification |
+| ----------- | ----------- | ----------- |  ----------- | ----------- |
 | ~~Falcon1024WithSha384~~ | ~~1.3.6.1.4.1.18227.999.2.2.2~~ | ~~FALCON1024-SHA384~~ |
 | ~~Falcon1024WithSha3At256~~ | ~~1.3.6.1.4.1.18227.999.2.2.4~~ | ~~FALCON1024-SHA3_256~~ |
 | ~~Falcon1024WithSha3At384~~ | ~~1.3.6.1.4.1.18227.999.2.2.5~~ | ~~FALCON1024-SHA3_384~~ |
