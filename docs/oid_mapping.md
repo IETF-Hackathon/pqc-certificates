@@ -111,17 +111,17 @@ This section provides the list of OIDs for composite KEMs.
 | ~~kyber512_aes~~ | ~~1.3.6.1.4.1.22554.5.6.4~~ |  |
 | ~~kyber768_aes~~ | ~~1.3.6.1.4.1.22554.5.6.5~~ |  |
 | ~~kyber1024_aes~~ | ~~1.3.6.1.4.1.22554.5.6.6~~ |  |
-| bike128 | 1.3.6.1.4.1.22554.5.8.1 |  |
-| bike192 | 1.3.6.1.4.1.22554.5.8.2 |  |
-| bike256 | 1.3.6.1.4.1.22554.5.8.3 |  |
-| hqc128 | 1.3.6.1.4.1.22554.5.9.1 |  |
-| hqc192 | 1.3.6.1.4.1.22554.5.9.2 |  |
-| hqc256 | 1.3.6.1.4.1.22554.5.9.3 |  |
-| mceliece348864 | TBD |  |
-| mceliece460896 | TBD |  |
-| mceliece6688128 | TBD |  |
-| mceliece6960119 | TBD |  |
-| mceliece8192128 | TBD |  |
+| bike128 | 1.3.6.1.4.1.22554.5.8.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| bike192 | 1.3.6.1.4.1.22554.5.8.2 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java)  |
+| bike256 | 1.3.6.1.4.1.22554.5.8.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| hqc128 | 1.3.6.1.4.1.22554.5.9.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| hqc192 | 1.3.6.1.4.1.22554.5.9.2 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| hqc256 | 1.3.6.1.4.1.22554.5.9.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| mceliece348864 | 1.3.6.1.4.1.22554.5.1.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| mceliece460896 | 1.3.6.1.4.1.22554.5.1.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| mceliece6688128 | 1.3.6.1.4.1.22554.5.1.5 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| mceliece6960119 | 1.3.6.1.4.1.22554.5.1.7 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| mceliece8192128 | 1.3.6.1.4.1.22554.5.1.9 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 
 Update: Support for the AES version of Kyber has been removed due to its
 drop from NIST standardization process. They replaced the SHAKE with AES and were intended only for benchmarking purposes to simulate the performance characteristics that we will see once CPU chipsets have hardware support for SHA3 the same way that they currently do for AES.
