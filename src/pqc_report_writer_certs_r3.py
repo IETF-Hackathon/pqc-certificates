@@ -69,7 +69,7 @@ def _format_result_cell(avr) -> str:
 
     if r is None:
         display_result = '?'
-    elif r == 'Y':
+    elif r == 'Y' or r == 'y':
         display_result = '✅'
     else:
         display_result = '❌'
