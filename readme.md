@@ -100,6 +100,8 @@ Within `providers/<provider_name>/`
   - `<oid>_ta.pem`  # self-signed cert for signature alg oids
   - `<oid>_ee.pem`  # ex.: Kyber512  - signed with Dilithium2
 
+The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
+
 ### CMS -- artifacts_cms.zip
 
 CMS artficats should be placed into a `artifacts_cms.zip` within `providers/<provider_name>/`. We will specify the exact file format when we start to see more robust artifacts submitted.
