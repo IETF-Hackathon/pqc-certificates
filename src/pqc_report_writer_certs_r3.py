@@ -8,8 +8,10 @@ from mdutils.mdutils import MdUtils
 
 OUTPUT_FILE = 'pqc_hackathon_results_certs_r3.md'
 
-_FILENAME_REGEX = re.compile('^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
+_FILENAME_REGEX = re.compile(r'^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
 _OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.*$')
+_HYBRID_FORMAT_NAME_REGEX = re.compile(r'(?P<hybrid_format>[^_]+)_(?P<oid1>[^_]+)_with_(?P<oid2>[^_]+)', re.IGNORECASE)
+
 
 class SubmittedAlgorithmResult(NamedTuple):
     generator: str
@@ -67,7 +69,7 @@ def _format_result_cell(avr) -> str:
 
     r = getattr(avr, 'test_result')
 
-    if r is None:
+    if r is None or r == "":
         display_result = '?'
     elif r == 'Y' or r == 'y':
         display_result = '✅'
@@ -98,6 +100,20 @@ def _parse_oid_name_mapping_file(f) -> Mapping[str, str]:
 
 
 def _get_alg_name_by_oid_str(oid_to_name_mappings, oid_str):
+
+    # If the oid_str represents a hybrid cert type,
+    # then the oid_str will be in the format
+    # <hybrid_format>_<oid1>_with_<oid2>
+    m = _HYBRID_FORMAT_NAME_REGEX.match(oid_str)
+
+    print(oid_str)
+
+    if m is not None:
+        # Display only the hybrid format, not the OIDs.
+        print('Matched hybbrid format regex: '+m['hybrid_format'])
+        return m['hybrid_format']
+
+    # else it is a simple OID.
     return oid_to_name_mappings.get(oid_str, oid_str)
 
 
