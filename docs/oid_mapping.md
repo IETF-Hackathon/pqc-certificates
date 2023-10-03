@@ -14,29 +14,29 @@ testing of the NIST Draft standard OIDs
 
 | Signature Algorithm Name | Signature OID | Specification |
 | ----------- | ----------- | ----------- |
-| Dilithium2 | 1.3.6.1.4.1.2.267.12.4.4 | FIPS 204 (Initial Public Draft) |
-| Dilithium3 | 1.3.6.1.4.1.2.267.12.6.5 | FIPS 204 (Initial Public Draft) |
-| Dilithium5 | 1.3.6.1.4.1.2.267.12.8.7 | FIPS 204 (Initial Public Draft) |
-| Falcon-512 | 1.3.9999.3.6 | ?? NIST Round 4 ?? [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
-| Falcon-1024 | 1.3.9999.3.9 | ?? NIST Round 4 ?? [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
-| SPHINCS+-SHA2-128s | 1.3.9999.6.4.16 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-128s | 1.3.9999.6.7.16 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHA2-128f | 1.3.9999.6.4.13 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-128f | 1.3.9999.6.7.13 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHA2-192s | 1.3.9999.6.5.12 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-192s | 1.3.9999.6.8.12 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHA2-192f | 1.3.9999.6.5.10 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-192f | 1.3.9999.6.8.10 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHA2-256s | 1.3.9999.6.6.12 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-256s | 1.3.9999.6.9.12 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHA2-256f | 1.3.9999.6.6.10 | FIPS 205 (Initial Public Draft) |
-| SPHINCS+-SHAKE-256f | 1.3.9999.6.9.10 | FIPS 205 (Initial Public Draft) |
+| ML-DSA-44-ipd | 1.3.6.1.4.1.2.267.12.4.4 | FIPS 204 (Initial Public Draft) |
+| ML-DSA-65-ipd | 1.3.6.1.4.1.2.267.12.6.5 | FIPS 204 (Initial Public Draft) |
+| ML-DSA-87-ipd | 1.3.6.1.4.1.2.267.12.8.7 | FIPS 204 (Initial Public Draft) |
+| Falcon-512 | 1.3.9999.3.6* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| Falcon-1024 | 1.3.9999.3.9* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| SLH-DSA-SHA2-128s-ipd | 1.3.9999.6.4.16 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHAKE-128s-ipd | 1.3.9999.6.7.16 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHA2-128f-ipd | 1.3.9999.6.4.13 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHAKE-128f-ipd | 1.3.9999.6.7.13 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHA2-192s-ipd | 1.3.9999.6.5.12 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHAKE-192s-ipd | 1.3.9999.6.8.12 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHA2-192f-ipd | 1.3.9999.6.5.10 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHAKE-192f-ipd | 1.3.9999.6.8.10 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHA2-256s-ipd | 1.3.9999.6.6.12 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHAKE-256s-ipd | 1.3.9999.6.9.12 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHA2-256f-ipd | 1.3.9999.6.6.10 | FIPS 205 (Initial Public Draft) |
+| SLH-DSA-SHAKE-256f-ipd | 1.3.9999.6.9.10 | FIPS 205 (Initial Public Draft) |
 
 | KEM Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
-| kyber512 |  1.3.6.1.4.1.22554.5.6.1 | FIPS 203 (Initial Public Draft) |
-| kyber768 |  1.3.6.1.4.1.22554.5.6.2 | FIPS 203 (Initial Public Draft) |
-| kyber1024 | 1.3.6.1.4.1.22554.5.6.3 | FIPS 203 (Initial Public Draft) |
+| ML-KEM-512-ipd |  1.3.6.1.4.1.22554.5.6.1 | FIPS 203 (Initial Public Draft) |
+| ML-KEM-768-ipd |  1.3.6.1.4.1.22554.5.6.2 | FIPS 203 (Initial Public Draft) |
+| ML-KEM-1024-ipd | 1.3.6.1.4.1.22554.5.6.3 | FIPS 203 (Initial Public Draft) |
 
 # Experimental and Historical OID's
 The following are historical or experimental OIDs used in this project.     
@@ -70,9 +70,9 @@ and neither are the robust variant of SPHINCS+.
 
 | Key Algorithm Name | Signature OID | Specification |
 | ----------- | ----------- | ----------- |
-| ~~Dilithium2~~ | 1.3.6.1.4.1.2.267.7.4.4 | ?? NIST Round 4 ?? [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
-| ~~Dilithium3~~ | 1.3.6.1.4.1.2.267.7.6.5 | ?? NIST Round 4 ?? [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
-| ~~Dilithium5~~ | 1.3.6.1.4.1.2.267.7.8.7 | ?? NIST Round 4 ?? [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| ~~Dilithium2~~ | 1.3.6.1.4.1.2.267.7.4.4 | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| ~~Dilithium3~~ | 1.3.6.1.4.1.2.267.7.6.5 | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| ~~Dilithium5~~ | 1.3.6.1.4.1.2.267.7.8.7 | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
 | ~~DilithiumAES2~~ | ~~1.3.6.1.4.1.2.267.11.4.4~~ | [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
 | ~~DilithiumAES3~~ | ~~1.3.6.1.4.1.2.267.11.6.5~~ | [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
 | ~~DilithiumAES5~~ | ~~1.3.6.1.4.1.2.267.11.8.7~~ | [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
