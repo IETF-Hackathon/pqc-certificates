@@ -78,7 +78,7 @@ check() {
         exit -1
     fi
     cd artifacts
-    echo "key_algorithm_oid,ta"
+    echo "key_algorithm_oid,test_result"
     for oid_folder in 1*_ta.*; do
 	   target=$(echo $oid_folder | sed -r "s/(.*)_ta.*/\1/g")
        check_cert "${target}_ta"
