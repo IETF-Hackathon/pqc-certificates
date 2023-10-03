@@ -35,26 +35,30 @@ def _parse_csv_file(generator, verifier, f, oid_name_mappings) -> Sequence[Algor
     avrs = []
 
     for row in c:
-        key_algorithm_oid = row['key_algorithm_oid']
-        d = {
-            'generator': generator,
-            'verifier': verifier,
-            'key_algorithm_oid': key_algorithm_oid,
-            'test_result': row['test_result']
-        }
+        try:
+            key_algorithm_oid = row['key_algorithm_oid']
+            d = {
+                'generator': generator,
+                'verifier': verifier,
+                'key_algorithm_oid': key_algorithm_oid,
+                'test_result': row['test_result']
+            }
 
-        avrs.append(AlgorithmVerificationResult(**d))
+            avrs.append(AlgorithmVerificationResult(**d))
 
-        e = {
-            'generator': generator,
-            'key_algorithm_oid': key_algorithm_oid
-        }
+            e = {
+                'generator': generator,
+                'key_algorithm_oid': key_algorithm_oid
+            }
 
-        if SubmittedAlgorithmResult(**e) not in _sars:
-            _sars.append(SubmittedAlgorithmResult(**e))
+            if SubmittedAlgorithmResult(**e) not in _sars:
+                _sars.append(SubmittedAlgorithmResult(**e))
 
-        if key_algorithm_oid not in _submittedAlgsList:
-            _submittedAlgsList.append( key_algorithm_oid )
+            if key_algorithm_oid not in _submittedAlgsList:
+                _submittedAlgsList.append( key_algorithm_oid )
+        except Exception as e:
+            print("Error reading "+ str(f.name))
+            raise e
 
     return avrs
 
@@ -65,7 +69,7 @@ def _format_result_cell(avr) -> str:
 
     if r is None:
         display_result = '?'
-    elif r == 'Y':
+    elif r == 'Y' or r == 'y':
         display_result = '✅'
     else:
         display_result = '❌'
