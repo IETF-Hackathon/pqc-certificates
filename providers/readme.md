@@ -44,7 +44,7 @@
 
 # Entrust
 
-* Provider short name: `botentrustan`
+* Provider short name: `entrust`
 * Company name: Entrust
 * Company website: https://www.entrust.com/
 * Implementation: Proprietary, but internally uses OpenQuantumSafe.
