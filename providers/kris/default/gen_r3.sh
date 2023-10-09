@@ -11,7 +11,7 @@ gen() {
    # Root/TA:
    mkdir -p ${DIR}
    # Generate key pair
-   openssl req -x509 -new -newkey ${ALG} -keyout ${DIR}/${OID}_ta_priv.pem -out ${DIR}/${OID}_ta.pem -nodes -subj "/CN=TA Kris (PQCL)" -addext basicConstraints=critical,CA:TRUE -days 730
+   openssl req -x509 -new -newkey ${ALG} -keyout ${DIR}/${OID}_ta_priv.pem -extensions v3_ca -out ${DIR}/${OID}_ta.pem -nodes -subj "/CN=TA Kris (PQCL)"
    # Also generate cert in DER
    openssl x509 -in ${DIR}/${OID}_ta.pem -out ${DIR}/${OID}_ta.der -outform DER
 }
