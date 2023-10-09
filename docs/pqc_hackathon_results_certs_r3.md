@@ -84,9 +84,9 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound||||||✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||||✅|||✅|||✅|||||||||✅|✅||||✅|✅|||||||||||
 |corey-digicert||||||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅|||✅|||✅|||||||||✅|✅|✅|✅|✅|✅|✅|✅||||||||||
 |cryptonext||||||✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||||✅|||✅|||✅|||||||||✅|✅||||✅|✅|||||||||||
-|entrust||||||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||✅|||✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||✅|✅|||||||||||
+|entrust||||||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||✅|✅|||||||||||
 |isi-wolfssl|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|kris||||||✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||||✅|||✅|||✅|||||||||✅|✅||||✅|✅|||||||||||
+|kris|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅|||✅|||✅|||||||||✅|✅||||✅|✅|||||||||||
 |openca||||||✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||||✅|||✅|||✅|||||||||✅|✅||||✅|✅|||||||||||
 |oqs-gnutls||||||✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||||✅|||✅|||✅|||||||||✅|✅||||✅|✅|||||||||||
 |oqs-openssl111||✅||||✅|✅|✅||||✅|✅|||✅|||||||||||||||||||||||||||||||||||||||||||||||
@@ -107,7 +107,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
 |oqs-openssl111|||||||||||||
-|oqs-provider||||||||||||✅|
+|oqs-provider||||||||✅||||✅|
 
 # ~~DilithiumAES2~~ (1.3.6.1.4.1.2.267.11.4.4)
 
@@ -123,21 +123,21 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |kris|||||||||||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
-|oqs-openssl111||||||||||||❌|
+|oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
 # ML-DSA-44-ipd (1.3.6.1.4.1.2.267.12.4.4)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|||||||||||❌|
+|bc|✅|||||||✅||||✅|
 |botan|||||||||||||
 |carl-redhound|||||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
-|kris|||||||||||||
+|kris||||||||✅|||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
 |oqs-openssl111|||||||||||||
@@ -147,14 +147,14 @@ To be in this table, an algorithm must have a test result in one of the tables b
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|||||||||||❌|
+|bc|✅|||||||✅||||✅|
 |botan|||||||||||||
 |carl-redhound|||||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
-|kris|||||||||||||
+|kris||||||||✅|||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
 |oqs-openssl111|||||||||||||
@@ -164,14 +164,14 @@ To be in this table, an algorithm must have a test result in one of the tables b
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|||||||||||❌|
+|bc|✅|||||||✅||||✅|
 |botan|||||||||||||
 |carl-redhound|||||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
-|kris|||||||||||||
+|kris||||||||✅|||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
 |oqs-openssl111|||||||||||||
@@ -182,17 +182,17 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc||✅||✅||✅|✅||||||
-|botan|❌|✅||✅|✅||✅|||||✅|
-|carl-redhound|✅|❌||✅|✅|✅|✅|||||✅|
-|corey-digicert|✅|✅||✅|✅|✅|❌|||||✅|
-|cryptonext||✅||✅|✅|✅|✅|||||❌|
-|entrust|❌|✅||❌|✅|✅||||||✅|
+|botan|❌|✅||✅|✅||✅|✅||||❌|
+|carl-redhound|✅|❌||✅|✅|✅|✅|✅||||❌|
+|corey-digicert|✅|✅||✅|✅|✅|❌|||||❌|
+|cryptonext||✅||✅|✅|✅|✅|✅||||❌|
+|entrust|❌|✅||❌|✅|✅||✅||||❌|
 |isi-wolfssl|||||||||||||
-|kris|❌|❌|||❌|❌|❌|||||❌|
-|openca|❌|❌||✅|❌|❌|❌|||||✅|
+|kris|❌|❌|||❌|❌|❌|✅||||❌|
+|openca|❌|❌||✅|❌|❌|❌|✅||||❌|
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|✅|✅||✅||❌|❌|||||❌|
-|oqs-provider|✅|✅|||✅|❌|❌|||||✅|
+|oqs-openssl111|✅|✅||✅||❌|❌|❌|||||
+|oqs-provider|✅|✅|||✅|❌|❌|✅||||✅|
 
 # ~~Dilithium3~~ (1.3.6.1.4.1.2.267.7.6.5)
 
@@ -200,33 +200,33 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc||✅||✅||✅|✅||||||
 |botan|❌|✅||✅|||✅||||||
-|carl-redhound|✅|❌||✅|✅|✅|✅|||||✅|
-|corey-digicert|✅|✅||✅|✅|✅|❌|||||✅|
-|cryptonext||✅||✅|✅|✅|✅|||||❌|
-|entrust|❌|✅||❌|✅|✅||||||✅|
+|carl-redhound|✅|❌||✅|✅|✅|✅|✅||||❌|
+|corey-digicert|✅|✅||✅|✅|✅|❌|||||❌|
+|cryptonext||✅||✅|✅|✅|✅|✅||||❌|
+|entrust|❌|✅||❌|✅|✅||✅||||❌|
 |isi-wolfssl|||||||||||||
-|kris|❌|❌|||❌|❌|❌|||||❌|
-|openca|❌|❌||✅|❌|❌|❌|||||✅|
-|oqs-gnutls|❌|✅||✅|✅|✅|✅|||||✅|
-|oqs-openssl111|✅|✅||✅||❌|❌|||||❌|
-|oqs-provider|✅|✅|||✅|❌|❌|||||✅|
+|kris|❌|❌|||❌|❌|❌|✅||||❌|
+|openca|❌|❌||✅|❌|❌|❌|✅||||❌|
+|oqs-gnutls|❌|✅||✅|✅|✅|✅|✅||||❌|
+|oqs-openssl111|✅|✅||✅||❌|❌|❌|||||
+|oqs-provider|✅|✅|||✅|❌|❌|✅||||✅|
 
 # ~~Dilithium5~~ (1.3.6.1.4.1.2.267.7.8.7)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc||✅||✅||✅|✅||||||
-|botan|❌|✅||✅|✅||✅|||||✅|
-|carl-redhound|✅|❌||✅|✅|✅|✅|||||✅|
-|corey-digicert|✅|✅||✅|✅|✅|❌|||||✅|
-|cryptonext||✅||✅|✅|✅|✅|||||❌|
-|entrust|❌|✅||❌|✅|✅||||||✅|
+|botan|❌|✅||✅|✅||✅|✅||||❌|
+|carl-redhound|✅|❌||✅|✅|✅|✅|✅||||❌|
+|corey-digicert|✅|✅||✅|✅|✅|❌|||||❌|
+|cryptonext||✅||✅|✅|✅|✅|✅||||❌|
+|entrust|❌|✅||❌|✅|✅||✅||||❌|
 |isi-wolfssl|||||||||||||
-|kris|❌|❌|||❌|❌|❌|||||❌|
-|openca|❌|❌||✅|❌|❌|❌|||||✅|
+|kris|❌|❌|||❌|❌|❌|✅||||❌|
+|openca|❌|❌||✅|❌|❌|❌|✅||||❌|
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|✅|✅||✅||❌|❌|||||❌|
-|oqs-provider|✅|✅|||✅|❌|❌|||||✅|
+|oqs-openssl111|✅|✅||✅||❌|❌|❌|||||
+|oqs-provider|✅|✅|||✅|❌|❌|✅||||✅|
 
 # ML-KEM-512-ipd (1.3.6.1.4.1.22554.5.6.1)
 
@@ -293,7 +293,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |kris|❌|❌|||❌|❌|❌|||||❌|
 |openca|❌|❌|||❌|❌|❌|||||❌|
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|✅|❌||||❌|❌|||||❌|
+|oqs-openssl111|✅|❌||||❌|❌||||||
 |oqs-provider|✅|❌|||❌|❌|❌||||||
 
 # ~~Falcon-1024~~ (1.3.9999.3.4)
@@ -310,7 +310,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |kris|❌|❌|||❌|❌|❌|||||❌|
 |openca|❌|❌|||❌|❌|❌|||||❌|
 |oqs-gnutls|||||||||||||
-|oqs-openssl111|✅|❌||||❌|❌|||||❌|
+|oqs-openssl111|✅|❌||||❌|❌||||||
 |oqs-provider|✅|❌|||❌|❌|❌||||||
 
 # Falcon-512 (1.3.9999.3.6)
@@ -322,13 +322,13 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||||||||||||
 |corey-digicert||||✅|||❌|||||✅|
 |cryptonext|||||||||||||
-|entrust||||||✅||||||✅|
+|entrust||||||✅||✅||||✅|
 |isi-wolfssl|||||||||||||
-|kris|||||||||||||
+|kris||||||||✅|||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
 |oqs-openssl111|||||||||||||
-|oqs-provider||||||||||||✅|
+|oqs-provider||||||||✅||||✅|
 
 # Falcon-1024 (1.3.9999.3.9)
 
@@ -339,13 +339,13 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||||||||||||
 |corey-digicert||||✅|||❌|||||✅|
 |cryptonext|||||||||||||
-|entrust||||||✅||||||✅|
+|entrust||||||✅||✅||||✅|
 |isi-wolfssl|||||||||||||
-|kris|||||||||||||
+|kris||||||||✅|||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
 |oqs-openssl111|||||||||||||
-|oqs-provider||||||||||||✅|
+|oqs-provider||||||||✅||||✅|
 
 # ~~SPHINCS+-SHA256-128f-robust~~ (1.3.9999.6.4.1)
 
@@ -361,7 +361,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |kris|||||||||||||
 |openca|||||||||||||
 |oqs-gnutls|||||||||||||
-|oqs-openssl111||||||||||||❌|
+|oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
 # ~~SPHINCS+-SHA256-128s-simple~~ (1.3.9999.6.4.10)
