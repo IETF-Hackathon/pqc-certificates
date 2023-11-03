@@ -94,11 +94,15 @@ Starting with artifacts for the NIST Draft standards released 2023-08-24, we wil
 * Use PEM formats.
 * Switch to a flat folder structure with filenames <oid>_ta.pem
 * For Kyber, use the the Dilithium TA of the equivalent security level to sign a <kyber_oid>_ee.pem
+* For hybrid certificate formats, name the file `<hybrid_format>_<oid1>_with_<oid2>_ta.pem`
 
 Within `providers/<provider_name>/`
 - artifacts_certs_r3.zip
   - `<oid>_ta.pem`  # self-signed cert for signature alg oids
   - `<oid>_ee.pem`  # ex.: Kyber512  - signed with Dilithium2
+  - `<hybrid_format>_<oid1>_with_<oid2>_ta.pem`  # ex.: catalyst_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4_ta.pem
+
+The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
 
 ### CMS -- artifacts_cms.zip
 
