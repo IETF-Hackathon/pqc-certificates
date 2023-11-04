@@ -381,3 +381,4 @@ This is non-PQC OIDs that are used in the artifacts of included providers.
 | prime256v1  | 1.2.840.10045.3.1.7 |
 | ecdsa-with-SHA256 | 1.2.840.10045.4.3.2 |
 | rsaEncryption | 1.2.840.113549.1.1.1 |
+| ED448 | 1.3.101.113 |

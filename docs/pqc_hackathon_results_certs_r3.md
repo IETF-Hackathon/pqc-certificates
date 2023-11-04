@@ -8,7 +8,7 @@ Algorithms
 * [Algorithms Tested](#algorithms-tested)
 * [ecPublicKey (1.2.840.10045.2.1)](#ecpublickey-128401004521)
 * [rsaEncryption (1.2.840.113549.1.1.1)](#rsaencryption-12840113549111)
-* [1.3.101.113 (1.3.101.113)](#13101113-13101113)
+* [ED448 (1.3.101.113)](#ed448-13101113)
 * [~~DilithiumAES2~~ (1.3.6.1.4.1.2.267.11.4.4)](#dilithiumaes2-13614122671144)
 * [ML-DSA-44-ipd (1.3.6.1.4.1.2.267.12.4.4)](#ml-dsa-44-ipd-13614122671244)
 * [ML-DSA-65-ipd (1.3.6.1.4.1.2.267.12.6.5)](#ml-dsa-65-ipd-13614122671265)
@@ -84,7 +84,7 @@ In all tables below, Rows are producers. Columns are parsers.
 
 To be in this table, an algorithm must have a test result in one of the tables below (pass or fail). Algorithms for which we have artifacts but no test results are not shown.
 
-|-|ecPublicKey|rsaEncryption|1.3.101.113|~~DilithiumAES2~~|ML-DSA-44-ipd|ML-DSA-65-ipd|ML-DSA-87-ipd|~~Dilithium2~~|~~Dilithium3~~|~~Dilithium5~~|ML-KEM-512-ipd|ML-KEM-768-ipd|ML-KEM-1024-ipd|~~kyber512_shake~~|~~kyber768_shake~~|~~kyber1024_shake~~|1.3.9999.2.7.2|1.3.9999.2.7.4|~~Falcon-512~~|~~Falcon-1024~~|Falcon-512|Falcon-1024|~~SPHINCS+-SHA256-128f-robust~~|~~SPHINCS+-SHA256-128s-simple~~|SLH-DSA-SHA2-128f-ipd|SLH-DSA-SHA2-128s-ipd|~~SPHINCS+-SHA256-128f-simple~~|SLH-DSA-SHA2-192f-ipd|SLH-DSA-SHA2-192s-ipd|~~SPHINCS+-SHA256-192f-simple~~|~~SPHINCS+-SHA256-192s-simple~~|SLH-DSA-SHA2-256f-ipd|SLH-DSA-SHA2-256s-ipd|~~SPHINCS+-SHA256-256f-simple~~|~~SPHINCS+-SHA256-256s-simple~~|SLH-DSA-SHAKE-128f-ipd|SLH-DSA-SHAKE-128s-ipd|1.3.9999.6.7.4|SLH-DSA-SHAKE-192f-ipd|SLH-DSA-SHAKE-192s-ipd|1.3.9999.6.8.3|SLH-DSA-SHAKE-256f-ipd|SLH-DSA-SHAKE-256s-ipd|1.3.9999.6.9.3|id-Dilithium3-RSA-PKCS15-SHA256|id-Dilithium3-RSA-PSS-SHA256|id-Dilithium3-ECDSA-P256-SHA256|id-Dilithium3-ECDSA-brainpoolP256r1-SHA256|id-Dilithium5-ECDSA-P384-SHA384|id-Dilithium5-ECDSA-brainpoolP384r1-SHA384|~~id-Falcon512-ECDSA-P256-SHA256~~|~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~|catalyst|catalyst|chameleon-base|chameleon-delta|chameleon-extracted-delta|composite|composite|hybrid-catalyst|hybrid[catalyst(1.2.840.10045.4.3.2|hybrid[catalyst(1.2.840.10045.4.3.4|hybrid[catalyst(1.2.840.113549.1.1.11|hybrid[chameleon(1.2.840.10045.4.3.2|hybrid[chameleon(1.2.840.10045.4.3.4|hybrid[chameleon(1.2.840.113549.1.1.11|hybrid[composite(1.2.840.10045.4.3.2|hybrid[composite(1.2.840.10045.4.3.4|hybrid[composite(1.2.840.113549.1.1.11|
+|-|ecPublicKey|rsaEncryption|ED448|~~DilithiumAES2~~|ML-DSA-44-ipd|ML-DSA-65-ipd|ML-DSA-87-ipd|~~Dilithium2~~|~~Dilithium3~~|~~Dilithium5~~|ML-KEM-512-ipd|ML-KEM-768-ipd|ML-KEM-1024-ipd|~~kyber512_shake~~|~~kyber768_shake~~|~~kyber1024_shake~~|1.3.9999.2.7.2|1.3.9999.2.7.4|~~Falcon-512~~|~~Falcon-1024~~|Falcon-512|Falcon-1024|~~SPHINCS+-SHA256-128f-robust~~|~~SPHINCS+-SHA256-128s-simple~~|SLH-DSA-SHA2-128f-ipd|SLH-DSA-SHA2-128s-ipd|~~SPHINCS+-SHA256-128f-simple~~|SLH-DSA-SHA2-192f-ipd|SLH-DSA-SHA2-192s-ipd|~~SPHINCS+-SHA256-192f-simple~~|~~SPHINCS+-SHA256-192s-simple~~|SLH-DSA-SHA2-256f-ipd|SLH-DSA-SHA2-256s-ipd|~~SPHINCS+-SHA256-256f-simple~~|~~SPHINCS+-SHA256-256s-simple~~|SLH-DSA-SHAKE-128f-ipd|SLH-DSA-SHAKE-128s-ipd|1.3.9999.6.7.4|SLH-DSA-SHAKE-192f-ipd|SLH-DSA-SHAKE-192s-ipd|1.3.9999.6.8.3|SLH-DSA-SHAKE-256f-ipd|SLH-DSA-SHAKE-256s-ipd|1.3.9999.6.9.3|id-Dilithium3-RSA-PKCS15-SHA256|id-Dilithium3-RSA-PSS-SHA256|id-Dilithium3-ECDSA-P256-SHA256|id-Dilithium3-ECDSA-brainpoolP256r1-SHA256|id-Dilithium5-ECDSA-P384-SHA384|id-Dilithium5-ECDSA-brainpoolP384r1-SHA384|~~id-Falcon512-ECDSA-P256-SHA256~~|~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~|catalyst|catalyst|chameleon-base|chameleon-delta|chameleon-extracted-delta|composite|composite|hybrid-catalyst|hybrid[catalyst(1.2.840.10045.4.3.2|hybrid[catalyst(1.2.840.10045.4.3.4|hybrid[catalyst(1.2.840.113549.1.1.11|hybrid[chameleon(1.2.840.10045.4.3.2|hybrid[chameleon(1.2.840.10045.4.3.4|hybrid[chameleon(1.2.840.113549.1.1.11|hybrid[composite(1.2.840.10045.4.3.2|hybrid[composite(1.2.840.10045.4.3.4|hybrid[composite(1.2.840.113549.1.1.11|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||||✅|✅||✅|✅|||✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||✅|✅||||✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|
 |botan|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅||||✅|✅|||||||||||
@@ -133,7 +133,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |oqs-openssl111|||||||||||||
 |oqs-provider|||||||||||||
 
-# 1.3.101.113 (1.3.101.113)
+# ED448 (1.3.101.113)
 
 |-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
