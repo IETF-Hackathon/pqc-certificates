@@ -16,6 +16,7 @@ import subprocess
 import logging
 from itertools import product
 import argparse
+from enum import Enum, auto
 
 from algorithm_oids import ALG_OID
 
@@ -84,6 +85,9 @@ POP = {
 }
 POP_INVERTED = {v: k for k, v in POP.items()}
 
+# path to pre-generated keys and certificates needed when "signature-based protection" is required.
+DIR_PROTECTION_DATA = '/protection-data/'
+
 
 def run_command(command):
     LOG.info(f'Running: `{COMMAND_PREFIX} {command}`')
@@ -125,8 +129,21 @@ def command_generate_csr(algorithm_name, subject="/CN=test subject"):
     return run_command(command)
 
 
-def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password=None, popo=POP_SIG, cr=False):
-    features = 'prot_pass' if password else 'prot_none'
+def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', prot_password=None, prot_sig=False, popo=POP_SIG, cr=False):
+    """Generate a CMP IR or CR request
+
+    :param algorithm_name: str, an algorithm identifier, see ALGORITHMS list
+    :param server: optional str, URL to use for sending the CMP request
+    :param recipient: optional str, x509 DN of the recipient of the CMP request, formatted in accordance with the
+                      OpenSSL syntax, see `-subject name` in manpages
+    :param reference: optional str, request reference number to put in the payload
+    :param prot_password: optional str, if set, password protection will be used for this request
+    :param prot_sig: optional bool, if set, will use signature-based protection, overriding the password-based one above
+    :param popo: optional enum, proof of possession, see POP_SIG definition above
+    :param cr: optional bool, if set, will create a CR request instead of IR
+    :return: nothing, but will write the resulting CMP request payload to a file if all is well
+    """
+    features = 'prot_sig' if prot_sig else 'prot_pass' if prot_password else 'prot_none'
     features += f'-pop_{POP_INVERTED[popo]}'
 
     # since these request types are virtually identical, we only need to change this string in one place
@@ -136,7 +153,15 @@ def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recip
     extended_path = f'{OUTPUT_PATH}{extended_algorithm_name}/'
 
     resulting_file = f'{extended_path}req-{ir_or_cr}-{features}.pkimessage'
-    protection = f'-secret pass:{password}' if password else '-unprotected_requests'
+
+    protection = f'-secret pass:{prot_password}' if prot_password else '-unprotected_requests'
+    # override the above if we use signature protection (so it is the same as the logic in `features`
+    if prot_sig:
+        protection = f'-cert {DIR_PROTECTION_DATA}ee.crt -key {DIR_PROTECTION_DATA}eekey.pem'
+
+    # NOTE: you can also specify the subject directly via a command line, this way there is no need to generate a CSR
+    #       beforehand, e.g., `-subject "/CN=xxxxxxxxxxEnd Entity demo"`. However, the code is more reusable with CSR,
+    #       since we can use it for P10CR with fewer changes
 
     command = f'openssl cmp -cmd {ir_or_cr} -server {server} -recipient "{recipient}" -ref {reference} ' \
               f'-csr {extended_path}csr.pem ' \
@@ -146,19 +171,22 @@ def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recip
     return run_command(command)
 
 
-def command_generate_cmp_cr(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', password=None, popo=POP_SIG):
-    return command_generate_cmp_ir(algorithm_name, server, recipient, reference, password, popo, cr=True)
+def command_generate_cmp_cr(algorithm_name, server='127.17.0.2:8000/pkix', recipient='/CN=PQCA', reference='11111', prot_password=None, prot_sig=False, popo=POP_SIG):
+    return command_generate_cmp_ir(algorithm_name, server, recipient, reference, prot_password, prot_sig, popo, cr=True)
 
 
-def command_generate_cmp_p10cr(algorithm_name, server='127.17.0.2:8000/pkix', reference='11111', password=None, popo=POP_SIG):
-    features = 'prot_pass' if password else 'prot_none'
+def command_generate_cmp_p10cr(algorithm_name, server='127.17.0.2:8000/pkix', reference='11111', prot_password=None, prot_sig=False, popo=POP_SIG):
+    features = 'prot_sig' if prot_sig else 'prot_pass' if prot_password else 'prot_none'
     features += f'-pop_{POP_INVERTED[popo]}'
 
     extended_algorithm_name = f'{ALG_OID[algorithm_name]}-{algorithm_name}'
     extended_path = f'{OUTPUT_PATH}{extended_algorithm_name}/'
 
     resulting_file = f'{extended_path}req-p10cr-{features}.pkimessage'
-    protection = f'-secret pass:{password}' if password else '-unprotected_requests'
+    protection = f'-secret pass:{prot_password}' if prot_password else '-unprotected_requests'
+    # override the above if we use signature protection (so it is the same as the logic in `features`
+    if prot_sig:
+        protection = f'-cert {DIR_PROTECTION_DATA}ee.crt -key {DIR_PROTECTION_DATA}eekey.pem'
 
     command = f'openssl cmp -cmd p10cr -server {server} -ref {reference} ' \
               f'-csr {extended_path}csr.pem ' \
@@ -231,10 +259,14 @@ if __name__ == '__main__':
 
         for function in functions:
             LOG.info('--------------- Generating %s', function.__name__)
-            for password, popo in product(passwords, popos):
-                LOG.info(f'Protection: {f"password {password}" if password else "none"}, Proof-of-possession: {POP_INVERTED[popo]}')
-                output, status = function(algorithm, password=password, popo=popo)
-                if status:
-                    LOG.error('Failed, status %s %s', status, output)
+            output, status = function(algorithm, prot_password='11111')
+            if status:
+                LOG.error('Failed, status %s %s', status, output)
+            output, status = function(algorithm, prot_sig=True)
+            if status:
+                LOG.error('Failed, status %s %s', status, output)
+            output, status = function(algorithm) # no protection
+            if status:
+                LOG.error('Failed, status %s %s', status, output)
 
     LOG.info('Done')
