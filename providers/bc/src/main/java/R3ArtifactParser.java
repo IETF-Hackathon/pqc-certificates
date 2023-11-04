@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,7 +25,6 @@ import java.util.zip.ZipFile;
 import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.util.ASN1Dump;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.Extensions;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
@@ -37,6 +37,7 @@ import org.bouncycastle.operator.ContentVerifierProvider;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
+import org.bouncycastle.util.io.Streams;
 import org.bouncycastle.util.io.pem.PemReader;
 
 public class R3ArtifactParser
@@ -116,15 +117,15 @@ public class R3ArtifactParser
             Extensions exts = x509CertHolder.getExtensions();
 
             // check catalyst
-            Extension  ext = exts.getExtension(Extension.altSignatureAlgorithm);
+            Extension ext = exts.getExtension(Extension.altSignatureAlgorithm);
 
             if (ext != null)
             {
                 ContentVerifierProvider vProv = new JcaContentVerifierProviderBuilder().build(
-                                        SubjectPublicKeyInfo.getInstance(x509CertHolder.getExtension(Extension.subjectAltPublicKeyInfo).getParsedValue()));
+                    SubjectPublicKeyInfo.getInstance(x509CertHolder.getExtension(Extension.subjectAltPublicKeyInfo).getParsedValue()));
                 if (!x509CertHolder.isAlternativeSignatureValid(vProv))
                 {
-                     return false;
+                    return false;
                 }
             }
 
@@ -157,32 +158,49 @@ public class R3ArtifactParser
         CertificateFactory certFact = CertificateFactory.getInstance("X.509", "BC");
         Map<String, X509Certificate> certificates = new TreeMap<>();
         Set<String> ignored = new HashSet<>();
-        
+
         for (Enumeration<? extends ZipEntry> en = zipFile.entries(); en.hasMoreElements(); )
         {
             ZipEntry entry = en.nextElement();
             String zipName = entry.getName();
 
-            if (!zipName.endsWith(".pem"))
+            if (zipName.endsWith(".pem"))
+            {
+                PemReader pemReader = new PemReader(new InputStreamReader(zipFile.getInputStream(entry)));
+
+                X509Certificate cert = null;
+                try
+                {
+                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(pemReader.readPemObject().getContent()));
+                    certificates.put(zipName, cert);
+                }
+                catch (Exception e)
+                {
+                    ignored.add(zipName);
+                }
+            }
+            else if (zipName.endsWith(".der"))
+            {
+                byte[] derData = Streams.readAll(zipFile.getInputStream(entry));
+
+                X509Certificate cert = null;
+                try
+                {
+                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(derData));
+                    certificates.put(zipName, cert);
+                }
+                catch (Exception e)
+                {
+                    ignored.add(zipName);
+                }
+            }
+            else
             {
                 System.err.println("non-pem entry " + zipName + " ignored");
                 continue;
             }
-
-            PemReader pemReader = new PemReader(new InputStreamReader(zipFile.getInputStream(entry)));
-
-            X509Certificate cert = null;
-            try
-            {
-                cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(pemReader.readPemObject().getContent()));
-                certificates.put(zipName, cert);
-            }
-            catch (Exception e)
-            {
-                ignored.add(zipName);
-            }
         }
-        
+
         checkCertificates(producer, certificates, ignored);
     }
 
@@ -203,31 +221,48 @@ public class R3ArtifactParser
         {
             String fileName = f.getName();
 
-            if (!fileName.endsWith(".pem"))
+            if (fileName.endsWith(".pem"))
+            {
+                PemReader pemReader = new PemReader(new FileReader(f));
+
+                X509Certificate cert = null;
+                try
+                {
+                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(pemReader.readPemObject().getContent()));
+
+                    certificates.put(fileName, cert);
+                }
+                catch (Exception e)
+                {
+                    ignored.add(fileName);
+                }
+            }
+            else if (fileName.endsWith(".der"))
+            {
+                X509Certificate cert = null;
+                try
+                {
+                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(Streams.readAll(new FileInputStream(fileName))));
+
+                    certificates.put(fileName, cert);
+                }
+                catch (Exception e)
+                {
+                    ignored.add(fileName);
+                }
+            }
+            else
             {
                 System.err.println("non-pem entry " + fileName + " ignored");
                 continue;
-            }
-
-            PemReader pemReader = new PemReader(new FileReader(f));
-
-            X509Certificate cert = null;
-            try
-            {
-                cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(pemReader.readPemObject().getContent()));
-
-                certificates.put(fileName, cert);
-            }
-            catch (Exception e)
-            {
-                ignored.add(fileName);
             }
         }
 
         checkCertificates(producer, certificates, ignored);
     }
 
-    private static void checkCertificates(String producer, Map<String, X509Certificate> certificates, Set<String> ignored)
+    private static void checkCertificates(String
+                                              producer, Map<String, X509Certificate> certificates, Set<String> ignored)
         throws IOException
     {
         Set<String> passed = new HashSet<>();
@@ -283,7 +318,8 @@ public class R3ArtifactParser
         return fs.toArray(new File[0]);
     }
 
-    private static void outputCSV(String producer, Map<String, X509Certificate> entriesChecked, Set<String> passed)
+    private static void outputCSV(String
+                                      producer, Map<String, X509Certificate> entriesChecked, Set<String> passed)
         throws IOException
     {
         FileWriter fWrt = new FileWriter(producer + "_bc.csv");
