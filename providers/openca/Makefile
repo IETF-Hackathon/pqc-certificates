@@ -71,6 +71,9 @@ unzip: requirements/unzip
 	   if [ -f "$$i/artifacts.zip" ] ; then \
 	     result=`cd "$$i" && unzip -q "artifacts.zip"` ; \
 	   fi ; \
+	   if [ -f "$$i/crypto_tests.zip" ] ; then \
+	     result=`cd "$$i" && unzip -q "crypto_tests.zip"` ; \
+	   fi ; \
 	   echo "[ $(PROVIDER_NAME) ] Done" ; \
 	 done
 

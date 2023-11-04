@@ -1,8 +1,23 @@
-# IETF 115/116 Hackathon - PQC Certificates
+# IETF Hackathon - PQC Certificates
 
 This project provides a set of data repositories for X.509 data
 structures that make use of post-quantum and composite algorithms
 (classic with PQC).
+
+This repo represents work done between IETF 115 - 118.
+
+A summary table of the ongoing interoperability testing can be found here:
+https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results_certs_r3.html
+
+An older version showing more (now obsolete) algorithms can be found here instead:
+https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html
+
+## Goals
+- Adding PQ algorithm support into existing X.509 structures (keys, signatures, certificates and protocols)
+- Test and interoperate with newer draft updated to support the migration to PQ 
+- provide an artifact repository for interoperability testing
+- Provide a comprehensive compatibility matrix to show results
+- Provide feedback to the standards groups about practical usage
 
 ## Folder structure of this repo
 
@@ -14,10 +29,16 @@ The project's directory structure is as follows:
     - docs/
     - providers/
         - provider_name_1/
+            - artifacts_certs_r3.zip
             - implementation_name_1/
-                - artifacts.zip
+                - artifacts_certs_r3.zip
             - implementation_name_2/
-                - artifacts.zip
+                - artifacts_certs_r3.zip
+            - compatMatrices
+              - artifacts_certs_r3
+                - prov2_prov1.csv
+                - prov3_prov1.csv
+                - ...
             - gen.sh
             - check.sh
             - Makefile
@@ -26,6 +47,7 @@ The project's directory structure is as follows:
             - implementation_name_1
             - ...
 ~~~
+Note that your artifacts zip can be placed either at the top-level of your provider, or if you have multiple implementtations, then they can be places id implementation sub-folders.
 
 Where:
 
@@ -61,13 +83,44 @@ Where:
     generated via the implementation. See the `Zip format` section
     for more information about its structure.
 
-## Zip format (R2)
+## Zip Format (R3)
+
+### Certificates - artifacts_certs_r3.zip
+
+Starting with artifacts for the NIST Draft standards released 2023-08-24, we will use a much simpler artifact format:
+
+* Only produce a self-signed certificate (TAs). Let's not bother with CA / EE / CRL / OCSP; those are begging for compatibility issues that have nothing to do with the PQ algs.
+* We will restrict the R3 artifacts to only the algorithms with NIST draft standards.
+* Use PEM formats.
+* Switch to a flat folder structure with filenames <oid>_ta.pem
+* For Kyber, use the the Dilithium TA of the equivalent security level to sign a <kyber_oid>_ee.pem
+* For hybrid certificate formats, name the file `<hybrid_format>_<oid1>_with_<oid2>_ta.pem`
+
+Within `providers/<provider_name>/`
+- artifacts_certs_r3.zip
+  - `<oid>_ta.pem`  # self-signed cert for signature alg oids
+  - `<oid>_ee.pem`  # ex.: Kyber512  - signed with Dilithium2
+  - `<hybrid_format>_<oid1>_with_<oid2>_ta.pem`  # ex.: catalyst_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4_ta.pem
+
+The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
+
+### CMS -- artifacts_cms.zip
+
+CMS artficats should be placed into a `artifacts_cms.zip` within `providers/<provider_name>/`. We will specify the exact file format when we start to see more robust artifacts submitted.
+
+### CMP -- artifacts_cmp.zip
+
+CMP artficats should be placed into a `artifacts_cmp.zip` within `providers/<provider_name>/`. We will specify the exact file format when we start to see more robust artifacts submitted.
+
+## Old Zip Format (R2)
+
+OLD -- IF YOU ARE SUBMITTING ARTIFACTS AGAINST THE NIST DRAFT SPECS AS OF 2023-08-24, THEN PLEASE USE THE R3 FORMAT ABOVE.
 
 At the hackathon, we are all going to script our PKI toolkit to produce and read zip bundles of certs in the following format. Scripts should place data into files with the following names so that parsing scripts 
 
 (parentheses denotes optional files)
 
-- artifacts.zip
+- artifacts_r2.zip
   - artifacts/
     - alg_oid_dir/
         - ta/     # trust anchor, aka root CA, aka self-signed
@@ -147,4 +200,4 @@ $ make verify
 
 # Interoperability Results
 
-Interop results are documented in [compat_matrix.md](docs/compat_matrix.md).
+Instructions for documenting each provider's compatibility test results can be found in [compat_matrix_intructions.md](docs/compat_matrix_instructions.md).

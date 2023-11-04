@@ -8,7 +8,7 @@ from mdutils.mdutils import MdUtils
 
 
 _FILENAME_REGEX = re.compile('^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
-_OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\|\s*(?P<oid>\d+(\.\d+)+)\*?\s*\|.+\|$')
+_OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.*$')
 
 
 class AlgorithmVerificationResult(NamedTuple):
@@ -63,13 +63,15 @@ def _format_result_cell(avr) -> str:
         display_key = artifact_key.upper().replace('_', ' ')
 
         if r is None:
-            display_result = ':question:'
+            display_result = '?'
         elif r:
-            display_result = ':heavy_check_mark:'
+            display_result = '✅'
         else:
-            display_result = ':x:'
+            display_result = '❌'
 
-        result_lines.append(f'{display_key}: {display_result}')
+        # if the result is '?', then do not pring the line
+        if (display_result != '?'):
+            result_lines.append(f'{display_key}: {display_result}')
 
     return '<br>'.join(result_lines)
 
@@ -85,7 +87,7 @@ def _parse_oid_name_mapping_file(f) -> Mapping[str, str]:
         if m is None:
             continue
 
-        mappings[m.group('oid')] = m.group('name')
+        mappings[m.group('oid').strip()] = m.group('name').strip()
 
     return mappings
 
@@ -111,7 +113,7 @@ def main():
         m = _FILENAME_REGEX.match(os.path.basename(file))
 
         if m is None:
-            raise ValueError(f'Invalid file name: "{file}"')
+            raise ValueError(f'File name does not match naming convention: "{os.path.basename(file)}"')
 
         with open(file, 'r') as f:
             generator = m['generator']
@@ -142,7 +144,7 @@ def main():
 
     md_file = MdUtils(file_name='pqc_hackathon_results.md', title='IETF PQC Hackathon Interoperability Results')
 
-    md_file.new_paragraph(text='Rows are producers. Columns are parsers.')
+    md_file.new_paragraph(text='Rows are producers. Columns are parsers.\n')
 
     for alg_oid, avrs in avrs_by_alg.items():
         alg_name = _get_alg_name_by_oid_str(oid_name_mappings, alg_oid)

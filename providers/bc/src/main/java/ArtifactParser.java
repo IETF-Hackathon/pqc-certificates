@@ -1,6 +1,8 @@
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,8 +25,15 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.bouncycastle.asn1.x509.Extension;
+import org.bouncycastle.asn1.x509.Extensions;
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.cert.CertException;
 import org.bouncycastle.cert.X509CRLHolder;
+import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.operator.ContentVerifierProvider;
+import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequest;
@@ -37,15 +46,35 @@ public class ArtifactParser
     private static Map<String, Map<String, ZipEntry>> algEntries = new HashMap<>();
     private static Map<String, Map<String, File>> fileAlgEntries = new HashMap<>();
 
+    private static String header = "key_algorithm_oid,ta,ca,ee,crl_ta,crl_ca";
+    private static String[] entries = new String[] { "ta/ta.der", "ca/ca.der", "ee/cert.der", "crl/crl_ta.crl", "crl/crl_ca.crl" };
+
     private static boolean checkCertificate(String entryName, X509Certificate subject, X509Certificate signingCert)
     {
         try
         {
             subject.verify(signingCert.getPublicKey());
 
+            X509CertificateHolder certHolder = new X509CertificateHolder(subject.getEncoded());
+            if (certHolder.hasExtensions())
+            {
+                Extensions exts = certHolder.getExtensions();
+                Extension  ext = exts.getExtension(Extension.altSignatureAlgorithm);
+
+                if (ext != null)
+                {
+                    X509CertificateHolder sigHolder = new X509CertificateHolder(signingCert.getEncoded());
+                    ContentVerifierProvider vProv = new JcaContentVerifierProviderBuilder().build(
+                                            SubjectPublicKeyInfo.getInstance(sigHolder.getExtension(Extension.subjectAltPublicKeyInfo).getParsedValue()));
+                    if (!certHolder.isAlternativeSignatureValid(vProv))
+                    {
+                         System.err.println("Entry " + entryName + " failed to verify alt signature");
+                    }
+                }
+            }
             return true;
         }
-        catch (GeneralSecurityException e)
+        catch (GeneralSecurityException | IOException | CertException | OperatorCreationException e)
         {
             System.err.println("Entry " + entryName + " failed to verify: " + e);
             return false;
@@ -57,10 +86,27 @@ public class ArtifactParser
         try
         {
             subject.verify(signingCert.getPublicKey());
+            X509CRLHolder crlHolder = new X509CRLHolder(subject.getEncoded());
+            if (crlHolder.hasExtensions())
+            {
+                Extensions exts = crlHolder.getExtensions();
+                Extension  ext = exts.getExtension(Extension.altSignatureAlgorithm);
+
+                if (ext != null)
+                {
+                    X509CertificateHolder sigHolder = new X509CertificateHolder(signingCert.getEncoded());
+                    ContentVerifierProvider vProv = new JcaContentVerifierProviderBuilder().build(
+                                            SubjectPublicKeyInfo.getInstance(sigHolder.getExtension(Extension.subjectAltPublicKeyInfo).getParsedValue()));
+                    if (!crlHolder.isAlternativeSignatureValid(vProv))
+                    {
+                         System.err.println("Entry " + entryName + " failed to verify alt signature");
+                    }
+                }
+            }
 
             return true;
         }
-        catch (GeneralSecurityException e)
+        catch (GeneralSecurityException | IOException | CertException | OperatorCreationException e)
         {
             System.err.println("Entry " + entryName + " failed to verify: " + e);
             return false;
@@ -96,17 +142,40 @@ public class ArtifactParser
         }
     }
 
-    private static Set<String> getMatching(Set<String> ignored, String entry)
+    private static Set<String> getMatching(Set<String> inputSet, String entry)
     {
-        Set<String> thisIgnored = new HashSet<>();
-        for (String ignoredEntry : ignored)
+        Set<String> thisMatching = new HashSet<>();
+        for (String inputEntry : inputSet)
         {
-            if (ignoredEntry.contains(entry))
+            if (inputEntry.contains(entry))
             {
-                thisIgnored.add(ignoredEntry);
+                thisMatching.add(inputEntry);
             }
         }
-        return thisIgnored;
+        return thisMatching;
+    }
+
+    private static String getStatus(String entry, String[] statusElements, Set passed, Set ignored)
+    {
+        StringBuilder statusLine = new StringBuilder();
+
+        for (String inputEntry : statusElements)
+        {
+            inputEntry = "artifacts/" + entry + "/" + inputEntry;
+            if (statusLine.length() > 0)
+            {
+                statusLine.append(",");
+            }
+            if (passed.contains(inputEntry))
+            {
+                statusLine.append("Y");
+            }
+            else if (!ignored.contains(inputEntry))
+            {
+                statusLine.append("F");
+            }
+        }
+        return statusLine.toString();
     }
 
     private static boolean isRecognizedEncoding(String name)
@@ -114,7 +183,7 @@ public class ArtifactParser
         return name.endsWith(".pem") || name.endsWith("der");
     }
 
-    public static void processZipArtifacts(String zipName)
+    public static void processZipArtifacts(String producer, String zipName)
         throws Exception
     {
         ZipFile zipFile = new ZipFile(zipName);
@@ -122,7 +191,7 @@ public class ArtifactParser
         for (Enumeration<? extends ZipEntry> en = zipFile.entries(); en.hasMoreElements(); )
         {
             ZipEntry entry = en.nextElement();
-            String[] entryTokens = entry.getName().split("/");
+            String[] entryTokens = entry.getName().contains("\\") ? entry.getName().split("\\\\") : entry.getName().split("/");
             if (entryTokens.length == 4)
             {
                 Map<String, ZipEntry> algEntry = algEntries.get(entryTokens[1]);
@@ -184,15 +253,6 @@ public class ArtifactParser
             caCrlName = null;
 
             Map<String, ZipEntry> algEntry = algEntries.get(oid);
-            // ignore SPHINCS+ for now
-            if (oid.startsWith("1.3.9999.6"))
-            {
-                for (ZipEntry ze : algEntry.values())
-                {
-                    ignored.add(ze.getName());
-                }
-                continue;
-            }
             for (String name : algEntry.keySet())
             {
                 ZipEntry zipEntry = algEntry.get(name);
@@ -207,7 +267,14 @@ public class ArtifactParser
                         }
                         else
                         {
-                            caPub = KeyFactory.getInstance(oid).generatePublic(new X509EncodedKeySpec(Streams.readAll(zipFile.getInputStream(zipEntry))));
+                            try
+                            {
+                                caPub = KeyFactory.getInstance(oid).generatePublic(new X509EncodedKeySpec(Streams.readAll(zipFile.getInputStream(zipEntry))));
+                            }
+                            catch (Exception e)
+                            {
+                                ignored.add(zipName);
+                            }
                         }
                         if (caPub != null)
                         {
@@ -217,7 +284,14 @@ public class ArtifactParser
                     else if (!name.contains("priv") && isRecognizedEncoding(name))
                     {
                         caName = zipEntry.getName();
-                        caCert = (X509Certificate)certFact.generateCertificate(zipFile.getInputStream(zipEntry));
+                        try
+                        {
+                            caCert = (X509Certificate)certFact.generateCertificate(zipFile.getInputStream(zipEntry));
+                        }
+                        catch (Exception e)
+                        {
+                            ignored.add(caName);  // possibly bad data
+                        }
                     }
                     else if (name.endsWith("csr"))
                     {
@@ -239,14 +313,21 @@ public class ArtifactParser
                         }
                         else
                         {
-                            taPub = KeyFactory.getInstance(oid).generatePublic(new X509EncodedKeySpec(Streams.readAll(zipFile.getInputStream(zipEntry))));
+                            try
+                            {
+                                taPub = KeyFactory.getInstance(oid).generatePublic(new X509EncodedKeySpec(Streams.readAll(zipFile.getInputStream(zipEntry))));
+                            }
+                            catch (Exception e)
+                            {
+                                ignored.add(zipName);
+                            }
                         }
                         if (taPub != null)
                         {
                             passed.add(zipEntry.getName());
                         }
                     }
-                    else if (!name.contains("priv") && isRecognizedEncoding(name))
+                    else if (!name.contains("_key") && !name.contains("priv") && isRecognizedEncoding(name))
                     {
                         try
                         {
@@ -278,17 +359,31 @@ public class ArtifactParser
                         }
                         else
                         {
-                            eePub = KeyFactory.getInstance(oid).generatePublic(new X509EncodedKeySpec(Streams.readAll(zipFile.getInputStream(zipEntry))));
+                            try
+                            {
+                                eePub = KeyFactory.getInstance(oid).generatePublic(new X509EncodedKeySpec(Streams.readAll(zipFile.getInputStream(zipEntry))));
+                            }
+                            catch (Exception e)
+                            {
+                                ignored.add(zipName);
+                            }
                         }
                         if (eePub != null)
                         {
                             passed.add(zipEntry.getName());
                         }
                     }
-                    else if (!name.contains("priv") && isRecognizedEncoding(name))
+                    else if (!name.contains("_key") && !name.contains("priv") && isRecognizedEncoding(name))
                     {
-                        eeName = zipEntry.getName();
-                        eeCert = (X509Certificate)certFact.generateCertificate(zipFile.getInputStream(zipEntry));
+                        try
+                        {
+                            eeName = zipEntry.getName();
+                            eeCert = (X509Certificate)certFact.generateCertificate(zipFile.getInputStream(zipEntry));
+                        }
+                        catch (Exception e)
+                        {
+                            ignored.add(eeName);
+                        }
                     }
                     else if (name.endsWith("csr"))
                     {
@@ -357,14 +452,14 @@ public class ArtifactParser
             {
                 if (checkCRL(taCrlName, taCrl, taCert))
                 {
-                    passed.add(eeName);
+                    passed.add(taCrlName);
                 }
             }
             if (caCrl != null && caCert != null)
             {
                 if (checkCRL(caCrlName, caCrl, caCert))
                 {
-                    passed.add(eeName);
+                    passed.add(caCrlName);
                 }
             }
 
@@ -377,9 +472,11 @@ public class ArtifactParser
             System.out.println("    Passed : " + getMatching(passed, entry));
             System.out.println("    Ignored: " + getMatching(ignored, entry));
         }
+
+        outputCSV(producer, entriesChecked, ignored, passed);
     }
 
-    public static void processArtifacts(String dirName)
+    public static void processArtifacts(String producer, String dirName)
         throws Exception
     {
         File artDir = new File(dirName);
@@ -482,7 +579,7 @@ public class ArtifactParser
                         }
                     }
                     else if (!name.contains("priv") && isRecognizedEncoding(name))
-                    {
+                    {        System.err.println(fileEntry);
                         caName = canonicalise(artDir, fileEntry);
                         caCert = (X509Certificate)certFact.generateCertificate(new FileInputStream(fileEntry));
                     }
@@ -624,14 +721,14 @@ public class ArtifactParser
             {
                 if (checkCRL(taCrlName, taCrl, taCert))
                 {
-                    passed.add(eeName);
+                    passed.add(taCrlName);
                 }
             }
             if (caCrl != null && caCert != null)
             {
                 if (checkCRL(caCrlName, caCrl, caCert))
                 {
-                    passed.add(eeName);
+                    passed.add(caCrlName);
                 }
             }
 
@@ -644,6 +741,8 @@ public class ArtifactParser
             System.out.println("    Passed : " + getMatching(passed, entry));
             System.out.println("    Ignored: " + getMatching(ignored, entry));
         }
+
+        outputCSV(producer, entriesChecked, ignored, passed);
     }
 
     private static String canonicalise(File artDir, File f)
@@ -668,25 +767,43 @@ public class ArtifactParser
         return fs.toArray(new File[0]);
     }
 
+    private static void outputCSV(String producer, Set<String> entriesChecked, Set<String> ignored, Set<String> passed)
+        throws IOException
+    {
+        FileWriter fWrt = new FileWriter(producer + "_bc.csv");
+        BufferedWriter bWrt = new BufferedWriter(fWrt);
+
+        bWrt.write(header);
+        bWrt.newLine();
+        for (String entry : entriesChecked)
+        {
+            bWrt.write(entry + "," + getStatus(entry, entries, passed, ignored));
+            bWrt.newLine();
+        }
+
+        bWrt.close();
+    }
+
     public static void main(String[] args)
         throws Exception
     {
-        if (args.length != 1)
+        if (args.length != 2)
         {
-            System.err.println("usage: ArtifactParser [artifacts.zip|artifacts_dir]");
+            System.err.println("usage: ArtifactParser producer_name [artifacts.zip|artifacts_dir]");
             System.exit(1);
         }
 
-        Security.addProvider(new BouncyCastleProvider());
-        Security.addProvider(new BouncyCastlePQCProvider());
+        Security.insertProviderAt(new BouncyCastleProvider(), 2);
+        Security.insertProviderAt(new BouncyCastlePQCProvider(), 3);
 
-        if (args[0].endsWith(".zip"))
+        String producer = args[0];
+        if (args[1].endsWith(".zip"))
         {
-            processZipArtifacts(args[0]);
+            processZipArtifacts(producer, args[1]);
         }
         else
         {
-            processArtifacts(args[0]);
+            processArtifacts(producer, args[1]);
         }
     }
 }
