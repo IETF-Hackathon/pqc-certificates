@@ -516,7 +516,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
-|entrust||||||✅|||||||
+|entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -533,7 +533,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
-|entrust||||||✅|||||||
+|entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -567,7 +567,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
-|entrust||||||✅|||||||
+|entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -584,7 +584,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
-|entrust||||||✅|||||||
+|entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -635,7 +635,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
-|entrust||||||✅|||||||
+|entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -652,7 +652,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
-|entrust||||||✅|||||||
+|entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -703,7 +703,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||✅||||||||
-|entrust|||||❌||||||||
+|entrust|||✅||❌||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -720,7 +720,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
-|entrust|||||||||||||
+|entrust|||✅||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -754,7 +754,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||✅||||||||
-|entrust|||||✅||||||||
+|entrust|||✅||✅||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -771,7 +771,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
-|entrust|||||||||||||
+|entrust|||✅||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -805,7 +805,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||✅||||||||
-|entrust|||||❌||||||||
+|entrust|||✅||❌||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
@@ -822,7 +822,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||✅||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||||||||||
-|entrust|||||||||||||
+|entrust|||✅||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
 |openca|||||||||||||
