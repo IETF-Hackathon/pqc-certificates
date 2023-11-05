@@ -115,7 +115,7 @@ def command_generate_keypair(algorithm_name):
     extended_algorithm_name = f'{ALG_OID[algorithm_name]}-{algorithm_name}'
     extended_path = f'{OUTPUT_PATH}{extended_algorithm_name}/'
 
-    command = f'openssl genpkey -algorithm {algorithm_name} -out {extended_path}key.pem'
+    command = f'openssl genpkey -algorithm {algorithm_name} -out {extended_path}priv_key.pem'
     return run_command(command)
 
 
@@ -124,7 +124,7 @@ def command_generate_csr(algorithm_name, subject="/CN=test subject"):
     extended_path = f'{OUTPUT_PATH}{extended_algorithm_name}/'
 
     command = f'openssl req -out {extended_path}csr.pem -new ' \
-              f'-key {extended_path}key.pem ' \
+              f'-key {extended_path}priv_key.pem ' \
               f'-nodes -subj "{subject}"'
     return run_command(command)
 
@@ -157,7 +157,7 @@ def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recip
     protection = f'-secret pass:{prot_password}' if prot_password else '-unprotected_requests'
     # override the above if we use signature protection (so it is the same as the logic in `features`
     if prot_sig:
-        protection = f'-cert {DIR_PROTECTION_DATA}ee.crt -key {DIR_PROTECTION_DATA}eekey.pem'
+        protection = f'-cert {DIR_PROTECTION_DATA}ee.crt -key {DIR_PROTECTION_DATA}ee-priv_key.pem'
 
     # NOTE: you can also specify the subject directly via a command line, this way there is no need to generate a CSR
     #       beforehand, e.g., `-subject "/CN=xxxxxxxxxxEnd Entity demo"`. However, the code is more reusable with CSR,
@@ -165,7 +165,7 @@ def command_generate_cmp_ir(algorithm_name, server='127.17.0.2:8000/pkix', recip
 
     command = f'openssl cmp -cmd {ir_or_cr} -server {server} -recipient "{recipient}" -ref {reference} ' \
               f'-csr {extended_path}csr.pem ' \
-              f'-certout {extended_path}cl_cert.pem -newkey {extended_path}key.pem ' \
+              f'-certout {extended_path}cl_cert.pem -newkey {extended_path}priv_key.pem ' \
               f'-popo {popo} {protection} ' \
               f'-reqout {resulting_file}'
     return run_command(command)
@@ -186,7 +186,7 @@ def command_generate_cmp_p10cr(algorithm_name, server='127.17.0.2:8000/pkix', re
     protection = f'-secret pass:{prot_password}' if prot_password else '-unprotected_requests'
     # override the above if we use signature protection (so it is the same as the logic in `features`
     if prot_sig:
-        protection = f'-cert {DIR_PROTECTION_DATA}ee.crt -key {DIR_PROTECTION_DATA}eekey.pem'
+        protection = f'-cert {DIR_PROTECTION_DATA}ee.crt -key {DIR_PROTECTION_DATA}ee-priv_key.pem'
 
     command = f'openssl cmp -cmd p10cr -server {server} -ref {reference} ' \
               f'-csr {extended_path}csr.pem ' \
