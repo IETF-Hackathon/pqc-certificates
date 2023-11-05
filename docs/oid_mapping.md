@@ -111,6 +111,9 @@ This section provides the list of OIDs for composite KEMs.
 | ~~kyber512_aes~~ | ~~1.3.6.1.4.1.22554.5.6.4~~ |  |
 | ~~kyber768_aes~~ | ~~1.3.6.1.4.1.22554.5.6.5~~ |  |
 | ~~kyber1024_aes~~ | ~~1.3.6.1.4.1.22554.5.6.6~~ |  |
+| ~~kyber512_shake~~ | ~~1.3.6.1.4.1.22554.5.6.7~~ |  |
+| ~~kyber768_shake~~ | ~~1.3.6.1.4.1.22554.5.6.8~~ |  |
+| ~~kyber1024_shake~~ | ~~1.3.6.1.4.1.22554.5.6.9~~ |  |
 | bike128 | 1.3.6.1.4.1.22554.5.8.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 | bike192 | 1.3.6.1.4.1.22554.5.8.2 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java)  |
 | bike256 | 1.3.6.1.4.1.22554.5.8.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
