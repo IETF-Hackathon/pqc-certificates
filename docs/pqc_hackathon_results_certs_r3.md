@@ -22,6 +22,9 @@ Algorithms
 * [~~kyber512_shake~~ (1.3.6.1.4.1.22554.5.6.7)](#kyber512_shake-13614122554567)
 * [~~kyber768_shake~~ (1.3.6.1.4.1.22554.5.6.8)](#kyber768_shake-13614122554568)
 * [~~kyber1024_shake~~ (1.3.6.1.4.1.22554.5.6.9)](#kyber1024_shake-13614122554569)
+* [1.3.6.1.4.1.59634.9999.2.2.1 (1.3.6.1.4.1.59634.9999.2.2.1)](#136141596349999221-136141596349999221)
+* [1.3.6.1.4.1.59634.9999.2.2.2 (1.3.6.1.4.1.59634.9999.2.2.2)](#136141596349999222-136141596349999222)
+* [1.3.6.1.4.1.59634.9999.2.2.3 (1.3.6.1.4.1.59634.9999.2.2.3)](#136141596349999223-136141596349999223)
 * [1.3.9999.2.7.2 (1.3.9999.2.7.2)](#139999272-139999272)
 * [1.3.9999.2.7.4 (1.3.9999.2.7.4)](#139999274-139999274)
 * [~~Falcon-512~~ (1.3.9999.3.1)](#falcon-512-13999931)
@@ -81,20 +84,20 @@ In all tables below, Rows are producers. Columns are parsers.
 
 To be in this table, an algorithm must have a test result in one of the tables below (pass or fail). Algorithms for which we have artifacts but no test results are not shown.
 
-|-|ecPublicKey|rsaEncryption|ED448|~~DilithiumAES2~~|ML-DSA-44-ipd|ML-DSA-65-ipd|ML-DSA-87-ipd|~~Dilithium2~~|~~Dilithium3~~|~~Dilithium5~~|ML-KEM-512-ipd|ML-KEM-768-ipd|ML-KEM-1024-ipd|~~kyber512_shake~~|~~kyber768_shake~~|~~kyber1024_shake~~|1.3.9999.2.7.2|1.3.9999.2.7.4|~~Falcon-512~~|~~Falcon-1024~~|Falcon-512|Falcon-1024|~~SPHINCS+-SHA256-128f-robust~~|~~SPHINCS+-SHA256-128s-simple~~|SLH-DSA-SHA2-128f-ipd|SLH-DSA-SHA2-128s-ipd|~~SPHINCS+-SHA256-128f-simple~~|SLH-DSA-SHA2-192f-ipd|SLH-DSA-SHA2-192s-ipd|~~SPHINCS+-SHA256-192f-simple~~|~~SPHINCS+-SHA256-192s-simple~~|SLH-DSA-SHA2-256f-ipd|SLH-DSA-SHA2-256s-ipd|~~SPHINCS+-SHA256-256f-simple~~|~~SPHINCS+-SHA256-256s-simple~~|SLH-DSA-SHAKE-128f-ipd|SLH-DSA-SHAKE-128s-ipd|1.3.9999.6.7.4|SLH-DSA-SHAKE-192f-ipd|SLH-DSA-SHAKE-192s-ipd|1.3.9999.6.8.3|SLH-DSA-SHAKE-256f-ipd|SLH-DSA-SHAKE-256s-ipd|1.3.9999.6.9.3|id-Dilithium3-RSA-PKCS15-SHA256|id-Dilithium3-RSA-PSS-SHA256|id-Dilithium3-ECDSA-P256-SHA256|id-Dilithium3-ECDSA-brainpoolP256r1-SHA256|id-Dilithium5-ECDSA-P384-SHA384|id-Dilithium5-ECDSA-brainpoolP384r1-SHA384|~~id-Falcon512-ECDSA-P256-SHA256~~|~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~|catalyst|catalyst|composite|composite|hybrid-catalyst|hybrid[catalyst(1.2.840.10045.4.3.2|hybrid[catalyst(1.2.840.10045.4.3.4|hybrid[catalyst(1.2.840.113549.1.1.11|hybrid[chameleon(1.2.840.10045.4.3.2|hybrid[chameleon(1.2.840.10045.4.3.4|hybrid[chameleon(1.2.840.113549.1.1.11|hybrid[composite(1.2.840.10045.4.3.2|hybrid[composite(1.2.840.10045.4.3.4|hybrid[composite(1.2.840.113549.1.1.11|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||||✅|✅||✅|✅|||✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||✅|✅|✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|
-|botan|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
-|carl-redhound|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅||✅|✅|||✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||✅|✅|✅|✅|||||||||||
-|corey-digicert|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅||✅|✅|||✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||✅|✅|✅|✅|✅||||||||||
-|cryptonext|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
-|entrust|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||||
-|isi-wolfssl|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
-|kris|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
-|openca|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
-|oqs-gnutls|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
-|oqs-openssl111|✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||✅|||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
-|oqs-provider|✅|✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅||✅|✅|||✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||✅|✅|✅|✅|||||||||||
+|-|ecPublicKey|rsaEncryption|ED448|~~DilithiumAES2~~|ML-DSA-44-ipd|ML-DSA-65-ipd|ML-DSA-87-ipd|~~Dilithium2~~|~~Dilithium3~~|~~Dilithium5~~|ML-KEM-512-ipd|ML-KEM-768-ipd|ML-KEM-1024-ipd|~~kyber512_shake~~|~~kyber768_shake~~|~~kyber1024_shake~~|1.3.6.1.4.1.59634.9999.2.2.1|1.3.6.1.4.1.59634.9999.2.2.2|1.3.6.1.4.1.59634.9999.2.2.3|1.3.9999.2.7.2|1.3.9999.2.7.4|~~Falcon-512~~|~~Falcon-1024~~|Falcon-512|Falcon-1024|~~SPHINCS+-SHA256-128f-robust~~|~~SPHINCS+-SHA256-128s-simple~~|SLH-DSA-SHA2-128f-ipd|SLH-DSA-SHA2-128s-ipd|~~SPHINCS+-SHA256-128f-simple~~|SLH-DSA-SHA2-192f-ipd|SLH-DSA-SHA2-192s-ipd|~~SPHINCS+-SHA256-192f-simple~~|~~SPHINCS+-SHA256-192s-simple~~|SLH-DSA-SHA2-256f-ipd|SLH-DSA-SHA2-256s-ipd|~~SPHINCS+-SHA256-256f-simple~~|~~SPHINCS+-SHA256-256s-simple~~|SLH-DSA-SHAKE-128f-ipd|SLH-DSA-SHAKE-128s-ipd|1.3.9999.6.7.4|SLH-DSA-SHAKE-192f-ipd|SLH-DSA-SHAKE-192s-ipd|1.3.9999.6.8.3|SLH-DSA-SHAKE-256f-ipd|SLH-DSA-SHAKE-256s-ipd|1.3.9999.6.9.3|id-Dilithium3-RSA-PKCS15-SHA256|id-Dilithium3-RSA-PSS-SHA256|id-Dilithium3-ECDSA-P256-SHA256|id-Dilithium3-ECDSA-brainpoolP256r1-SHA256|id-Dilithium5-ECDSA-P384-SHA384|id-Dilithium5-ECDSA-brainpoolP384r1-SHA384|~~id-Falcon512-ECDSA-P256-SHA256~~|~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~|catalyst|catalyst|composite|composite|hybrid-catalyst|hybrid[catalyst(1.2.840.10045.4.3.2|hybrid[catalyst(1.2.840.10045.4.3.4|hybrid[catalyst(1.2.840.113549.1.1.11|hybrid[chameleon(1.2.840.10045.4.3.2|hybrid[chameleon(1.2.840.10045.4.3.4|hybrid[chameleon(1.2.840.113549.1.1.11|hybrid[composite(1.2.840.10045.4.3.2|hybrid[composite(1.2.840.10045.4.3.4|hybrid[composite(1.2.840.113549.1.1.11|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||||✅|✅||✅|✅|||✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||✅|✅|✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|
+|botan|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
+|carl-redhound|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅||✅|✅|||✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||✅|✅|✅|✅|||||||||||
+|corey-digicert|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅||✅|✅|||✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||✅|✅|✅|✅|✅||||||||||
+|cryptonext|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
+|entrust|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||||
+|isi-wolfssl|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
+|kris|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
+|openca|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
+|oqs-gnutls|✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅||||||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
+|oqs-openssl111|✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||✅|||||||||||||✅||✅|✅||✅|✅||✅|||||||||✅|✅|✅|✅|||||||||||
+|oqs-provider|✅|✅|✅||✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|||✅|✅||✅|✅|||✅|✅|||✅|✅|✅|✅|✅|✅|✅|✅|✅|||||||||✅|✅|✅|✅|||||||||||
 
 # ecPublicKey (1.2.840.10045.2.1)
 
@@ -170,8 +173,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅||✅|✅|✅|||✅||||✅|
 |botan|||||||||||||
-|carl-redhound|||✅|✅||||✅|||||
-|corey-digicert||||✅||||✅|||||
+|carl-redhound|||✅|✅|✅|||✅|||||
+|corey-digicert||||✅|✅|||✅|||||
 |cryptonext||||✅|✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
@@ -187,8 +190,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅||✅|✅|✅|||✅||||✅|
 |botan|||||||||||||
-|carl-redhound|||✅|✅||||✅|||||
-|corey-digicert||||✅||||✅|||||
+|carl-redhound|||✅|✅|✅|||✅|||||
+|corey-digicert||||✅|✅|||✅|||||
 |cryptonext||||✅|✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
@@ -204,8 +207,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅||✅|✅|✅|||✅||||✅|
 |botan|||||||||||||
-|carl-redhound|||✅|✅||||✅|||||
-|corey-digicert||||✅||||✅|||||
+|carl-redhound|||✅|✅|✅|||✅|||||
+|corey-digicert||||✅|✅|||✅|||||
 |cryptonext||||✅|✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
@@ -222,7 +225,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc||✅||||✅|✅||||||
 |botan|❌|✅|||✅||✅|✅||||❌|
 |carl-redhound|✅|❌||||✅|✅|||||❌|
-|corey-digicert|✅|✅|||✅|✅|❌|||||❌|
+|corey-digicert|✅|✅||||✅|❌|||||❌|
 |cryptonext||✅|||✅|✅|✅|✅||||❌|
 |entrust|❌|✅|||✅|✅||✅||||❌|
 |isi-wolfssl|||||||||||||
@@ -239,7 +242,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc||✅||||✅|✅||||||
 |botan|❌|✅|||||✅||||||
 |carl-redhound|✅|❌||||✅|✅|||||❌|
-|corey-digicert|✅|✅|||✅|✅|❌|||||❌|
+|corey-digicert|✅|✅||||✅|❌|||||❌|
 |cryptonext||✅|||✅|✅|✅|✅||||❌|
 |entrust|❌|✅|||✅|✅||✅||||❌|
 |isi-wolfssl|||||||||||||
@@ -256,7 +259,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc||✅||||✅|✅||||||
 |botan|❌|✅|||✅||✅|✅||||❌|
 |carl-redhound|✅|❌||||✅|✅|||||❌|
-|corey-digicert|✅|✅|||✅|✅|❌|||||❌|
+|corey-digicert|✅|✅||||✅|❌|||||❌|
 |cryptonext||✅|||✅|✅|✅|✅||||❌|
 |entrust|❌|✅|||✅|✅||✅||||❌|
 |isi-wolfssl|||||||||||||
@@ -273,7 +276,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅|||✅|✅||||||||
 |botan|||||||||||||
 |carl-redhound|||||||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert||||✅|✅||||||||
 |cryptonext||||✅|✅||✅||||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
@@ -290,7 +293,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅|||✅|✅||||||||
 |botan|||||||||||||
 |carl-redhound|||||||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert||||✅|✅||||||||
 |cryptonext||||✅|✅||✅||||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
@@ -307,7 +310,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅|||✅|✅||||||||
 |botan|||||||||||||
 |carl-redhound|||||||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert||||✅|✅||||||||
 |cryptonext||||✅|✅||✅||||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
@@ -360,6 +363,57 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |carl-redhound|||||||||||||
 |corey-digicert|||||||||||||
 |cryptonext|||||✅||||||||
+|entrust|||||||||||||
+|isi-wolfssl|||||||||||||
+|kris|||||||||||||
+|openca|||||||||||||
+|oqs-gnutls|||||||||||||
+|oqs-openssl111|||||||||||||
+|oqs-provider|||||||||||||
+
+# 1.3.6.1.4.1.59634.9999.2.2.1 (1.3.6.1.4.1.59634.9999.2.2.1)
+
+|-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||
+|botan|||||||||||||
+|carl-redhound|||||||||||||
+|corey-digicert|||||||||||||
+|cryptonext|||||❌||||||||
+|entrust|||||||||||||
+|isi-wolfssl|||||||||||||
+|kris|||||||||||||
+|openca|||||||||||||
+|oqs-gnutls|||||||||||||
+|oqs-openssl111|||||||||||||
+|oqs-provider|||||||||||||
+
+# 1.3.6.1.4.1.59634.9999.2.2.2 (1.3.6.1.4.1.59634.9999.2.2.2)
+
+|-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||
+|botan|||||||||||||
+|carl-redhound|||||||||||||
+|corey-digicert|||||||||||||
+|cryptonext|||||❌||||||||
+|entrust|||||||||||||
+|isi-wolfssl|||||||||||||
+|kris|||||||||||||
+|openca|||||||||||||
+|oqs-gnutls|||||||||||||
+|oqs-openssl111|||||||||||||
+|oqs-provider|||||||||||||
+
+# 1.3.6.1.4.1.59634.9999.2.2.3 (1.3.6.1.4.1.59634.9999.2.2.3)
+
+|-|bc|botan|carl-redhound|corey-digicert|cryptonext|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||
+|botan|||||||||||||
+|carl-redhound|||||||||||||
+|corey-digicert|||||||||||||
+|cryptonext|||||❌||||||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
@@ -697,8 +751,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅||✅|✅|❌|||||||❌|
 |botan|||||||||||||
-|carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|carl-redhound|||✅|✅|❌||||||||
+|corey-digicert||||✅|❌||||||||
 |cryptonext||||❌|✅||||||||
 |entrust|||✅||❌||||||||
 |isi-wolfssl|||||||||||||
@@ -748,8 +802,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅||✅|✅|✅|||||||❌|
 |botan|||||||||||||
-|carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|carl-redhound|||✅|✅|✅||||||||
+|corey-digicert||||✅|✅||||||||
 |cryptonext||||✅|✅||||||||
 |entrust|||✅||✅||||||||
 |isi-wolfssl|||||||||||||
@@ -799,8 +853,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅||✅|✅|❌|||||||❌|
 |botan|||||||||||||
-|carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|carl-redhound|||✅|✅|❌||||||||
+|corey-digicert||||✅|❌||||||||
 |cryptonext||||❌|✅||||||||
 |entrust|||✅||❌||||||||
 |isi-wolfssl|||||||||||||
