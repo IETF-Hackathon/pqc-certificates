@@ -104,7 +104,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |botan|||||||||||||
 |carl-redhound|||||||||||||
 |corey-digicert|||||||||||||
-|cryptonext|||||✅||||||||
+|cryptonext|||||✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
@@ -121,7 +121,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |botan|||||||||||||
 |carl-redhound|||||||||||||
 |corey-digicert|||||||||||||
-|cryptonext|||||✅||||||||
+|cryptonext|||||✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||||||||||||
@@ -170,9 +170,9 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅||✅|✅|✅|||✅||||✅|
 |botan|||||||||||||
-|carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
-|cryptonext||||✅|✅||||||||
+|carl-redhound|||✅|✅||||✅|||||
+|corey-digicert||||✅||||✅|||||
+|cryptonext||||✅|✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||✅|✅|✅|||✅|||||
@@ -187,9 +187,9 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅||✅|✅|✅|||✅||||✅|
 |botan|||||||||||||
-|carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
-|cryptonext||||✅|✅||||||||
+|carl-redhound|||✅|✅||||✅|||||
+|corey-digicert||||✅||||✅|||||
+|cryptonext||||✅|✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||✅|✅|✅|||✅|||||
@@ -204,9 +204,9 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|✅||✅|✅|✅|||✅||||✅|
 |botan|||||||||||||
-|carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
-|cryptonext||||✅|✅||||||||
+|carl-redhound|||✅|✅||||✅|||||
+|corey-digicert||||✅||||✅|||||
+|cryptonext||||✅|✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||✅|✅|✅|||✅|||||
@@ -221,7 +221,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc||✅||||✅|✅||||||
 |botan|❌|✅|||✅||✅|✅||||❌|
-|carl-redhound|✅|❌||||✅|✅|✅||||❌|
+|carl-redhound|✅|❌||||✅|✅|||||❌|
 |corey-digicert|✅|✅|||✅|✅|❌|||||❌|
 |cryptonext||✅|||✅|✅|✅|✅||||❌|
 |entrust|❌|✅|||✅|✅||✅||||❌|
@@ -238,7 +238,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc||✅||||✅|✅||||||
 |botan|❌|✅|||||✅||||||
-|carl-redhound|✅|❌||||✅|✅|✅||||❌|
+|carl-redhound|✅|❌||||✅|✅|||||❌|
 |corey-digicert|✅|✅|||✅|✅|❌|||||❌|
 |cryptonext||✅|||✅|✅|✅|✅||||❌|
 |entrust|❌|✅|||✅|✅||✅||||❌|
@@ -255,7 +255,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc||✅||||✅|✅||||||
 |botan|❌|✅|||✅||✅|✅||||❌|
-|carl-redhound|✅|❌||||✅|✅|✅||||❌|
+|carl-redhound|✅|❌||||✅|✅|||||❌|
 |corey-digicert|✅|✅|||✅|✅|❌|||||❌|
 |cryptonext||✅|||✅|✅|✅|✅||||❌|
 |entrust|❌|✅|||✅|✅||✅||||❌|
@@ -442,8 +442,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|||||||||||||
 |botan|||||||||||||
-|carl-redhound||||✅|||||||||
-|corey-digicert||||✅|||❌|||||✅|
+|carl-redhound||||✅||||✅|||||
+|corey-digicert||||✅|||❌|✅||||✅|
 |cryptonext|||||||||||||
 |entrust||||||✅||✅||||✅|
 |isi-wolfssl|||||||||||||
@@ -459,8 +459,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 |bc|||||||||||||
 |botan|||||||||||||
-|carl-redhound||||✅|||||||||
-|corey-digicert||||✅|||❌|||||✅|
+|carl-redhound||||✅||||✅|||||
+|corey-digicert||||✅|||❌|✅||||✅|
 |cryptonext|||||||||||||
 |entrust||||||✅||✅||||✅|
 |isi-wolfssl|||||||||||||
