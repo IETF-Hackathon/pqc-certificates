@@ -66,23 +66,16 @@ check() {
 	cd ..
 }
 
-    if [ $# -ne 1 ]; then
-       echo "No target directory to check provided. Exiting."
-       exit -1
-    else
-        pushd $1 >/dev/null 2>/dev/null
-    fi
-    #echo "Checking in $(pwd)"
-    if [ ! -d "artifacts" ]; then
-        echo "No artifacts found. Exiting."
-        exit -1
-    fi
-    cd artifacts
-    echo "key_algorithm_oid,test_result"
-    for oid_folder in 1*_ta.*; do
-	   target=$(echo $oid_folder | sed -r "s/(.*)_ta.*/\1/g")
-       check_cert "${target}_ta"
-       result=$(check "${target}_ta.pem")
-	   echo "${target},${result}"
-    done
-    popd 2>/dev/null >/dev/null
+#echo "Checking in $(pwd)"
+if [ ! -d "artifacts" ]; then
+    echo "No artifacts found. Exiting."
+    exit -1
+fi
+cd artifacts
+echo "key_algorithm_oid,test_result"
+for oid_folder in 1*_ta.*; do
+   target=$(echo $oid_folder | sed -r "s/(.*)_ta.*/\1/g")
+   check_cert "${target}_ta"
+   result=$(check "${target}_ta.pem")
+   echo "${target},${result}"
+done

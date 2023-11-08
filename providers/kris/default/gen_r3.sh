@@ -2,6 +2,7 @@
 # set -x
 
 DIR=../artifacts
+source oids.sh
 
 gen() {
    ALG=$1
@@ -17,13 +18,13 @@ gen() {
 }
 
 # Dilithium
-gen DILITHIUM_2 1.3.6.1.4.1.2.267.7.4.4
-gen DILITHIUM_3 1.3.6.1.4.1.2.267.7.6.5
-gen DILITHIUM_5 1.3.6.1.4.1.2.267.7.8.7
-gen MLDSA_44_IPD 1.3.6.1.4.1.2.267.12.4.4
-gen MLDSA_65_IPD 1.3.6.1.4.1.2.267.12.6.5
-gen MLDSA_87_IPD 1.3.6.1.4.1.2.267.12.8.7
+gen DILITHIUM_2 ${DILITHIUM_2}
+gen DILITHIUM_3 ${DILITHIUM_3}
+gen DILITHIUM_5 ${DILITHIUM_5}
+gen MLDSA_44_IPD ${MLDSA_44_IPD}
+gen MLDSA_65_IPD ${MLDSA_65_IPD}
+gen MLDSA_87_IPD ${MLDSA_87_IPD}
 
 # Falcon
-gen FALCON_512 1.3.9999.3.6
-gen FALCON_1024 1.3.9999.3.9
+gen FALCON_512 ${FALCON_512}
+gen FALCON_1024 ${FALCON_1024}
