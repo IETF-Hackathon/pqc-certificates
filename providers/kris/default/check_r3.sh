@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #set -x
+source oids.sh
 
 function check_cert() {
 
