@@ -25,6 +25,8 @@ import java.util.zip.ZipFile;
 import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
+import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.Extensions;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
@@ -103,12 +105,13 @@ public class R3ArtifactParser
         {
             // this also covers checking for hybrid composite
             if (cert.getIssuerX500Principal().equals(cert.getSubjectX500Principal()))
-            {
+            {                 
                 cert.verify(cert.getPublicKey());
             }
             else
             {
-                X509Certificate ta = tas.get(cert.getIssuerX500Principal());
+                X500Principal signingPrincipal = cert.getIssuerX500Principal();
+                X509Certificate ta = tas.get(signingPrincipal);
 
                 cert.verify(ta.getPublicKey());
             }
@@ -116,6 +119,17 @@ public class R3ArtifactParser
             X509CertificateHolder x509CertHolder = new JcaX509CertificateHolder(cert);
             Extensions exts = x509CertHolder.getExtensions();
 
+
+            if (x509CertHolder.getSignatureAlgorithm().getParameters() != null)
+            {
+                ASN1ObjectIdentifier sigOid = x509CertHolder.getSignatureAlgorithm().getAlgorithm();
+                if (!(MiscObjectIdentifiers.id_alg_composite.equals(sigOid)
+                      || PKCSObjectIdentifiers.sha256WithRSAEncryption.equals(sigOid)))
+                {
+                    System.err.println("warning: non-absent parameters detected in certificate signature for: "
+                        + sigOid);
+                }
+            }
             // check catalyst
             Extension ext = exts.getExtension(Extension.altSignatureAlgorithm);
 
@@ -145,7 +159,7 @@ public class R3ArtifactParser
             return true;
         }
         catch (Exception e)
-        {
+        {          e.printStackTrace();
             return false;
         }
     }
@@ -196,7 +210,10 @@ public class R3ArtifactParser
             }
             else
             {
-                System.err.println("non-pem entry " + zipName + " ignored");
+                if (!entry.isDirectory())
+                {
+                    System.err.println("non-pem entry " + zipName + " ignored");
+                }
                 continue;
             }
         }

@@ -17,13 +17,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.DERNull;
 import org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
 import org.bouncycastle.asn1.oiw.OIWObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
-import org.bouncycastle.asn1.util.ASN1Dump;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.asn1.x509.BasicConstraints;
@@ -35,7 +33,6 @@ import org.bouncycastle.asn1.x9.X9ObjectIdentifiers;
 import org.bouncycastle.cert.DeltaCertificateTool;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
-import org.bouncycastle.cert.cmp.CMSProcessableCMPCertificate;
 import org.bouncycastle.cert.jcajce.JcaCertStore;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
@@ -47,7 +44,6 @@ import org.bouncycastle.cms.CMSProcessableByteArray;
 import org.bouncycastle.cms.CMSSignedData;
 import org.bouncycastle.cms.CMSSignedDataGenerator;
 import org.bouncycastle.cms.CMSTypedData;
-import org.bouncycastle.cms.SignerId;
 import org.bouncycastle.cms.SignerInformation;
 import org.bouncycastle.cms.jcajce.JcaSignerId;
 import org.bouncycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder;
@@ -89,8 +85,8 @@ public class R3ArtifactGenerator
             BCObjectIdentifiers.sphincsPlus_shake_192s,
             BCObjectIdentifiers.sphincsPlus_shake_256f,
             BCObjectIdentifiers.sphincsPlus_shake_256s,
-//            BCObjectIdentifiers.falcon_512,
-//            BCObjectIdentifiers.falcon_1024
+            BCObjectIdentifiers.falcon_512,
+            BCObjectIdentifiers.falcon_1024
         };
 
 
@@ -111,8 +107,8 @@ public class R3ArtifactGenerator
             "sphincs+-shake-192s",
             "sphincs+-shake-256f",
             "sphincs+-shake-256s",
-//            "falcon-512",
-//            "falcon-1024",
+            "falcon-512",
+            "falcon-1024",
         };
 
     private static final ASN1ObjectIdentifier[] kemAlgorithms =
