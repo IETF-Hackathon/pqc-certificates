@@ -174,8 +174,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅|✅|||✅||||✅|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|✅|||✅|||||
-|corey-digicert||||✅|✅|||✅|||||
-|cryptonext||||✅|✅|||✅|||||
+|corey-digicert|||✅|✅|✅|||✅|||||
+|cryptonext|||✅|✅|✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||✅|✅|✅|||✅|||||
@@ -191,8 +191,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅|✅|||✅||||✅|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|✅|||✅|||||
-|corey-digicert||||✅|✅|||✅|||||
-|cryptonext||||✅|✅|||✅|||||
+|corey-digicert|||✅|✅|✅|||✅|||||
+|cryptonext|||✅|✅|✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||✅|✅|✅|||✅|||||
@@ -208,8 +208,8 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅|✅|||✅||||✅|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|✅|||✅|||||
-|corey-digicert||||✅|✅|||✅|||||
-|cryptonext||||✅|✅|||✅|||||
+|corey-digicert|||✅|✅|✅|||✅|||||
+|cryptonext|||✅|✅|✅|||✅|||||
 |entrust|||||||||||||
 |isi-wolfssl|||||||||||||
 |kris|||✅|✅|✅|||✅|||||
@@ -497,7 +497,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||||✅||||✅|||||
-|corey-digicert||||✅|||❌|✅||||✅|
+|corey-digicert|||✅|✅|||❌|✅||||✅|
 |cryptonext|||||||||||||
 |entrust||||||✅||✅||||✅|
 |isi-wolfssl|||||||||||||
@@ -514,7 +514,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|||||||||||||
 |botan|||||||||||||
 |carl-redhound||||✅||||✅|||||
-|corey-digicert||||✅|||❌|✅||||✅|
+|corey-digicert|||✅|✅|||❌|✅||||✅|
 |cryptonext|||||||||||||
 |entrust||||||✅||✅||||✅|
 |isi-wolfssl|||||||||||||
@@ -565,7 +565,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅||||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert|||✅|✅|||||||||
 |cryptonext|||||||||||||
 |entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
@@ -582,7 +582,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅||||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert|||✅|✅|||||||||
 |cryptonext|||||||||||||
 |entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
@@ -616,7 +616,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅||||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert|||✅|✅|||||||||
 |cryptonext|||||||||||||
 |entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
@@ -633,7 +633,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅||||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert|||✅|✅|||||||||
 |cryptonext|||||||||||||
 |entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
@@ -684,7 +684,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅||||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert|||✅|✅|||||||||
 |cryptonext|||||||||||||
 |entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
@@ -701,7 +701,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅||||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert|||✅|✅|||||||||
 |cryptonext|||||||||||||
 |entrust|||✅|||✅|||||||
 |isi-wolfssl|||||||||||||
@@ -752,7 +752,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅|❌|||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|❌||||||||
-|corey-digicert||||✅|❌||||||||
+|corey-digicert|||✅|✅|❌||||||||
 |cryptonext||||❌|✅||||||||
 |entrust|||✅||❌||||||||
 |isi-wolfssl|||||||||||||
@@ -769,7 +769,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅||||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert|||✅|✅|||||||||
 |cryptonext|||||||||||||
 |entrust|||✅||||||||||
 |isi-wolfssl|||||||||||||
@@ -803,7 +803,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅|✅|||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|✅||||||||
-|corey-digicert||||✅|✅||||||||
+|corey-digicert|||✅|✅|✅||||||||
 |cryptonext||||✅|✅||||||||
 |entrust|||✅||✅||||||||
 |isi-wolfssl|||||||||||||
@@ -820,7 +820,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅||||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert|||✅|✅|||||||||
 |cryptonext|||||||||||||
 |entrust|||✅||||||||||
 |isi-wolfssl|||||||||||||
@@ -854,7 +854,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅|❌|||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|❌||||||||
-|corey-digicert||||✅|❌||||||||
+|corey-digicert|||✅|✅|❌||||||||
 |cryptonext||||❌|✅||||||||
 |entrust|||✅||❌||||||||
 |isi-wolfssl|||||||||||||
@@ -871,7 +871,7 @@ To be in this table, an algorithm must have a test result in one of the tables b
 |bc|✅||✅|✅||||||||❌|
 |botan|||||||||||||
 |carl-redhound|||✅|✅|||||||||
-|corey-digicert||||✅|||||||||
+|corey-digicert|||✅|✅|||||||||
 |cryptonext|||||||||||||
 |entrust|||✅||||||||||
 |isi-wolfssl|||||||||||||
