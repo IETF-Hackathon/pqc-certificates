@@ -48,16 +48,18 @@ def _parse_csv_file(generator, verifier, f, oid_name_mappings) -> Sequence[Algor
 
             avrs.append(AlgorithmVerificationResult(**d))
 
-            e = {
-                'generator': generator,
-                'key_algorithm_oid': key_algorithm_oid
-            }
+            if row['test_result'] != None and row['test_result'] != "":
+                e = {
+                    'generator': generator,
+                    'key_algorithm_oid': key_algorithm_oid
+                }
 
-            if SubmittedAlgorithmResult(**e) not in _sars:
-                _sars.append(SubmittedAlgorithmResult(**e))
+                # The algorithms Tested table should only contain tests with a pass or fail result
+                if SubmittedAlgorithmResult(**e) not in _sars:
+                    _sars.append(SubmittedAlgorithmResult(**e))
 
-            if key_algorithm_oid not in _submittedAlgsList:
-                _submittedAlgsList.append( key_algorithm_oid )
+                if key_algorithm_oid not in _submittedAlgsList:
+                    _submittedAlgsList.append( key_algorithm_oid )
         except Exception as e:
             print("Error reading "+ str(f.name))
             raise e
@@ -110,7 +112,7 @@ def _get_alg_name_by_oid_str(oid_to_name_mappings, oid_str):
 
     if m is not None:
         # Display only the hybrid format, not the OIDs.
-        print('Matched hybbrid format regex: '+m['hybrid_format'])
+        print('Matched hybrid format regex: '+m['hybrid_format'])
         return m['hybrid_format']
 
     # else it is a simple OID.
@@ -163,27 +165,26 @@ def main():
 
     md_file = MdUtils(file_name=OUTPUT_FILE, title='IETF PQC Hackathon Interoperability Results')
 
-    md_file.new_paragraph(text='In all tables below, Rows are producers. Columns are parsers.\n')
+    md_file.new_paragraph(text="<style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } </style>")
+
+    md_file.new_paragraph(text='In the individual algorithm tables below, Rows are producers. Columns are parsers.\n')
 
 
     md_file.new_header(level=1, title=f'Algorithms Tested')
     md_file.new_paragraph(text='To be in this table, an algorithm must have a test result in one of the tables below (pass or fail). Algorithms for which we have artifacts but no test results are not shown.\n')
 
     _submittedAlgsList.sort()
-    submittedAlgNames = []
-    for alg_oid in _submittedAlgsList:
-        submittedAlgNames.append(_get_alg_name_by_oid_str(oid_name_mappings, alg_oid))
 
-    submittedAlgsCells = ['-'] + submittedAlgNames
+    submittedAlgsCells = ['-'] + implementations
     _sars.sort(key=alg_oid_getter)
     sars_by_alg = {k: [] for k in _submittedAlgsList}
     for sar in _sars:
         sars_by_alg[sar.key_algorithm_oid].append(sar)
 
 
-    for generator in implementations:
-        submittedAlgsCells.append(generator)
-        for alg_oid, sars in sars_by_alg.items():
+    for alg_oid, sars in sars_by_alg.items():
+        submittedAlgsCells.append(_get_alg_name_by_oid_str(oid_name_mappings, alg_oid))
+        for generator in implementations:
             relevant_sars = [sar for sar in sars if sar.generator == generator ]
 
             if len(relevant_sars) > 1:
@@ -195,7 +196,7 @@ def main():
                 submittedAlgsCells.append('')
 
     
-    md_file.new_table(columns=len(_submittedAlgsList) + 1, rows=len(implementations) + 1, text=submittedAlgsCells, text_align='left')
+    md_file.new_table(columns=len(implementations) + 1, rows=len(_submittedAlgsList) + 1, text=submittedAlgsCells, text_align='left')
 
     for alg_oid, avrs in avrs_by_alg.items():
         alg_name = _get_alg_name_by_oid_str(oid_name_mappings, alg_oid)
