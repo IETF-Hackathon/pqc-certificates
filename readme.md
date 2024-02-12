@@ -1,3 +1,4 @@
+<style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } </style>
 # IETF Hackathon - PQC Certificates
 
 This project provides a set of data repositories for X.509 data
@@ -6,8 +7,12 @@ structures that make use of post-quantum and composite algorithms
 
 This repo represents work done between IETF 115 - 119.
 
-A summary table of the ongoing interoperability testing can be found here:
+A summary table of the ongoing certificate interoperability testing can be found here:
 https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results_certs_r3.html
+
+A summary table of the ongoing CMS interoperability testing can be found here:
+https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results_cms_v1.html
+
 
 An older version showing more (now obsolete) algorithms can be found here instead:
 https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html
@@ -30,12 +35,19 @@ The project's directory structure is as follows:
     - providers/
         - provider_name_1/
             - artifacts_certs_r3.zip
+            - artifacts_cms_v1.zip
             - implementation_name_1/
                 - artifacts_certs_r3.zip
+                - artifacts_cms_v1.zip
             - implementation_name_2/
                 - artifacts_certs_r3.zip
+                - artifacts_cms_v1.zip
             - compatMatrices
               - artifacts_certs_r3
+                - prov2_prov1.csv
+                - prov3_prov1.csv
+                - ...
+              - artifacts_cms_v1
                 - prov2_prov1.csv
                 - prov3_prov1.csv
                 - ...
@@ -47,7 +59,7 @@ The project's directory structure is as follows:
             - implementation_name_1
             - ...
 ~~~
-Note that your artifacts zip can be placed either at the top-level of your provider, or if you have multiple implementtations, then they can be places id implementation sub-folders.
+Note that your artifacts zip can be placed either at the top-level of your provider, or if you have multiple implementations, then they can be placed in implementation sub-folders.
 
 Where:
 
@@ -96,7 +108,7 @@ Starting with artifacts for the NIST Draft standards released 2023-08-24, we wil
 * For Kyber, use the the Dilithium TA of the equivalent security level to sign a <kyber_oid>_ee.pem
 * For hybrid certificate formats, name the file `<hybrid_format>_<oid1>_with_<oid2>_ta.pem`
 
-Within `providers/<provider_name>/`
+Within `providers/<provider_name>/[implementation_name/]`
 - artifacts_certs_r3.zip
   - `<oid>_ta.pem`  # self-signed cert for signature alg oids
   - `<oid>_ee.pem`  # ex.: Kyber512  - signed with Dilithium2
@@ -104,13 +116,58 @@ Within `providers/<provider_name>/`
 
 The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
 
-### CMS -- artifacts_cms.zip
+### CMS -- artifacts_cms_v1.zip
 
-CMS artficats should be placed into a `artifacts_cms.zip` within `providers/<provider_name>/`. We will specify the exact file format when we start to see more robust artifacts submitted.
+This is version 1 of the CMS artifacts format.  It may change if needs change.
+
+Within `providers/<provider_name>/[implementation_name/]`
+- artifacts_cms_v1.zip
+  - `expected_plaintext.txt` # The message which was encrypted and can be compared against the decrypted artifacts.
+  - `ukm.txt` # The User Keying Material (UKM) included in some of the enveloped messages.
+  - `<ta>.der` # dilithium2 trust anchor used to sign the KEM end-entity certificates.
+  - `<oid>_<friendly>_ee.der` # The KEM certificate that the message is enveloped to.
+  - `<oid>_<friendly>_priv.der` # The private key to decrypt the enveloped messages.
+  - `<oid>_<friendly>_kemri_ukm.der` # An Enveloped artifact using KEMRI’s UKM field and one of the MTI KDFs for the KEM algorithm.
+  - `<oid>_<friendly>_kemri_auth.der` # An AuthEnveloped artifact using KEMRI without UKM and one of the MTI KDFs for the KEM algorithm.
+  - `<oid>_<friendly>_kemri_<kdf>.der` # Enveloped artifacts using KEMRI without UKM and the specified KDF. Implementations must provide artifacts for each of the MTI KDFs for the OID, and may provider artifacts for others.
+
+#### Friendly
+
+Per https://github.com/IETF-Hackathon/pqc-certificates/issues/96 we would like a text description of the algorithm in the artifact names to make artifacts directory listings easier to read. Stick something same in there, for example the appropriate name from [oid_mapping.md](docs/oid_mapping.md).
+
+#### Trust Anchor
+
+A trust anchor isn't necessary to verify the KEMRecipientInfo artifacts, but some implementations may find it useful. We're using dilithium2 at the moment since some might not have implemented ML-DSA.ipd.
+
+#### DER vs PEM
+
+We picked DER encoding so there's not an extra layer to mess up. You probably have a DER<->PEM re-encoding tool.
+
+#### Encryption Algorithms
+
+Use `id-aes<size>wrap` for KEK algorithm where `<size>` is appropriate for your `<oid>`.  Each I-D/RFC should specify this.
+
+Use `aes-<size>-gcm` for the CEK algorithm in the `<oid>_kemri_auth.der` artifact.  Use `aes-<size>-cbc` for all others.
+
+#### MTI KDFs
+
+Each RFC will specify mandatory KDFs, and probably allow for others as well. You should have a `<oid>_kemri_<kdf>.der` artifact for all MTI KDFs for each KEM OID that you support.
+
+| I-D/RFC | Algorithm | MTI KDF | `<kdf> string` |
+| - | - | - | - |
+| rfc5990bis | RSA-KEM | KDF3 w/ SHA-256 | id-kdf-kdf3 |
+| cms-kyber | ML-KEM-512 | HKDF w/ SHA-256\* | id-alg-hkdf-with-sha256\* |
+| cms-kyber | ML-KEM-768 | HKDF w/ SHA-384\* | id-alg-hkdf-with-sha384\* |
+| cms-kyber | ML-KEM-1024 | HKDF w/ SHA-512\* | id-alg-hkdf-with-sha512\* |
+| - | kyber512 | HKDF w/ SHA-256\* | id-alg-hkdf-with-sha256\* |
+| - | kyber768 | HKDF w/ SHA-384\* | id-alg-hkdf-with-sha384\* |
+| - | kyber1024 | HKDF w/ SHA-512\* | id-alg-hkdf-with-sha512\* |
+
+\* The MTI artifacts for draft-ietf-lamps-cms-kyber are still TBD. Ideally we're just waiting on OIDs for kmac-based KDFs. Otherwise we'll argue about using KDF3 vs HKDF-with-SHA3 (OIDs are not defined yet). For the moment we're using HKDF-with-SHA2 because a) we have OIDs; b) we have implementations.
 
 ### CMP -- artifacts_cmp.zip
 
-CMP artficats should be placed into a `artifacts_cmp.zip` within `providers/<provider_name>/`. We will specify the exact file format when we start to see more robust artifacts submitted.
+CMP artifacts should be placed into a `artifacts_cmp.zip` within `providers/<provider_name>/[implementation_name/]`. We will specify the exact file format when we start to see more robust artifacts submitted.
 
 ## Old Zip Format (R2)
 

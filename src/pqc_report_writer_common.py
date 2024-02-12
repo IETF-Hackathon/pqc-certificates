@@ -6,8 +6,6 @@ import argparse
 from typing import NamedTuple, Optional, Sequence, Mapping
 from mdutils.mdutils import MdUtils
 
-OUTPUT_FILE = 'pqc_hackathon_results_certs_r3.md'
-
 _FILENAME_REGEX = re.compile(r'^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
 _OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.*$')
 _HYBRID_FORMAT_NAME_REGEX = re.compile(r'(?P<hybrid_format>[^_]+)_(?P<oid1>[^_]+)_with_(?P<oid2>[^_]+)', re.IGNORECASE)
@@ -122,6 +120,8 @@ def _get_alg_name_by_oid_str(oid_to_name_mappings, oid_str):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('oid_mapping_file', type=argparse.FileType('r'))
+    parser.add_argument('outfile')
+    parser.add_argument('interop_type')
     parser.add_argument('files', nargs='+')
 
     args = parser.parse_args()
@@ -163,7 +163,7 @@ def main():
     for avr in avrs:
         avrs_by_alg[avr.key_algorithm_oid].append(avr)
 
-    md_file = MdUtils(file_name=OUTPUT_FILE, title='IETF PQC Hackathon Interoperability Results')
+    md_file = MdUtils(file_name=args.outfile, title=f'IETF PQC Hackathon {args.interop_type} Interoperability Results')
 
     md_file.new_paragraph(text="<style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } </style>")
 
