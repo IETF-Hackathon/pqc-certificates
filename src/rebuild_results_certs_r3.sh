@@ -10,8 +10,7 @@ for dir in $dirs; do
 done
 
 # build the compat matrix
-# outputs to `pqc_hackathon_results.md`
-python3 pqc_report_writer_certs_r3.py ../docs/oid_mapping.md $files
+python3 pqc_report_writer_common.py ../docs/oid_mapping.md pqc_hackathon_results_certs_r3.md Certificate $files
 
 # convert to html
 pandoc -f markdown pqc_hackathon_results_certs_r3.md > pqc_hackathon_results_certs_r3.html
