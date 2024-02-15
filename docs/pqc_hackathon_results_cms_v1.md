@@ -23,47 +23,53 @@ In the individual algorithm tables below, Rows are producers. Columns are parser
 
 To be in this table, an algorithm must have a test result in one of the tables below (pass or fail). Algorithms for which we have artifacts but no test results are not shown.
 
-|-|cryptonext-cnsprovider|
-| :--- | :--- |
-|ML-KEM-512-ipd|✅|
-|ML-KEM-768-ipd|✅|
-|ML-KEM-1024-ipd|✅|
-|~~kyber512_shake~~|✅|
-|~~kyber768_shake~~|✅|
-|~~kyber1024_shake~~|✅|
+|-|cryptonext-cnsprovider|redhound|
+| :--- | :--- | :--- |
+|ML-KEM-512-ipd|✅|✅|
+|ML-KEM-768-ipd|✅|✅|
+|ML-KEM-1024-ipd|✅|✅|
+|~~kyber512_shake~~|✅||
+|~~kyber768_shake~~|✅||
+|~~kyber1024_shake~~|✅||
 
 # ML-KEM-512-ipd (1.3.6.1.4.1.22554.5.6.1)
 
-|-|cryptonext-cnsprovider|
-| :--- | :--- |
-|cryptonext-cnsprovider|✅|
+|-|cryptonext-cnsprovider|redhound|
+| :--- | :--- | :--- |
+|cryptonext-cnsprovider|✅|✅|
+|redhound|✅||
 
 # ML-KEM-768-ipd (1.3.6.1.4.1.22554.5.6.2)
 
-|-|cryptonext-cnsprovider|
-| :--- | :--- |
-|cryptonext-cnsprovider|✅|
+|-|cryptonext-cnsprovider|redhound|
+| :--- | :--- | :--- |
+|cryptonext-cnsprovider|✅|✅|
+|redhound|✅||
 
 # ML-KEM-1024-ipd (1.3.6.1.4.1.22554.5.6.3)
 
-|-|cryptonext-cnsprovider|
-| :--- | :--- |
-|cryptonext-cnsprovider|✅|
+|-|cryptonext-cnsprovider|redhound|
+| :--- | :--- | :--- |
+|cryptonext-cnsprovider|✅|✅|
+|redhound|✅||
 
 # ~~kyber512_shake~~ (1.3.6.1.4.1.22554.5.6.7)
 
-|-|cryptonext-cnsprovider|
-| :--- | :--- |
-|cryptonext-cnsprovider|✅|
+|-|cryptonext-cnsprovider|redhound|
+| :--- | :--- | :--- |
+|cryptonext-cnsprovider|✅||
+|redhound|||
 
 # ~~kyber768_shake~~ (1.3.6.1.4.1.22554.5.6.8)
 
-|-|cryptonext-cnsprovider|
-| :--- | :--- |
-|cryptonext-cnsprovider|✅|
+|-|cryptonext-cnsprovider|redhound|
+| :--- | :--- | :--- |
+|cryptonext-cnsprovider|✅||
+|redhound|||
 
 # ~~kyber1024_shake~~ (1.3.6.1.4.1.22554.5.6.9)
 
-|-|cryptonext-cnsprovider|
-| :--- | :--- |
-|cryptonext-cnsprovider|✅|
+|-|cryptonext-cnsprovider|redhound|
+| :--- | :--- | :--- |
+|cryptonext-cnsprovider|✅||
+|redhound|||
