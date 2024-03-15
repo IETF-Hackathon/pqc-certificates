@@ -156,14 +156,14 @@ Each RFC will specify mandatory KDFs, and probably allow for others as well. You
 | I-D/RFC | Algorithm | MTI KDF | `<kdf> string` |
 | - | - | - | - |
 | rfc5990bis | RSA-KEM | KDF3 w/ SHA-256 | id-kdf-kdf3 |
-| cms-kyber | ML-KEM-512 | HKDF w/ SHA-256\* | id-alg-hkdf-with-sha256\* |
-| cms-kyber | ML-KEM-768 | HKDF w/ SHA-384\* | id-alg-hkdf-with-sha384\* |
-| cms-kyber | ML-KEM-1024 | HKDF w/ SHA-512\* | id-alg-hkdf-with-sha512\* |
-| - | kyber512 | HKDF w/ SHA-256\* | id-alg-hkdf-with-sha256\* |
-| - | kyber768 | HKDF w/ SHA-384\* | id-alg-hkdf-with-sha384\* |
-| - | kyber1024 | HKDF w/ SHA-512\* | id-alg-hkdf-with-sha512\* |
+| cms-kyber | ML-KEM-512 | KMAC128-KDF\* | id-kmac128\* |
+| cms-kyber | ML-KEM-768 | KMAC256-KDF\* | id-kmac256\* |
+| cms-kyber | ML-KEM-1024 | KMAC256-KDF\* | id-kmac256\* |
+| - | kyber512 | KMAC256-KDF\* | id-kmac128\* |
+| - | kyber768 | KMAC256-KDF\* | id-kmac256\* |
+| - | kyber1024 | KMAC256-KDF\* | id-kmac256\* |
 
-\* The MTI artifacts for draft-ietf-lamps-cms-kyber are still TBD. Ideally we're just waiting on OIDs for kmac-based KDFs. Otherwise we'll argue about using KDF3 vs HKDF-with-SHA3 (OIDs are not defined yet). For the moment we're using HKDF-with-SHA2 because a) we have OIDs; b) we have implementations.
+\* The MTI artifacts were updated to KMAC-based KDFs in draft-ietf-lamps-cms-kyber-03.
 
 ### CMP -- artifacts_cmp.zip
 
