@@ -32,6 +32,8 @@ testing of the NIST Draft standard OIDs
 | SLH-DSA-SHA2-256f-ipd | 1.3.9999.6.6.10 | FIPS 205 (Initial Public Draft) |
 | SLH-DSA-SHAKE-256f-ipd | 1.3.9999.6.9.10 | FIPS 205 (Initial Public Draft) |
 
+KEM Algoirthm OIDs
+
 | KEM Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
 | ML-KEM-512-ipd |  1.3.6.1.4.1.22554.5.6.1 | FIPS 203 (Initial Public Draft) |
@@ -40,6 +42,24 @@ testing of the NIST Draft standard OIDs
 
 # Experimental and Historical OID's
 The following are historical or experimental OIDs used in this project.     
+
+Composite Signature Algorithms with prototype OIDS
+
+| Composite Algorithm Name | OID | Specification |
+| ----------- | ----------- | ----------- |
+| MLDSA44-RSA2048-PSS-SHA256 | 2.16.840.1.114027.80.8.1.1 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA44-RSA2048-PKCS15-SHA256 | 2.16.840.1.114027.80.8.1.2 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA44-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.3 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA44-ECDSA-P256-SHA256 | 2.16.840.1.114027.80.8.1.4 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA44-ECDSA-brainpoolP256r1-SHA256 | 2.16.840.1.114027.80.8.1.5 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA65-RSA3072-PSS-SHA512 | 2.16.840.1.114027.80.8.1.6 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA65-RSA3072-PKCS15-SHA512 | 2.16.840.1.114027.80.8.1.7 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA65-ECDSA-P256-SHA512 | 2.16.840.1.114027.80.8.1.8 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA65-ECDSA-brainpoolP256r1-SHA512 | 2.16.840.1.114027.80.8.1.9 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA65-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.10 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA87-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.8.1.11 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA87-ECDSA-brainpoolP384r1-SHA512 | 2.16.840.1.114027.80.8.1.12 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA87-Ed448-SHA512 | 2.16.840.1.114027.80.8.1.13 | draft-ounsworth-pq-composite-sigs-13 |
 
 Historical document: 
 * https://docs.google.com/document/d/1A2-D82du0qJjygvBuOlG8Xao3MzDYz1pRDzjT9eY6ls/edit#
