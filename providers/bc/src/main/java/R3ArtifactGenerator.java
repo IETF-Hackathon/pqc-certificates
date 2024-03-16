@@ -1,463 +1,387 @@
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
-import java.math.BigInteger;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.MessageDigest;
-import java.security.PrivateKey;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
 import java.security.Security;
-import java.security.cert.CertificateEncodingException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.security.spec.ECGenParameterSpec;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.DERNull;
-import org.bouncycastle.asn1.bc.BCObjectIdentifiers;
-import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
-import org.bouncycastle.asn1.oiw.OIWObjectIdentifiers;
+import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
-import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
-import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.Extension;
-import org.bouncycastle.asn1.x509.KeyUsage;
-import org.bouncycastle.asn1.x509.SubjectAltPublicKeyInfo;
+import org.bouncycastle.asn1.x509.Extensions;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.bouncycastle.asn1.x9.X9ObjectIdentifiers;
+import org.bouncycastle.cert.CertException;
 import org.bouncycastle.cert.DeltaCertificateTool;
 import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.cert.X509v3CertificateBuilder;
-import org.bouncycastle.cert.jcajce.JcaCertStore;
-import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
-import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
-import org.bouncycastle.cms.CMSAlgorithm;
-import org.bouncycastle.cms.CMSEnvelopedData;
-import org.bouncycastle.cms.CMSEnvelopedDataGenerator;
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.CMSProcessableByteArray;
-import org.bouncycastle.cms.CMSSignedData;
-import org.bouncycastle.cms.CMSSignedDataGenerator;
-import org.bouncycastle.cms.CMSTypedData;
-import org.bouncycastle.cms.SignerInformation;
-import org.bouncycastle.cms.jcajce.JcaSignerId;
-import org.bouncycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder;
-import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder;
-import org.bouncycastle.cms.jcajce.JceCMSContentEncryptorBuilder;
-import org.bouncycastle.cms.jcajce.JceKEMRecipientInfoGenerator;
-import org.bouncycastle.jcajce.CompositePrivateKey;
-import org.bouncycastle.jcajce.CompositePublicKey;
-import org.bouncycastle.jcajce.spec.CompositeAlgorithmSpec;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.DigestCalculatorProvider;
+import org.bouncycastle.operator.ContentVerifierProvider;
 import org.bouncycastle.operator.OperatorCreationException;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
+import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
-import org.bouncycastle.util.Arrays;
-import org.bouncycastle.util.Pack;
-import org.bouncycastle.util.Store;
-import org.bouncycastle.util.Strings;
+import org.bouncycastle.util.io.Streams;
+import org.bouncycastle.util.io.pem.PemReader;
 
-public class R3ArtifactGenerator
+public class R3ArtifactParser
 {
-    private static final ASN1ObjectIdentifier[] sigAlgorithms =
+    private static Map<String, Map<String, ZipEntry>> algEntries = new HashMap<>();
+    private static Map<String, Map<String, File>> fileAlgEntries = new HashMap<>();
+
+    private static String header = "key_algorithm_oid,test_result";
+
+    private static boolean checkCertificate(String entryName, X509Certificate subject, X509Certificate signingCert)
+    {
+        try
         {
-            BCObjectIdentifiers.dilithium2,
-            BCObjectIdentifiers.dilithium3,
-            BCObjectIdentifiers.dilithium5,
-            BCObjectIdentifiers.sphincsPlus_sha2_128f,
-            BCObjectIdentifiers.sphincsPlus_sha2_128s,
-            BCObjectIdentifiers.sphincsPlus_sha2_192f,
-            BCObjectIdentifiers.sphincsPlus_sha2_192s,
-            BCObjectIdentifiers.sphincsPlus_sha2_256f,
-            BCObjectIdentifiers.sphincsPlus_sha2_256s,
-            BCObjectIdentifiers.sphincsPlus_shake_128f,
-            BCObjectIdentifiers.sphincsPlus_shake_128s,
-            BCObjectIdentifiers.sphincsPlus_shake_192f,
-            BCObjectIdentifiers.sphincsPlus_shake_192s,
-            BCObjectIdentifiers.sphincsPlus_shake_256f,
-            BCObjectIdentifiers.sphincsPlus_shake_256s,
-            BCObjectIdentifiers.falcon_512,
-            BCObjectIdentifiers.falcon_1024
-        };
+            subject.verify(signingCert.getPublicKey());
 
+            X509CertificateHolder certHolder = new X509CertificateHolder(subject.getEncoded());
+            if (certHolder.hasExtensions())
+            {
+                Extensions exts = certHolder.getExtensions();
+                Extension ext = exts.getExtension(Extension.altSignatureAlgorithm);
 
-    private static final String[] sigAlgNames =
+                if (ext != null)
+                {
+                    X509CertificateHolder sigHolder = new X509CertificateHolder(signingCert.getEncoded());
+                    ContentVerifierProvider vProv = new JcaContentVerifierProviderBuilder().build(
+                        SubjectPublicKeyInfo.getInstance(sigHolder.getExtension(Extension.subjectAltPublicKeyInfo).getParsedValue()));
+                    if (!certHolder.isAlternativeSignatureValid(vProv))
+                    {
+                        System.err.println("Entry " + entryName + " failed to verify alt signature");
+                    }
+                }
+            }
+            return true;
+        }
+        catch (GeneralSecurityException | IOException | CertException | OperatorCreationException e)
         {
-            "dilithium2",
-            "dilithium3",
-            "dilithium5",
-            "sphincs+-sha2-128f",
-            "sphincs+-sha2-128s",
-            "sphincs+-sha2-192f",
-            "sphincs+-sha2-192s",
-            "sphincs+-sha2-256f",
-            "sphincs+-sha2-256s",
-            "sphincs+-shake-128f", 
-            "sphincs+-shake-128s",
-            "sphincs+-shake-192f",
-            "sphincs+-shake-192s",
-            "sphincs+-shake-256f",
-            "sphincs+-shake-256s",
-            "falcon-512",
-            "falcon-1024",
-        };
+            System.err.println("Entry " + entryName + " failed to verify: " + e);
+            return false;
+        }
+    }
 
-    private static final ASN1ObjectIdentifier[] kemAlgorithms =
+    private static Set<String> getMatching(Set<String> inputSet, String entry)
     {
-        BCObjectIdentifiers.kyber512,
-        BCObjectIdentifiers.kyber768,
-        BCObjectIdentifiers.kyber1024
-    };
-
-    private static final String[] kemAlgNames =
+        Set<String> thisMatching = new HashSet<>();
+        for (String inputEntry : inputSet)
         {
-            "kyber512",
-            "kyber768",
-            "kyber1024"
-        };
-
-    private static final long BEFORE_DELTA = 60 * 1000L;
-    private static final long AFTER_DELTA = 365L * 24 * 60 * 60 * 1000L;
-
-    private static int certCount = 1;
-    private static final BigInteger generateSerialNumber()
-        throws Exception
-    {
-        MessageDigest dig = MessageDigest.getInstance("SHA1");
-
-        byte[] sn = dig.digest(Arrays.concatenate(Pack.intToBigEndian(certCount), Pack.longToBigEndian(System.currentTimeMillis())));
-
-        sn[0] = (byte)((sn[0] & 0x7f) | 0x40);
-
-        return new BigInteger(sn);
+            if (inputEntry.contains(entry))
+            {
+                thisMatching.add(inputEntry);
+            }
+        }
+        return thisMatching;
     }
 
-    private static X509Certificate createTACertificate(String algName, KeyPair taKp)
-        throws Exception
+    private static boolean isRecognizedEncoding(String name)
     {
-        X509v3CertificateBuilder crtBld = new X509v3CertificateBuilder(
-            new X500Name("CN=BC " + algName.replace("+", "Plus") + " Test TA"),
-            generateSerialNumber(),
-            new Date(System.currentTimeMillis() - BEFORE_DELTA),
-            new Date(System.currentTimeMillis() + AFTER_DELTA),
-            new X500Name("CN=BC " + algName.replace("+", "Plus") + " Test TA"),
-            SubjectPublicKeyInfo.getInstance(taKp.getPublic().getEncoded()));
-
-        crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(1));
-        crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyCertSign | KeyUsage.cRLSign));
-
-        ContentSigner signer = new JcaContentSignerBuilder(algName).build(taKp.getPrivate());
-
-        return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer));
+        return name.endsWith(".pem") || name.endsWith("der");
     }
 
-    private static X509Certificate createEECertificate(String taAlgName, PKIXPair taPair, String eeAlgName, KeyPair eeKp)
-        throws Exception
+    private static boolean checkCertificate(Map<X500Principal, X509Certificate> tas, X509Certificate cert)
     {
-        X509v3CertificateBuilder crtBld = new X509v3CertificateBuilder(
-            new X500Name("CN=BC " + taAlgName + " Test TA"),
-            generateSerialNumber(),
-            new Date(System.currentTimeMillis() - BEFORE_DELTA),
-            new Date(System.currentTimeMillis() + AFTER_DELTA),
-            new X500Name("CN=BC " + eeAlgName + " Test EE"),
-            SubjectPublicKeyInfo.getInstance(eeKp.getPublic().getEncoded()));
+        try
+        {
+            // this also covers checking for hybrid composite
+            if (cert.getIssuerX500Principal().equals(cert.getSubjectX500Principal()))
+            {                 
+                cert.verify(cert.getPublicKey());
+            }
+            else
+            {
+                X500Principal signingPrincipal = cert.getIssuerX500Principal();
+                X509Certificate ta = tas.get(signingPrincipal);
 
-        JcaX509ExtensionUtils extUtils = new JcaX509ExtensionUtils(
-            new JcaDigestCalculatorProviderBuilder().build().get(
-                new AlgorithmIdentifier(OIWObjectIdentifiers.idSHA1, DERNull.INSTANCE)));
-        
-        crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(false));
-        crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyEncipherment));
-        crtBld.addExtension(Extension.subjectKeyIdentifier, false, extUtils.createSubjectKeyIdentifier(eeKp.getPublic()));
-        crtBld.addExtension(Extension.authorityKeyIdentifier, false, extUtils.createAuthorityKeyIdentifier(taPair.cert));
+                cert.verify(ta.getPublicKey());
+            }
 
-        ContentSigner signer = new JcaContentSignerBuilder(taAlgName).build(taPair.priv);
+            X509CertificateHolder x509CertHolder = new JcaX509CertificateHolder(cert);
+            Extensions exts = x509CertHolder.getExtensions();
 
-        return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer));
+
+            if (x509CertHolder.getSignatureAlgorithm().getParameters() != null)
+            {
+                ASN1ObjectIdentifier sigOid = x509CertHolder.getSignatureAlgorithm().getAlgorithm();
+                if (!(MiscObjectIdentifiers.id_alg_composite.equals(sigOid)
+                      || PKCSObjectIdentifiers.sha256WithRSAEncryption.equals(sigOid)))
+                {
+                    System.err.println("warning: non-absent parameters detected in certificate signature for: "
+                        + sigOid);
+                }
+            }
+            // check catalyst
+            Extension ext = exts.getExtension(Extension.altSignatureAlgorithm);
+
+            if (ext != null)
+            {
+                ContentVerifierProvider vProv = new JcaContentVerifierProviderBuilder().build(
+                    SubjectPublicKeyInfo.getInstance(x509CertHolder.getExtension(Extension.subjectAltPublicKeyInfo).getParsedValue()));
+                if (!x509CertHolder.isAlternativeSignatureValid(vProv))
+                {
+                    return false;
+                }
+            }
+
+            // check chameleon
+            ext = exts.getExtension(new ASN1ObjectIdentifier("2.16.840.1.114027.80.6.1"));
+            if (ext != null)
+            {
+                X509CertificateHolder exDeltaCert = DeltaCertificateTool.extractDeltaCertificate(x509CertHolder);
+                ContentVerifierProvider verifier = new JcaContentVerifierProviderBuilder().setProvider("BC").build(exDeltaCert.getSubjectPublicKeyInfo());
+
+                if (!exDeltaCert.isSignatureValid(verifier))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        catch (Exception e)
+        {          e.printStackTrace();
+            return false;
+        }
     }
 
-    private static X509Certificate createCatalystHybridTACertificate(String algName, KeyPair taKp, String altAlgName, PKIXPair altTaKp)
+    public static void processZipArtifacts(String producer, String zipFileName)
         throws Exception
     {
-        X509v3CertificateBuilder crtBld = new X509v3CertificateBuilder(
-            new X500Name("CN=BC " + algName + " with " + altAlgName + " Test TA"),
-            generateSerialNumber(),
-            new Date(System.currentTimeMillis() - BEFORE_DELTA),
-            new Date(System.currentTimeMillis() + AFTER_DELTA),
-            new X500Name("CN=BC " + algName + " with " + altAlgName + " Test TA"),
-            SubjectPublicKeyInfo.getInstance(taKp.getPublic().getEncoded()));
+        ZipFile zipFile = new ZipFile(zipFileName);
 
-        crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(0));
-        crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyCertSign | KeyUsage.cRLSign));
-        crtBld.addExtension(Extension.subjectAltPublicKeyInfo, true, SubjectAltPublicKeyInfo.getInstance(altTaKp.cert.getPublicKey().getEncoded()));
+        CertificateFactory certFact = CertificateFactory.getInstance("X.509", "BC");
+        Map<String, X509Certificate> certificates = new TreeMap<>();
+        Set<String> ignored = new HashSet<>();
 
-        ContentSigner signer = new JcaContentSignerBuilder(algName).build(taKp.getPrivate());
-        ContentSigner altSigner = new JcaContentSignerBuilder(altAlgName).build(altTaKp.priv);
+        for (Enumeration<? extends ZipEntry> en = zipFile.entries(); en.hasMoreElements(); )
+        {
+            ZipEntry entry = en.nextElement();
+            String zipName = entry.getName();
 
-        return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer, true, altSigner));
+            if (zipName.endsWith(".pem"))
+            {
+                PemReader pemReader = new PemReader(new InputStreamReader(zipFile.getInputStream(entry)));
+
+                X509Certificate cert = null;
+                try
+                {
+                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(pemReader.readPemObject().getContent()));
+                    certificates.put(zipName, cert);
+                }
+                catch (Exception e)
+                {
+                    ignored.add(zipName);
+                }
+            }
+            else if (zipName.endsWith(".der"))
+            {
+                byte[] derData = Streams.readAll(zipFile.getInputStream(entry));
+
+                X509Certificate cert = null;
+                try
+                {
+                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(derData));
+                    certificates.put(zipName, cert);
+                }
+                catch (Exception e)
+                {
+                    ignored.add(zipName);
+                }
+            }
+            else
+            {
+                if (!entry.isDirectory())
+                {
+                    System.err.println("non-pem entry " + zipName + " ignored");
+                }
+                continue;
+            }
+        }
+
+        checkCertificates(producer, certificates, ignored);
     }
 
-    private static X509Certificate createCompositeHybridTACertificate(String algName, KeyPair taKp, String altAlgName, PKIXPair altTaKp)
+    public static void processArtifacts(String producer, String dirName)
         throws Exception
     {
-        CompositeAlgorithmSpec compAlgSpec = new CompositeAlgorithmSpec.Builder()
-            .add(algName)
-            .add(altAlgName)
-            .build();
+        CertificateFactory certFact = CertificateFactory.getInstance("X.509", "BC");
+        Map<String, X509Certificate> certificates = new TreeMap<>();
+        Set<String> ignored = new HashSet<>();
 
-        CompositePublicKey compPub = new CompositePublicKey(taKp.getPublic(), altTaKp.cert.getPublicKey());
-        CompositePrivateKey compPrivKey = new CompositePrivateKey(taKp.getPrivate(), altTaKp.priv);
+        File artDir = new File(dirName);
+        if (!artDir.isDirectory())
+        {
+            throw new IllegalStateException("artifact argument must point to a directory");
+        }
 
-        ContentSigner signer = new JcaContentSignerBuilder("COMPOSITE", compAlgSpec).build(compPrivKey);
+        for (File f : getLeafs(artDir.listFiles()))
+        {
+            String fileName = f.getName();
 
-        X509v3CertificateBuilder crtBld = new X509v3CertificateBuilder(
-            new X500Name("CN=BC " + algName + " with " + altAlgName + " Test TA"),
-            generateSerialNumber(),
-            new Date(System.currentTimeMillis() - BEFORE_DELTA),
-            new Date(System.currentTimeMillis() + AFTER_DELTA),
-            new X500Name("CN=BC " + algName + " with " + altAlgName + " Test TA"),
-            SubjectPublicKeyInfo.getInstance(compPub.getEncoded()));
+            if (fileName.endsWith(".pem"))
+            {
+                PemReader pemReader = new PemReader(new FileReader(f));
 
-        crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(0));
-        crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyCertSign | KeyUsage.cRLSign));
+                X509Certificate cert = null;
+                try
+                {
+                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(pemReader.readPemObject().getContent()));
 
-        return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer));
+                    certificates.put(fileName, cert);
+                }
+                catch (Exception e)
+                {
+                    ignored.add(fileName);
+                }
+            }
+            else if (fileName.endsWith(".der"))
+            {
+                X509Certificate cert = null;
+                try
+                {
+                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(Streams.readAll(new FileInputStream(fileName))));
+
+                    certificates.put(fileName, cert);
+                }
+                catch (Exception e)
+                {
+                    ignored.add(fileName);
+                }
+            }
+            else
+            {
+                System.err.println("non-pem entry " + fileName + " ignored");
+                continue;
+            }
+        }
+
+        checkCertificates(producer, certificates, ignored);
     }
 
-    private static X509Certificate createChameleonHybridTACertificate(String algName, KeyPair taKp, String altAlgName, PKIXPair altTaKp)
-        throws Exception
+    private static void checkCertificates(String
+                                              producer, Map<String, X509Certificate> certificates, Set<String> ignored)
+        throws IOException
     {
-        long now = System.currentTimeMillis();
-        X509v3CertificateBuilder crtBld = new X509v3CertificateBuilder(
-            new X500Name("CN=BC " + algName + " Test Chameleon Outer TA"),
-            generateSerialNumber(),
-            new Date(now - BEFORE_DELTA),
-            new Date(now + AFTER_DELTA),
-            new X500Name("CN=BC " + algName + " Test Chameleon Outer TA"),
-            SubjectPublicKeyInfo.getInstance(taKp.getPublic().getEncoded()));
+        Set<String> passed = new HashSet<>();
+        Set<String> failed = new HashSet<>();
+        Map<X500Principal, X509Certificate> tas = new HashMap<>();
 
-        crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(0));
-        crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyCertSign | KeyUsage.cRLSign));
+        for (X509Certificate cert : certificates.values())
+        {
+            if (cert.getIssuerX500Principal().equals(cert.getSubjectX500Principal()))
+            {
+                tas.put(cert.getIssuerX500Principal(), cert);
+            }
+        }
 
-        X509v3CertificateBuilder altCrtBld = new X509v3CertificateBuilder(
-            new X500Name("CN=BC " + altAlgName + " Test Chameleon Inner TA"),
-            generateSerialNumber(),
-            new Date(now - BEFORE_DELTA),
-            new Date(now + AFTER_DELTA),
-            new X500Name("CN=BC " + altAlgName + " Test Chameleon Inner TA"),
-            SubjectPublicKeyInfo.getInstance(altTaKp.cert.getPublicKey().getEncoded()));
+        for (String entry : certificates.keySet())
+        {
+            if (checkCertificate(tas, certificates.get(entry)))
+            {
+                passed.add(entry);
+            }
+            else
+            {
+                failed.add(entry);
+            }
+        }
 
-        altCrtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(0));
-        altCrtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyCertSign | KeyUsage.cRLSign));
+        System.err.println("passed: " + passed);
+        System.err.println("failed: " + failed);
+        System.err.println("ignored: " + ignored);
 
-        ContentSigner altSigner = new JcaContentSignerBuilder(altAlgName).build(altTaKp.priv);
-        X509CertificateHolder deltaCert = altCrtBld.build(altSigner);
-        
-        Extension deltaExt = DeltaCertificateTool.makeDeltaCertificateExtension(
-            false,
-            deltaCert);
-        crtBld.addExtension(deltaExt);
-
-        ContentSigner signer = new JcaContentSignerBuilder(algName).build(taKp.getPrivate());
-
-        X509CertificateHolder chameleonCert = crtBld.build(signer);
-        X509CertificateHolder exDeltaCert = DeltaCertificateTool.extractDeltaCertificate(chameleonCert);
-
-        return new JcaX509CertificateConverter().getCertificate(chameleonCert);
+        outputCSV(producer, certificates, passed);
     }
 
-    private static void derOutput(File parent, String name, X509Certificate cert)
-        throws Exception
+    private static String canonicalise(File artDir, File f)
     {
-        FileOutputStream fWrt = new FileOutputStream(new File(parent, name));
-
-        fWrt.write(cert.getEncoded());
-
-        fWrt.close();
+        return f.getPath().substring(artDir.getPath().length() + 1).replace('\\', '/');
     }
-    
-    private static void pemOutput(File parent, String name, Object obj)
-        throws Exception
+
+    private static File[] getLeafs(File[] listFiles)
     {
-        FileWriter fWrt = new FileWriter(new File(parent, name));
-        JcaPEMWriter pemWriter = new JcaPEMWriter(fWrt);
+        List<File> fs = new ArrayList<>();
+        for (File f : listFiles)
+        {
+            if (f.isDirectory())
+            {
+                fs.addAll(Arrays.asList(getLeafs(f.listFiles())));
+            }
+            else
+            {
+                fs.add(f);
+            }
+        }
+        return fs.toArray(new File[0]);
+    }
 
-        pemWriter.writeObject(obj);
+    private static void outputCSV(String
+                                      producer, Map<String, X509Certificate> entriesChecked, Set<String> passed)
+        throws IOException
+    {
+        FileWriter fWrt = new FileWriter(producer + "_bc.csv");
+        BufferedWriter bWrt = new BufferedWriter(fWrt);
 
-        pemWriter.close();
-        fWrt.close();
+        bWrt.write(header);
+        bWrt.newLine();
+        for (String entry : entriesChecked.keySet())
+        {
+            String label = entry;
+            int ind = label.lastIndexOf('_');
+            label = label.substring(0, ind);
+            if (label.contains("_"))      // hybrid
+            {
+                label = label.replace("_with_", ",");
+                label = label.replace("_", "(");
+                label = "hybrid[" + label + ")]";
+            }
+            bWrt.write(label + "," + (passed.contains(entry) ? "Y" : "N"));
+            bWrt.newLine();
+        }
+
+        bWrt.close();
     }
 
     public static void main(String[] args)
         throws Exception
     {
-        Security.insertProviderAt(new BouncyCastleProvider(), 1);
-        Security.insertProviderAt(new BouncyCastlePQCProvider(), 2);
-
-        File aDir = new File("artifacts_certs_r3");
-
-        aDir.mkdir();
-
-        //
-        // Build TA certificates
-        //
-        Map<String, PKIXPair> sigParams = new HashMap<String, PKIXPair>();
-        for (int alg = 0; alg != sigAlgorithms.length; alg++)
+        if (args.length != 2)
         {
-            KeyPairGenerator kpGen = KeyPairGenerator.getInstance(sigAlgorithms[alg].getId());
-
-            KeyPair taKp = kpGen.generateKeyPair();
-           
-            X509Certificate taCert = createTACertificate(sigAlgNames[alg], taKp);
-
-            //derOutput(aDir, sigAlgorithms[alg] + "_ta.der", taCert);
-            pemOutput(aDir, sigAlgorithms[alg] + "_ta.pem", taCert);
-
-            sigParams.put(sigAlgNames[alg], new PKIXPair(taKp.getPrivate(), taCert));
+            System.err.println("usage: R3ArtifactParser producer_name [artifacts.zip|artifacts_dir]");
+            System.exit(1);
         }
 
-        //
-        // Build KEM EE certificates
-        //
-        Map<String, PKIXPair> kemParams = new HashMap<String, PKIXPair>();
-        for (int alg = 0; alg != kemAlgorithms.length; alg++)
+        Security.insertProviderAt(new BouncyCastleProvider(), 2);
+        Security.insertProviderAt(new BouncyCastlePQCProvider(), 3);
+
+        String producer = args[0];
+        if (args[1].endsWith(".zip"))
         {
-            PKIXPair taPair = sigParams.get(sigAlgNames[alg]);
-            KeyPairGenerator kpGen = KeyPairGenerator.getInstance(kemAlgorithms[alg].getId());
-
-            KeyPair eeKp = kpGen.generateKeyPair();
-
-            X509Certificate eeCert = createEECertificate(sigAlgNames[alg], taPair, kemAlgNames[alg], eeKp);
-
-            pemOutput(aDir, kemAlgorithms[alg] + "_ee.pem", eeCert);
-
-            kemParams.put(kemAlgNames[alg], new PKIXPair(eeKp.getPrivate(), eeCert));
+            processZipArtifacts(producer, args[1]);
         }
-
-        //
-        // Build Hybrid certificates
-        //
-        KeyPairGenerator rsaKpg = KeyPairGenerator.getInstance("RSA", "BC");
-        rsaKpg.initialize(3072);
-        KeyPair rsaKp = rsaKpg.generateKeyPair();
-
-        KeyPairGenerator p256Kpg = KeyPairGenerator.getInstance("EC", "BC");
-        p256Kpg.initialize(new ECGenParameterSpec("P-256"));
-        KeyPair p256Kp = p256Kpg.generateKeyPair();
-
-        KeyPairGenerator p521Kpg = KeyPairGenerator.getInstance("EC", "BC");
-        p521Kpg.initialize(new ECGenParameterSpec("P-521"));
-        KeyPair p521Kp = p521Kpg.generateKeyPair();
-        
-        X509Certificate hybridCert = createCatalystHybridTACertificate("SHA256withRSA", rsaKp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "catalyst_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createCatalystHybridTACertificate("SHA256withECDSA", p256Kp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "catalyst_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createCatalystHybridTACertificate("SHA512withECDSA", p521Kp, "Dilithium5", sigParams.get("dilithium5"));
-        pemOutput(aDir, "catalyst_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + BCObjectIdentifiers.dilithium5 + "_ta.pem", hybridCert);
-
-        hybridCert = createCompositeHybridTACertificate("SHA256withRSA", rsaKp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "composite_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createCompositeHybridTACertificate("SHA256withECDSA", p256Kp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "composite_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createCompositeHybridTACertificate("SHA512withECDSA", p521Kp, "Dilithium5", sigParams.get("dilithium5"));
-        pemOutput(aDir, "composite_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + BCObjectIdentifiers.dilithium5 + "_ta.pem", hybridCert);
-
-        hybridCert = createChameleonHybridTACertificate("SHA256withRSA", rsaKp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "chameleon_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createChameleonHybridTACertificate("SHA256withECDSA", p256Kp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "chameleon_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createChameleonHybridTACertificate("SHA512withECDSA", p521Kp, "Dilithium5", sigParams.get("dilithium5"));
-        pemOutput(aDir, "chameleon_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + BCObjectIdentifiers.dilithium5 + "_ta.pem", hybridCert);
-
-        aDir = new File("artifacts_cms_r3");
-
-        aDir.mkdir();
-
-        CMSSignedData s = getCmsSignedData("DILITHIUM2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "signed_data_" + BCObjectIdentifiers.dilithium2 + ".pem", s.toASN1Structure());
-        s = getCmsSignedData("DILITHIUM3", sigParams.get("dilithium3"));
-        pemOutput(aDir, "signed_data_" + BCObjectIdentifiers.dilithium3 + ".pem", s.toASN1Structure());
-        s = getCmsSignedData("DILITHIUM5", sigParams.get("dilithium5"));
-        pemOutput(aDir, "signed_data_" + BCObjectIdentifiers.dilithium5 + ".pem", s.toASN1Structure());
-
-        CMSEnvelopedData ed = getCmsEnvelopedData(kemParams.get("kyber512"));
-        pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.kyber512 + ".pem", ed.toASN1Structure());
-        pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.kyber512 + ".pem", kemParams.get("kyber512").priv);
-        ed = getCmsEnvelopedData(kemParams.get("kyber768"));
-        pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.kyber768 + ".pem", ed.toASN1Structure());
-        pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.kyber768 + ".pem", kemParams.get("kyber768").priv);
-        ed = getCmsEnvelopedData(kemParams.get("kyber1024"));
-        pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.kyber1024 + ".pem", ed.toASN1Structure());
-        pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.kyber1024 + ".pem", kemParams.get("kyber1024").priv);
-    }
-
-    private static CMSSignedData getCmsSignedData(String algorithm, PKIXPair sigPair)
-        throws CertificateEncodingException, OperatorCreationException, CMSException
-    {
-        byte[] msg = Strings.toByteArray("Hello, World!");
-        List certList = new ArrayList();
-        CMSTypedData cmsMsg = new CMSProcessableByteArray(msg);
-
-        certList.add(sigPair.cert);
-
-        Store certs = new JcaCertStore(certList);
-
-        CMSSignedDataGenerator gen = new CMSSignedDataGenerator();
-
-        DigestCalculatorProvider digCalcProv = new JcaDigestCalculatorProviderBuilder().setProvider("BC").build();
-
-        gen.addSignerInfoGenerator(new JcaSignerInfoGeneratorBuilder(digCalcProv).build(new JcaContentSignerBuilder(algorithm).setProvider("BC").build(sigPair.priv), sigPair.cert));
-
-        gen.addCertificates(certs);
-
-        CMSSignedData s = gen.generate(cmsMsg, true);
-
-        SignerInformation si = s.getSignerInfos().get(new JcaSignerId(sigPair.cert));
-
-        if (!si.verify(new JcaSimpleSignerInfoVerifierBuilder().build(sigPair.cert)))
+        else
         {
-            throw new IllegalStateException("can't verify signedData!");
-        }
-        
-        return s;
-    }
-
-    private static CMSEnvelopedData getCmsEnvelopedData(PKIXPair kemPair)
-        throws CertificateEncodingException, OperatorCreationException, CMSException
-    {
-        byte[] msg = Strings.toByteArray("Hello, World!");
-        // Send response with encrypted certificate
-        CMSEnvelopedDataGenerator edGen = new CMSEnvelopedDataGenerator();
-
-        // note: use cert req ID as key ID, don't want to use issuer/serial in this case!
-
-        edGen.addRecipientInfoGenerator(new JceKEMRecipientInfoGenerator(kemPair.cert, CMSAlgorithm.AES256_WRAP).setKDF(
-            new AlgorithmIdentifier(NISTObjectIdentifiers.id_shake256)));
-
-        return edGen.generate(
-            new CMSProcessableByteArray(msg),
-            new JceCMSContentEncryptorBuilder(CMSAlgorithm.AES128_CBC).setProvider("BC").build());
-    }
-
-    private static class PKIXPair
-    {
-        final PrivateKey priv;
-        final X509Certificate cert;
-
-        PKIXPair(PrivateKey priv, X509Certificate cert)
-        {
-            this.priv = priv;
-            this.cert = cert;
+            processArtifacts(producer, args[1]);
         }
     }
 }

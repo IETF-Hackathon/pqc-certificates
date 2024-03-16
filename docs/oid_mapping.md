@@ -149,6 +149,13 @@ This section provides the list of OIDs for composite KEMs.
 Update: Support for the AES version of Kyber has been removed due to its
 drop from NIST standardization process. They replaced the SHAKE with AES and were intended only for benchmarking purposes to simulate the performance characteristics that we will see once CPU chipsets have hardware support for SHA3 the same way that they currently do for AES.
 
+## NIST Round 3 KEM Algorithm OIDs
+
+| KEM Algorithm Name | OID |  Specification |
+| ----------- | ----------- | ----------- |
+| NTRUHPS2048677 | 1.3.6.1.4.1.22554.5.5.2 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| NTRUHPS4096821 | 1.3.6.1.4.1.22554.5.5.3 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+
 ## Experimental Explicit Composite Key and Direct Signature OIDs
 
 This section provides the OIDs associated with Explicit algorithm combinations for
