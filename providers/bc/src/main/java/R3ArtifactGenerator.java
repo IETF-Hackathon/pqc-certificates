@@ -61,6 +61,7 @@ import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
+import org.bouncycastle.pqc.jcajce.spec.NTRUParameterSpec;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.Pack;
 import org.bouncycastle.util.Store;
@@ -110,6 +111,7 @@ public class R3ArtifactGenerator
             "falcon-512",
             "falcon-1024",
         };
+    private static File aDir = new File("artifacts_certs_r3");
 
     private static final ASN1ObjectIdentifier[] kemAlgorithms =
     {
@@ -297,6 +299,29 @@ public class R3ArtifactGenerator
         fWrt.close();
     }
 
+
+    private static PKIXPair createKEMEEcertificate(String kemAlgName, ASN1ObjectIdentifier kemAlg, String sigAlgName, ASN1ObjectIdentifier sigAlg, Map<String, PKIXPair> sigParams)
+        throws Exception
+    {
+        PKIXPair taPair = sigParams.get(sigAlgName);
+        KeyPairGenerator kpGen;
+
+        if (kemAlg.on(BCObjectIdentifiers.pqc_kem_ntru)) {
+            kpGen = KeyPairGenerator.getInstance("NTRU", "BC");
+            NTRUParameterSpec ntrusp = NTRUParameterSpec.fromName(kemAlgName);
+            kpGen.initialize(ntrusp);
+        } else {
+            kpGen = KeyPairGenerator.getInstance(kemAlg.getId());
+        }
+
+        KeyPair eeKp = kpGen.generateKeyPair();
+        X509Certificate eeCert = createEECertificate(sigAlgName, taPair, kemAlgName, eeKp);
+
+        pemOutput(aDir, kemAlg + "_ee.pem", eeCert);
+        
+        return new PKIXPair(eeKp.getPrivate(), eeCert);
+    }
+
     public static void main(String[] args)
         throws Exception
     {
@@ -342,6 +367,19 @@ public class R3ArtifactGenerator
 
             kemParams.put(kemAlgNames[alg], new PKIXPair(eeKp.getPrivate(), eeCert));
         }
+	    PKIXPair pkixpair = createKEMEEcertificate("kyber512", BCObjectIdentifiers.kyber512, "dilithium2", BCObjectIdentifiers.dilithium2, sigParams);
+        kemParams.put("kyber512", pkixpair);
+        pkixpair = createKEMEEcertificate("kyber768", BCObjectIdentifiers.kyber768, "dilithium3", BCObjectIdentifiers.dilithium3, sigParams);
+        kemParams.put("kyber768", pkixpair);
+        pkixpair = createKEMEEcertificate("kyber1024", BCObjectIdentifiers.kyber1024, "dilithium5", BCObjectIdentifiers.dilithium5, sigParams);
+        kemParams.put("kyber1024", pkixpair);
+        pkixpair = createKEMEEcertificate("ntruhps2048677", BCObjectIdentifiers.ntruhps2048677, "dilithium2", BCObjectIdentifiers.dilithium2, sigParams);
+        kemParams.put("ntruhps2048677", pkixpair);
+        pkixpair = createKEMEEcertificate("ntruhps4096821", BCObjectIdentifiers.ntruhps4096821, "dilithium3", BCObjectIdentifiers.dilithium3, sigParams);
+        kemParams.put("ntruhps4096821", pkixpair);
+        pkixpair = createKEMEEcertificate("ntruhrss701", BCObjectIdentifiers.ntruhrss701, "dilithium2", BCObjectIdentifiers.dilithium2, sigParams);
+        kemParams.put("ntruhrss701", pkixpair);
+																									 
 
         //
         // Build Hybrid certificates
@@ -399,6 +437,15 @@ public class R3ArtifactGenerator
         ed = getCmsEnvelopedData(kemParams.get("kyber1024"));
         pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.kyber1024 + ".pem", ed.toASN1Structure());
         pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.kyber1024 + ".pem", kemParams.get("kyber1024").priv);
+		ed = getCmsEnvelopedData(kemParams.get("ntruhps2048677"));
+        pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.ntruhps2048677 + ".pem", ed.toASN1Structure());
+        pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.ntruhps2048677 + ".pem", kemParams.get("ntruhps2048677").priv);
+        ed = getCmsEnvelopedData(kemParams.get("ntruhps4096821"));
+        pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.ntruhps4096821 + ".pem", ed.toASN1Structure());
+        pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.ntruhps4096821 + ".pem", kemParams.get("ntruhps4096821").priv);
+        ed = getCmsEnvelopedData(kemParams.get("ntruhrss701"));
+        pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.ntruhrss701 + ".pem", ed.toASN1Structure());
+        pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.ntruhrss701 + ".pem", kemParams.get("ntruhrss701").priv);
     }
 
     private static CMSSignedData getCmsSignedData(String algorithm, PKIXPair sigPair)

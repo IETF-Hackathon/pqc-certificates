@@ -16,6 +16,9 @@ Algorithms
 * [~~Dilithium2~~ (1.3.6.1.4.1.2.267.7.4.4)](#dilithium2-1361412267744)
 * [~~Dilithium3~~ (1.3.6.1.4.1.2.267.7.6.5)](#dilithium3-1361412267765)
 * [~~Dilithium5~~ (1.3.6.1.4.1.2.267.7.8.7)](#dilithium5-1361412267787)
+* [NTRUHPS2048677 (1.3.6.1.4.1.22554.5.5.2)](#ntruhps2048677-13614122554552)
+* [NTRUHPS4096821 (1.3.6.1.4.1.22554.5.5.3)](#ntruhps4096821-13614122554553)
+* [1.3.6.1.4.1.22554.5.5.4 (1.3.6.1.4.1.22554.5.5.4)](#13614122554554-13614122554554)
 * [ML-KEM-512-ipd (1.3.6.1.4.1.22554.5.6.1)](#ml-kem-512-ipd-13614122554561)
 * [ML-KEM-768-ipd (1.3.6.1.4.1.22554.5.6.2)](#ml-kem-768-ipd-13614122554562)
 * [ML-KEM-1024-ipd (1.3.6.1.4.1.22554.5.6.3)](#ml-kem-1024-ipd-13614122554563)
@@ -89,1363 +92,1495 @@ In the individual algorithm tables below, Rows are producers. Columns are parser
 
 To be in this table, an algorithm must have a test result in one of the tables below (pass or fail). Algorithms for which we have artifacts but no test results are not shown.
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|ecPublicKey|||||✅|✅||||||||
-|rsaEncryption|||||✅|✅||||||||
-|ED448||||||✅|||||||✅|
-|ML-DSA-44-ipd|✅||✅|✅|✅|✅|||✅|||||
-|ML-DSA-65-ipd|✅||✅|✅|✅|✅|||✅|||||
-|ML-DSA-87-ipd|✅||✅|✅|✅|✅|||✅|||||
-|~~Dilithium2~~|✅|✅|✅|✅|✅|✅|✅||✅|✅||✅|✅|
-|~~Dilithium3~~|✅|✅|✅|✅|✅|✅|✅||✅|✅|✅|✅|✅|
-|~~Dilithium5~~|✅|✅|✅|✅|✅|✅|✅||✅|✅||✅|✅|
-|ML-KEM-512-ipd|✅|||✅|✅|✅||||||||
-|ML-KEM-768-ipd|✅|||✅|✅|✅||||||||
-|ML-KEM-1024-ipd|✅|||✅|✅|✅||||||||
-|~~kyber512_shake~~|||||✅|✅||||||||
-|~~kyber768_shake~~|||||✅|✅||||||||
-|~~kyber1024_shake~~|||||✅|✅||||||||
-|1.3.6.1.4.1.59634.9999.2.2.1|||||✅|||||||||
-|1.3.6.1.4.1.59634.9999.2.2.2|||||✅|||||||||
-|1.3.6.1.4.1.59634.9999.2.2.3|||||✅|||||||||
-|1.3.9999.2.7.2|||||✅|||||||||
-|1.3.9999.2.7.4|||||✅|||||||||
-|~~Falcon-512~~|✅||✅|✅|✅|✅|✅||✅|✅||✅|✅|
-|~~Falcon-1024~~|✅||✅|✅|✅|✅|✅||✅|✅||✅|✅|
-|Falcon-512|✅||✅|✅|||✅||✅||||✅|
-|Falcon-1024|✅||✅|✅|||✅||✅||||✅|
-|SLH-DSA-SHA2-128f-ipd|✅||✅|✅||✅|✅||||||✅|
-|SLH-DSA-SHA2-128s-ipd|✅||✅|✅||✅|✅||||||✅|
-|SLH-DSA-SHA2-192f-ipd|✅||✅|✅||✅|✅||||||✅|
-|SLH-DSA-SHA2-192s-ipd|✅||✅|✅||✅|✅||||||✅|
-|SLH-DSA-SHA2-256f-ipd|✅||✅|✅||✅|✅||||||✅|
-|SLH-DSA-SHA2-256s-ipd|✅||✅|✅||✅|✅||||||✅|
-|SLH-DSA-SHAKE-128f-ipd|✅||✅|✅|✅|✅|✅||||||✅|
-|SLH-DSA-SHAKE-128s-ipd|✅||✅|✅||✅|✅||||||✅|
-|1.3.9999.6.7.4|||||✅|||||||||
-|SLH-DSA-SHAKE-192f-ipd|✅||✅|✅|✅|✅|✅||||||✅|
-|SLH-DSA-SHAKE-192s-ipd|✅||✅|✅||✅|✅||||||✅|
-|1.3.9999.6.8.3|||||✅|||||||||
-|SLH-DSA-SHAKE-256f-ipd|✅||✅|✅|✅|✅|✅||||||✅|
-|SLH-DSA-SHAKE-256s-ipd|✅||✅|✅||✅|✅||||||✅|
-|1.3.9999.6.9.3|||||✅|||||||||
-|id-Dilithium3-RSA-PKCS15-SHA256|||||||✅|||||||
-|id-Dilithium3-RSA-PSS-SHA256|||||||✅|||||||
-|id-Dilithium3-ECDSA-P256-SHA256|||||||✅|||||||
-|id-Dilithium3-ECDSA-brainpoolP256r1-SHA256|||||||✅|||||||
-|id-Dilithium5-ECDSA-P384-SHA384|||||||✅|||||||
-|id-Dilithium5-ECDSA-brainpoolP384r1-SHA384|||||||✅|||||||
-|~~id-Falcon512-ECDSA-P256-SHA256~~|||||||✅|||||||
-|~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~|||||||✅|||||||
-|catalyst|||||✅|||||||||
-|catalyst|||||✅|||||||||
-|composite|✅||||||||||||✅|
-|composite|||||✅|||||||||
-|composite|||||✅|||||||||
-|hybrid-catalyst||||✅||||||||||
-|hybrid[catalyst(1.2.840.10045.4.3.2|✅|||||||||||||
-|hybrid[catalyst(1.2.840.10045.4.3.4|✅|||||||||||||
-|hybrid[catalyst(1.2.840.113549.1.1.11|✅|||||||||||||
-|hybrid[chameleon(1.2.840.10045.4.3.2|✅|||||||||||||
-|hybrid[chameleon(1.2.840.10045.4.3.4|✅|||||||||||||
-|hybrid[chameleon(1.2.840.113549.1.1.11|✅|||||||||||||
-|hybrid[composite(1.2.840.10045.4.3.2|✅|||||||||||||
-|hybrid[composite(1.2.840.10045.4.3.4|✅|||||||||||||
-|hybrid[composite(1.2.840.113549.1.1.11|✅|||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|ecPublicKey||||||✅|✅||||||||
+|rsaEncryption||||||✅|✅||||||||
+|ED448|||||||✅|||||||✅|
+|ML-DSA-44-ipd|✅|||✅|✅|✅|✅|||✅|||||
+|ML-DSA-65-ipd|✅|||✅|✅|✅|✅|||✅|||||
+|ML-DSA-87-ipd|✅|||✅|✅|✅|✅|||✅|||||
+|~~Dilithium2~~|✅||✅|✅|✅|✅|✅|✅||✅|✅||✅|✅|
+|~~Dilithium3~~|✅||✅|✅|✅|✅|✅|✅||✅|✅|✅|✅|✅|
+|~~Dilithium5~~|✅||✅|✅|✅|✅|✅|✅||✅|✅||✅|✅|
+|NTRUHPS2048677|✅||||||||||||||
+|NTRUHPS4096821|✅||||||||||||||
+|1.3.6.1.4.1.22554.5.5.4|✅||||||||||||||
+|ML-KEM-512-ipd|✅||||✅|✅|✅||||||||
+|ML-KEM-768-ipd|✅||||✅|✅|✅||||||||
+|ML-KEM-1024-ipd|✅||||✅|✅|✅||||||||
+|~~kyber512_shake~~||||||✅|✅||||||||
+|~~kyber768_shake~~||||||✅|✅||||||||
+|~~kyber1024_shake~~||||||✅|✅||||||||
+|1.3.6.1.4.1.59634.9999.2.2.1||||||✅|||||||||
+|1.3.6.1.4.1.59634.9999.2.2.2||||||✅|||||||||
+|1.3.6.1.4.1.59634.9999.2.2.3||||||✅|||||||||
+|1.3.9999.2.7.2||||||✅|||||||||
+|1.3.9999.2.7.4||||||✅|||||||||
+|~~Falcon-512~~|✅|||✅|✅|✅|✅|✅||✅|✅||✅|✅|
+|~~Falcon-1024~~|✅|||✅|✅|✅|✅|✅||✅|✅||✅|✅|
+|Falcon-512|✅|||✅|✅|||✅||✅||||✅|
+|Falcon-1024|✅|||✅|✅|||✅||✅||||✅|
+|SLH-DSA-SHA2-128f-ipd|✅|||✅|✅||✅|✅||||||✅|
+|SLH-DSA-SHA2-128s-ipd|✅|||✅|✅||✅|✅||||||✅|
+|SLH-DSA-SHA2-192f-ipd|✅|||✅|✅||✅|✅||||||✅|
+|SLH-DSA-SHA2-192s-ipd|✅|||✅|✅||✅|✅||||||✅|
+|SLH-DSA-SHA2-256f-ipd|✅|||✅|✅||✅|✅||||||✅|
+|SLH-DSA-SHA2-256s-ipd|✅|||✅|✅||✅|✅||||||✅|
+|SLH-DSA-SHAKE-128f-ipd|✅|||✅|✅|✅|✅|✅||||||✅|
+|SLH-DSA-SHAKE-128s-ipd|✅|||✅|✅||✅|✅||||||✅|
+|1.3.9999.6.7.4||||||✅|||||||||
+|SLH-DSA-SHAKE-192f-ipd|✅|||✅|✅|✅|✅|✅||||||✅|
+|SLH-DSA-SHAKE-192s-ipd|✅|||✅|✅||✅|✅||||||✅|
+|1.3.9999.6.8.3||||||✅|||||||||
+|SLH-DSA-SHAKE-256f-ipd|✅|||✅|✅|✅|✅|✅||||||✅|
+|SLH-DSA-SHAKE-256s-ipd|✅|||✅|✅||✅|✅||||||✅|
+|1.3.9999.6.9.3||||||✅|||||||||
+|id-Dilithium3-RSA-PKCS15-SHA256||||||||✅|||||||
+|id-Dilithium3-RSA-PSS-SHA256||||||||✅|||||||
+|id-Dilithium3-ECDSA-P256-SHA256||||||||✅|||||||
+|id-Dilithium3-ECDSA-brainpoolP256r1-SHA256||||||||✅|||||||
+|id-Dilithium5-ECDSA-P384-SHA384||||||||✅|||||||
+|id-Dilithium5-ECDSA-brainpoolP384r1-SHA384||||||||✅|||||||
+|~~id-Falcon512-ECDSA-P256-SHA256~~||||||||✅|||||||
+|~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~||||||||✅|||||||
+|catalyst||||||✅|||||||||
+|catalyst||||||✅|||||||||
+|composite|✅|||||||||||||✅|
+|composite||||||✅|||||||||
+|composite||||||✅|||||||||
+|hybrid-catalyst|||||✅||||||||||
+|hybrid[catalyst(1.2.840.10045.4.3.2|✅||||||||||||||
+|hybrid[catalyst(1.2.840.10045.4.3.4|✅||||||||||||||
+|hybrid[catalyst(1.2.840.113549.1.1.11|✅||||||||||||||
+|hybrid[chameleon(1.2.840.10045.4.3.2|✅||||||||||||||
+|hybrid[chameleon(1.2.840.10045.4.3.4|✅||||||||||||||
+|hybrid[chameleon(1.2.840.113549.1.1.11|✅||||||||||||||
+|hybrid[composite(1.2.840.10045.4.3.2|✅||||||||||||||
+|hybrid[composite(1.2.840.10045.4.3.4|✅||||||||||||||
+|hybrid[composite(1.2.840.113549.1.1.11|✅||||||||||||||
 
 # ecPublicKey (1.2.840.10045.2.1)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|✅|||✅|||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|✅|||✅|||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # rsaEncryption (1.2.840.113549.1.1.1)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|✅|||✅|||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|✅|||✅|||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ED448 (1.3.101.113)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||✅|||✅||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||✅|||✅||||✅|
 
 # ~~DilithiumAES2~~ (1.3.6.1.4.1.2.267.11.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ML-DSA-44-ipd (1.3.6.1.4.1.2.267.12.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅|✅|✅|||✅||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅|✅|✅|||✅||||✅|
-|corey-digicert|||✅|✅|✅|✅|||✅||||✅|
-|cryptonext|||✅|✅|✅|✅|||✅|||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris|||✅|✅|✅|✅|||✅||||❌|
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅|✅|✅|||✅||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅|✅|✅|||✅||||✅|
+|corey-digicert||||✅|✅|✅|✅|||✅||||✅|
+|cryptonext||||✅|✅|✅|✅|||✅|||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris||||✅|✅|✅|✅|||✅||||❌|
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ML-DSA-65-ipd (1.3.6.1.4.1.2.267.12.6.5)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅|✅|✅|||✅||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅|✅|✅|||✅||||✅|
-|corey-digicert|||✅|✅|✅|✅|||✅||||✅|
-|cryptonext|||✅|✅|✅|✅|||✅|||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris|||✅|✅|✅|✅|||✅||||❌|
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅|✅|✅|||✅||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅|✅|✅|||✅||||✅|
+|corey-digicert||||✅|✅|✅|✅|||✅||||✅|
+|cryptonext||||✅|✅|✅|✅|||✅|||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris||||✅|✅|✅|✅|||✅||||❌|
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ML-DSA-87-ipd (1.3.6.1.4.1.2.267.12.8.7)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅|✅|✅|||✅||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅|✅|✅|||✅||||✅|
-|corey-digicert|||✅|✅|✅|✅|||✅||||✅|
-|cryptonext|||✅|✅|✅|✅|||✅|||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris|||✅|✅|✅|✅|||✅||||❌|
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅|✅|✅|||✅||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅|✅|✅|||✅||||✅|
+|corey-digicert||||✅|✅|✅|✅|||✅||||✅|
+|cryptonext||||✅|✅|✅|✅|||✅|||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris||||✅|✅|✅|✅|||✅||||❌|
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ~~Dilithium2~~ (1.3.6.1.4.1.2.267.7.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||✅|||||✅|✅||||||
-|botan|❌|✅|||✅|✅||✅|✅||||✅|
-|carl-redhound|✅|❌|||||✅|✅||||||
-|corey-digicert|✅|✅|||||✅|❌||||||
-|cryptonext||✅|||✅|✅|✅|✅|✅||||❌|
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|❌|✅|||✅|✅|✅||✅||||❌|
-|isi-wolfssl||||||||||||||
-|kris|❌|❌|||✅|✅|❌|❌|✅||||❌|
-|openca|❌|❌|||❌|✅|❌|❌|✅||||✅|
-|oqs-gnutls||||||||||||||
-|oqs-openssl111|✅|✅|||✅|✅|❌|❌|❌|||||
-|oqs-provider|✅|✅|||✅|✅|❌|❌|✅||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||✅|||||✅|✅||||||
+|bc_old|||||||||||||||
+|botan|❌||✅|||✅|✅||✅|✅||||✅|
+|carl-redhound|✅||❌|||||✅|✅||||||
+|corey-digicert|✅||✅|||||✅|❌||||||
+|cryptonext|||✅|||✅|✅|✅|✅|✅||||❌|
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|❌||✅|||✅|✅|✅||✅||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|❌||❌|||✅|✅|❌|❌|✅||||❌|
+|openca|❌||❌|||❌|✅|❌|❌|✅||||✅|
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|✅||✅|||✅|✅|❌|❌|❌|||||
+|oqs-provider|✅||✅|||✅|✅|❌|❌|✅||||✅|
 
 # ~~Dilithium3~~ (1.3.6.1.4.1.2.267.7.6.5)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||✅|||||✅|✅||||||
-|botan|❌|✅||||||✅||||||
-|carl-redhound|✅|❌|||||✅|✅||||||
-|corey-digicert|✅|✅|||||✅|❌||||||
-|cryptonext||✅|||✅|✅|✅|✅|✅||||❌|
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|❌|✅|||✅|✅|✅||✅||||❌|
-|isi-wolfssl||||||||||||||
-|kris|❌|❌|||✅|✅|❌|❌|✅||||❌|
-|openca|❌|❌|||❌|✅|❌|❌|✅||||✅|
-|oqs-gnutls|❌|✅|||✅|✅|✅|✅|✅||||❌|
-|oqs-openssl111|✅|✅|||✅|✅|❌|❌|❌|||||
-|oqs-provider|✅|✅|||✅|✅|❌|❌|✅||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||✅|||||✅|✅||||||
+|bc_old|||||||||||||||
+|botan|❌||✅||||||✅||||||
+|carl-redhound|✅||❌|||||✅|✅||||||
+|corey-digicert|✅||✅|||||✅|❌||||||
+|cryptonext|||✅|||✅|✅|✅|✅|✅||||❌|
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|❌||✅|||✅|✅|✅||✅||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|❌||❌|||✅|✅|❌|❌|✅||||❌|
+|openca|❌||❌|||❌|✅|❌|❌|✅||||✅|
+|oqs-gnutls|❌||✅|||✅|✅|✅|✅|✅||||❌|
+|oqs-openssl111|✅||✅|||✅|✅|❌|❌|❌|||||
+|oqs-provider|✅||✅|||✅|✅|❌|❌|✅||||✅|
 
 # ~~Dilithium5~~ (1.3.6.1.4.1.2.267.7.8.7)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||✅|||||✅|✅||||||
-|botan|❌|✅|||✅|✅||✅|✅||||✅|
-|carl-redhound|✅|❌|||||✅|✅||||||
-|corey-digicert|✅|✅|||||✅|❌||||||
-|cryptonext||✅|||✅|✅|✅|✅|✅||||❌|
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|❌|✅|||✅|✅|✅||✅||||❌|
-|isi-wolfssl||||||||||||||
-|kris|❌|❌|||✅|✅|❌|❌|✅||||❌|
-|openca|❌|❌|||❌|✅|❌|❌|✅||||✅|
-|oqs-gnutls||||||||||||||
-|oqs-openssl111|✅|✅|||✅|✅|❌|❌|❌|||||
-|oqs-provider|✅|✅|||✅|✅|❌|❌|✅||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||✅|||||✅|✅||||||
+|bc_old|||||||||||||||
+|botan|❌||✅|||✅|✅||✅|✅||||✅|
+|carl-redhound|✅||❌|||||✅|✅||||||
+|corey-digicert|✅||✅|||||✅|❌||||||
+|cryptonext|||✅|||✅|✅|✅|✅|✅||||❌|
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|❌||✅|||✅|✅|✅||✅||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|❌||❌|||✅|✅|❌|❌|✅||||❌|
+|openca|❌||❌|||❌|✅|❌|❌|✅||||✅|
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|✅||✅|||✅|✅|❌|❌|❌|||||
+|oqs-provider|✅||✅|||✅|✅|❌|❌|✅||||✅|
+
+# NTRUHPS2048677 (1.3.6.1.4.1.22554.5.5.2)
+
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
+
+# NTRUHPS4096821 (1.3.6.1.4.1.22554.5.5.3)
+
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
+
+# 1.3.6.1.4.1.22554.5.5.4 (1.3.6.1.4.1.22554.5.5.4)
+
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ML-KEM-512-ipd (1.3.6.1.4.1.22554.5.6.1)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|||✅|✅|✅||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||✅|✅|✅||||||||
-|cryptonext||||✅|✅|✅||✅||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅|||✅|✅|✅||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||✅|✅|✅||||||||
+|cryptonext|||||✅|✅|✅||✅||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ML-KEM-768-ipd (1.3.6.1.4.1.22554.5.6.2)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|||✅|✅|✅||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||✅|✅|✅||||||||
-|cryptonext||||✅|✅|✅||✅||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅|||✅|✅|✅||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||✅|✅|✅||||||||
+|cryptonext|||||✅|✅|✅||✅||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ML-KEM-1024-ipd (1.3.6.1.4.1.22554.5.6.3)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅|||✅|✅|✅||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||✅|✅|✅||||||||
-|cryptonext||||✅|✅|✅||✅||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅|||✅|✅|✅||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||✅|✅|✅||||||||
+|cryptonext|||||✅|✅|✅||✅||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ~~kyber512_shake~~ (1.3.6.1.4.1.22554.5.6.7)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|✅||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|✅||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ~~kyber768_shake~~ (1.3.6.1.4.1.22554.5.6.8)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|✅||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|✅||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ~~kyber1024_shake~~ (1.3.6.1.4.1.22554.5.6.9)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|✅||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|✅||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # 1.3.6.1.4.1.59634.9999.2.2.1 (1.3.6.1.4.1.59634.9999.2.2.1)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||❌|✅||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||❌|✅||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # 1.3.6.1.4.1.59634.9999.2.2.2 (1.3.6.1.4.1.59634.9999.2.2.2)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||❌|✅||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||❌|✅||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # 1.3.6.1.4.1.59634.9999.2.2.3 (1.3.6.1.4.1.59634.9999.2.2.3)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||❌|✅||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||❌|✅||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # 1.3.9999.2.7.2 (1.3.9999.2.7.2)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # 1.3.9999.2.7.4 (1.3.9999.2.7.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ~~Falcon-512~~ (1.3.9999.3.1)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||❌||||||✅||||||
-|botan||||||||||||||
-|carl-redhound|✅|❌|||||✅|✅||||||
-|corey-digicert|✅|❌|||||✅|||||||
-|cryptonext||❌|||✅|✅|❌|❌|||||❌|
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|❌|❌||||||||||||
-|isi-wolfssl||||||||||||||
-|kris|❌|❌|||||❌|❌||||||
-|openca|❌|❌|||❌|✅|❌|❌|||||❌|
-|oqs-gnutls||||||||||||||
-|oqs-openssl111|✅|❌|||❌|✅|❌|❌||||||
-|oqs-provider|✅|❌|||||❌|❌||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||❌||||||✅||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|✅||❌|||||✅|✅||||||
+|corey-digicert|✅||❌|||||✅|||||||
+|cryptonext|||❌|||✅|✅|❌|❌|||||❌|
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|❌||❌||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|❌||❌|||||❌|❌||||||
+|openca|❌||❌|||❌|✅|❌|❌|||||❌|
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|✅||❌|||❌|✅|❌|❌||||||
+|oqs-provider|✅||❌|||||❌|❌||||||
 
 # ~~Falcon-1024~~ (1.3.9999.3.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||❌|||||✅|✅||||||
-|botan||||||||||||||
-|carl-redhound|✅|❌|||||✅|✅||||||
-|corey-digicert|✅|❌|||||✅|||||||
-|cryptonext||❌|||✅|✅|❌|❌|||||❌|
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|❌|❌||||||||||||
-|isi-wolfssl||||||||||||||
-|kris|❌|❌|||||❌|❌||||||
-|openca|❌|❌|||❌|✅|❌|❌|||||❌|
-|oqs-gnutls||||||||||||||
-|oqs-openssl111|✅|❌|||❌|✅|❌|❌||||||
-|oqs-provider|✅|❌|||||❌|❌||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||❌|||||✅|✅||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|✅||❌|||||✅|✅||||||
+|corey-digicert|✅||❌|||||✅|||||||
+|cryptonext|||❌|||✅|✅|❌|❌|||||❌|
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust|❌||❌||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|❌||❌|||||❌|❌||||||
+|openca|❌||❌|||❌|✅|❌|❌|||||❌|
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|✅||❌|||❌|✅|❌|❌||||||
+|oqs-provider|✅||❌|||||❌|❌||||||
 
 # Falcon-512 (1.3.9999.3.6)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||||||||❌|
-|botan||||||||||||||
-|carl-redhound||||✅|||||✅||||❌|
-|corey-digicert|||✅|✅||||❌|✅||||❌|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust|||||||✅||✅||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||❌|||||✅||||❌|
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider|||||||||✅||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||||||||||||❌|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||✅|||||✅||||❌|
+|corey-digicert||||✅|✅||||❌|✅||||❌|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust||||||||✅||✅||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||❌|||||✅||||❌|
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider||||||||||✅||||✅|
 
 # Falcon-1024 (1.3.9999.3.9)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||||||||❌|
-|botan||||||||||||||
-|carl-redhound||||✅|||||✅||||❌|
-|corey-digicert|||✅|✅||||❌|✅||||❌|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust|||||||✅||✅||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||❌|||||✅||||❌|
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider|||||||||✅||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||||||||||||❌|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||✅|||||✅||||❌|
+|corey-digicert||||✅|✅||||❌|✅||||❌|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust||||||||✅||✅||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||❌|||||✅||||❌|
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider||||||||||✅||||✅|
 
 # ~~SPHINCS+-SHA256-128f-robust~~ (1.3.9999.6.4.1)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # SLH-DSA-SHA2-128f-ipd (1.3.9999.6.4.13)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅||✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅||✅|||||||✅|
-|corey-digicert|||✅|✅||✅|||||||✅|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅|||✅|✅||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅||✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅||✅|||||||✅|
+|corey-digicert||||✅|✅||✅|||||||✅|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅|||✅|✅||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||✅|||||||✅|
 
 # SLH-DSA-SHA2-128s-ipd (1.3.9999.6.4.16)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅||✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅||✅|||||||✅|
-|corey-digicert|||✅|✅||✅|||||||✅|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅|||✅|✅||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅||✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅||✅|||||||✅|
+|corey-digicert||||✅|✅||✅|||||||✅|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅|||✅|✅||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||✅|||||||✅|
 
 # SLH-DSA-SHA2-192f-ipd (1.3.9999.6.5.10)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅||✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅||✅|||||||✅|
-|corey-digicert|||✅|✅||✅|||||||✅|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅|||✅|✅||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅||✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅||✅|||||||✅|
+|corey-digicert||||✅|✅||✅|||||||✅|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅|||✅|✅||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||✅|||||||✅|
 
 # SLH-DSA-SHA2-192s-ipd (1.3.9999.6.5.12)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅||✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅||✅|||||||✅|
-|corey-digicert|||✅|✅||✅|||||||✅|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅|||✅|✅||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅||✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅||✅|||||||✅|
+|corey-digicert||||✅|✅||✅|||||||✅|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅|||✅|✅||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||✅|||||||✅|
 
 # SLH-DSA-SHA2-256f-ipd (1.3.9999.6.6.10)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅||✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅||✅|||||||✅|
-|corey-digicert|||✅|✅||✅|||||||✅|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅|||✅|✅||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅||✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅||✅|||||||✅|
+|corey-digicert||||✅|✅||✅|||||||✅|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅|||✅|✅||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||✅|||||||✅|
 
 # SLH-DSA-SHA2-256s-ipd (1.3.9999.6.6.12)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅||✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅||✅|||||||✅|
-|corey-digicert|||✅|✅||✅|||||||✅|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅|||✅|✅||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅||✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅||✅|||||||✅|
+|corey-digicert||||✅|✅||✅|||||||✅|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅|||✅|✅||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||✅|||||||✅|
 
 # SLH-DSA-SHAKE-128f-ipd (1.3.9999.6.7.13)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅|❌|✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅|❌|✅|||||||✅|
-|corey-digicert|||✅|✅|❌|✅|||||||✅|
-|cryptonext||||❌|✅|✅||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅||❌|✅|||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider|||||❌|✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅|❌|✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅|❌|✅|||||||✅|
+|corey-digicert||||✅|✅|❌|✅|||||||✅|
+|cryptonext|||||❌|✅|✅||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅||❌|✅|||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider||||||❌|✅|||||||✅|
 
 # SLH-DSA-SHAKE-128s-ipd (1.3.9999.6.7.16)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅||✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅||✅|||||||✅|
-|corey-digicert|||✅|✅||✅|||||||✅|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅|||✅|||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅||✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅||✅|||||||✅|
+|corey-digicert||||✅|✅||✅|||||||✅|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅|||✅|||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||✅|||||||✅|
 
 # 1.3.9999.6.7.4 (1.3.9999.6.7.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||❌|||✅|✅|❌|✅|||||❌|
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||❌|||✅|✅|❌|✅|||||❌|
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # SLH-DSA-SHAKE-192f-ipd (1.3.9999.6.8.10)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅|✅|✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅|✅|✅|||||||✅|
-|corey-digicert|||✅|✅|✅|✅|||||||✅|
-|cryptonext||||✅|✅|✅||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅||✅|✅|||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider|||||✅|✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅|✅|✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅|✅|✅|||||||✅|
+|corey-digicert||||✅|✅|✅|✅|||||||✅|
+|cryptonext|||||✅|✅|✅||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅||✅|✅|||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider||||||✅|✅|||||||✅|
 
 # SLH-DSA-SHAKE-192s-ipd (1.3.9999.6.8.12)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅||✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅||✅|||||||✅|
-|corey-digicert|||✅|✅||✅|||||||✅|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅|||✅|||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅||✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅||✅|||||||✅|
+|corey-digicert||||✅|✅||✅|||||||✅|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅|||✅|||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||✅|||||||✅|
 
 # 1.3.9999.6.8.3 (1.3.9999.6.8.3)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||❌|||✅|✅|❌|✅|||||❌|
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||❌|||✅|✅|❌|✅|||||❌|
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # SLH-DSA-SHAKE-256f-ipd (1.3.9999.6.9.10)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅|❌|✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅|❌|✅|||||||✅|
-|corey-digicert|||✅|✅|❌|✅|||||||✅|
-|cryptonext||||❌|✅|✅||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅||❌|✅|||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider|||||❌|✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅|❌|✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅|❌|✅|||||||✅|
+|corey-digicert||||✅|✅|❌|✅|||||||✅|
+|cryptonext|||||❌|✅|✅||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅||❌|✅|||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider||||||❌|✅|||||||✅|
 
 # SLH-DSA-SHAKE-256s-ipd (1.3.9999.6.9.12)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|✅||✅|✅||✅|||||||✅|
-|botan||||||||||||||
-|carl-redhound|||✅|✅||✅|||||||✅|
-|corey-digicert|||✅|✅||✅|||||||✅|
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||✅||||||||
-|entrust|||✅|||✅|||||||❌|
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||✅|||||||✅|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|✅|✅||✅|✅||✅|||||||✅|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound||||✅|✅||✅|||||||✅|
+|corey-digicert||||✅|✅||✅|||||||✅|
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||✅||||||||
+|entrust||||✅|||✅|||||||❌|
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||✅|||||||✅|
 
 # 1.3.9999.6.9.3 (1.3.9999.6.9.3)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||❌|||✅|✅|❌|✅|||||❌|
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||❌|||✅|✅|❌|✅|||||❌|
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # id-Dilithium3-RSA-PKCS15-SHA256 (2.16.840.1.114027.80.5.1.1)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust|❌|❌|||||✅|❌||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|❌||❌|||||✅|❌||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # id-Dilithium3-RSA-PSS-SHA256 (2.16.840.1.114027.80.5.1.14)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||❌|||||❌|||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||❌|||||❌|||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # id-Dilithium3-ECDSA-P256-SHA256 (2.16.840.1.114027.80.5.1.2)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust|❌|❌|||||✅|❌||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|❌||❌|||||✅|❌||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # id-Dilithium3-ECDSA-brainpoolP256r1-SHA256 (2.16.840.1.114027.80.5.1.3)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust|❌|❌|||||✅|||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|❌||❌|||||✅|||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # id-Dilithium5-ECDSA-P384-SHA384 (2.16.840.1.114027.80.5.1.5)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust|❌|❌|||||✅|||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|❌||❌|||||✅|||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # id-Dilithium5-ECDSA-brainpoolP384r1-SHA384 (2.16.840.1.114027.80.5.1.6)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust|❌|❌|||||✅|||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|❌||❌|||||✅|||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ~~id-Falcon512-ECDSA-P256-SHA256~~ (2.16.840.1.114027.80.5.1.8)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust|❌|❌|||||✅|❌||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|❌||❌|||||✅|❌||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # ~~id-Falcon512-ECDSA-brainpoolP256r1-SHA256~~ (2.16.840.1.114027.80.5.1.9)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust|❌|❌|||||✅|||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|❌||❌|||||✅|||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # catalyst (catalyst_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # catalyst (catalyst_1.2.840.10045.4.3.4_with_1.3.6.1.4.1.2.267.12.8.7)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # catalyst (catalyst_1.2.840.10045.4.3.4_with_1.3.6.1.4.1.2.267.7.8.7)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # catalyst (catalyst_1.2.840.113549.1.1.11_with_1.3.6.1.4.1.2.267.12.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # catalyst (catalyst_1.2.840.113549.1.1.11_with_1.3.6.1.4.1.2.267.7.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # chameleon (chameleon_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # chameleon (chameleon_1.2.840.10045.4.3.4_with_1.3.6.1.4.1.2.267.12.8.7)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # chameleon (chameleon_1.2.840.113549.1.1.11_with_1.3.6.1.4.1.2.267.12.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # composite (composite_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||||||||❌|
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider|||||||||||||❌|
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc||||||||||||||❌|
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider||||||||||||||❌|
 
 # composite (composite_1.2.840.10045.4.3.4_with_1.3.6.1.4.1.2.267.12.8.7)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # composite (composite_1.2.840.10045.4.3.4_with_1.3.6.1.4.1.2.267.7.8.7)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # composite (composite_1.2.840.113549.1.1.11_with_1.3.6.1.4.1.2.267.12.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # composite (composite_1.2.840.113549.1.1.11_with_1.3.6.1.4.1.2.267.7.4.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext|||||✅|||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext||||||✅|||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # hybrid-catalyst (hybrid-catalyst)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc||||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||✅|||||✅|||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||✅|||||✅|||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # hybrid[catalyst(1.2.840.10045.4.3.2 (hybrid[catalyst(1.2.840.10045.4.3.2)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|❌|||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|❌|❌|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # hybrid[catalyst(1.2.840.10045.4.3.4 (hybrid[catalyst(1.2.840.10045.4.3.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|❌|||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|❌|❌|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # hybrid[catalyst(1.2.840.113549.1.1.11 (hybrid[catalyst(1.2.840.113549.1.1.11)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|❌|||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|❌|❌|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # hybrid[chameleon(1.2.840.10045.4.3.2 (hybrid[chameleon(1.2.840.10045.4.3.2)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|❌|||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|❌|❌|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # hybrid[chameleon(1.2.840.10045.4.3.4 (hybrid[chameleon(1.2.840.10045.4.3.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|❌|||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|❌|❌|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # hybrid[chameleon(1.2.840.113549.1.1.11 (hybrid[chameleon(1.2.840.113549.1.1.11)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|❌|||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|❌|❌|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # hybrid[composite(1.2.840.10045.4.3.2 (hybrid[composite(1.2.840.10045.4.3.2)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|❌|||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|❌|❌|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # hybrid[composite(1.2.840.10045.4.3.4 (hybrid[composite(1.2.840.10045.4.3.4)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|❌|||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|❌|❌|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
 
 # hybrid[composite(1.2.840.113549.1.1.11 (hybrid[composite(1.2.840.113549.1.1.11)
 
-|-|bc|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|❌|||||||||||||
-|botan||||||||||||||
-|carl-redhound||||||||||||||
-|corey-digicert||||||||||||||
-|cryptonext||||||||||||||
-|cryptonext-cnsprovider||||||||||||||
-|entrust||||||||||||||
-|isi-wolfssl||||||||||||||
-|kris||||||||||||||
-|openca||||||||||||||
-|oqs-gnutls||||||||||||||
-|oqs-openssl111||||||||||||||
-|oqs-provider||||||||||||||
+|-|bc|bc_old|botan|carl-redhound|corey-digicert|cryptonext|cryptonext-cnsprovider|entrust|isi-wolfssl|kris|openca|oqs-gnutls|oqs-openssl111|oqs-provider|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|❌|❌|||||||||||||
+|bc_old|||||||||||||||
+|botan|||||||||||||||
+|carl-redhound|||||||||||||||
+|corey-digicert|||||||||||||||
+|cryptonext|||||||||||||||
+|cryptonext-cnsprovider|||||||||||||||
+|entrust|||||||||||||||
+|isi-wolfssl|||||||||||||||
+|kris|||||||||||||||
+|openca|||||||||||||||
+|oqs-gnutls|||||||||||||||
+|oqs-openssl111|||||||||||||||
+|oqs-provider|||||||||||||||
