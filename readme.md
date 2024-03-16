@@ -122,14 +122,15 @@ This is version 1 of the CMS artifacts format.  It may change if needs change.
 
 Within `providers/<provider_name>/[implementation_name/]`
 - artifacts_cms_v1.zip
-  - `expected_plaintext.txt` # The message which was encrypted and can be compared against the decrypted artifacts.
-  - `ukm.txt` # The User Keying Material (UKM) included in some of the enveloped messages.
-  - `<ta>.der` # dilithium2 trust anchor used to sign the KEM end-entity certificates.
-  - `<oid>_<friendly>_ee.der` # The KEM certificate that the message is enveloped to.
-  - `<oid>_<friendly>_priv.der` # The private key to decrypt the enveloped messages.
-  - `<oid>_<friendly>_kemri_ukm.der` # An Enveloped artifact using KEMRI’s UKM field and one of the MTI KDFs for the KEM algorithm.
-  - `<oid>_<friendly>_kemri_auth.der` # An AuthEnveloped artifact using KEMRI without UKM and one of the MTI KDFs for the KEM algorithm.
-  - `<oid>_<friendly>_kemri_<kdf>.der` # Enveloped artifacts using KEMRI without UKM and the specified KDF. Implementations must provide artifacts for each of the MTI KDFs for the OID, and may provider artifacts for others.
+  - `artifacts_cms_v1/` subfolder which will contain the artifacts
+  - `artifacts_cms_v1/expected_plaintext.txt` # The message which was encrypted and can be compared against the decrypted artifacts.
+  - `artifacts_cms_v1/ukm.txt` # The User Keying Material (UKM) included in some of the enveloped messages.
+  - `artifacts_cms_v1/<ta>.der` # dilithium2 trust anchor used to sign the KEM end-entity certificates.
+  - `artifacts_cms_v1/<oid>_<friendly>_ee.der` # The KEM certificate that the message is enveloped to.
+  - `artifacts_cms_v1/<oid>_<friendly>_priv.der` # The private key to decrypt the enveloped messages.
+  - `artifacts_cms_v1/<oid>_<friendly>_kemri_ukm.der` # An Enveloped artifact using KEMRI’s UKM field and one of the MTI KDFs for the KEM algorithm.
+  - `artifacts_cms_v1/<oid>_<friendly>_kemri_auth.der` # An AuthEnveloped artifact using KEMRI without UKM and one of the MTI KDFs for the KEM algorithm.
+  - `artifacts_cms_v1/<oid>_<friendly>_kemri_<kdf>.der` # Enveloped artifacts using KEMRI without UKM and the specified KDF. Implementations must provide artifacts for each of the MTI KDFs for the OID, and may provider artifacts for others.
 
 #### Friendly
 
