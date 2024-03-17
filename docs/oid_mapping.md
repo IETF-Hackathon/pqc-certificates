@@ -128,12 +128,6 @@ This section provides the list of OIDs for composite KEMs.
 
 | KEM Algorithm Name | OID |  Specification |
 | ----------- | ----------- | ----------- |
-| ~~kyber512_aes~~ | ~~1.3.6.1.4.1.22554.5.6.4~~ |  |
-| ~~kyber768_aes~~ | ~~1.3.6.1.4.1.22554.5.6.5~~ |  |
-| ~~kyber1024_aes~~ | ~~1.3.6.1.4.1.22554.5.6.6~~ |  |
-| ~~kyber512_shake~~ | ~~1.3.6.1.4.1.22554.5.6.7~~ |  |
-| ~~kyber768_shake~~ | ~~1.3.6.1.4.1.22554.5.6.8~~ |  |
-| ~~kyber1024_shake~~ | ~~1.3.6.1.4.1.22554.5.6.9~~ |  |
 | bike128 | 1.3.6.1.4.1.22554.5.8.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 | bike192 | 1.3.6.1.4.1.22554.5.8.2 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java)  |
 | bike256 | 1.3.6.1.4.1.22554.5.8.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
@@ -145,6 +139,12 @@ This section provides the list of OIDs for composite KEMs.
 | mceliece6688128 | 1.3.6.1.4.1.22554.5.1.5 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 | mceliece6960119 | 1.3.6.1.4.1.22554.5.1.7 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 | mceliece8192128 | 1.3.6.1.4.1.22554.5.1.9 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| ~~kyber512_aes~~ | ~~1.3.6.1.4.1.22554.5.6.4~~ |  |
+| ~~kyber768_aes~~ | ~~1.3.6.1.4.1.22554.5.6.5~~ |  |
+| ~~kyber1024_aes~~ | ~~1.3.6.1.4.1.22554.5.6.6~~ |  |
+| ~~kyber512_shake~~ | ~~1.3.6.1.4.1.22554.5.6.7~~ |  |
+| ~~kyber768_shake~~ | ~~1.3.6.1.4.1.22554.5.6.8~~ |  |
+| ~~kyber1024_shake~~ | ~~1.3.6.1.4.1.22554.5.6.9~~ |  |
 
 Update: Support for the AES version of Kyber has been removed due to its
 drop from NIST standardization process. They replaced the SHAKE with AES and were intended only for benchmarking purposes to simulate the performance characteristics that we will see once CPU chipsets have hardware support for SHA3 the same way that they currently do for AES.
