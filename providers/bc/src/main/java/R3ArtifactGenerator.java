@@ -19,6 +19,7 @@ import java.util.Map;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.DERNull;
 import org.bouncycastle.asn1.bc.BCObjectIdentifiers;
+import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
 import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
 import org.bouncycastle.asn1.oiw.OIWObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
@@ -87,7 +88,23 @@ public class R3ArtifactGenerator
             BCObjectIdentifiers.sphincsPlus_shake_256f,
             BCObjectIdentifiers.sphincsPlus_shake_256s,
             BCObjectIdentifiers.falcon_512,
-            BCObjectIdentifiers.falcon_1024
+            BCObjectIdentifiers.falcon_1024,
+            MiscObjectIdentifiers.id_MLDSA44_RSA2048_PSS_SHA256,
+            MiscObjectIdentifiers.id_MLDSA44_RSA2048_PKCS15_SHA256,
+            MiscObjectIdentifiers.id_MLDSA44_Ed25519_SHA512,
+            MiscObjectIdentifiers.id_MLDSA44_ECDSA_P256_SHA256,
+            MiscObjectIdentifiers.id_MLDSA44_ECDSA_brainpoolP256r1_SHA256,
+            MiscObjectIdentifiers.id_MLDSA65_RSA3072_PSS_SHA512,
+            MiscObjectIdentifiers.id_MLDSA65_RSA3072_PKCS15_SHA512,
+            MiscObjectIdentifiers.id_MLDSA65_ECDSA_P256_SHA512,
+            MiscObjectIdentifiers.id_MLDSA65_ECDSA_brainpoolP256r1_SHA512,
+            MiscObjectIdentifiers.id_MLDSA65_Ed25519_SHA512,
+            MiscObjectIdentifiers.id_MLDSA87_ECDSA_P384_SHA512,
+            MiscObjectIdentifiers.id_MLDSA87_ECDSA_brainpoolP384r1_SHA512,
+            MiscObjectIdentifiers.id_MLDSA87_Ed448_SHA512,
+            MiscObjectIdentifiers.id_Falcon512_ECDSA_P256_SHA256,
+            MiscObjectIdentifiers.id_Falcon512_ECDSA_brainpoolP256r1_SHA256,
+            MiscObjectIdentifiers.id_Falcon512_Ed25519_SHA512
         };
 
 
@@ -102,7 +119,7 @@ public class R3ArtifactGenerator
             "sphincs+-sha2-192s",
             "sphincs+-sha2-256f",
             "sphincs+-sha2-256s",
-            "sphincs+-shake-128f", 
+            "sphincs+-shake-128f",
             "sphincs+-shake-128s",
             "sphincs+-shake-192f",
             "sphincs+-shake-192s",
@@ -110,15 +127,31 @@ public class R3ArtifactGenerator
             "sphincs+-shake-256s",
             "falcon-512",
             "falcon-1024",
+            "MLDSA44-RSA2048-PSS-SHA256",
+            "MLDSA44-RSA2048-PKCS15-SHA256",
+            "MLDSA44-Ed25519-SHA512",
+            "MLDSA44-ECDSA-P256-SHA256",
+            "MLDSA44-ECDSA-brainpoolP256r1-SHA256",
+            "MLDSA65-RSA3072-PSS-SHA512",
+            "MLDSA65-RSA3072-PKCS15-SHA512",
+            "MLDSA65-ECDSA-P256-SHA512",
+            "MLDSA65-ECDSA-brainpoolP256r1-SHA512",
+            "MLDSA65-Ed25519-SHA512",
+            "MLDSA87-ECDSA-P384-SHA512",
+            "MLDSA87-ECDSA-brainpoolP384r1-SHA512",
+            "MLDSA87-Ed448-SHA512",
+            "Falcon512-ECDSA-P256-SHA256",
+            "Falcon512-ECDSA-brainpoolP256r1-SHA256",
+            "Falcon512-Ed25519-SHA512",
         };
     private static File aDir = new File("artifacts_certs_r3");
 
     private static final ASN1ObjectIdentifier[] kemAlgorithms =
-    {
-        BCObjectIdentifiers.kyber512,
-        BCObjectIdentifiers.kyber768,
-        BCObjectIdentifiers.kyber1024
-    };
+        {
+            BCObjectIdentifiers.kyber512,
+            BCObjectIdentifiers.kyber768,
+            BCObjectIdentifiers.kyber1024
+        };
 
     private static final String[] kemAlgNames =
         {
@@ -131,6 +164,7 @@ public class R3ArtifactGenerator
     private static final long AFTER_DELTA = 365L * 24 * 60 * 60 * 1000L;
 
     private static int certCount = 1;
+
     private static final BigInteger generateSerialNumber()
         throws Exception
     {
@@ -176,7 +210,7 @@ public class R3ArtifactGenerator
         JcaX509ExtensionUtils extUtils = new JcaX509ExtensionUtils(
             new JcaDigestCalculatorProviderBuilder().build().get(
                 new AlgorithmIdentifier(OIWObjectIdentifiers.idSHA1, DERNull.INSTANCE)));
-        
+
         crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(false));
         crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyEncipherment));
         crtBld.addExtension(Extension.subjectKeyIdentifier, false, extUtils.createSubjectKeyIdentifier(eeKp.getPublic()));
@@ -263,7 +297,7 @@ public class R3ArtifactGenerator
 
         ContentSigner altSigner = new JcaContentSignerBuilder(altAlgName).build(altTaKp.priv);
         X509CertificateHolder deltaCert = altCrtBld.build(altSigner);
-        
+
         Extension deltaExt = DeltaCertificateTool.makeDeltaCertificateExtension(
             false,
             deltaCert);
@@ -286,7 +320,7 @@ public class R3ArtifactGenerator
 
         fWrt.close();
     }
-    
+
     private static void pemOutput(File parent, String name, Object obj)
         throws Exception
     {
@@ -341,7 +375,7 @@ public class R3ArtifactGenerator
             KeyPairGenerator kpGen = KeyPairGenerator.getInstance(sigAlgorithms[alg].getId());
 
             KeyPair taKp = kpGen.generateKeyPair();
-           
+
             X509Certificate taCert = createTACertificate(sigAlgNames[alg], taKp);
 
             //derOutput(aDir, sigAlgorithms[alg] + "_ta.der", taCert);
@@ -395,7 +429,7 @@ public class R3ArtifactGenerator
         KeyPairGenerator p521Kpg = KeyPairGenerator.getInstance("EC", "BC");
         p521Kpg.initialize(new ECGenParameterSpec("P-521"));
         KeyPair p521Kp = p521Kpg.generateKeyPair();
-        
+
         X509Certificate hybridCert = createCatalystHybridTACertificate("SHA256withRSA", rsaKp, "Dilithium2", sigParams.get("dilithium2"));
         pemOutput(aDir, "catalyst_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
         hybridCert = createCatalystHybridTACertificate("SHA256withECDSA", p256Kp, "Dilithium2", sigParams.get("dilithium2"));
@@ -475,7 +509,7 @@ public class R3ArtifactGenerator
         {
             throw new IllegalStateException("can't verify signedData!");
         }
-        
+
         return s;
     }
 

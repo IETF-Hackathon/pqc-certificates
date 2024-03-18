@@ -349,7 +349,7 @@ public class R3ArtifactParser
             String label = entry;
             int ind = label.lastIndexOf('_');
             label = label.substring(0, ind);
-            if (label.contains("_"))      // hybrid
+            if (label.contains("_") || label.contains("2.16.840.1.114027.80.8.1"))      // hybrid
             {
                 label = label.replace("_with_", ",");
                 label = label.replace("_", "(");
