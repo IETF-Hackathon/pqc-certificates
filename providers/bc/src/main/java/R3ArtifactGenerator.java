@@ -411,8 +411,12 @@ public class R3ArtifactGenerator
         kemParams.put("ntruhps2048677", pkixpair);
         pkixpair = createKEMEEcertificate("ntruhps4096821", BCObjectIdentifiers.ntruhps4096821, "dilithium3", BCObjectIdentifiers.dilithium3, sigParams);
         kemParams.put("ntruhps4096821", pkixpair);
+        pkixpair = createKEMEEcertificate("ntruhps40961229", BCObjectIdentifiers.ntruhps40961229, "dilithium5", BCObjectIdentifiers.dilithium5, sigParams);
+        kemParams.put("ntruhps40961229", pkixpair);
         pkixpair = createKEMEEcertificate("ntruhrss701", BCObjectIdentifiers.ntruhrss701, "dilithium2", BCObjectIdentifiers.dilithium2, sigParams);
         kemParams.put("ntruhrss701", pkixpair);
+        pkixpair = createKEMEEcertificate("ntruhrss1373", BCObjectIdentifiers.ntruhrss1373, "dilithium5", BCObjectIdentifiers.dilithium5, sigParams);
+        kemParams.put("ntruhrss1373", pkixpair);
 																									 
 
         //
