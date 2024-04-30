@@ -40,10 +40,8 @@ KEM Algoirthm OIDs
 | ML-KEM-768-ipd |  1.3.6.1.4.1.22554.5.6.2 | FIPS 203 (Initial Public Draft) |
 | ML-KEM-1024-ipd | 1.3.6.1.4.1.22554.5.6.3 | FIPS 203 (Initial Public Draft) |
 
-# Experimental and Historical OID's
-The following are historical or experimental OIDs used in this project.     
-
-Composite Signature Algorithms with prototype OIDS
+# Prototype OIDs for Composite Signatures
+The following OIDs currently serve as placeholders in draft-ounsworth-pq-composite-sigs. Final OID assignment will be handled by IANA.
 
 | Composite Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
@@ -60,6 +58,9 @@ Composite Signature Algorithms with prototype OIDS
 | MLDSA87-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.8.1.11 | draft-ounsworth-pq-composite-sigs-13 |
 | MLDSA87-ECDSA-brainpoolP384r1-SHA512 | 2.16.840.1.114027.80.8.1.12 | draft-ounsworth-pq-composite-sigs-13 |
 | MLDSA87-Ed448-SHA512 | 2.16.840.1.114027.80.8.1.13 | draft-ounsworth-pq-composite-sigs-13 |
+
+# Experimental and Historical OIDs
+The following are historical or experimental OIDs used in this project.     
 
 Historical document: 
 * https://docs.google.com/document/d/1A2-D82du0qJjygvBuOlG8Xao3MzDYz1pRDzjT9eY6ls/edit#
