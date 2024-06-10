@@ -40,24 +40,59 @@ KEM Algoirthm OIDs
 | ML-KEM-768-ipd |  1.3.6.1.4.1.22554.5.6.2 | FIPS 203 (Initial Public Draft) |
 | ML-KEM-1024-ipd | 1.3.6.1.4.1.22554.5.6.3 | FIPS 203 (Initial Public Draft) |
 
+## NIST Round 4 KEM Algorithm OIDs 
+
+This section provides the list of OIDs for composite KEMs.
+
+| KEM Algorithm Name | OID |  Specification |
+| ----------- | ----------- | ----------- |
+| bike128 | 1.3.6.1.4.1.22554.5.8.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| bike192 | 1.3.6.1.4.1.22554.5.8.2 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java)  |
+| bike256 | 1.3.6.1.4.1.22554.5.8.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| hqc128 | 1.3.6.1.4.1.22554.5.9.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| hqc192 | 1.3.6.1.4.1.22554.5.9.2 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| hqc256 | 1.3.6.1.4.1.22554.5.9.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| mceliece348864 | 1.3.6.1.4.1.22554.5.1.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| mceliece460896 | 1.3.6.1.4.1.22554.5.1.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| mceliece6688128 | 1.3.6.1.4.1.22554.5.1.5 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| mceliece6960119 | 1.3.6.1.4.1.22554.5.1.7 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| mceliece8192128 | 1.3.6.1.4.1.22554.5.1.9 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+
 # Prototype OIDs for Composite Signatures
-The following OIDs currently serve as placeholders in draft-ounsworth-pq-composite-sigs. Final OID assignment will be handled by IANA.
+The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-sigs. Final OID assignment will be handled by IANA.
 
 | Composite Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
-| MLDSA44-RSA2048-PSS-SHA256 | 2.16.840.1.114027.80.8.1.1 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA44-RSA2048-PKCS15-SHA256 | 2.16.840.1.114027.80.8.1.2 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA44-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.3 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA44-ECDSA-P256-SHA256 | 2.16.840.1.114027.80.8.1.4 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA44-ECDSA-brainpoolP256r1-SHA256 | 2.16.840.1.114027.80.8.1.5 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA65-RSA3072-PSS-SHA512 | 2.16.840.1.114027.80.8.1.6 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA65-RSA3072-PKCS15-SHA512 | 2.16.840.1.114027.80.8.1.7 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA65-ECDSA-P256-SHA512 | 2.16.840.1.114027.80.8.1.8 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA65-ECDSA-brainpoolP256r1-SHA512 | 2.16.840.1.114027.80.8.1.9 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA65-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.10 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA87-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.8.1.11 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA87-ECDSA-brainpoolP384r1-SHA512 | 2.16.840.1.114027.80.8.1.12 | draft-ounsworth-pq-composite-sigs-13 |
-| MLDSA87-Ed448-SHA512 | 2.16.840.1.114027.80.8.1.13 | draft-ounsworth-pq-composite-sigs-13 |
+| MLDSA44-RSA2048-PSS-SHA256 | 2.16.840.1.114027.80.8.1.1 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA44-RSA2048-PKCS15-SHA256 | 2.16.840.1.114027.80.8.1.2 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA44-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.3 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA44-ECDSA-P256-SHA256 | 2.16.840.1.114027.80.8.1.4 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA44-ECDSA-brainpoolP256r1-SHA256 | 2.16.840.1.114027.80.8.1.5 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA65-RSA3072-PSS-SHA512 | 2.16.840.1.114027.80.8.1.6 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA65-RSA3072-PKCS15-SHA512 | 2.16.840.1.114027.80.8.1.7 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA65-ECDSA-P256-SHA512 | 2.16.840.1.114027.80.8.1.8 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA65-ECDSA-brainpoolP256r1-SHA512 | 2.16.840.1.114027.80.8.1.9 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA65-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.10 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA87-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.8.1.11 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA87-ECDSA-brainpoolP384r1-SHA512 | 2.16.840.1.114027.80.8.1.12 | draft-ietf-lamps-pq-composite-sigs-01 |
+| MLDSA87-Ed448-SHA512 | 2.16.840.1.114027.80.8.1.13 | draft-ietf-lamps-pq-composite-sigs-01 |
+
+# Prototype OIDs for Composite KEM
+The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-kem. Final OID assignment will be handled by IANA.
+
+| Composite Algorithm Name | OID | Specification |
+| ----------- | ----------- | ----------- |
+| MLKEM512-ECDH-P256-KMAC128  | 2.16.840.1.114027.80.5.2.1 |  draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512-ECDH-brainpoolP256r1-KMAC128 | 2.16.840.1.114027.80.5.2.2 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512-X25519-KMAC128 | 2.16.840.1.114027.80.5.2.3 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512-RSA2048-KMAC128 | 2.16.840.1.114027.80.5.2.13 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512-RSA3072-KMAC128 | 2.16.840.1.114027.80.5.2.4 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM768-ECDH-P256-KMAC256 | 2.16.840.1.114027.80.5.2.5 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM768-ECDH-brainpoolP256r1-KMAC256 | 2.16.840.1.114027.80.5.2.6 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM768-X25519-KMAC256 | 2.16.840.1.114027.80.5.2.7 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM1024-ECDH-P384-KMAC256 | 2.16.840.1.114027.80.5.2.8 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM1024-ECDH-brainpoolP384r1-KMAC256 | 2.16.840.1.114027.80.5.2.9 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM1024-X448-KMAC256 | 2.16.840.1.114027.80.5.2.10 | draft-ounsworth-pq-composite-sigs-13 |
 
 # Experimental and Historical OIDs
 The following are historical or experimental OIDs used in this project.     
@@ -123,23 +158,12 @@ standardization process.  SPHINCS+ OIDs were updated in LibOQS in May 2023 to re
 algorithm changes in SPHINCS+.   Therefore, the OIDs were up-versioned in LibOQS to
 prevent compatiblity issues and we have accomodated those changes here as well.
 
-## NIST Round 4 KEM Algorithm OIDs and deprecated KEM OIDS
+## NIST deprecated KEM OIDS
 
 This section provides the list of OIDs for composite KEMs.
 
 | KEM Algorithm Name | OID |  Specification |
 | ----------- | ----------- | ----------- |
-| bike128 | 1.3.6.1.4.1.22554.5.8.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
-| bike192 | 1.3.6.1.4.1.22554.5.8.2 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java)  |
-| bike256 | 1.3.6.1.4.1.22554.5.8.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
-| hqc128 | 1.3.6.1.4.1.22554.5.9.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
-| hqc192 | 1.3.6.1.4.1.22554.5.9.2 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
-| hqc256 | 1.3.6.1.4.1.22554.5.9.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
-| mceliece348864 | 1.3.6.1.4.1.22554.5.1.1 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
-| mceliece460896 | 1.3.6.1.4.1.22554.5.1.3 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
-| mceliece6688128 | 1.3.6.1.4.1.22554.5.1.5 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
-| mceliece6960119 | 1.3.6.1.4.1.22554.5.1.7 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
-| mceliece8192128 | 1.3.6.1.4.1.22554.5.1.9 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 | ~~kyber512_aes~~ | ~~1.3.6.1.4.1.22554.5.6.4~~ |  |
 | ~~kyber768_aes~~ | ~~1.3.6.1.4.1.22554.5.6.5~~ |  |
 | ~~kyber1024_aes~~ | ~~1.3.6.1.4.1.22554.5.6.6~~ |  |
