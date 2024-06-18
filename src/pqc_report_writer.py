@@ -1,5 +1,7 @@
 import csv
+import json
 import operator
+from os import SEEK_SET
 import os.path
 import re
 import argparse
@@ -76,11 +78,17 @@ def _format_result_cell(avr) -> str:
     return '<br>'.join(result_lines)
 
 
-def _parse_oid_name_mapping_file(f) -> Mapping[str, str]:
+def _parse_oid_name_mapping_file(f, stop_at_experimental=False) -> Mapping[str, str]:
     mappings = {}
+
+    # set iterator to the start of the file in case this function is called repeatedly
+    f.seek(0, SEEK_SET)
 
     for line in f.readlines():
         line = line.strip()
+
+        if stop_at_experimental and line == "# Experimental and Historical OIDs":
+            break
 
         m = _OID_MAPPING_LINE_REGEX.match(line)
 
@@ -106,6 +114,11 @@ def main():
     args = parser.parse_args()
 
     oid_name_mappings = _parse_oid_name_mapping_file(args.oid_mapping_file)
+
+    oids_json = _parse_oid_name_mapping_file(args.oid_mapping_file, stop_at_experimental=True)
+
+    with open("oids.json", "w") as f:  
+        json.dump(oids_json, f)
 
     avrs = []
 
