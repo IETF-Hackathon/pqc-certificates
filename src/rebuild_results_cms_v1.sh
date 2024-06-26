@@ -14,4 +14,4 @@ python3 pqc_report_writer_common.py ../docs/oid_mapping.md pqc_hackathon_results
 
 # convert to html
 pandoc -f markdown pqc_hackathon_results_cms_v1.md > pqc_hackathon_results_cms_v1.html
-mv pqc_hackathon_results_cms_v1.md pqc_hackathon_results_cms_v1.html ../docs
+mv pqc_hackathon_results_cms_v1.md pqc_hackathon_results_cms_v1.html oids.json ../docs
