@@ -25,6 +25,12 @@
 * Company website: http://www.hound.red/about.html
 * Implementation: Proprietary wrapper for Rust crypto, which internally is PQClean.
 
+# Chunghwa Telecom Company (CHT)
+
+* Provider short name: `cht`
+* Company name: Chunghwa Telecom Company
+* Company website: https://www.cht.com.tw
+* Implementation: Proprietary wrapper for Bouncy Castle.
 
 # Corey Bonnell - Digicert
 
