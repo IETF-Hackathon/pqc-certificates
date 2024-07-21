@@ -18,8 +18,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Test artifacts with OQS
-      ## TODO -- actually validate the signature on the TA cert; not just import it. 
-      ##         replace with `openssl verify -check_ss_sig -CAfile <ca cert> <ee cert>`
         run: ./src/test_certs_r3.sh
       - name: Save artifacts
         uses: actions/upload-artifact@v4
