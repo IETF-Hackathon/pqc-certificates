@@ -47,7 +47,7 @@ jobs:
           name: Compatibility_oqs_csv
           path: output/certs/oqs
       - name: Overwrite manually-uploaded OQS results CSVs
-        run: cp ./output/certs/oqs/certs/* ./providers/oqsprovider/compatMatrices/artifacts_certs_r3
+        run: cp ./output/certs/oqs/certs/* ./providers/oqs-provider/compatMatrices/artifacts_certs_r3
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
