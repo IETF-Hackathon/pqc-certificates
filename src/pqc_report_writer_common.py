@@ -32,7 +32,7 @@ def _parse_json_file(generator, verifier, f) -> Sequence[AlgorithmVerificationRe
 
 
 def _parse_csv_file(
-    generator, verifier, f, oid_name_mappings
+    generator, verifier, f, oid_name_mappings, include_all_oids
 ) -> Sequence[AlgorithmVerificationResult]:
     c = csv.DictReader(f)
 
@@ -41,6 +41,8 @@ def _parse_csv_file(
     for row in c:
         try:
             key_algorithm_oid = row['key_algorithm_oid']
+            if not include_all_oids and not key_algorithm_oid in oid_name_mappings:
+                continue
             d = {
                 'generator': generator,
                 'verifier': verifier,
@@ -130,10 +132,14 @@ def main():
     parser.add_argument('outfile')
     parser.add_argument('interop_type')
     parser.add_argument('files', nargs='+')
+    parser.add_argument("--include-all-oids", action="store_true",
+                        help="also include historical and experimental OIDs")
 
     args = parser.parse_args()
+    if args.include_all_oids:
+        print("Including historical and experimental OIDs.  Only to this for your own fun times, don't commit the result")
 
-    oid_name_mappings = _parse_oid_name_mapping_file(args.oid_mapping_file)
+    oid_name_mappings = _parse_oid_name_mapping_file(args.oid_mapping_file, stop_at_experimental=not args.include_all_oids)
 
     oids_json = _parse_oid_name_mapping_file(args.oid_mapping_file, stop_at_experimental=True)
 
@@ -153,7 +159,7 @@ def main():
             verifier = m['verifier']
 
             if m['extension'].casefold() == 'csv'.casefold():
-                avrs.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings))
+                avrs.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings, args.include_all_oids))
             else:
                 avrs.extend(_parse_json_file(generator, verifier, f))
 
