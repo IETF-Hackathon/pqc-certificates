@@ -1,0 +1,26 @@
+name: Build Compat Matrix HTML
+
+on:
+  push:
+    branches: [ 'mikeo_gh_automation' ]
+  #pull_request:
+  #  branches: [ "main" ]
+
+jobs:
+  oqs_validation:
+    runs-on: ubuntu-latest
+    #container: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install packages
+        run: | 
+          apt install pandoc \
+          python3 -m pip install -r ./src/requirements.txt
+      - name: Build compat matrix
+        run: ./src/rebuild_results_certs_r3.sh
+      # - name: Archive Compatibility Matrix
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: compatibility-matrix
+      #     path: ./output/
