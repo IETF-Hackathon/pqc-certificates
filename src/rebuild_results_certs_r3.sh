@@ -9,8 +9,6 @@ for dir in $dirs; do
     files+=" "
 done
 
-printf "Files: %s\n" $files
-
 # build the compat matrix
 python3 src/pqc_report_writer_common.py docs/oid_mapping.md pqc_hackathon_results_certs_r3.md Certificate $files
 
