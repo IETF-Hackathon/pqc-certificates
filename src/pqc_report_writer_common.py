@@ -116,11 +116,8 @@ def _get_alg_name_by_oid_str(oid_to_name_mappings, oid_str):
     # <hybrid_format>_<oid1>_with_<oid2>
     m = _HYBRID_FORMAT_NAME_REGEX.match(oid_str)
 
-    print(oid_str)
-
     if m is not None:
         # Display only the hybrid format, not the OIDs.
-        print('Matched hybrid format regex: '+m['hybrid_format'])
         return m['hybrid_format']
 
     # else it is a simple OID.

@@ -1,21 +1,14 @@
-<style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } </style>
 # IETF Hackathon - PQC Certificates
 
 This project provides a set of data repositories for X.509 data
 structures that make use of post-quantum and composite algorithms
 (classic with PQC).
 
-This repo represents work done between IETF 115 - 119.
+This repo represents work done between IETF 115 - 120.
 
-A summary table of the ongoing certificate interoperability testing can be found here:
-https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results_certs_r3.html
+The various output compatibility tables produced by this project can be viewed here:
 
-A summary table of the ongoing CMS interoperability testing can be found here:
-https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results_cms_v1.html
-
-
-An older version showing more (now obsolete) algorithms can be found here instead:
-https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html
+https://ietf-hackathon.github.io/pqc-certificates/
 
 ## Goals
 - Adding PQ algorithm support into existing X.509 structures (keys, signatures, certificates and protocols)
@@ -23,6 +16,13 @@ https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html
 - provide an artifact repository for interoperability testing
 - Provide a comprehensive compatibility matrix to show results
 - Provide feedback to the standards groups about practical usage
+
+## Contributing and testing your artifacts
+Simply upload your artifacts zip files into your own directory under `providers/`, and uploads test results CSV files into the `compatMatrices/` directory of your provider, and the github automation will:
+* Validate your artifacts against the OpenQuantumSafe docker image.
+* Re-build and update the results HTML pages using both the automated results, and any results CSV files that you included.
+
+NOTE: expired certificates within the artifacts zips will show as failed against the OQS automated testing because there is no flag to `openssl verify` to ignore expiry.
 
 ## Folder structure of this repo
 
