@@ -21,7 +21,7 @@ https://ietf-hackathon.github.io/pqc-certificates/
 Simply upload your artifacts zip files into your own directory under `providers/`, and uploads test results CSV files into the `compatMatrices/` directory of your provider, and the github automation will:
 * Validate your artifacts against the OpenQuantumSafe docker image.
 * Re-build and update the results HTML pages using both the automated results, and any results CSV files that you included.
-* Output artifacts, including, importantly a log file to help with debugging failures, can be found under the ACtions tab; click on the most recent run, and download the output zip.
+* Output artifacts, including, importantly a log file to help with debugging failures, can be found under the ACtions tab; click on the most recent run, and download the output zip. You may not be able to download this unless you are logged in to github and have permissions to this repo.
 
 NOTE: expired certificates within the artifacts zips will show as failed against the OQS automated testing because there is no flag to `openssl verify` to ignore expiry. We recommend uploading certs with very long expiry times -- like 10 years or more -- so that they do not start failing one year from now.
 
