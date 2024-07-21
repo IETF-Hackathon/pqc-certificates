@@ -22,7 +22,7 @@ jobs:
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Compatibility_csv
+          name: Compatibility_oqs_csv
           path: ./output/
   build_results_html:
     runs-on: ubuntu-latest
@@ -44,8 +44,10 @@ jobs:
       - name: Overwrite manually uploaded OQS results with automated results
         uses: actions/download-artifact@v4
         with: 
-          name: Compatibility_csv
-          path: ./providers/oqsprovider/compatMatrices/artifacts_certs_r3
+          name: Compatibility_oqs_csv
+          path: output/certs/oqs
+      - name: Overwrite manually-uploaded OQS results CSVs
+        run: cp ./output/certs/oqs/* ./providers/oqsprovider/compatMatrices/artifacts_certs_r3
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
