@@ -188,7 +188,7 @@ def main():
     md_file.new_paragraph(text='In the individual algorithm tables below, Rows are producers. Columns are parsers.\n')
 
 
-    md_file.new_header(level=1, title=f'Algorithms Tested')
+    md_file.new_header(level=1, title=f'Algorithms Submitted')
     md_file.new_paragraph(text='To be in this table, an algorithm must have a test result in one of the tables below (pass or fail). Algorithms for which we have artifacts but no test results are not shown.\n')
 
     _submittedAlgsList.sort()
@@ -209,7 +209,7 @@ def main():
                 raise ValueError(f'Multiple results for {generator}')
 
             if len(relevant_sars) == 1:
-                submittedAlgsCells.append('✅')
+                submittedAlgsCells.append('▣')
             else:
                 submittedAlgsCells.append('')
 
