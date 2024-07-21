@@ -18,6 +18,6 @@ mv pqc_hackathon_results_certs_r3.md pqc_hackathon_results_certs_r3.html docs
 
 
 # Also generate a results html with only automated test results
-python3 src/pqc_report_writer_common.py docs/oid_mapping.md pqc_hackathon_results_certs_r3_automated_tests.md Certificate $(find ./output/oqs/certs -name "*.csv")
+python3 src/pqc_report_writer_common.py docs/oid_mapping.md pqc_hackathon_results_certs_r3_automated_tests.md Certificate $(find ./output/certs -name "*.csv")
 pandoc -f markdown pqc_hackathon_results_certs_r3_automated_tests.md > pqc_hackathon_results_certs_r3_automated_tests.html
 mv pqc_hackathon_results_certs_r3_automated_tests.md pqc_hackathon_results_certs_r3_automated_tests.html docs

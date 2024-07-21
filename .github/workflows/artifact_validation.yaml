@@ -45,13 +45,13 @@ jobs:
         uses: actions/download-artifact@v4
         with: 
           name: Compatibility_oqs_csv
-          path: output/oqs
+          path: output/
       - name: Overwrite manually-uploaded OQS results CSVs
-        run: cp ./output/oqs/certs/* ./providers/oqs-provider/compatMatrices/artifacts_certs_r3
+        run: cp ./output/certs/* ./providers/oqs-provider/compatMatrices/artifacts_certs_r3
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
-        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./output/oqs/certs/oqs_certs.log ./docs/gh-pages
+        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./output/certs/oqs_certs.log ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download
         uses:  actions/upload-pages-artifact@v3
         with:
