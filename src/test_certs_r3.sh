@@ -39,7 +39,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     # process certs
     zip=${providerdir}$certszipr3
     printf "Unziping %s\n" $zip
-    unzip -o $zip -d "artifacts_certs_r3"
+    unzip -o $zip -d ${providerdir}"artifacts_certs_r3"
 
     # Start the results CSV file
     mkdir -p $outputdir
