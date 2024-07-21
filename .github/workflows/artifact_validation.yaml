@@ -1,0 +1,72 @@
+name: Artifact validation
+
+on:
+  push:
+    branches: [ 'main' ]
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+  
+jobs:
+  oqs_validation:
+    runs-on: ubuntu-latest
+    container: openquantumsafe/oqs-ossl3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Test artifacts with OQS
+      ## TODO -- actually validate the signature on the TA cert; not just import it. 
+      ##         replace with `openssl verify -check_ss_sig -CAfile <ca cert> <ee cert>`
+        run: ./src/test_certs_r3.sh
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_csv
+          path: ./output/
+  build_results_html:
+    runs-on: ubuntu-latest
+    container: ubuntu:latest
+    needs: oqs_validation
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install packages
+        run: | 
+          apt-get update && \
+          apt-get install -y pandoc lsb-release
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install python requirements
+        run: python -m pip install -r src/requirements.txt
+      - name: Collect artifacts for download
+        uses: actions/download-artifact@v4
+        with: 
+          name: Compatibility_csv
+          path: ./providers/oqsprovider/compatMatrices/artifacts_certs_r3
+      - name: Build compat matrix
+        run: ./src/rebuild_results_certs_r3.sh
+      - name: Copy output files
+        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
+      - name: Archive Compatibility Matrix For Download
+        uses:  actions/upload-pages-artifact@v3
+        with:
+          path: ./docs/toUpload
+  publish_to_gh_pages:
+    needs: build_results_html
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update git pages with new compatibiliy matrix
+        id: deployment
+        uses: actions/deploy-pages@v4
