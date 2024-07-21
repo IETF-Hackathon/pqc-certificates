@@ -6,6 +6,11 @@ inputdir="./providers"
 outputdir="./output/certs"
 logfile=$outputdir/oqs_certs.log
 
+# Start the results CSV file
+mkdir -p $outputdir
+printf "Build time: %s\n\n" $(date) > $logfile
+
+
 # Requires an input: the TA file to test
 test_ta () {
     tafile=$1
@@ -36,9 +41,6 @@ test_ta () {
     fi
 }
 
-# Create the log file with a timestamp
-printf "Build time: %s\n\n" $(date) > $logfile
-
 # First, recurse into any provider dir
 for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
@@ -49,8 +51,6 @@ for providerdir in $(ls -d $inputdir/*/); do
     printf "Unziping %s\n" $zip
     unzip -o $zip -d $unzipdir
 
-    # Start the results CSV file
-    mkdir -p $outputdir
     resultsfile=${outputdir}/${provider}_oqs-provider.csv
     echo "key_algorithm_oid,test_result" > $resultsfile
 
