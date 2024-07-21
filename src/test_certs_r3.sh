@@ -17,7 +17,7 @@ test_ta () {
     ossl_status=$?
 
     # log it to file and to stdout
-    echo "$ossl_output" > ./output/oqs.log
+    echo "$ossl_output" > ${outputdir}/oqs.log
     echo "$ossl_output"
 
 
