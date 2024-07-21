@@ -36,6 +36,8 @@ test_ta () {
     fi
 }
 
+printf "Build time: %s\n\n" $(date)
+
 # First, recurse into any provider dir
 for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
