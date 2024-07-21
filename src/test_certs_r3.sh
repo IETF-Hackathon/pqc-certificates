@@ -36,7 +36,8 @@ test_ta () {
     fi
 }
 
-printf "Build time: %s\n\n" $(date) >> $logfile
+# Create the log file with a timestamp
+printf "Build time: %s\n\n" $(date) > $logfile
 
 # First, recurse into any provider dir
 for providerdir in $(ls -d $inputdir/*/); do
