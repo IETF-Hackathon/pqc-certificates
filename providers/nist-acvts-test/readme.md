@@ -1,5 +1,7 @@
 # Artifacts generated using NIST ACVTS
 
+X.509 certificate artifacts generated using C# standard ASN.1 writing routines, using PQC public key algorithms implemented as part of the NIST ACVTS, signed by PQC DSA algorithms.
+
 ## Notes
 
 ### 20240720
@@ -33,5 +35,20 @@
      6. Write PEM-encoded certificate to console
   3. Copied/paste each certificate into its respective .pem file
 - Forked ACVP-Server code located at https://github.com/josephlukefahr/ACVP-Server
+- After following ACVP-Server quick start instructions, I ran the following tests:
+```bash
+cd ~/Downloads/ACVP-Server
+rm Directory.Build.props
+rm Directory.Packages.props
+ln -s ./_config/Directory.Build.props
+ln -s ./_config/Directory.Packages.props
+cd gen-val/src/crypto/test
+cd NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests/
+dotnet test NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests.csproj > ~/Downloads/pqc-certificates/providers/nist-acvts-test/dilithium.log
+cd ..
+cd NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests/
+dotnet test NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests.csproj > ~/Downloads/pqc-certificates/providers/nist-acvts-test/slhdsa.log
+```
 - Unit test logs included as dilithium.log and slh-dsa.log
 - NIST code seems to interchange "ML-DSA" and "Dilithium"; not sure which algorithm is actually implemented; could this be causing the issues with those certificates?
+- Big disadvantage to this approach -- I cannot assert any claims related to the NIST code (not even sure which algorithm is implemented!); a NIST engineer who is familiar with the code should generate and contribute the artifacts
