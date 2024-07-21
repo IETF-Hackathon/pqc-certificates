@@ -16,8 +16,10 @@ test_ta () {
     ossl_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile)
     ossl_status=$?
 
-    # print it out for the logs
+    # log it to file and to stdout
+    echo "$ossl_output" > ./output/oqs.log
     echo "$ossl_output"
+
 
     tafileBasename=$(basename $tafile)
     oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
