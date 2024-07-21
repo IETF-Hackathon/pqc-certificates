@@ -44,7 +44,7 @@ for providerdir in $(ls -d $inputdir/*/); do
 
     # Start the results CSV file
     mkdir -p $outputdir
-    resultsfile=${outputdir}${provider}_oqsprovider.csv
+    resultsfile=${outputdir}/${provider}_oqsprovider.csv
     echo "key_algorithm_oid,test_result" > $resultsfile
 
     # test each TA file
