@@ -38,8 +38,9 @@ for providerdir in $(ls -d $inputdir/*/); do
 
     # process certs
     zip=${providerdir}$certszipr3
+    unzipdir=${providerdir}"artifacts_certs_r3"
     printf "Unziping %s\n" $zip
-    unzip -o $zip -d ${providerdir}"artifacts_certs_r3"
+    unzip -o $zip -d $unzipdir
 
     # Start the results CSV file
     mkdir -p $outputdir
@@ -47,7 +48,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     echo "key_algorithm_oid,test_result" > $resultsfile
 
     # test each TA file
-    for tafile in $(ls ${providerdir}${artifacts_certs_r3}*_ta.pem); do
+    for tafile in $(ls ${unzipdir}*_ta.pem); do
         test_ta "$tafile" "$resultsfile"
     done
 done
