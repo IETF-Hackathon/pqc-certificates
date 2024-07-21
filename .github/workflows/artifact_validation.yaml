@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Test artifacts with OQS
-        run: ./src/test_certs_r3.sh oqs-provider
+        run: ./src/test_certs_r3.sh
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
