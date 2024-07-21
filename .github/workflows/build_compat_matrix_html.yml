@@ -1,4 +1,4 @@
-name: Artifact validation
+name: Build Compat Matrix HTML
 
 on:
   push:
