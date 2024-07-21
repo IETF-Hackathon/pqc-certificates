@@ -48,7 +48,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     echo "key_algorithm_oid,test_result" > $resultsfile
 
     # test each TA file
-    for tafile in $(ls ${unzipdir}*_ta.pem); do
+    for tafile in $(ls ${unzipdir}/*_ta.pem); do
         test_ta "$tafile" "$resultsfile"
     done
 done
