@@ -1,0 +1,37 @@
+# Artifacts generated using NIST ACVTS
+
+## Notes
+
+### 20240720
+
+- PQ algorithms not officially supported
+  - Evidenced by lack of official documentation at https://csrc.nist.rip/projects/cryptographic-algorithm-validation-program
+  - Per Quynh (sorry for butchering spelling), presumably since final FIPS standards have not been published
+  - However, there are ACVP server implementations
+    - https://github.com/usnistgov/ACVP-Server/tree/master/gen-val/src/crypto/src/NIST.CVP.ACVTS.Libraries.Crypto/Kyber
+    - https://github.com/usnistgov/ACVP-Server/tree/master/gen-val/src/crypto/src/NIST.CVP.ACVTS.Libraries.Crypto/Dilithium
+    - etc
+  - How do I know this codebase is correct?
+  - Anyway, breakdown tasks to:
+    1. Run local instance of ACVP-Server
+    2. Build tbsCertificates
+    3. Get ACVP-Server to sign tbsCertificates
+    4. Build complete certificates
+
+### 20240721
+
+- Have ASN.1/DER-compliant artifacts for Dilithium and SLH-DSA
+- Here's how I accomplished the tasks set out yesterday:
+  1. Successfully ran unit tests on Dilithium and SLH-DSA modules
+  2. Added additional unit test for each module that does the following:
+     1. Initialize algorithm
+     2. Generate keypair
+     3. Construct tbsCertificate (with generated public key)
+     4. Sign tbsCertificate using algorithm and private key
+     5. Verify signature; assert that signature is verified
+     5. Construct completed certificate
+     6. Write PEM-encoded certificate to console
+  3. Copied/paste each certificate into its respective .pem file
+- Forked ACVP-Server code located at https://github.com/josephlukefahr/ACVP-Server
+- Unit test logs included as dilithium.log and slh-dsa.log
+- NIST code seems to interchange "ML-DSA" and "Dilithium"; not sure which algorithm is actually implemented; could this be causing the issues with those certificates?
