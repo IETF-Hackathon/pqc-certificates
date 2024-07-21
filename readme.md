@@ -22,6 +22,8 @@ Simply upload your artifacts zip files into your own directory under `providers/
 * Validate your artifacts against the OpenQuantumSafe docker image.
 * Re-build and update the results HTML pages using both the automated results, and any results CSV files that you included.
 
+NOTE: expired certificates within the artifacts zips will show as failed against the OQS automated testing because there is no flag to `openssl verify` to ignore expiry.
+
 ## Folder structure of this repo
 
 The project's directory structure is as follows:
