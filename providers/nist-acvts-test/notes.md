@@ -32,5 +32,6 @@
      5. Construct completed certificate
      6. Write PEM-encoded certificate to console
   3. Copied/paste each certificate into its respective .pem file
-- Forked ACVP-Server code at https://github.com/josephlukefahr/ACVP-Server
+- Forked ACVP-Server code located at https://github.com/josephlukefahr/ACVP-Server
 - Unit test logs included as dilithium.log and slh-dsa.log
+- NIST code seems to interchange "ML-DSA" and "Dilithium"; not sure which algorithm is actually implemented; could this be causing the issues with those certificates?
