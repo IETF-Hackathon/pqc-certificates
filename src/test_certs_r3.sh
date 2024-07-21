@@ -11,6 +11,7 @@ test_ta () {
     resultsfile=$2
 
     printf "\nTesting %s\n" $tafile
+    printf "\nTesting %s\n" $tafile >> $outputdir}/oqs.log
 
     # openssl always exits with 0, so we can't use exit status to tell if the cert was valid :/
     ossl_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
