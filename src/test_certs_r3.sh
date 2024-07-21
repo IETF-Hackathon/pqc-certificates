@@ -4,6 +4,7 @@ certszipr3="artifacts_certs_r3.zip"
 cmszipr1="artifacts_cms_v1.zip"
 inputdir="./providers"
 outputdir="./output/certs"
+logfile=$outputdir/oqs_certs.log
 
 # Requires an input: the TA file to test
 test_ta () {
@@ -11,14 +12,14 @@ test_ta () {
     resultsfile=$2
 
     printf "\nTesting %s\n" $tafile
-    printf "\nTesting %s\n" $tafile >> ${outputdir}/oqs.log
+    printf "\nTesting %s\n" $tafile >> $logfile
 
     # openssl always exits with 0, so we can't use exit status to tell if the cert was valid :/
     ossl_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
     ossl_status=$?
 
     # log it to file and to stdout
-    echo "$ossl_output" >> ${outputdir}/oqs.log
+    echo "$ossl_output" >> $logfile
     echo "$ossl_output"
 
 
