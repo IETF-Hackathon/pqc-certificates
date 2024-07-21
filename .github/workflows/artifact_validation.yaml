@@ -22,7 +22,7 @@ jobs:
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Compatibility_csv
+          name: Compatibility_oqs_csv
           path: ./output/
   build_results_html:
     runs-on: ubuntu-latest
@@ -44,16 +44,18 @@ jobs:
       - name: Overwrite manually uploaded OQS results with automated results
         uses: actions/download-artifact@v4
         with: 
-          name: Compatibility_csv
-          path: ./providers/oqsprovider/compatMatrices/artifacts_certs_r3
+          name: Compatibility_oqs_csv
+          path: output/certs/oqs
+      - name: Overwrite manually-uploaded OQS results CSVs
+        run: cp ./output/certs/oqs/* ./providers/oqsprovider/compatMatrices/artifacts_certs_r3
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
-        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
+        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download
         uses:  actions/upload-pages-artifact@v3
         with:
-          path: ./docs/toUpload
+          path: ./docs/gh-pages
   publish_to_gh_pages:
     needs: build_results_html
     permissions:
