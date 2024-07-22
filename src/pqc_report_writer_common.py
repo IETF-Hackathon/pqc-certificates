@@ -188,7 +188,6 @@ def main():
 
     md_file.new_paragraph(text="<style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } </style>")
 
-    md_file.new_paragraph(text='In the individual algorithm tables below, Rows are producers. Columns are parsers.\n')
 
 
     md_file.new_header(level=1, title=f'Algorithms Submitted')
@@ -224,6 +223,7 @@ def main():
         alg_name = _get_alg_name_by_oid_str(oid_name_mappings, alg_oid)
 
         md_file.new_header(level=1, title=f'{alg_name} ({alg_oid})')
+        md_file.new_paragraph(text='Rows are producers. Columns are parsers.\n')
 
         cells = ['-'] + verifiers
         for generator in generators:
@@ -245,7 +245,6 @@ def main():
 
         md_file.new_table(columns=len(verifiers) + 1, rows=len(generators) + 1, text=cells, text_align='left')
 
-    md_file.new_table_of_contents(table_title='Algorithms', depth=1)
     md_file.create_md_file()
 
 
