@@ -14,19 +14,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          path: pqc-certificates
+          path: ~/pqc-certificates
       - name: Checkout ACVP code
         uses: actions/checkout@v4
         with:
           # I would rather clone the official repo usnistgov/ACVP-Server
           # and then have any supporting code here in this repo.
           repository: josephlukefahr/ACVP-Server
-          path: ACVP-Server
-      - name: DEBUG test pqc-certificates clone
-        run: ls ./pqc-certificates
-      - name: DEBUG test ACVP-Server clone
-        run: ls ./ACVP-Server
-      - run: cd ./pqc-certificates && /bin/sh ./src/test_certs_r3_with_acvp.sh && cd ..
+          path: ~/ACVP-Server
+      - run: cd ~/pqc-certificates && /bin/sh ./src/test_certs_r3_with_acvp.sh && cd ..
 
 
       - name: Save artifacts
