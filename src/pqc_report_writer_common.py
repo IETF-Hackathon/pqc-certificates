@@ -245,9 +245,9 @@ def main():
             if (no == -1):
                 submittedAlgsCells.append('')
             elif (no == 0):
-                submittedAlgsCells.append('a')
+                submittedAlgsCells.append('⚪︎')
             elif (no == 1):
-                submittedAlgsCells.append('b')
+                submittedAlgsCells.append('◒')
             else:
                 submittedAlgsCells.append('✅')
 
