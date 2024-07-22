@@ -30,7 +30,17 @@ test_ta () {
 
 
     tafileBasename=$(basename $tafile)
-    oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
+
+    # strip off the file suffix to get the OID name
+    if [[ $(expr match "$tafileBasename" ".*_ta.pem") != 0 ]]; then
+        oid=${tafileBasename%_ta.pem}
+    elif [[ $(expr match "$tafileBasename" ".*_ta.der") != 0 ]]; then
+        oid=${tafileBasename%_ta.der}
+    elif [[ $(expr match "$tafileBasename" ".*_ta.der.pem") != 0 ]]; then
+        oid=${tafileBasename%_ta.der.pem}
+    else  # It's some other filename
+        printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename
+        return
 
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
     if [[ $(expr match "$alreadyTestedOIDs" ".*$oid.*") != 0 ]]; then
