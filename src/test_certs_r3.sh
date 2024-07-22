@@ -49,7 +49,7 @@ test_ta () {
         return
     fi
 
-    alreadyTestedOIDs=${alreadyTestedAids}$oid";"
+    alreadyTestedOIDs=${alreadyTestedOids}$oid";"
 
     # test for an error and print a link in the results CSV file
     if [[ $ossl_status -ne 0 ]]; then
