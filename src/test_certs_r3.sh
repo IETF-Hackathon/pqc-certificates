@@ -31,8 +31,6 @@ test_ta () {
         return
     fi
 
-printf "DEBUG: searching for %s in %s\n" $oid $alreadyTestedOIDs
-
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
     if [[ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]]; then
         printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid 
@@ -52,8 +50,6 @@ printf "DEBUG: searching for %s in %s\n" $oid $alreadyTestedOIDs
     echo "$ossl_output" >> $logfile
     echo "$ossl_output"
 
-
-printf "DEBUG: writing a result for %s\n" $tafile
 
     # test for an error and print a link in the results CSV file
     if [[ $ossl_status -ne 0 ]]; then
@@ -78,7 +74,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     resultsfile=${outputdir}/${provider}_oqs-provider.csv
     echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
 
-    alreadyTestedOIDs=""  # for a guard to skip testing the same cert multiple times
+    alreadyTestedOIDs=";"  # for a guard to skip testing the same cert multiple times
     # test each TA file
     for tafile in $(find $unzipdir \( -iname "*_ta.pem" -o -iname "*_ta.der" -o -iname "*_ta.der.pem" \)); do
         test_ta "$tafile" "$resultsfile"
