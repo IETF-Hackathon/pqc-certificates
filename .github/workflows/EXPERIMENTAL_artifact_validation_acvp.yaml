@@ -26,7 +26,7 @@ jobs:
       - name: DEBUG test pqc-certificates clone
         run: ls ./pqc-certificates
       - name: DEBUG test ACVP-Server clone
-        run: ls ./ACVP-server
+        run: ls ./ACVP-Server
 
 
 # cd ~/Downloads/ACVP-Server
