@@ -221,7 +221,7 @@ def main():
 
     md_file.new_paragraph(text="<style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>")
 
-    md_file.new_paragraph(text="Generated: "+str(datetime.now(tz=pytz.utc).strftime('%Y-%m-%d %H:%M %Z)))
+    md_file.new_paragraph(text="Generated: "+str(datetime.now(tz=pytz.utc).strftime('%Y-%m-%d %H:%M %Z')))
 
     md_file.new_paragraph()
     md_file.new_header(level=1, title=f'Algorithms Submitted')
