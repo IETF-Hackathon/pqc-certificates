@@ -48,11 +48,15 @@ for providerdir in $(ls -d $inputdir/*/); do
     # process certs
     zip=${providerdir}$certszipr3
     unzipdir=${providerdir}"artifacts_certs_r3"
-    printf "Unziping %s\n" $zip
+    printf "Unziping %s to 5s\n" $zip $unzipdir
     unzip -o $zip -d $unzipdir
 
+
+    echo "DEBUG: Unzipped files found:"
+    echo "$(find $unzipdir -name "*_ta.pem")"
+
     resultsfile=${outputdir}/${provider}_oqs-provider.csv
-    echo "key_algorithm_oid,test_result" > $resultsfile
+    echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
 
     # test each TA file
     for tafile in $(find $unzipdir -name "*_ta.pem"); do
