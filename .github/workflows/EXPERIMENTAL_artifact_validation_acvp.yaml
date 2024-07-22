@@ -22,7 +22,9 @@ jobs:
           # and then have any supporting code here in this pqc-certificates repo.
           repository: josephlukefahr/ACVP-Server
           path: /ACVP-Server
-      - run: cd /pqc-certificates && /bin/sh ./src/test_certs_r3_with_acvp.sh && cd ..
+      - run: mkdir /output
+      - run: /bin/sh /pqc-certificates/providers/nist-acvts-test/setup_acvts_env.sh /AVCP-Server
+      - run: /bin/sh ./src/test_certs_r3_with_acvp.sh && cd ..
 
 
       - name: Save artifacts
