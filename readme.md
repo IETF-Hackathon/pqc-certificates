@@ -25,6 +25,8 @@ Simply upload your artifacts zip files into your own directory under `providers/
 
 NOTE: expired certificates within the artifacts zips will show as failed against the OQS automated testing because there is no flag to `openssl verify` to ignore expiry. We recommend uploading certs with very long expiry times -- like 10 years or more -- so that they do not start failing one year from now.
 
+Also note that for legibility, the main table is filtered to only show the "modern" set of algorithm OIDs as represented it [docs/oids.json]. Providers which do not provide any of these OIDs will not be shown.
+
 ## Folder structure of this repo
 
 The project's directory structure is as follows:
