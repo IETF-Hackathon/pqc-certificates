@@ -1,4 +1,4 @@
 #!/bin/sh
 
-mkdir /output
+mkdir ~/output
 /bin/sh ./providers/nist-acvts-test/setup_acvts_env.sh
