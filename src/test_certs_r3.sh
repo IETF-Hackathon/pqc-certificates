@@ -17,18 +17,6 @@ test_ta () {
     tafile=$1
     resultsfile=$2
 
-    printf "\nTesting %s\n" $tafile
-    printf "\nTesting %s\n" $tafile >> $logfile
-
-    # openssl always exits with 0, so we can't use exit status to tell if the cert was valid :/
-    ossl_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
-    ossl_status=$?
-
-    # log it to file and to stdout
-    echo "$ossl_output" >> $logfile
-    echo "$ossl_output"
-
-
     tafileBasename=$(basename $tafile)
 
     # strip off the file suffix to get the OID name
@@ -48,6 +36,20 @@ test_ta () {
         printf "Warning: %s has been submitted multiple times by this provider. Skipping" $oid 
         return
     fi
+
+    printf "\nTesting %s\n" $tafile
+    printf "\nTesting %s\n" $tafile >> $logfile
+
+    # openssl always exits with 0, so we can't use exit status to tell if the cert was valid :/
+    ossl_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
+    ossl_status=$?
+
+    # log it to file and to stdout
+    echo "$ossl_output" >> $logfile
+    echo "$ossl_output"
+
+
+
 
     alreadyTestedOIDs=${alreadyTestedOIDs}$oid";"
 
