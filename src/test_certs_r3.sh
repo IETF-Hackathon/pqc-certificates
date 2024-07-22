@@ -34,6 +34,7 @@ test_ta () {
 
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
     if [[ $alreadyTestedOIDs == *$oid* ]]; then
+        printf "Warning: %s has been submitted multiple times by this provider. Skipping" $oid 
         return
     fi
 
@@ -66,8 +67,9 @@ for providerdir in $(ls -d $inputdir/*/); do
     resultsfile=${outputdir}/${provider}_oqs-provider.csv
     echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
 
+    alreadyTestedOIDs=""  # for a guard to skip testing the same cert multiple times
     # test each TA file
-    for tafile in $(find $unzipdir -name "*_ta.pem"); do
+    for tafile in $(find $unzipdir \( -iname "*_ta.pem" -o -iname "*_ta.der" -o -iname "*_ta.der.pem"); do
         test_ta "$tafile" "$resultsfile"
     done
 done
