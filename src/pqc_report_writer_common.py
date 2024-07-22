@@ -245,21 +245,12 @@ def main():
             if (no == -1):
                 submittedAlgsCells.append('')
             elif (no == 0):
-                submittedAlgsCells.append('⚪︎')
+                submittedAlgsCells.append('a')
             elif (no == 1):
-                submittedAlgsCells.append('◒')
+                submittedAlgsCells.append('b')
             else:
                 submittedAlgsCells.append('✅')
-            # relevant_submittedAlgorithmResults = [SubmittedAlgorithmResult for SubmittedAlgorithmResult in SubmittedAlgorithmResults if SubmittedAlgorithmResult.generator == generator ]
 
-            # if len(relevant_submittedAlgorithmResults) > 1:
-            #     raise ValueError(f'Multiple results for {generator}')
-
-            # if len(relevant_submittedAlgorithmResults) == 1:
-            #     submittedAlgsCells.append('▣')
-            # else:
-            #     submittedAlgsCells.append('')
-    
     md_file.new_table(columns=len(generators) + 1, rows=len(_submittedAlgsList) + 1, text=submittedAlgsCells, text_align='left')
 
 
