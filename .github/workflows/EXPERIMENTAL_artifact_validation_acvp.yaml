@@ -26,16 +26,11 @@ jobs:
         run: ls ./pqc-certificates
       - name: DEBUG test ACVP-Server clone
         run: ls ./ACVP-Server
+      - run: ./pqc-certificates/src/test_certs_r3_with_acvp.sh
 
 
-# cd ~/Downloads/ACVP-Server
-# rm Directory.Build.props
-# rm Directory.Packages.props
-# ln -s ./_config/Directory.Build.props
-# ln -s ./_config/Directory.Packages.props
-# cd gen-val/src/crypto/test
-# cd NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests/
-# dotnet test NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests.csproj > ~/Downloads/pqc-certificates/providers/nist-acvts-test/dilithium.log
-# cd ..
-# cd NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests/
-# dotnet test NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests.csproj > ~/Downloads/pqc-certificates/providers/nist-acvts-test/slhdsa.log
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_acvp_csv
+          path: /output/
