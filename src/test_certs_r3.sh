@@ -33,9 +33,11 @@ test_ta () {
 
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
     if [[ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]]; then
-        printf "Warning: %s has been submitted multiple times by this provider. Skipping" $oid 
+        printf "Warning: %s has been submitted multiple times by this provider. Skipping\n" $oid 
         return
     fi
+
+    alreadyTestedOIDs=${alreadyTestedOIDs}$oid";"
 
     printf "\nTesting %s\n" $tafile
     printf "\nTesting %s\n" $tafile >> $logfile
@@ -47,11 +49,6 @@ test_ta () {
     # log it to file and to stdout
     echo "$ossl_output" >> $logfile
     echo "$ossl_output"
-
-
-
-
-    alreadyTestedOIDs=${alreadyTestedOIDs}$oid";"
 
     # test for an error and print a link in the results CSV file
     if [[ $ossl_status -ne 0 ]]; then
