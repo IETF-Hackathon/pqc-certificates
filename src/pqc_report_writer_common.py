@@ -189,7 +189,6 @@ def main():
 
 
     md_file.new_header(level=1, title=f'Algorithms Submitted')
-    md_file.new_paragraph(text='To be in this table, an algorithm must have a test result in one of the tables below (pass or fail). Algorithms for which we have artifacts but no test results are not shown.\n')
 
     _submittedAlgsList.sort()
 

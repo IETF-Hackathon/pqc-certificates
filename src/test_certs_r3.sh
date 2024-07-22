@@ -10,6 +10,7 @@ logfile=$outputdir/oqs_certs.log
 mkdir -p $outputdir
 printf "Build time: %s\n\n" "$(date)" > $logfile
 
+alreadyTestedOIDs=""
 
 # Requires an input: the TA file to test
 test_ta () {
@@ -30,6 +31,13 @@ test_ta () {
 
     tafileBasename=$(basename $tafile)
     oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
+
+    # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
+    if [[ $alreadyTestedOIDs == *$oid* ]]; then
+        return
+    fi
+
+    alreadyTestedOIDs+=$oid";"
 
     # test for an error and print a link in the results CSV file
     if [[ $ossl_status -ne 0 ]]; then
