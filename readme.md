@@ -37,12 +37,6 @@ The project's directory structure is as follows:
         - provider_name_1/
             - artifacts_certs_r3.zip
             - artifacts_cms_v1.zip
-            - implementation_name_1/
-                - artifacts_certs_r3.zip
-                - artifacts_cms_v1.zip
-            - implementation_name_2/
-                - artifacts_certs_r3.zip
-                - artifacts_cms_v1.zip
             - compatMatrices
               - artifacts_certs_r3
                 - prov2_prov1.csv
@@ -60,7 +54,7 @@ The project's directory structure is as follows:
             - implementation_name_1
             - ...
 ~~~
-Note that your artifacts zip can be placed either at the top-level of your provider, or if you have multiple implementations, then they can be placed in implementation sub-folders.
+Note that some vendors have multiple providers with artifacts. Due to automation for generating the results HTML page which takes the provider name from the directory name; please create a new top-level provider directory for each of your providers.
 
 Where:
 
