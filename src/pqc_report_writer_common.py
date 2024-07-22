@@ -42,8 +42,6 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
     failedOne = False
 
     relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.key_algorithm_oid == oid]
-
-    print("DEBUG: relevant_avrs for "+generator+", ("+oid+") is: "+str(relevant_avrs))
     
     for algorithmVerificationResult in relevant_avrs:
         if algorithmVerificationResult.test_result is None or algorithmVerificationResult.test_result is '':
@@ -54,14 +52,14 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
         else:
             failedOne = True
 
-        if not passedOne and not failedOne:
-            return -1
-        elif not passedOne and failedOne:
-            return 0
-        elif passedOne and failedOne:
-            return 1
-        elif passedOne and not failedOne:
-            return 2
+    if not passedOne and not failedOne:
+        return -1
+    elif not passedOne and failedOne:
+        return 0
+    elif passedOne and failedOne:
+        return 1
+    elif passedOne and not failedOne:
+        return 2
     
 def _parse_csv_file(
     generator, verifier, f, oid_name_mappings, include_all_oids
