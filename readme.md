@@ -25,6 +25,8 @@ Simply upload your artifacts zip files into your own directory under `providers/
 
 NOTE: expired certificates within the artifacts zips will show as failed against the OQS automated testing because there is no flag to `openssl verify` to ignore expiry. We recommend uploading certs with very long expiry times -- like 10 years or more -- so that they do not start failing one year from now.
 
+Also note that for legibility, the main table is filtered to only show the "modern" set of algorithm OIDs as represented it [docs/oids.json]. Providers which do not provide any of these OIDs will not be shown.
+
 ## Folder structure of this repo
 
 The project's directory structure is as follows:
@@ -37,12 +39,6 @@ The project's directory structure is as follows:
         - provider_name_1/
             - artifacts_certs_r3.zip
             - artifacts_cms_v1.zip
-            - implementation_name_1/
-                - artifacts_certs_r3.zip
-                - artifacts_cms_v1.zip
-            - implementation_name_2/
-                - artifacts_certs_r3.zip
-                - artifacts_cms_v1.zip
             - compatMatrices
               - artifacts_certs_r3
                 - prov2_prov1.csv
@@ -60,7 +56,7 @@ The project's directory structure is as follows:
             - implementation_name_1
             - ...
 ~~~
-Note that your artifacts zip can be placed either at the top-level of your provider, or if you have multiple implementations, then they can be placed in implementation sub-folders.
+Note that some vendors have multiple providers with artifacts. Due to automation for generating the results HTML page which takes the provider name from the directory name; please create a new top-level provider directory for each of your providers.
 
 Where:
 
