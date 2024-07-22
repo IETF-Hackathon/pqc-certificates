@@ -8,7 +8,7 @@ logfile=$outputdir/oqs_certs.log
 
 # Start the results CSV file
 mkdir -p $outputdir
-printf "Build time: %s\n\n" $(date) > $logfile
+printf "Build time: %s\n\n" "$(date)" > $logfile
 
 
 # Requires an input: the TA file to test
