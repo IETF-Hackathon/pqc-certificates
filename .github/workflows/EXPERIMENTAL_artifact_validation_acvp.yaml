@@ -26,7 +26,7 @@ jobs:
         run: ls ./pqc-certificates
       - name: DEBUG test ACVP-Server clone
         run: ls ./ACVP-Server
-      - run: ./pqc-certificates/src/test_certs_r3_with_acvp.sh
+      - run: /bin/sh ./pqc-certificates/src/test_certs_r3_with_acvp.sh
 
 
       - name: Save artifacts
