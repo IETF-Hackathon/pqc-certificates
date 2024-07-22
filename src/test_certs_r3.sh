@@ -31,9 +31,11 @@ test_ta () {
         return
     fi
 
+printf "DEBUG: searching for %s in %s\n" $oid $alreadyTestedOIDs
+
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
     if [[ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]]; then
-        printf "Warning: %s has been submitted multiple times by this provider. Skipping\n" $oid 
+        printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid 
         return
     fi
 
