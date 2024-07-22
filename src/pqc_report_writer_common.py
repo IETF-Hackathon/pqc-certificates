@@ -222,7 +222,7 @@ def main():
 
 
     md_file.new_header(level=1, title=f'Algorithms Submitted')
-    md_file.new_paragraph(text="✅ = passing on all verifiers\n◒ = passing on some verifiers\n○ = not passing any verifiers")
+    md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers")
     _submittedAlgsList.sort()
 
     submittedAlgsCells = ['-'] + generators
@@ -245,7 +245,7 @@ def main():
             if (no == -1):
                 submittedAlgsCells.append('')
             elif (no == 0):
-                submittedAlgsCells.append('○')
+                submittedAlgsCells.append('⚪︎')
             elif (no == 1):
                 submittedAlgsCells.append('◒')
             else:
