@@ -20,8 +20,7 @@ jobs:
         with:
           # I would rather clone the official repo usnistgov/ACVP-Server
           # and then have any supporting code here in this repo.
-          name: josephlukefahr/ACVP-Server
-          ref: refs/heads/master
+          repository: josephlukefahr/ACVP-Server
           path: ACVP-Server
       - name: DEBUG test pqc-certificates clone
         run: ls ./pqc-certificates
