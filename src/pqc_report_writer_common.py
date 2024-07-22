@@ -34,12 +34,12 @@ def _parse_json_file(generator, verifier, f) -> Sequence[AlgorithmVerificationRe
 
 
 def passedAllVerifiers(generator, oid) -> int:
-"""
--1: no verifiers
-0: did not pass any verifiers
-1: passed some verifiers
-2: passed all verifiers
-"""
+    """
+    -1: no verifiers
+    0: did not pass any verifiers
+    1: passed some verifiers
+    2: passed all verifiers
+    """
     passedOne = False
     failedOne = False
 
