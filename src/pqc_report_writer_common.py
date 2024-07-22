@@ -260,7 +260,7 @@ def main():
             # else:
             #     submittedAlgsCells.append('')
 
-    
+    print("DEBUG: cols: "+str(len(generators)+1)+"x rows: "+str(len(_submittedAlgsList)+1)+" =? "+len(submittedAlgsCells)
     md_file.new_table(columns=len(generators) + 1, rows=len(_submittedAlgsList) + 1, text=submittedAlgsCells, text_align='left')
 
 
