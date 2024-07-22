@@ -43,13 +43,13 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
 
     relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.key_algorithm_oid == oid]
 
-    print("DEBUG: relevant_avrs for "+generator+", ("+oid+" is: "+str(relevant_avrs))
+    print("DEBUG: relevant_avrs for "+generator+", ("+oid+") is: "+str(relevant_avrs))
     
     for algorithmVerificationResult in relevant_avrs:
-        if algorithmVerificationResult.test_result is None:
+        if algorithmVerificationResult.test_result is None or algorithmVerificationResult.test_result is '':
             continue
 
-        if algorithmVerificationResult.test_result:
+        if algorithmVerificationResult.test_result is 'Y':
             passedOne = True
         else:
             failedOne = True
