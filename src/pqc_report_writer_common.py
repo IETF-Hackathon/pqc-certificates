@@ -56,7 +56,7 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
             return -1
         elif not passedOne and failedOne:
             return 0
-        elif passedone and failedOne:
+        elif passedOne and failedOne:
             return 1
         elif passedOne and not failedOne:
             return 2
