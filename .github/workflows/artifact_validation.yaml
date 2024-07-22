@@ -2,7 +2,7 @@ name: Artifact validation
 
 on:
   push:
-    branches: [ 'master' ]
+    branches: [ '*' ]
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -58,6 +58,7 @@ jobs:
           path: ./docs/gh-pages
   publish_to_gh_pages:
     needs: build_results_html
+    if: github.ref == 'refs/heads/master'
     permissions:
       contents: read
       pages: write
