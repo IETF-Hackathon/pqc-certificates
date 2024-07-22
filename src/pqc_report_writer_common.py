@@ -18,7 +18,7 @@ class SubmittedAlgorithmResult(NamedTuple):
     key_algorithm_oid: str
 
 # set to automatically not add duplicates
-_sars = []
+_submittedAlgorithmResults = []
 _submittedAlgsList = []
 
 class AlgorithmVerificationResult(NamedTuple):
@@ -27,16 +27,48 @@ class AlgorithmVerificationResult(NamedTuple):
     key_algorithm_oid: str
     test_result: Optional[bool]
 
+_algorithmVerificationResults = []
+
 def _parse_json_file(generator, verifier, f) -> Sequence[AlgorithmVerificationResult]:
     pass
 
 
+def passedAllVerifiers(generator, oid) -> int:
+"""
+-1: no verifiers
+0: did not pass any verifiers
+1: passed some verifiers
+2: passed all verifiers
+"""
+    passedOne = False
+    failedOne = False
+
+    relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in _algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.key_algorithm_oid == oid]
+
+    for algorithmVerificationResult in relevant_avrs:
+        if algorithmVerificationResult.test_result is None:
+            continue
+
+        if algorithmVerificationResult.test_result:
+            passedOne = True
+        else:
+            failedOne = True
+
+        if not passedOne and not failedOne:
+            return -1
+        elif not passedOne and failedOne:
+            return 0
+        elif passedone and failedOne:
+            return 1
+        elif passedOne and not failedOne:
+            return 2
+    
 def _parse_csv_file(
     generator, verifier, f, oid_name_mappings, include_all_oids
 ) -> Sequence[AlgorithmVerificationResult]:
     c = csv.DictReader(f)
 
-    algorithmVerificationResults = []
+    _algorithmVerificationResults = []
 
     for row in c:
         try:
@@ -50,7 +82,7 @@ def _parse_csv_file(
                 'test_result': row['test_result']
             }
 
-            algorithmVerificationResults.append(AlgorithmVerificationResult(**d))
+            _algorithmVerificationResults.append(AlgorithmVerificationResult(**d))
 
             if row['test_result'] != None and row['test_result'] != "":
                 e = {
@@ -59,8 +91,8 @@ def _parse_csv_file(
                 }
 
                 # The algorithms Tested table should only contain tests with a pass or fail result
-                if SubmittedAlgorithmResult(**e) not in _sars:
-                    _sars.append(SubmittedAlgorithmResult(**e))
+                if SubmittedAlgorithmResult(**e) not in _submittedAlgorithmResults:
+                    _submittedAlgorithmResults.append(SubmittedAlgorithmResult(**e))
 
                 if key_algorithm_oid not in _submittedAlgsList:
                     _submittedAlgsList.append( key_algorithm_oid )
@@ -68,7 +100,7 @@ def _parse_csv_file(
             print("Error reading "+ str(f.name))
             raise e
 
-    return algorithmVerificationResults
+    return _algorithmVerificationResults
 
 def _format_result_cell(algorithmVerificationResult) -> str:
     result_lines = []
@@ -145,8 +177,7 @@ def main():
 
     with open("oids.json", "w") as f:  
         json.dump(oids_json, f)
-
-    algorithmVerificationResults = []
+        
 
     for file in args.files:
         m = _FILENAME_REGEX.match(os.path.basename(file))
@@ -159,13 +190,13 @@ def main():
             verifier = m['verifier']
 
             if m['extension'].casefold() == 'csv'.casefold():
-                algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings, args.include_all_oids))
+                _algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings, args.include_all_oids))
             else:
-                algorithmVerificationResults.extend(_parse_json_file(generator, verifier, f))
+                _algorithmVerificationResults.extend(_parse_json_file(generator, verifier, f))
 
     generators = set()
     verifiers = set()
-    for algorithmVerificationResult in algorithmVerificationResults:
+    for algorithmVerificationResult in _algorithmVerificationResults:
         generators.add(algorithmVerificationResult.generator)
         verifiers.add(algorithmVerificationResult.verifier)
 
@@ -174,14 +205,14 @@ def main():
     verifiers = list (verifiers)
     verifiers.sort()
 
-    algorithms = list({algorithmVerificationResult.key_algorithm_oid for algorithmVerificationResult in algorithmVerificationResults})
+    algorithms = list({algorithmVerificationResult.key_algorithm_oid for algorithmVerificationResult in _algorithmVerificationResults})
     algorithms.sort()
 
     alg_oid_getter = operator.attrgetter('key_algorithm_oid')
-    algorithmVerificationResults.sort(key=alg_oid_getter)
+    _algorithmVerificationResults.sort(key=alg_oid_getter)
 
     avrs_by_alg = {k: [] for k in algorithms}
-    for algorithmVerificationResult in algorithmVerificationResults:
+    for algorithmVerificationResult in _algorithmVerificationResults:
         avrs_by_alg[algorithmVerificationResult.key_algorithm_oid].append(algorithmVerificationResult)
 
     md_file = MdUtils(file_name=args.outfile, title=f'IETF PQC Hackathon {args.interop_type} Interoperability Results')
@@ -195,31 +226,46 @@ def main():
     _submittedAlgsList.sort()
 
     submittedAlgsCells = ['-'] + generators
-    _sars.sort(key=alg_oid_getter)
+    _submittedAlgorithmResults.sort(key=alg_oid_getter)
     sars_by_alg = {k: [] for k in _submittedAlgsList}
-    for SubmittedAlgorithmResult in _sars:
+    for SubmittedAlgorithmResult in _submittedAlgorithmResults:
         sars_by_alg[SubmittedAlgorithmResult.key_algorithm_oid].append(SubmittedAlgorithmResult)
 
 
     for alg_oid, SubmittedAlgorithmResults in sars_by_alg.items():
         submittedAlgsCells.append(_get_alg_name_by_oid_str(oid_name_mappings, alg_oid))
         for generator in generators:
-            relevant_sars = [SubmittedAlgorithmResult for SubmittedAlgorithmResult in SubmittedAlgorithmResults if SubmittedAlgorithmResult.generator == generator ]
-
-            if len(relevant_sars) > 1:
-                raise ValueError(f'Multiple results for {generator}')
-
-            if len(relevant_sars) == 1:
-                submittedAlgsCells.append('▣')
-            else:
+            """
+            -1: no verifiers
+            0: did not pass any verifiers
+            1: passed some verifiers
+            2: passed all verifiers
+            """
+            no = passedAllVerifiers(generator, alg_oid)
+            if (no == -1):
                 submittedAlgsCells.append('')
+            elif (no == 0):
+                submittedAlgsCells.append('○')
+            elif (no == 1):
+                submittedAlgsCells.append('◒')
+            else:
+                submittedAlgsCells.append('✅')
+            # relevant_submittedAlgorithmResults = [SubmittedAlgorithmResult for SubmittedAlgorithmResult in SubmittedAlgorithmResults if SubmittedAlgorithmResult.generator == generator ]
+
+            # if len(relevant_submittedAlgorithmResults) > 1:
+            #     raise ValueError(f'Multiple results for {generator}')
+
+            # if len(relevant_submittedAlgorithmResults) == 1:
+            #     submittedAlgsCells.append('▣')
+            # else:
+            #     submittedAlgsCells.append('')
 
     
     md_file.new_table(columns=len(generators) + 1, rows=len(_submittedAlgsList) + 1, text=submittedAlgsCells, text_align='left')
 
 
 
-    for alg_oid, algorithmVerificationResults in avrs_by_alg.items():
+    for alg_oid, _algorithmVerificationResults in avrs_by_alg.items():
         alg_name = _get_alg_name_by_oid_str(oid_name_mappings, alg_oid)
 
         md_file.new_header(level=1, title=f'{alg_name} ({alg_oid})')
@@ -230,7 +276,7 @@ def main():
             cells.append(generator)
 
             for verifier in verifiers:
-                relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.verifier == verifier]
+                relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in _algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.verifier == verifier]
 
                 if len(relevant_avrs) > 1:
                     raise ValueError(f'Multiple results for {alg_oid}: {generator}-{verifier}')
