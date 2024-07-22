@@ -57,7 +57,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     # process certs
     zip=${providerdir}$certszipr3
     unzipdir=${providerdir}"artifacts_certs_r3"
-    printf "Unziping %s to 5s\n" $zip $unzipdir
+    printf "Unziping %s to %s\n" $zip $unzipdir
     unzip -o $zip -d $unzipdir
 
 
@@ -69,7 +69,7 @@ for providerdir in $(ls -d $inputdir/*/); do
 
     alreadyTestedOIDs=""  # for a guard to skip testing the same cert multiple times
     # test each TA file
-    for tafile in $(find $unzipdir \( -iname "*_ta.pem" -o -iname "*_ta.der" -o -iname "*_ta.der.pem"); do
+    for tafile in $(find $unzipdir \( -iname "*_ta.pem" -o -iname "*_ta.der" -o -iname "*_ta.der.pem" \); do
         test_ta "$tafile" "$resultsfile"
     done
 done
