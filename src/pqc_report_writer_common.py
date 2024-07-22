@@ -8,6 +8,7 @@ import argparse
 from typing import NamedTuple, Optional, Sequence, Mapping
 from mdutils.mdutils import MdUtils
 from datetime import datetime
+import pytz
 
 _FILENAME_REGEX = re.compile(r'^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
 _OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.*$')
@@ -220,9 +221,10 @@ def main():
 
     md_file.new_paragraph(text="<style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>")
 
-    now = datetime.now()
-    md_file.new_paragraph(text="Generated: "+str(now.year)+"-"+str(now.month)+"-"+str(now.day)+" "+str(now.hour)+":"+str(now.minute))
+    now = datetime.now(tz=pytz.utc)
+    md_file.new_paragraph(text="Generated: "+str(now.year)+"-"+str(now.month)+"-"+str(now.day)+" "+str(now.hour)+":"+str(now.minute)+ " UTC")
 
+    md_file.new_paragraph()
     md_file.new_header(level=1, title=f'Algorithms Submitted')
     md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers<br>")
     md_file.new_paragraph()
