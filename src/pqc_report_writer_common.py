@@ -163,13 +163,16 @@ def main():
             else:
                 avrs.extend(_parse_json_file(generator, verifier, f))
 
-    implementations = set()
+    generators = set()
+    verifiers = set()
     for avr in avrs:
-        implementations.add(avr.generator)
-        implementations.add(avr.verifier)
+        generators.add(avr.generator)
+        vefifiers.add(avr.verifier)
 
-    implementations = list(implementations)
-    implementations.sort()
+    generators = list(generators)
+    generators.sort()
+    verifiers = list (verifiers)
+    verifiers.sort()
 
     algorithms = list({avr.key_algorithm_oid for avr in avrs})
     algorithms.sort()
@@ -192,7 +195,7 @@ def main():
 
     _submittedAlgsList.sort()
 
-    submittedAlgsCells = ['-'] + implementations
+    submittedAlgsCells = ['-'] + generators
     _sars.sort(key=alg_oid_getter)
     sars_by_alg = {k: [] for k in _submittedAlgsList}
     for sar in _sars:
@@ -201,7 +204,7 @@ def main():
 
     for alg_oid, sars in sars_by_alg.items():
         submittedAlgsCells.append(_get_alg_name_by_oid_str(oid_name_mappings, alg_oid))
-        for generator in implementations:
+        for generator in generators:
             relevant_sars = [sar for sar in sars if sar.generator == generator ]
 
             if len(relevant_sars) > 1:
@@ -213,18 +216,20 @@ def main():
                 submittedAlgsCells.append('')
 
     
-    md_file.new_table(columns=len(implementations) + 1, rows=len(_submittedAlgsList) + 1, text=submittedAlgsCells, text_align='left')
+    md_file.new_table(columns=len(generators) + 1, rows=len(_submittedAlgsList) + 1, text=submittedAlgsCells, text_align='left')
+
+
 
     for alg_oid, avrs in avrs_by_alg.items():
         alg_name = _get_alg_name_by_oid_str(oid_name_mappings, alg_oid)
 
         md_file.new_header(level=1, title=f'{alg_name} ({alg_oid})')
 
-        cells = ['-'] + implementations
-        for generator in implementations:
+        cells = ['-'] + verifiers
+        for generator in generators:
             cells.append(generator)
 
-            for verifier in implementations:
+            for verifier in verifiers:
                 relevant_avrs = [avr for avr in avrs if avr.generator == generator and avr.verifier == verifier]
 
                 if len(relevant_avrs) > 1:
@@ -238,7 +243,7 @@ def main():
 
                 cells.append(_format_result_cell(relevant_avr))
 
-        md_file.new_table(columns=len(implementations) + 1, rows=len(implementations) + 1, text=cells, text_align='left')
+        md_file.new_table(columns=len(verifiers) + 1, rows=len(generators) + 1, text=cells, text_align='left')
 
     md_file.new_table_of_contents(table_title='Algorithms', depth=1)
     md_file.create_md_file()
