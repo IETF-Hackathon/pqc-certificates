@@ -1,0 +1,42 @@
+name: EXPERIMENTAL ACVP Artifact validation
+
+on:
+  push:
+    branches: [ 'acvp-auto-testing' ]
+
+
+jobs:
+  acvp_validation:
+    runs-on: ubuntu-latest
+    # Is this the right dotnet image?
+    container: mcr.microsoft.com/dotnet/runtime
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: pqc-certificates
+      - name: Checkout ACVP code
+        uses: actions/checkout@v4
+        with:
+          # I would rather clone the official repo usnistgov/ACVP-Server
+          # and then have any supporting code here in this repo.
+          name: josephlukefahr/ACVP-Server
+          ref: refs/heads/master
+          path: ACVP-Server
+      - name: DEBUG test pqc-certificates clone
+        run: ls ./pqc-certificates
+      - name: DEBUG test ACVP-Server clone
+        run: ls ./ACVP-server
+
+
+# cd ~/Downloads/ACVP-Server
+# rm Directory.Build.props
+# rm Directory.Packages.props
+# ln -s ./_config/Directory.Build.props
+# ln -s ./_config/Directory.Packages.props
+# cd gen-val/src/crypto/test
+# cd NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests/
+# dotnet test NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests.csproj > ~/Downloads/pqc-certificates/providers/nist-acvts-test/dilithium.log
+# cd ..
+# cd NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests/
+# dotnet test NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests.csproj > ~/Downloads/pqc-certificates/providers/nist-acvts-test/slhdsa.log
