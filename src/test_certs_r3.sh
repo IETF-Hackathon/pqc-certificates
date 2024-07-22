@@ -50,6 +50,9 @@ test_ta () {
     echo "$ossl_output" >> $logfile
     echo "$ossl_output"
 
+
+printf "DEBUG: writing a result for %s\n" $tafile
+
     # test for an error and print a link in the results CSV file
     if [[ $ossl_status -ne 0 ]]; then
         echo "Certificate Validation Result: FAIL"
