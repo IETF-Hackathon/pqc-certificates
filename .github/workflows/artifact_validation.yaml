@@ -52,6 +52,8 @@ jobs:
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
         run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./output/certs/oqs_certs.log ./docs/gh-pages
+      - name: "DEBUG: copy debug files"
+        run: mv ./docs/pqc_hackathon_results_certs_r3.md ./docs/pqc_hackathon_results_certs_r3_automated_tests.md ./docs/pqc_hackathon_results_cms_v1.md ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download
         uses:  actions/upload-pages-artifact@v3
         with:
