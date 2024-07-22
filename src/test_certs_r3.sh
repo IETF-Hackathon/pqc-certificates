@@ -32,11 +32,11 @@ test_ta () {
     tafileBasename=$(basename $tafile)
 
     # strip off the file suffix to get the OID name
-    if [[ $(expr match "$tafileBasename" "*_ta.pem") != 0 ]]; then
+    if [[ $(expr match "$tafileBasename" ".*_ta.pem") != 0 ]]; then
         oid=${tafileBasename%_ta.pem}
-    elif [[ $(expr match "$tafileBasename" "*_ta.der") != 0 ]]; then
+    elif [[ $(expr match "$tafileBasename" ".*_ta.der") != 0 ]]; then
         oid=${tafileBasename%_ta.der}
-    elif [[ $(expr match "$tafileBasename" "*_ta.der.pem") != 0 ]]; then
+    elif [[ $(expr match "$tafileBasename" ".*_ta.der.pem") != 0 ]]; then
 printf "I found a _ta.der.pem: %s\n" $tafilebasename
         oid=${tafileBasename%_ta.der.pem}
     else  # It's some other filename
