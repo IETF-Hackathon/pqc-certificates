@@ -69,7 +69,7 @@ for providerdir in $(ls -d $inputdir/*/); do
 
     alreadyTestedOIDs=""  # for a guard to skip testing the same cert multiple times
     # test each TA file
-    for tafile in $(find $unzipdir \( -iname "*_ta.pem" -o -iname "*_ta.der" -o -iname "*_ta.der.pem" \); do
+    for tafile in $(find $unzipdir \( -iname "*_ta.pem" -o -iname "*_ta.der" -o -iname "*_ta.der.pem" \)); do
         test_ta "$tafile" "$resultsfile"
     done
 done
