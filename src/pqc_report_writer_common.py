@@ -186,7 +186,7 @@ def main():
 
     md_file = MdUtils(file_name=args.outfile, title=f'IETF PQC Hackathon {args.interop_type} Interoperability Results')
 
-    md_file.new_paragraph(text="<style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } </style>")
+    md_file.new_paragraph(text="<style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>")
 
 
 
