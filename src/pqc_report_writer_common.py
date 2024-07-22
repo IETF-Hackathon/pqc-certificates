@@ -167,7 +167,7 @@ def main():
     verifiers = set()
     for avr in avrs:
         generators.add(avr.generator)
-        vefifiers.add(avr.verifier)
+        verifiers.add(avr.verifier)
 
     generators = list(generators)
     generators.sort()
