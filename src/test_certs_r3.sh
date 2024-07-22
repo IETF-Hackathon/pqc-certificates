@@ -33,13 +33,10 @@ test_ta () {
 
     # strip off the file suffix to get the OID name
     if [[ $(expr match "$tafileBasename" ".*_ta\.pem$") != 0 ]]; then
-printf "DEBUG: I found a _ta.pem: %s\n" $tafilebasename
         oid=${tafileBasename%_ta.pem}
     elif [[ $(expr match "$tafileBasename" ".*_ta\.der$") != 0 ]]; then
-printf "DEBUG: I found a _ta.der: %s\n" $tafilebasename
         oid=${tafileBasename%_ta.der}
     elif [[ $(expr match "$tafileBasename" ".*_ta\.der\.pem$") != 0 ]]; then
-printf "DEBUG: I found a _ta.der.pem: %s\n" $tafilebasename
         oid=${tafileBasename%_ta.der.pem}
     else  # It's some other filename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename
@@ -52,7 +49,7 @@ printf "DEBUG: I found a _ta.der.pem: %s\n" $tafilebasename
         return
     fi
 
-    alreadyTestedOIDs=${alreadyTestedOids}$oid";"
+    alreadyTestedOIDs=${alreadyTestedOIDs}$oid";"
 
     # test for an error and print a link in the results CSV file
     if [[ $ossl_status -ne 0 ]]; then
