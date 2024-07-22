@@ -33,7 +33,7 @@ test_ta () {
     oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
 
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
-    if [[ $(expr match "$alreadyTestedOIDs" "*$oid*") != 0 ]]; then
+    if [[ $(expr match "$alreadyTestedOIDs" ".*$oid.*") != 0 ]]; then
         printf "Warning: %s has been submitted multiple times by this provider. Skipping" $oid 
         return
     fi
@@ -59,10 +59,6 @@ for providerdir in $(ls -d $inputdir/*/); do
     unzipdir=${providerdir}"artifacts_certs_r3"
     printf "Unziping %s to %s\n" $zip $unzipdir
     unzip -o $zip -d $unzipdir
-
-
-    echo "DEBUG: Unzipped files found:"
-    echo "$(find $unzipdir -name "*_ta.pem")"
 
     resultsfile=${outputdir}/${provider}_oqs-provider.csv
     echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
