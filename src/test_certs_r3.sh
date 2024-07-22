@@ -10,7 +10,7 @@ logfile=$outputdir/oqs_certs.log
 mkdir -p $outputdir
 printf "Build time: %s\n\n" "$(date)" > $logfile
 
-alreadyTestedOIDs=""
+alreadyTestedOIDs=";"
 
 # Requires an input: the TA file to test
 test_ta () {
@@ -44,7 +44,7 @@ test_ta () {
     fi
 
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
-    if [[ $(expr match "$alreadyTestedOIDs" ".*$oid.*") != 0 ]]; then
+    if [[ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]]; then
         printf "Warning: %s has been submitted multiple times by this provider. Skipping" $oid 
         return
     fi
