@@ -27,13 +27,11 @@ class AlgorithmVerificationResult(NamedTuple):
     key_algorithm_oid: str
     test_result: Optional[bool]
 
-_algorithmVerificationResults = []
-
 def _parse_json_file(generator, verifier, f) -> Sequence[AlgorithmVerificationResult]:
     pass
 
 
-def passedAllVerifiers(generator, oid) -> int:
+def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
     """
     -1: no verifiers
     0: did not pass any verifiers
@@ -43,7 +41,7 @@ def passedAllVerifiers(generator, oid) -> int:
     passedOne = False
     failedOne = False
 
-    relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in _algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.key_algorithm_oid == oid]
+    relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.key_algorithm_oid == oid]
 
     for algorithmVerificationResult in relevant_avrs:
         if algorithmVerificationResult.test_result is None:
@@ -68,7 +66,7 @@ def _parse_csv_file(
 ) -> Sequence[AlgorithmVerificationResult]:
     c = csv.DictReader(f)
 
-    _algorithmVerificationResults = []
+    algorithmVerificationResults = []
 
     for row in c:
         try:
@@ -82,7 +80,7 @@ def _parse_csv_file(
                 'test_result': row['test_result']
             }
 
-            _algorithmVerificationResults.append(AlgorithmVerificationResult(**d))
+            algorithmVerificationResults.append(AlgorithmVerificationResult(**d))
 
             if row['test_result'] != None and row['test_result'] != "":
                 e = {
@@ -100,7 +98,7 @@ def _parse_csv_file(
             print("Error reading "+ str(f.name))
             raise e
 
-    return _algorithmVerificationResults
+    return algorithmVerificationResults
 
 def _format_result_cell(algorithmVerificationResult) -> str:
     result_lines = []
@@ -177,7 +175,9 @@ def main():
 
     with open("oids.json", "w") as f:  
         json.dump(oids_json, f)
-        
+
+    
+    algorithmVerificationResults = []
 
     for file in args.files:
         m = _FILENAME_REGEX.match(os.path.basename(file))
@@ -190,13 +190,13 @@ def main():
             verifier = m['verifier']
 
             if m['extension'].casefold() == 'csv'.casefold():
-                _algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings, args.include_all_oids))
+                algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings, args.include_all_oids))
             else:
-                _algorithmVerificationResults.extend(_parse_json_file(generator, verifier, f))
+                algorithmVerificationResults.extend(_parse_json_file(generator, verifier, f))
 
     generators = set()
     verifiers = set()
-    for algorithmVerificationResult in _algorithmVerificationResults:
+    for algorithmVerificationResult in algorithmVerificationResults:
         generators.add(algorithmVerificationResult.generator)
         verifiers.add(algorithmVerificationResult.verifier)
 
@@ -205,14 +205,14 @@ def main():
     verifiers = list (verifiers)
     verifiers.sort()
 
-    algorithms = list({algorithmVerificationResult.key_algorithm_oid for algorithmVerificationResult in _algorithmVerificationResults})
+    algorithms = list({algorithmVerificationResult.key_algorithm_oid for algorithmVerificationResult in algorithmVerificationResults})
     algorithms.sort()
 
     alg_oid_getter = operator.attrgetter('key_algorithm_oid')
-    _algorithmVerificationResults.sort(key=alg_oid_getter)
+    algorithmVerificationResults.sort(key=alg_oid_getter)
 
     avrs_by_alg = {k: [] for k in algorithms}
-    for algorithmVerificationResult in _algorithmVerificationResults:
+    for algorithmVerificationResult in algorithmVerificationResults:
         avrs_by_alg[algorithmVerificationResult.key_algorithm_oid].append(algorithmVerificationResult)
 
     md_file = MdUtils(file_name=args.outfile, title=f'IETF PQC Hackathon {args.interop_type} Interoperability Results')
@@ -241,7 +241,7 @@ def main():
             1: passed some verifiers
             2: passed all verifiers
             """
-            no = passedAllVerifiers(generator, alg_oid)
+            no = passedAllVerifiers(generator, alg_oid, algorithmVerificationResults)
             if (no == -1):
                 submittedAlgsCells.append('')
             elif (no == 0):
@@ -265,7 +265,7 @@ def main():
 
 
 
-    for alg_oid, _algorithmVerificationResults in avrs_by_alg.items():
+    for alg_oid, algorithmVerificationResults in avrs_by_alg.items():
         alg_name = _get_alg_name_by_oid_str(oid_name_mappings, alg_oid)
 
         md_file.new_header(level=1, title=f'{alg_name} ({alg_oid})')
@@ -276,7 +276,7 @@ def main():
             cells.append(generator)
 
             for verifier in verifiers:
-                relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in _algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.verifier == verifier]
+                relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.verifier == verifier]
 
                 if len(relevant_avrs) > 1:
                     raise ValueError(f'Multiple results for {alg_oid}: {generator}-{verifier}')
