@@ -8,7 +8,7 @@ X.509 certificate artifacts generated using C# standard ASN.1 writing routines, 
 
 - PQ algorithms not officially supported
   - Evidenced by lack of official documentation at https://csrc.nist.rip/projects/cryptographic-algorithm-validation-program
-  - Per Quynh (sorry for butchering spelling), presumably since final FIPS standards have not been published
+  - Per Quynh Dang, presumably since final FIPS standards have not been published
   - However, there are ACVP server implementations
     - https://github.com/usnistgov/ACVP-Server/tree/master/gen-val/src/crypto/src/NIST.CVP.ACVTS.Libraries.Crypto/Kyber
     - https://github.com/usnistgov/ACVP-Server/tree/master/gen-val/src/crypto/src/NIST.CVP.ACVTS.Libraries.Crypto/Dilithium
