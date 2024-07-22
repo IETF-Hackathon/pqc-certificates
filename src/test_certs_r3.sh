@@ -41,6 +41,7 @@ test_ta () {
     else  # It's some other filename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename
         return
+    fi
 
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
     if [[ $(expr match "$alreadyTestedOIDs" ".*$oid.*") != 0 ]]; then
