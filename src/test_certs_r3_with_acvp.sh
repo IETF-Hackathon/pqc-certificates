@@ -32,7 +32,7 @@ slhdsaTestDir=$acvpTestDir"/NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests"
 supportedMLDSA_OIDs_json=$(cat $(dirname "$0")/../providers/nist-acvts-test/supported_mldsa_oids.json)
 supportedSLHDSA_OIDs_json=$(cat $(dirname "$0")/../providers/nist-acvts-test/supported_slhdsa_oids.json)
 
-printf "DEBUG: supportedMLDSA_OIDs_json: %s\n\n" "$supportedMLDSA_OIDs_json"
+printf "DEBUG: ls dilithiumTestDir: %s\n\n" "$(ls $dilithiumTestDir)"
 
 # Start the results CSV file
 mkdir -p $outputdir
