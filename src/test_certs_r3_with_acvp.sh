@@ -99,6 +99,10 @@ test_ta () {
 
 # MAIN()
 
+printf "Running in working directory %s\n" $(pwd)
+
+printf "DEBUG: ls: %s\n" "$(ls)"
+
 # First, recurse into any provider dir
 for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
