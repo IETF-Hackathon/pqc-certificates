@@ -68,13 +68,16 @@ jobs:
           python-version: '3.x'
       - name: Install python requirements
         run: python -m pip install -r src/requirements.txt
-      - name: Overwrite manually uploaded OQS results with automated results
+      - name: Get OQS results from previous job
         uses: actions/download-artifact@v4
         with: 
           name: Compatibility_oqs_csv
           path: output/
-      # - name: Overwrite manually-uploaded OQS results CSVs
-      #   run: cp ./output/certs/* ./providers/oqs-provider/compatMatrices/artifacts_certs_r3
+    - name: Get ACVP results from previous job
+        uses: actions/download-artifact@v4
+        with: 
+          name: Compatibility_acvp_csv
+          path: output/
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
