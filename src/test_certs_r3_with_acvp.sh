@@ -32,6 +32,8 @@ slhdsaTestDir=$acvpTestDir"/NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests"
 supportedMLDSA_OIDs_json=$(cat $(basename "$0")/../providers/nist-acvts-test/supported_mldsa_oids.json)
 supportedSLHDSA_OIDs_json=$(cat $(basename "$0")/../providers/nist-acvts-test/supported_slhdsa_oids.json)
 
+printf "DEBUG: supportedMLDSA_OIDs_json: %s\n\n" "$supportedMLDSA_OIDs_json"
+
 # Start the results CSV file
 mkdir -p $outputdir
 printf "Build time: %s\n\n" "$(date)" > $logfile
@@ -81,7 +83,7 @@ test_ta () {
         test_status=$?
     else
         # this is not supported
-        printf "Algorithm %s is not supported by the NIST ACVP Tests. Skipping\n" $oid
+        printf "Algorithm %s is not supported by the NIST ACVP Tests. Skipping\n\n" $oid
         return
     fi
 
