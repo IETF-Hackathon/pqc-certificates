@@ -32,8 +32,8 @@ supportedSLHDSA_OIDs_json='{"1.3.6.1.4.1.2.267.12.4.4": "ML-DSA-44-ipd", "1.3.6.
 # move to the root of the pqc-certificates repo so that all of the find commands to find providers work properly.
 cd "$pqcCertsDir"
 
-printf "DEBUG: pwd %s" $(pwd)
-printf "DEBUG: ls %s" $(ls)
+printf "DEBUG: pwd %s\n" "$(pwd)"
+printf "DEBUG: ls %s\n" "$(ls)"
 
 # Start the results CSV file
 mkdir -p $outputdir
