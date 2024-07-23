@@ -72,12 +72,12 @@ test_ta () {
     if [[ $(expr match "$supportedMLDSA_OIDs_json" ".*\"$oid\".*") != 0 ]]; then
         # this is a supported ML-DSA
         printf "\nTesting %s\n" $tafile >> $logfile
-        test_output=$(dotnet $dilithiumTestDir/test NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests.csproj 2>&1)
+        test_output=$(dotnet $dilithiumTestDir/test NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests.csproj $tafile 2>&1)
         test_status=$?
     elif [[ $(expr match "$supportedSLHDSA_OIDs_json" ".*\"$oid\".*") != 0 ]]; then
         # this is a supported SLH-DSA
         printf "\nTesting %s\n" $tafile >> $logfile
-        test_output=$(dotnet $slhdsaTestDir/test NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests.csproj 2>&1)
+        test_output=$(dotnet $slhdsaTestDir/test NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests.csproj $tafile 2>&1)
         test_status=$?
     else
         # this is not supported
