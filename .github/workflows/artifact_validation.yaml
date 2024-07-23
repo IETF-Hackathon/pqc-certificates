@@ -2,7 +2,7 @@ name: Artifact validation
 
 on:
   push:
-    branches: [ '*' ]
+    branches: [ 'acvp-auto-testing' ]
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -24,10 +24,38 @@ jobs:
         with:
           name: Compatibility_oqs_csv
           path: ./output/
+
+  acvp_validation:
+    runs-on: ubuntu-latest
+    # Is this an appropriate dotnet image?
+    container: mcr.microsoft.com/dotnet/runtime
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: ./pqc-certificates
+      - name: Checkout ACVP code
+        uses: actions/checkout@v4
+        with:
+          # I would rather clone the official repo usnistgov/ACVP-Server
+          # and then have any supporting code here in this pqc-certificates repo.
+          repository: josephlukefahr/ACVP-Server
+          path: ./ACVP-Server
+      - run: apt update && apt install zip unzip
+      - run: mkdir ./output
+      - run: /bin/bash ./pqc-certificates/providers/nist-acvts-test/setup_acvts_env.sh ./AVCP-Server
+      - run: /bin/bash ./pqc-certificates/src/test_certs_r3_with_acvp.sh ./pqc-certificates ./ACVP-Server
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_acvp_csv
+          path: ./output/
+
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
     needs: oqs_validation
+    needs: acvp_validation
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -56,6 +84,7 @@ jobs:
         uses:  actions/upload-pages-artifact@v3
         with:
           path: ./docs/gh-pages
+
   publish_to_gh_pages:
     needs: build_results_html
     if: github.ref == 'refs/heads/master'
