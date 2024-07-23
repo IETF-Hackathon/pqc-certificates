@@ -8,7 +8,7 @@ on:
 jobs:
   acvp_validation:
     runs-on: ubuntu-latest
-    # Is this the right dotnet image?
+    # Is this an appropriate dotnet image?
     container: mcr.microsoft.com/dotnet/runtime
     steps:
       - name: Checkout code
@@ -24,11 +24,12 @@ jobs:
           path: ./ACVP-Server
       - run: mkdir ./output
       - run: /bin/sh ./pqc-certificates/providers/nist-acvts-test/setup_acvts_env.sh ./AVCP-Server
-      - run: /bin/sh ./pqc-certificates/src/test_certs_r3_with_acvp.sh
+      - run: /bin/sh ./pqc-certificates/src/test_certs_r3_with_acvp.sh ./pqc-certificates ./ACVP-Server
 
-
+    ## TODO -- This output needs to contain all the <provider>_NIST-ACVP.csv files
+    ##         Plus any log files (ideally all in a single log file, if that's possible)
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Compatibility_acvp_csv
-          path: /output/
+          path: ./output/

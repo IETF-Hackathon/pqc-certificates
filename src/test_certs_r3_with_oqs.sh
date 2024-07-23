@@ -43,16 +43,16 @@ test_ta () {
     printf "\nTesting %s\n" $tafile >> $logfile
 
     # The actual openssl command that is the heart of this script
-    ossl_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
-    ossl_status=$?
+    test_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
+    test_status=$?
 
     # log it to file and to stdout
-    echo "$ossl_output" >> $logfile
-    echo "$ossl_output"
+    echo "$test_output" >> $logfile
+    echo "$test_output"
 
 
     # test for an error and print a link in the results CSV file
-    if [[ $ossl_status -ne 0 ]]; then
+    if [[ $test_status -ne 0 ]]; then
         echo "Certificate Validation Result: FAIL"
         echo $oid,N >> $resultsfile
     else
