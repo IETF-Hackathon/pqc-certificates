@@ -13,7 +13,7 @@ fi
 if [ -z "$2" ]; then
     acvpDir="./"
 else
-    acvpDir=$1
+    acvpDir=$2
 fi
 
 certszipr3="artifacts_certs_r3.zip"
