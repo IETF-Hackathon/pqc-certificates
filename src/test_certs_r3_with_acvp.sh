@@ -10,6 +10,9 @@ else
     pqcCertsDir=$1
 fi
 
+# move to the root of the pqc-certificates repo so that all of the find commands to find providers work properly.
+cd "$pqcCertsDir"
+
 if [ -z "$2" ]; then
     acvpDir="./"
 else
