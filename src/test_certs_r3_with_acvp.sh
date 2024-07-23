@@ -22,8 +22,8 @@ outputdir="./output/certs"
 logfile=$outputdir/nist-acvp.log
 
 acvpTestDir="$acvpDir/gen-val/src/crypto/test"
-dilithiumTestDir=$acvpTestDir"/NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests/"
-slhdsaTestDir=$acvpTestDir"/NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests/"
+dilithiumTestDir=$acvpTestDir"/NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests"
+slhdsaTestDir=$acvpTestDir"/NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests"
 
 
 # TODO -- move these to external files
