@@ -39,24 +39,22 @@ test_ta () {
 
     alreadyTestedOIDs=${alreadyTestedOIDs}$oid";"
 
-    printf "\nTesting %s\n" $tafile
-    printf "\nTesting %s\n" $tafile >> $logfile
+    printf "\nTesting %s\n" $tafile |tee -a $logfile
 
     # The actual openssl command that is the heart of this script
     test_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
     test_status=$?
 
     # log it to file and to stdout
-    echo "$test_output" >> $logfile
-    echo "$test_output"
+    echo "$test_output" |tee -a $logfile
 
 
     # test for an error and print a link in the results CSV file
     if [[ $test_status -ne 0 ]]; then
-        echo "Certificate Validation Result: FAIL"
+        echo "Certificate Validation Result: FAIL" |tee -a $logfile
         echo $oid,N >> $resultsfile
     else
-        echo "Certificate Validation Result: SUCCESS"
+        echo "Certificate Validation Result: SUCCESS" |tee -a $logfile
         echo $oid,Y >> $resultsfile
     fi
 }

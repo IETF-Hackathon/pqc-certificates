@@ -66,17 +66,17 @@ test_ta () {
 
     alreadyTestedOIDs=${alreadyTestedOIDs}$oid";"
 
-    printf "\nTesting %s\n" $tafile
+    printf "\nTesting %s\n" $tafile |tee -a $logfile
 
     # The actual test command that is the heart of this script
     if [[ $(expr match "$supportedMLDSA_OIDs_json" ".*\"$oid\".*") != 0 ]]; then
         # this is a supported ML-DSA
-        printf "\nTesting %s\n" $tafile >> $logfile
+        printf "\nTesting %s\n" $tafile |tee -a $logfile
         test_output=$(dotnet $dilithiumTestDir/test NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests.csproj $tafile 2>&1)
         test_status=$?
     elif [[ $(expr match "$supportedSLHDSA_OIDs_json" ".*\"$oid\".*") != 0 ]]; then
         # this is a supported SLH-DSA
-        printf "\nTesting %s\n" $tafile >> $logfile
+        printf "\nTesting %s\n" $tafile |tee -a $logfile
         test_output=$(dotnet $slhdsaTestDir/test NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests.csproj $tafile 2>&1)
         test_status=$?
     else
@@ -86,16 +86,15 @@ test_ta () {
     fi
 
     # log it to file and to stdout
-    echo "$test_output" >> $logfile
-    echo "$test_output"
+    echo "$test_output" |tee -a $logfile
 
 
     # test for an error and print a link in the results CSV file
     if [[ $test_status -ne 0 ]]; then
-        echo "Certificate Validation Result: FAIL"
+        echo "Certificate Validation Result: FAIL" |tee -a $logfile
         echo $oid,N >> $resultsfile
     else
-        echo "Certificate Validation Result: SUCCESS"
+        echo "Certificate Validation Result: SUCCESS" |tee -a $logfile
         echo $oid,Y >> $resultsfile
     fi
 }
