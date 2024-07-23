@@ -248,6 +248,7 @@ $ make verify
 
 To run the verify from a single provider, simply change the directory
 to the specific provider and run the same command:
+
 ```
 $ cd providers/<provider_name>
 $ make verify
