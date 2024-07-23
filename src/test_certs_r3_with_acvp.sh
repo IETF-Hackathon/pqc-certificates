@@ -29,12 +29,6 @@ supportedMLDSA_OIDs_json='{"1.3.6.1.4.1.2.267.12.4.4": "ML-DSA-44-ipd", "1.3.6.1
 
 supportedSLHDSA_OIDs_json='{"1.3.6.1.4.1.2.267.12.4.4": "ML-DSA-44-ipd", "1.3.6.1.4.1.2.267.12.6.5": "ML-DSA-65-ipd", "1.3.6.1.4.1.2.267.12.8.7": "ML-DSA-87-ipd", "1.3.9999.3.6": "Falcon-512", "1.3.9999.3.9": "Falcon-1024", "1.3.9999.6.4.16": "SLH-DSA-SHA2-128s-ipd", "1.3.9999.6.7.16": "SLH-DSA-SHAKE-128s-ipd", "1.3.9999.6.4.13": "SLH-DSA-SHA2-128f-ipd", "1.3.9999.6.7.13": "SLH-DSA-SHAKE-128f-ipd", "1.3.9999.6.5.12": "SLH-DSA-SHA2-192s-ipd", "1.3.9999.6.8.12": "SLH-DSA-SHAKE-192s-ipd", "1.3.9999.6.5.10": "SLH-DSA-SHA2-192f-ipd", "1.3.9999.6.8.10": "SLH-DSA-SHAKE-192f-ipd", "1.3.9999.6.6.12": "SLH-DSA-SHA2-256s-ipd", "1.3.9999.6.9.12": "SLH-DSA-SHAKE-256s-ipd", "1.3.9999.6.6.10": "SLH-DSA-SHA2-256f-ipd", "1.3.9999.6.9.10": "SLH-DSA-SHAKE-256f-ipd" }'
 
-# move to the root of the pqc-certificates repo so that all of the find commands to find providers work properly.
-cd "$pqcCertsDir"
-
-printf "DEBUG: pwd %s\n" "$(pwd)"
-printf "DEBUG: ls %s\n" "$(ls)"
-
 # Start the results CSV file
 mkdir -p $outputdir
 printf "Build time: %s\n\n" "$(date)" > $logfile
@@ -101,6 +95,9 @@ test_ta () {
         echo $oid,Y >> $resultsfile
     fi
 }
+
+
+# MAIN()
 
 # First, recurse into any provider dir
 for providerdir in $(ls -d $inputdir/*/); do

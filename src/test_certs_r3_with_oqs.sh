@@ -61,6 +61,8 @@ test_ta () {
     fi
 }
 
+# MAIN()
+
 # First, recurse into any provider dir
 for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
