@@ -25,8 +25,9 @@ acvpTestDir="$acvpDir/gen-val/src/crypto/test"
 dilithiumTestDir=$acvpTestDir"/NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests/"
 slhdsaTestDir=$acvpTestDir"/NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests/"
 
-supportedMLDSA_OIDs_json='{"1.3.6.1.4.1.2.267.12.4.4": "ML-DSA-44-ipd", "1.3.6.1.4.1.2.267.12.6.5": "ML-DSA-65-ipd", "1.3.6.1.4.1.2.267.12.8.7": "ML-DSA-87-ipd"}'
 
+# TODO -- move these to external files
+supportedMLDSA_OIDs_json='{"1.3.6.1.4.1.2.267.12.4.4": "ML-DSA-44-ipd", "1.3.6.1.4.1.2.267.12.6.5": "ML-DSA-65-ipd", "1.3.6.1.4.1.2.267.12.8.7": "ML-DSA-87-ipd"}'
 supportedSLHDSA_OIDs_json='{"1.3.6.1.4.1.2.267.12.4.4": "ML-DSA-44-ipd", "1.3.6.1.4.1.2.267.12.6.5": "ML-DSA-65-ipd", "1.3.6.1.4.1.2.267.12.8.7": "ML-DSA-87-ipd", "1.3.9999.3.6": "Falcon-512", "1.3.9999.3.9": "Falcon-1024", "1.3.9999.6.4.16": "SLH-DSA-SHA2-128s-ipd", "1.3.9999.6.7.16": "SLH-DSA-SHAKE-128s-ipd", "1.3.9999.6.4.13": "SLH-DSA-SHA2-128f-ipd", "1.3.9999.6.7.13": "SLH-DSA-SHAKE-128f-ipd", "1.3.9999.6.5.12": "SLH-DSA-SHA2-192s-ipd", "1.3.9999.6.8.12": "SLH-DSA-SHAKE-192s-ipd", "1.3.9999.6.5.10": "SLH-DSA-SHA2-192f-ipd", "1.3.9999.6.8.10": "SLH-DSA-SHAKE-192f-ipd", "1.3.9999.6.6.12": "SLH-DSA-SHA2-256s-ipd", "1.3.9999.6.9.12": "SLH-DSA-SHAKE-256s-ipd", "1.3.9999.6.6.10": "SLH-DSA-SHA2-256f-ipd", "1.3.9999.6.9.10": "SLH-DSA-SHAKE-256f-ipd" }'
 
 # Start the results CSV file
@@ -66,19 +67,19 @@ test_ta () {
     printf "\nTesting %s\n" $tafile
 
     # The actual test command that is the heart of this script
-    if [[ $(expr match supportedMLDSA_OIDs_json "\"$oid\"") != 0 ]]; then
+    if [[ $(expr match supportedMLDSA_OIDs_json ".*\"$oid\".*") != 0 ]]; then
         # this is a supported ML-DSA
         printf "\nTesting %s\n" $tafile >> $logfile
         test_output=$(dotnet $dilithiumTestDir/test NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests.csproj 2>&1)
         test_status=$?
-    elif [[ $(expr match supportedSLHDSA_OIDs_json "\"$oid\"") != 0 ]]; then
+    elif [[ $(expr match supportedSLHDSA_OIDs_json ".*\"$oid\".*") != 0 ]]; then
         # this is a supported SLH-DSA
         printf "\nTesting %s\n" $tafile >> $logfile
         test_output=$(dotnet $slhdsaTestDir/test NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests.csproj 2>&1)
         test_status=$?
     else
         # this is not supported
-        printf "\nAlgorithm %s is not supported by the NIST ACVP Tests. Skipping\n" $oid
+        printf "Algorithm %s is not supported by the NIST ACVP Tests. Skipping\n" $oid
         return
     fi
 
