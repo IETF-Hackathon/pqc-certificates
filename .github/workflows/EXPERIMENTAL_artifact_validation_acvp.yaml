@@ -22,6 +22,7 @@ jobs:
           # and then have any supporting code here in this pqc-certificates repo.
           repository: josephlukefahr/ACVP-Server
           path: ./ACVP-Server
+      - run: apt-get install zip unzip
       - run: mkdir ./output
       - run: /bin/sh ./pqc-certificates/providers/nist-acvts-test/setup_acvts_env.sh ./AVCP-Server
       - run: /bin/sh ./pqc-certificates/src/test_certs_r3_with_acvp.sh ./pqc-certificates ./ACVP-Server
