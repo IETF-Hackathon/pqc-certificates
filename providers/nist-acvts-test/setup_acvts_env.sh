@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -z "${$1}" ]; then
+if [ -z "$1" ]; then
     workingdir="./"
 else
     workingdir=$1
