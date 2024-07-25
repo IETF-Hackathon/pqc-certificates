@@ -24,10 +24,37 @@ jobs:
         with:
           name: Compatibility_oqs_csv
           path: ./output/
+
+  acvp_validation:
+    runs-on: ubuntu-latest
+    # Is this an appropriate dotnet image?
+    container: mcr.microsoft.com/dotnet/runtime
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: ./pqc-certificates
+      - name: Checkout ACVP code
+        uses: actions/checkout@v4
+        with:
+          # I would rather clone the official repo usnistgov/ACVP-Server
+          # and then have any supporting code here in this pqc-certificates repo.
+          repository: josephlukefahr/ACVP-Server
+          path: ./ACVP-Server
+      - run: apt update && apt install zip unzip
+      - run: mkdir ./output
+      - run: /bin/bash ./pqc-certificates/providers/nist-acvts-test/setup_acvts_env.sh ./AVCP-Server
+      - run: /bin/bash ./pqc-certificates/src/test_certs_r3_with_acvp.sh ./pqc-certificates ./ACVP-Server
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_acvp_csv
+          path: ./output/
+  
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
-    needs: oqs_validation
+    needs: [oqs_validation, acvp_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,21 +68,25 @@ jobs:
           python-version: '3.x'
       - name: Install python requirements
         run: python -m pip install -r src/requirements.txt
-      - name: Overwrite manually uploaded OQS results with automated results
+      - name: Get OQS results from previous job
         uses: actions/download-artifact@v4
         with: 
           name: Compatibility_oqs_csv
           path: output/
-      # - name: Overwrite manually-uploaded OQS results CSVs
-      #   run: cp ./output/certs/* ./providers/oqs-provider/compatMatrices/artifacts_certs_r3
+      - name: Get ACVP results from previous job
+        uses: actions/download-artifact@v4
+        with: 
+          name: Compatibility_acvp_csv
+          path: output/
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
-        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./output/certs/oqs_certs.log ./docs/gh-pages
+        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./output/certs/*.log ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download
         uses:  actions/upload-pages-artifact@v3
         with:
           path: ./docs/gh-pages
+
   publish_to_gh_pages:
     needs: build_results_html
     if: github.ref == 'refs/heads/master'
