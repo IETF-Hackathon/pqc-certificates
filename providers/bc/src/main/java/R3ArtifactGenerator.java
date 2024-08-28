@@ -72,23 +72,23 @@ public class R3ArtifactGenerator
 {
     private static final ASN1ObjectIdentifier[] sigAlgorithms =
         {
-            BCObjectIdentifiers.dilithium2,
-            BCObjectIdentifiers.dilithium3,
-            BCObjectIdentifiers.dilithium5,
-            BCObjectIdentifiers.sphincsPlus_sha2_128f,
-            BCObjectIdentifiers.sphincsPlus_sha2_128s,
-            BCObjectIdentifiers.sphincsPlus_sha2_192f,
-            BCObjectIdentifiers.sphincsPlus_sha2_192s,
-            BCObjectIdentifiers.sphincsPlus_sha2_256f,
-            BCObjectIdentifiers.sphincsPlus_sha2_256s,
-            BCObjectIdentifiers.sphincsPlus_shake_128f,
-            BCObjectIdentifiers.sphincsPlus_shake_128s,
-            BCObjectIdentifiers.sphincsPlus_shake_192f,
-            BCObjectIdentifiers.sphincsPlus_shake_192s,
-            BCObjectIdentifiers.sphincsPlus_shake_256f,
-            BCObjectIdentifiers.sphincsPlus_shake_256s,
+            NISTObjectIdentifiers.id_ml_dsa_44,
+            NISTObjectIdentifiers.id_ml_dsa_65,
+            NISTObjectIdentifiers.id_ml_dsa_87,
             BCObjectIdentifiers.falcon_512,
             BCObjectIdentifiers.falcon_1024,
+            NISTObjectIdentifiers.id_slh_dsa_sha2_128f,
+            NISTObjectIdentifiers.id_slh_dsa_sha2_128s,
+            NISTObjectIdentifiers.id_slh_dsa_sha2_192f,
+            NISTObjectIdentifiers.id_slh_dsa_sha2_192s,
+            NISTObjectIdentifiers.id_slh_dsa_sha2_256f,
+            NISTObjectIdentifiers.id_slh_dsa_sha2_256s,
+            NISTObjectIdentifiers.id_slh_dsa_shake_128f,
+            NISTObjectIdentifiers.id_slh_dsa_shake_128s,
+            NISTObjectIdentifiers.id_slh_dsa_shake_192f,
+            NISTObjectIdentifiers.id_slh_dsa_shake_192s,
+            NISTObjectIdentifiers.id_slh_dsa_shake_256f,
+            NISTObjectIdentifiers.id_slh_dsa_shake_256s,
             MiscObjectIdentifiers.id_MLDSA44_RSA2048_PSS_SHA256,
             MiscObjectIdentifiers.id_MLDSA44_RSA2048_PKCS15_SHA256,
             MiscObjectIdentifiers.id_MLDSA44_Ed25519_SHA512,
@@ -110,23 +110,23 @@ public class R3ArtifactGenerator
 
     private static final String[] sigAlgNames =
         {
-            "dilithium2",
-            "dilithium3",
-            "dilithium5",
-            "sphincs+-sha2-128f",
-            "sphincs+-sha2-128s",
-            "sphincs+-sha2-192f",
-            "sphincs+-sha2-192s",
-            "sphincs+-sha2-256f",
-            "sphincs+-sha2-256s",
-            "sphincs+-shake-128f",
-            "sphincs+-shake-128s",
-            "sphincs+-shake-192f",
-            "sphincs+-shake-192s",
-            "sphincs+-shake-256f",
-            "sphincs+-shake-256s",
+            "ml-dsa-44",
+            "ml-dsa-65",
+            "ml-dsa-87",
             "falcon-512",
             "falcon-1024",
+            "slh-dsa-sha2-128f",
+            "slh-dsa-sha2-128s",
+            "slh-dsa-sha2-192f",
+            "slh-dsa-sha2-192s",
+            "slh-dsa-sha2-256f",
+            "slh-dsa-sha2-256s",
+            "slh-dsa-shake-128f",
+            "slh-dsa-shake-128s",
+            "slh-dsa-shake-192f",
+            "slh-dsa-shake-192s",
+            "slh-dsa-shake-256f",
+            "slh-dsa-shake-256s",
             "MLDSA44-RSA2048-PSS-SHA256",
             "MLDSA44-RSA2048-PKCS15-SHA256",
             "MLDSA44-Ed25519-SHA512",
@@ -148,16 +148,16 @@ public class R3ArtifactGenerator
 
     private static final ASN1ObjectIdentifier[] kemAlgorithms =
         {
-            BCObjectIdentifiers.kyber512,
-            BCObjectIdentifiers.kyber768,
-            BCObjectIdentifiers.kyber1024
+            NISTObjectIdentifiers.id_alg_ml_kem_512,
+            NISTObjectIdentifiers.id_alg_ml_kem_768,
+            NISTObjectIdentifiers.id_alg_ml_kem_1024
         };
 
     private static final String[] kemAlgNames =
         {
-            "kyber512",
-            "kyber768",
-            "kyber1024"
+            "ML-KEM-512",
+            "ML-KEM-768",
+            "ML-KEM-1024"
         };
 
     private static final long BEFORE_DELTA = 60 * 1000L;
@@ -401,17 +401,17 @@ public class R3ArtifactGenerator
 
             kemParams.put(kemAlgNames[alg], new PKIXPair(eeKp.getPrivate(), eeCert));
         }
-	    PKIXPair pkixpair = createKEMEEcertificate("kyber512", BCObjectIdentifiers.kyber512, "dilithium2", BCObjectIdentifiers.dilithium2, sigParams);
-        kemParams.put("kyber512", pkixpair);
-        pkixpair = createKEMEEcertificate("kyber768", BCObjectIdentifiers.kyber768, "dilithium3", BCObjectIdentifiers.dilithium3, sigParams);
-        kemParams.put("kyber768", pkixpair);
-        pkixpair = createKEMEEcertificate("kyber1024", BCObjectIdentifiers.kyber1024, "dilithium5", BCObjectIdentifiers.dilithium5, sigParams);
-        kemParams.put("kyber1024", pkixpair);
-        pkixpair = createKEMEEcertificate("ntruhps2048677", BCObjectIdentifiers.ntruhps2048677, "dilithium2", BCObjectIdentifiers.dilithium2, sigParams);
+	    PKIXPair pkixpair = createKEMEEcertificate("ML-KEM-512", NISTObjectIdentifiers.id_alg_ml_kem_512, "ml-dsa-44", NISTObjectIdentifiers.id_ml_dsa_44, sigParams);
+        kemParams.put("ML-KEM-512", pkixpair);
+        pkixpair = createKEMEEcertificate("ML-KEM-768", NISTObjectIdentifiers.id_alg_ml_kem_768, "ml-dsa-65", NISTObjectIdentifiers.id_ml_dsa_65, sigParams);
+        kemParams.put("ML-KEM-768", pkixpair);
+        pkixpair = createKEMEEcertificate("ML-KEM-1024", NISTObjectIdentifiers.id_alg_ml_kem_1024, "ml-dsa-87", NISTObjectIdentifiers.id_ml_dsa_87, sigParams);
+        kemParams.put("ML-KEM-1024", pkixpair);
+        pkixpair = createKEMEEcertificate("ntruhps2048677", BCObjectIdentifiers.ntruhps2048677, "ml-dsa-44", NISTObjectIdentifiers.id_ml_dsa_44, sigParams);
         kemParams.put("ntruhps2048677", pkixpair);
-        pkixpair = createKEMEEcertificate("ntruhps4096821", BCObjectIdentifiers.ntruhps4096821, "dilithium3", BCObjectIdentifiers.dilithium3, sigParams);
+        pkixpair = createKEMEEcertificate("ntruhps4096821", BCObjectIdentifiers.ntruhps4096821, "ml-dsa-65", NISTObjectIdentifiers.id_ml_dsa_65, sigParams);
         kemParams.put("ntruhps4096821", pkixpair);
-        pkixpair = createKEMEEcertificate("ntruhrss701", BCObjectIdentifiers.ntruhrss701, "dilithium2", BCObjectIdentifiers.dilithium2, sigParams);
+        pkixpair = createKEMEEcertificate("ntruhrss701", BCObjectIdentifiers.ntruhrss701, "ml-dsa-44", NISTObjectIdentifiers.id_ml_dsa_44, sigParams);
         kemParams.put("ntruhrss701", pkixpair);
 																									 
 
@@ -430,47 +430,47 @@ public class R3ArtifactGenerator
         p521Kpg.initialize(new ECGenParameterSpec("P-521"));
         KeyPair p521Kp = p521Kpg.generateKeyPair();
 
-        X509Certificate hybridCert = createCatalystHybridTACertificate("SHA256withRSA", rsaKp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "catalyst_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createCatalystHybridTACertificate("SHA256withECDSA", p256Kp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "catalyst_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createCatalystHybridTACertificate("SHA512withECDSA", p521Kp, "Dilithium5", sigParams.get("dilithium5"));
-        pemOutput(aDir, "catalyst_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + BCObjectIdentifiers.dilithium5 + "_ta.pem", hybridCert);
+        X509Certificate hybridCert = createCatalystHybridTACertificate("SHA256withRSA", rsaKp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
+        pemOutput(aDir, "catalyst_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.pem", hybridCert);
+        hybridCert = createCatalystHybridTACertificate("SHA256withECDSA", p256Kp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
+        pemOutput(aDir, "catalyst_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.pem", hybridCert);
+        hybridCert = createCatalystHybridTACertificate("SHA512withECDSA", p521Kp, "ML-DSA-87", sigParams.get("ml-dsa-87"));
+        pemOutput(aDir, "catalyst_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_87 + "_ta.pem", hybridCert);
 
-        hybridCert = createCompositeHybridTACertificate("SHA256withRSA", rsaKp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "composite_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createCompositeHybridTACertificate("SHA256withECDSA", p256Kp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "composite_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createCompositeHybridTACertificate("SHA512withECDSA", p521Kp, "Dilithium5", sigParams.get("dilithium5"));
-        pemOutput(aDir, "composite_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + BCObjectIdentifiers.dilithium5 + "_ta.pem", hybridCert);
+        hybridCert = createCompositeHybridTACertificate("SHA256withRSA", rsaKp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
+        pemOutput(aDir, "composite_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.pem", hybridCert);
+        hybridCert = createCompositeHybridTACertificate("SHA256withECDSA", p256Kp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
+        pemOutput(aDir, "composite_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.pem", hybridCert);
+        hybridCert = createCompositeHybridTACertificate("SHA512withECDSA", p521Kp, "ML-DSA-87", sigParams.get("ml-dsa-87"));
+        pemOutput(aDir, "composite_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_87 + "_ta.pem", hybridCert);
 
-        hybridCert = createChameleonHybridTACertificate("SHA256withRSA", rsaKp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "chameleon_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createChameleonHybridTACertificate("SHA256withECDSA", p256Kp, "Dilithium2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "chameleon_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + BCObjectIdentifiers.dilithium2 + "_ta.pem", hybridCert);
-        hybridCert = createChameleonHybridTACertificate("SHA512withECDSA", p521Kp, "Dilithium5", sigParams.get("dilithium5"));
-        pemOutput(aDir, "chameleon_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + BCObjectIdentifiers.dilithium5 + "_ta.pem", hybridCert);
+        hybridCert = createChameleonHybridTACertificate("SHA256withRSA", rsaKp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
+        pemOutput(aDir, "chameleon_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.pem", hybridCert);
+        hybridCert = createChameleonHybridTACertificate("SHA256withECDSA", p256Kp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
+        pemOutput(aDir, "chameleon_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.pem", hybridCert);
+        hybridCert = createChameleonHybridTACertificate("SHA512withECDSA", p521Kp, "ML-DSA-87", sigParams.get("ml-dsa-87"));
+        pemOutput(aDir, "chameleon_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_87 + "_ta.pem", hybridCert);
 
         aDir = new File("artifacts_cms_r3");
 
         aDir.mkdir();
 
-        CMSSignedData s = getCmsSignedData("DILITHIUM2", sigParams.get("dilithium2"));
-        pemOutput(aDir, "signed_data_" + BCObjectIdentifiers.dilithium2 + ".pem", s.toASN1Structure());
-        s = getCmsSignedData("DILITHIUM3", sigParams.get("dilithium3"));
-        pemOutput(aDir, "signed_data_" + BCObjectIdentifiers.dilithium3 + ".pem", s.toASN1Structure());
-        s = getCmsSignedData("DILITHIUM5", sigParams.get("dilithium5"));
-        pemOutput(aDir, "signed_data_" + BCObjectIdentifiers.dilithium5 + ".pem", s.toASN1Structure());
+        CMSSignedData s = getCmsSignedData("ML-DSA-44", sigParams.get("ml-dsa-44"));
+        pemOutput(aDir, "signed_data_" + NISTObjectIdentifiers.id_ml_dsa_44 + ".pem", s.toASN1Structure());
+        s = getCmsSignedData("ML-DSA-65", sigParams.get("ml-dsa-65"));
+        pemOutput(aDir, "signed_data_" + NISTObjectIdentifiers.id_ml_dsa_65 + ".pem", s.toASN1Structure());
+        s = getCmsSignedData("ML-DSA-87", sigParams.get("ml-dsa-87"));
+        pemOutput(aDir, "signed_data_" + NISTObjectIdentifiers.id_ml_dsa_87 + ".pem", s.toASN1Structure());
 
-        CMSEnvelopedData ed = getCmsEnvelopedData(kemParams.get("kyber512"));
-        pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.kyber512 + ".pem", ed.toASN1Structure());
-        pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.kyber512 + ".pem", kemParams.get("kyber512").priv);
-        ed = getCmsEnvelopedData(kemParams.get("kyber768"));
-        pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.kyber768 + ".pem", ed.toASN1Structure());
-        pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.kyber768 + ".pem", kemParams.get("kyber768").priv);
-        ed = getCmsEnvelopedData(kemParams.get("kyber1024"));
-        pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.kyber1024 + ".pem", ed.toASN1Structure());
-        pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.kyber1024 + ".pem", kemParams.get("kyber1024").priv);
+        CMSEnvelopedData ed = getCmsEnvelopedData(kemParams.get("ML-KEM-512"));
+        pemOutput(aDir, "enveloped_data_" + NISTObjectIdentifiers.id_alg_ml_kem_512 + ".pem", ed.toASN1Structure());
+        pemOutput(aDir, "priv_key_" + NISTObjectIdentifiers.id_alg_ml_kem_512 + ".pem", kemParams.get("ML-KEM-512").priv);
+        ed = getCmsEnvelopedData(kemParams.get("ML-KEM-768"));
+        pemOutput(aDir, "enveloped_data_" + NISTObjectIdentifiers.id_alg_ml_kem_768 + ".pem", ed.toASN1Structure());
+        pemOutput(aDir, "priv_key_" + NISTObjectIdentifiers.id_alg_ml_kem_768 + ".pem", kemParams.get("ML-KEM-768").priv);
+        ed = getCmsEnvelopedData(kemParams.get("ML-KEM-1024"));
+        pemOutput(aDir, "enveloped_data_" + NISTObjectIdentifiers.id_alg_ml_kem_1024 + ".pem", ed.toASN1Structure());
+        pemOutput(aDir, "priv_key_" + NISTObjectIdentifiers.id_alg_ml_kem_1024 + ".pem", kemParams.get("ML-KEM-1024").priv);
 		ed = getCmsEnvelopedData(kemParams.get("ntruhps2048677"));
         pemOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.ntruhps2048677 + ".pem", ed.toASN1Structure());
         pemOutput(aDir, "priv_key_" + BCObjectIdentifiers.ntruhps2048677 + ".pem", kemParams.get("ntruhps2048677").priv);
