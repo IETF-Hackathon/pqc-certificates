@@ -24,6 +24,19 @@ jobs:
         with:
           name: Compatibility_oqs_csv
           path: ./output/
+  bc_validation:
+    runs-on: ubuntu-latest
+    container: bcdocker2000/bc_hackathon_pqc
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Test artifacts with BC
+        run: ./src/test_certs_r3_with_bc.sh
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_bc_csv
+          path: ./output/
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
