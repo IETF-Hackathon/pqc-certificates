@@ -4,7 +4,7 @@ certszipr3="artifacts_certs_r3.zip"
 cmszipr1="artifacts_cms_v1.zip"
 inputdir="./providers"
 outputdir="./output/certs"
-logfile=$outputdir/oqs_certs.log
+logfile=$outputdir/bc_certs.log
 
 # Start the results CSV file
 mkdir -p $outputdir
