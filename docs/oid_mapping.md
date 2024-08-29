@@ -112,17 +112,17 @@ The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-compos
 
 | Composite Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
-| MLKEM512-ECDH-P256-KMAC128  | 2.16.840.1.114027.80.5.2.1 |  draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM512-ECDH-brainpoolP256r1-KMAC128 | 2.16.840.1.114027.80.5.2.2 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM512-X25519-KMAC128 | 2.16.840.1.114027.80.5.2.3 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM512-RSA2048-KMAC128 | 2.16.840.1.114027.80.5.2.13 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM512-RSA3072-KMAC128 | 2.16.840.1.114027.80.5.2.4 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM768-ECDH-P256-KMAC256 | 2.16.840.1.114027.80.5.2.5 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM768-ECDH-brainpoolP256r1-KMAC256 | 2.16.840.1.114027.80.5.2.6 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM768-X25519-KMAC256 | 2.16.840.1.114027.80.5.2.7 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM1024-ECDH-P384-KMAC256 | 2.16.840.1.114027.80.5.2.8 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM1024-ECDH-brainpoolP384r1-KMAC256 | 2.16.840.1.114027.80.5.2.9 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM1024-X448-KMAC256 | 2.16.840.1.114027.80.5.2.10 | draft-ounsworth-pq-composite-sigs-13 |
+| MLKEM512ipd-ECDH-P256-KMAC128  | 2.16.840.1.114027.80.5.2.1 |  draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512ipd-ECDH-brainpoolP256r1-KMAC128 | 2.16.840.1.114027.80.5.2.2 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512ipd-X25519-KMAC128 | 2.16.840.1.114027.80.5.2.3 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512ipd-RSA2048-KMAC128 | 2.16.840.1.114027.80.5.2.13 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512ipd-RSA3072-KMAC128 | 2.16.840.1.114027.80.5.2.4 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM768ipd-ECDH-P256-KMAC256 | 2.16.840.1.114027.80.5.2.5 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM768ipd-ECDH-brainpoolP256r1-KMAC256 | 2.16.840.1.114027.80.5.2.6 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM768ipd-X25519-KMAC256 | 2.16.840.1.114027.80.5.2.7 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM1024ipd-ECDH-P384-KMAC256 | 2.16.840.1.114027.80.5.2.8 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM1024ipd-ECDH-brainpoolP384r1-KMAC256 | 2.16.840.1.114027.80.5.2.9 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM1024ipd-X448-KMAC256 | 2.16.840.1.114027.80.5.2.10 | draft-ounsworth-pq-composite-sigs-13 |
 
 # Experimental and Historical OIDs
 The following are historical or experimental OIDs used in this project.     
