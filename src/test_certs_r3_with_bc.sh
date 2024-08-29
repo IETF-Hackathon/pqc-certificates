@@ -36,7 +36,7 @@ test_ta () {
     fi
 
     # Because invoking the JRE is slow, only test OIDs that will appear in the final table
-    if [[ $(expr match "$oidsList" ".*\"$oid\".*") != 0 ]]; then
+    if [[ $(expr match "$oidsList" ".*\"$oid\".*") -eq 0 ]]; then
         printf "\nSkipping deprecated prototyping OID %s\n" $oid
         printf "\nSkipping deprecated prototyping OID %s\n" $oid >> $logfile
         return
