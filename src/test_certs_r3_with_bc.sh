@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 certszipr3="artifacts_certs_r3.zip"
 cmszipr1="artifacts_cms_v1.zip"
