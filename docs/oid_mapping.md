@@ -5,6 +5,33 @@ The following are is the OID mapping to be used for the PQ in X.509 Project
 Notes: 
 1. Asterisk "*" means experimental; ie likely to change after the hackathon.
 
+# FIPS 203, 204, and 205
+
+This section provides the official OIDs assigned by NIST for FIPS 203, 204, and 205.
+
+| Signature Algorithm Name | OID | Specification |
+| ML-DSA-44 | 2.16.840.1.101.3.4.3.17 | FIPS 204 |
+| ML-DSA-65 | 2.16.840.1.101.3.4.3.18 | FIPS 204 |
+| ML-DSA-87 | 2.16.840.1.101.3.4.3.19 | FIPS 204 |
+| slh-dsa-sha2-128s  | 2.16.840.1.101.3.4.3.20 | FIPS 205 |
+| slh-dsa-sha2-128f  | 2.16.840.1.101.3.4.3.21 | FIPS 205 |
+| slh-dsa-sha2-192s  | 2.16.840.1.101.3.4.3.22 | FIPS 205 |
+| slh-dsa-sha2-192f  | 2.16.840.1.101.3.4.3.23 | FIPS 205 |
+| slh-dsa-sha2-256s  | 2.16.840.1.101.3.4.3.24 | FIPS 205 |
+| slh-dsa-sha2-256f  | 2.16.840.1.101.3.4.3.25 | FIPS 205 |
+| slh-dsa-shake-128s | 2.16.840.1.101.3.4.3.26 | FIPS 205 |
+| slh-dsa-shake-128f | 2.16.840.1.101.3.4.3.27 | FIPS 205 |
+| slh-dsa-shake-192s | 2.16.840.1.101.3.4.3.28 | FIPS 205 |
+| slh-dsa-shake-192f | 2.16.840.1.101.3.4.3.29 | FIPS 205 |
+| slh-dsa-shake-256s | 2.16.840.1.101.3.4.3.30 | FIPS 205 |
+| slh-dsa-shake-256f | 2.16.840.1.101.3.4.3.31 | FIPS 205 |
+
+
+| KEM Algorithm Name | OID | Specification |
+| ML-KEM-512  | 2.16.840.1.101.3.4.4.1 | FIPS 203 |
+| ML-KEM-768  | 2.16.840.1.101.3.4.4.2 | FIPS 203 |
+| ML-KEM-1024 | 2.16.840.1.101.3.4.4.3 | FIPS 203 |
+
 ## NIST Draft Standard Algorithm OIDs
 
 This section provides the individual OIDs for the NIST draft standard OIDs
