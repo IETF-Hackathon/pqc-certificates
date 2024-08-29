@@ -28,12 +28,14 @@ test_ta () {
         oid=${tafileBasename%_ta.der.pem}
     else  # It's some other filename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename
+        printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename >> $logfile
         return
     fi
 
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
     if [[ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]]; then
-        printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid 
+        printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid
+        printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid >> $logfile
         return
     fi
 
