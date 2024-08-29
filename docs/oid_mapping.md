@@ -7,7 +7,8 @@ Notes:
 
 # FIPS 203, 204, and 205
 
-This section provides the official OIDs assigned by NIST for FIPS 203, 204, and 205.
+This section provides the official OIDs assigned by NIST for FIPS 203, 204, and 205 as per:
+https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration
 
 | Signature Algorithm Name | OID | Specification |
 | ML-DSA-44 | 2.16.840.1.101.3.4.3.17 | FIPS 204 |
