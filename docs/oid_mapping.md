@@ -14,18 +14,18 @@ https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-regi
 | ML-DSA-44 | 2.16.840.1.101.3.4.3.17 | FIPS 204 |
 | ML-DSA-65 | 2.16.840.1.101.3.4.3.18 | FIPS 204 |
 | ML-DSA-87 | 2.16.840.1.101.3.4.3.19 | FIPS 204 |
-| slh-dsa-sha2-128s  | 2.16.840.1.101.3.4.3.20 | FIPS 205 |
-| slh-dsa-sha2-128f  | 2.16.840.1.101.3.4.3.21 | FIPS 205 |
-| slh-dsa-sha2-192s  | 2.16.840.1.101.3.4.3.22 | FIPS 205 |
-| slh-dsa-sha2-192f  | 2.16.840.1.101.3.4.3.23 | FIPS 205 |
-| slh-dsa-sha2-256s  | 2.16.840.1.101.3.4.3.24 | FIPS 205 |
-| slh-dsa-sha2-256f  | 2.16.840.1.101.3.4.3.25 | FIPS 205 |
-| slh-dsa-shake-128s | 2.16.840.1.101.3.4.3.26 | FIPS 205 |
-| slh-dsa-shake-128f | 2.16.840.1.101.3.4.3.27 | FIPS 205 |
-| slh-dsa-shake-192s | 2.16.840.1.101.3.4.3.28 | FIPS 205 |
-| slh-dsa-shake-192f | 2.16.840.1.101.3.4.3.29 | FIPS 205 |
-| slh-dsa-shake-256s | 2.16.840.1.101.3.4.3.30 | FIPS 205 |
-| slh-dsa-shake-256f | 2.16.840.1.101.3.4.3.31 | FIPS 205 |
+| SLH-DSA-SHA2-128s  | 2.16.840.1.101.3.4.3.20 | FIPS 205 |
+| SLH-DSA-SHA2-128f  | 2.16.840.1.101.3.4.3.21 | FIPS 205 |
+| SLH-DSA-SHA2-192s  | 2.16.840.1.101.3.4.3.22 | FIPS 205 |
+| SLH-DSA-SHA2-192f  | 2.16.840.1.101.3.4.3.23 | FIPS 205 |
+| SLH-DSA-SHA2-256s  | 2.16.840.1.101.3.4.3.24 | FIPS 205 |
+| SLH-DSA-SHA2-256f  | 2.16.840.1.101.3.4.3.25 | FIPS 205 |
+| SLH-DSA-SHAKE-128s | 2.16.840.1.101.3.4.3.26 | FIPS 205 |
+| SLH-DSA-SHAKE-128f | 2.16.840.1.101.3.4.3.27 | FIPS 205 |
+| SLH-DSA-SHAKE-192s | 2.16.840.1.101.3.4.3.28 | FIPS 205 |
+| SLH-DSA-SHAKE-192f | 2.16.840.1.101.3.4.3.29 | FIPS 205 |
+| SLH-DSA-SHAKE-256s | 2.16.840.1.101.3.4.3.30 | FIPS 205 |
+| SLH-DSA-SHAKE-256f | 2.16.840.1.101.3.4.3.31 | FIPS 205 |
 
 
 | KEM Algorithm Name | OID | Specification |
