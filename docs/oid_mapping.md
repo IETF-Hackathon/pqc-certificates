@@ -11,6 +11,7 @@ This section provides the official OIDs assigned by NIST for FIPS 203, 204, and 
 https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration
 
 | Signature Algorithm Name | OID | Specification |
+| ------------------------ | --- | ------------- |
 | ML-DSA-44 | 2.16.840.1.101.3.4.3.17 | FIPS 204 |
 | ML-DSA-65 | 2.16.840.1.101.3.4.3.18 | FIPS 204 |
 | ML-DSA-87 | 2.16.840.1.101.3.4.3.19 | FIPS 204 |
@@ -29,6 +30,7 @@ https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-regi
 
 
 | KEM Algorithm Name | OID | Specification |
+| -----------------  | --- | ------------- |
 | ML-KEM-512  | 2.16.840.1.101.3.4.4.1 | FIPS 203 |
 | ML-KEM-768  | 2.16.840.1.101.3.4.4.2 | FIPS 203 |
 | ML-KEM-1024 | 2.16.840.1.101.3.4.4.3 | FIPS 203 |
