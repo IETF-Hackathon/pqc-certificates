@@ -5,6 +5,9 @@ cmszipr1="artifacts_cms_v1.zip"
 inputdir="./providers"
 outputdir="./output/certs"
 logfile=$outputdir/bc_certs.log
+oidListFile=./docs/oids.json
+oidsList=$(cat $oidListFile)
+
 
 # Start the results CSV file
 mkdir -p $outputdir
@@ -28,6 +31,12 @@ test_ta () {
         oid=${tafileBasename%_ta.der.pem}
     else  # It's some other filename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename
+        return
+    fi
+
+    # Because invoking the JRE is slow, only test OIDs that will appear in the final table
+    if [[ $(expr match "$oidsList" ".*\"$oid\".*") != 0 ]]; then
+        printf "\nSkipping deprecated prototyping OID %s\n" $oid
         return
     fi
 
