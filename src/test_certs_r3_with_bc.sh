@@ -43,7 +43,7 @@ test_ta () {
     printf "\nTesting %s\n" $tafile >> $logfile
 
     # The actual openssl command that is the heart of this script
-    ossl_output=$(verify_r3.sh $tafile 2>&1)
+    ossl_output=$(verify_r3.sh $(pwd)/$tafile 2>&1)
     ossl_status=$?
 
     # log it to file and to stdout
