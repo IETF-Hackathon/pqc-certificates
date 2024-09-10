@@ -24,10 +24,23 @@ jobs:
         with:
           name: Compatibility_oqs_csv
           path: ./output/
+  bc_validation:
+    runs-on: ubuntu-latest
+    container: bcdocker2000/bc_hackathon_pqc
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Test artifacts with BC
+        run: ./src/test_certs_r3_with_bc.sh
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_bc_csv
+          path: ./output/
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
-    needs: oqs_validation
+    needs: [oqs_validation, bc_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,17 +54,20 @@ jobs:
           python-version: '3.x'
       - name: Install python requirements
         run: python -m pip install -r src/requirements.txt
-      - name: Overwrite manually uploaded OQS results with automated results
+      - name: Get OQS results from previous job
         uses: actions/download-artifact@v4
         with: 
           name: Compatibility_oqs_csv
           path: output/
-      # - name: Overwrite manually-uploaded OQS results CSVs
-      #   run: cp ./output/certs/* ./providers/oqs-provider/compatMatrices/artifacts_certs_r3
+      - name: Get BC results from previous job
+        uses: actions/download-artifact@v4
+        with: 
+          name: Compatibility_bc_csv
+          path: output/
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
-        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./output/certs/oqs_certs.log ./docs/gh-pages
+        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./output/certs/oqs_certs.log ./output/certs/bc_certs.log ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download
         uses:  actions/upload-pages-artifact@v3
         with:

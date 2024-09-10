@@ -5,6 +5,36 @@ The following are is the OID mapping to be used for the PQ in X.509 Project
 Notes: 
 1. Asterisk "*" means experimental; ie likely to change after the hackathon.
 
+# FIPS 203, 204, and 205
+
+This section provides the official OIDs assigned by NIST for FIPS 203, 204, and 205 as per:
+https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration
+
+| Signature Algorithm Name | OID | Specification |
+| ------------------------ | --- | ------------- |
+| ML-DSA-44 | 2.16.840.1.101.3.4.3.17 | FIPS 204 |
+| ML-DSA-65 | 2.16.840.1.101.3.4.3.18 | FIPS 204 |
+| ML-DSA-87 | 2.16.840.1.101.3.4.3.19 | FIPS 204 |
+| SLH-DSA-SHA2-128s  | 2.16.840.1.101.3.4.3.20 | FIPS 205 |
+| SLH-DSA-SHA2-128f  | 2.16.840.1.101.3.4.3.21 | FIPS 205 |
+| SLH-DSA-SHA2-192s  | 2.16.840.1.101.3.4.3.22 | FIPS 205 |
+| SLH-DSA-SHA2-192f  | 2.16.840.1.101.3.4.3.23 | FIPS 205 |
+| SLH-DSA-SHA2-256s  | 2.16.840.1.101.3.4.3.24 | FIPS 205 |
+| SLH-DSA-SHA2-256f  | 2.16.840.1.101.3.4.3.25 | FIPS 205 |
+| SLH-DSA-SHAKE-128s | 2.16.840.1.101.3.4.3.26 | FIPS 205 |
+| SLH-DSA-SHAKE-128f | 2.16.840.1.101.3.4.3.27 | FIPS 205 |
+| SLH-DSA-SHAKE-192s | 2.16.840.1.101.3.4.3.28 | FIPS 205 |
+| SLH-DSA-SHAKE-192f | 2.16.840.1.101.3.4.3.29 | FIPS 205 |
+| SLH-DSA-SHAKE-256s | 2.16.840.1.101.3.4.3.30 | FIPS 205 |
+| SLH-DSA-SHAKE-256f | 2.16.840.1.101.3.4.3.31 | FIPS 205 |
+
+
+| KEM Algorithm Name | OID | Specification |
+| -----------------  | --- | ------------- |
+| ML-KEM-512  | 2.16.840.1.101.3.4.4.1 | FIPS 203 |
+| ML-KEM-768  | 2.16.840.1.101.3.4.4.2 | FIPS 203 |
+| ML-KEM-1024 | 2.16.840.1.101.3.4.4.3 | FIPS 203 |
+
 ## NIST Draft Standard Algorithm OIDs
 
 This section provides the individual OIDs for the NIST draft standard OIDs
@@ -82,17 +112,17 @@ The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-compos
 
 | Composite Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
-| MLKEM512-ECDH-P256-KMAC128  | 2.16.840.1.114027.80.5.2.1 |  draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM512-ECDH-brainpoolP256r1-KMAC128 | 2.16.840.1.114027.80.5.2.2 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM512-X25519-KMAC128 | 2.16.840.1.114027.80.5.2.3 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM512-RSA2048-KMAC128 | 2.16.840.1.114027.80.5.2.13 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM512-RSA3072-KMAC128 | 2.16.840.1.114027.80.5.2.4 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM768-ECDH-P256-KMAC256 | 2.16.840.1.114027.80.5.2.5 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM768-ECDH-brainpoolP256r1-KMAC256 | 2.16.840.1.114027.80.5.2.6 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM768-X25519-KMAC256 | 2.16.840.1.114027.80.5.2.7 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM1024-ECDH-P384-KMAC256 | 2.16.840.1.114027.80.5.2.8 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM1024-ECDH-brainpoolP384r1-KMAC256 | 2.16.840.1.114027.80.5.2.9 | draft-ietf-lamps-pq-composite-kem-03 |
-| MLKEM1024-X448-KMAC256 | 2.16.840.1.114027.80.5.2.10 | draft-ounsworth-pq-composite-sigs-13 |
+| MLKEM512ipd-ECDH-P256-KMAC128  | 2.16.840.1.114027.80.5.2.1 |  draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512ipd-ECDH-brainpoolP256r1-KMAC128 | 2.16.840.1.114027.80.5.2.2 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512ipd-X25519-KMAC128 | 2.16.840.1.114027.80.5.2.3 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512ipd-RSA2048-KMAC128 | 2.16.840.1.114027.80.5.2.13 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM512ipd-RSA3072-KMAC128 | 2.16.840.1.114027.80.5.2.4 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM768ipd-ECDH-P256-KMAC256 | 2.16.840.1.114027.80.5.2.5 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM768ipd-ECDH-brainpoolP256r1-KMAC256 | 2.16.840.1.114027.80.5.2.6 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM768ipd-X25519-KMAC256 | 2.16.840.1.114027.80.5.2.7 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM1024ipd-ECDH-P384-KMAC256 | 2.16.840.1.114027.80.5.2.8 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM1024ipd-ECDH-brainpoolP384r1-KMAC256 | 2.16.840.1.114027.80.5.2.9 | draft-ietf-lamps-pq-composite-kem-03 |
+| MLKEM1024ipd-X448-KMAC256 | 2.16.840.1.114027.80.5.2.10 | draft-ounsworth-pq-composite-sigs-13 |
 
 # Experimental and Historical OIDs
 The following are historical or experimental OIDs used in this project.     

@@ -1,10 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
 certszipr3="artifacts_certs_r3.zip"
 cmszipr1="artifacts_cms_v1.zip"
 inputdir="./providers"
 outputdir="./output/certs"
-logfile=$outputdir/oqs_certs.log
+logfile=$outputdir/bc_certs.log
+oidListFile=./docs/oids.json
+oidsList=$(cat $oidListFile)
+
 
 # Start the results CSV file
 mkdir -p $outputdir
@@ -32,6 +35,13 @@ test_ta () {
         return
     fi
 
+    # Because invoking the JRE is slow, only test OIDs that will appear in the final table
+    if [[ $(expr match "$oidsList" ".*\"$oid\".*") -eq 0 ]]; then
+        printf "\nSkipping deprecated prototyping OID %s\n" $oid
+        printf "\nSkipping deprecated prototyping OID %s\n" $oid >> $logfile
+        return
+    fi
+
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
     if [[ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]]; then
         printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid
@@ -45,7 +55,7 @@ test_ta () {
     printf "\nTesting %s\n" $tafile >> $logfile
 
     # The actual openssl command that is the heart of this script
-    ossl_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
+    ossl_output=$(verify_r3.sh $(pwd)/$tafile 2>&1)
     ossl_status=$?
 
     # log it to file and to stdout
@@ -73,7 +83,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     printf "Unziping %s to %s\n" $zip $unzipdir
     unzip -o $zip -d $unzipdir
 
-    resultsfile=${outputdir}/${provider}_oqs-provider.csv
+    resultsfile=${outputdir}/${provider}_bc.csv
     echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
 
     alreadyTestedOIDs=";"  # for a guard to skip testing the same cert multiple times
@@ -82,4 +92,3 @@ for providerdir in $(ls -d $inputdir/*/); do
         test_ta "$tafile" "$resultsfile"
     done
 done
-
