@@ -92,7 +92,28 @@ Where:
     generated via the implementation. See the `Zip format` section
     for more information about its structure.
 
-## Zip Format (R3)
+
+## Zip Format (R4)
+
+### Certificates - artifacts_certs_r4.zip
+
+Starting with artifacts for the NIST standards released 2024-08-13, we will use a much simpler artifact format:
+
+* Only produce a self-signed certificate (TAs). 
+* Only Use DER Encoding format (so that PEM encoding doesn't cause issues).
+* Use a flat folder structure with filenames <friendlyname>-<oid>_ta.der
+* For ML-KEM, use the the ML-DSA TA of the equivalent security level to sign a <ML-KEM_oid>_ee.der
+* For hybrid certificate formats, name the file `<hybrid_format>_<oid1>_with_<oid2>_ta.der`
+
+Within `providers/<provider_name>/[implementation_name/]`
+- artifacts_certs_r4.zip
+  - `<friendlyname>-<oid>_ta.der`  # self-signed cert for signature alg oids
+  - `<friendlyname>-<oid>_ee.der`  # ex.: ML-KEM-512  - signed with ML-DSA-44
+  - `<hybrid_format>_<oid1>_with_<oid2>_ta.der`  # ex.: catalyst_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4_ta.der
+
+The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
+
+## Zip Format (R3) - Deprecated, will be removed at Hackathon in November 2024
 
 ### Certificates - artifacts_certs_r3.zip
 
@@ -113,7 +134,7 @@ Within `providers/<provider_name>/[implementation_name/]`
 
 The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
 
-### CMS -- artifacts_cms_v1.zip
+## CMS -- artifacts_cms_v1.zip
 
 This is version 1 of the CMS artifacts format.  It may change if needs change.
 
@@ -167,7 +188,7 @@ Each RFC will specify mandatory KDFs, and probably allow for others as well. You
 
 CMP artifacts should be placed into a `artifacts_cmp.zip` within `providers/<provider_name>/[implementation_name/]`. We will specify the exact file format when we start to see more robust artifacts submitted.
 
-## Old Zip Format (R2)
+## Old Zip Format (R2) - Deprecated and will be removed at Hackathon in November 2024
 
 OLD -- IF YOU ARE SUBMITTING ARTIFACTS AGAINST THE NIST DRAFT SPECS AS OF 2023-08-24, THEN PLEASE USE THE R3 FORMAT ABOVE.
 
