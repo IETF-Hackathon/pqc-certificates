@@ -75,6 +75,9 @@ public class R3ArtifactGenerator
             NISTObjectIdentifiers.id_ml_dsa_44,
             NISTObjectIdentifiers.id_ml_dsa_65,
             NISTObjectIdentifiers.id_ml_dsa_87,
+            NISTObjectIdentifiers.id_hash_ml_dsa_44_with_sha512,
+            NISTObjectIdentifiers.id_hash_ml_dsa_65_with_sha512,
+            NISTObjectIdentifiers.id_hash_ml_dsa_87_with_sha512,
             BCObjectIdentifiers.falcon_512,
             BCObjectIdentifiers.falcon_1024,
             NISTObjectIdentifiers.id_slh_dsa_sha2_128f,
@@ -89,6 +92,18 @@ public class R3ArtifactGenerator
             NISTObjectIdentifiers.id_slh_dsa_shake_192s,
             NISTObjectIdentifiers.id_slh_dsa_shake_256f,
             NISTObjectIdentifiers.id_slh_dsa_shake_256s,
+            NISTObjectIdentifiers.id_hash_slh_dsa_sha2_128f_with_sha256,
+            NISTObjectIdentifiers.id_hash_slh_dsa_sha2_128s_with_sha256,
+            NISTObjectIdentifiers.id_hash_slh_dsa_sha2_192f_with_sha512,
+            NISTObjectIdentifiers.id_hash_slh_dsa_sha2_192s_with_sha512,
+            NISTObjectIdentifiers.id_hash_slh_dsa_sha2_256f_with_sha512,
+            NISTObjectIdentifiers.id_hash_slh_dsa_sha2_256s_with_sha512,
+            NISTObjectIdentifiers.id_hash_slh_dsa_shake_128f_with_shake128,
+            NISTObjectIdentifiers.id_hash_slh_dsa_shake_128s_with_shake128,
+            NISTObjectIdentifiers.id_hash_slh_dsa_shake_192f_with_shake256,
+            NISTObjectIdentifiers.id_hash_slh_dsa_shake_192s_with_shake256,
+            NISTObjectIdentifiers.id_hash_slh_dsa_shake_256f_with_shake256,
+            NISTObjectIdentifiers.id_hash_slh_dsa_shake_256s_with_shake256,
             MiscObjectIdentifiers.id_MLDSA44_RSA2048_PSS_SHA256,
             MiscObjectIdentifiers.id_MLDSA44_RSA2048_PKCS15_SHA256,
             MiscObjectIdentifiers.id_MLDSA44_Ed25519_SHA512,
@@ -113,6 +128,9 @@ public class R3ArtifactGenerator
             "ml-dsa-44",
             "ml-dsa-65",
             "ml-dsa-87",
+            "ml-dsa-44-with-sha512",
+            "ml-dsa-65-with-sha512",
+            "ml-dsa-87-with-sha512",
             "falcon-512",
             "falcon-1024",
             "slh-dsa-sha2-128f",
@@ -127,6 +145,18 @@ public class R3ArtifactGenerator
             "slh-dsa-shake-192s",
             "slh-dsa-shake-256f",
             "slh-dsa-shake-256s",
+            "slh-dsa-sha2-128f-with-sha256",
+            "slh-dsa-sha2-128s-with-sha256",
+            "slh-dsa-sha2-192f-with-sha512",
+            "slh-dsa-sha2-192s-with-sha512",
+            "slh-dsa-sha2-256f-with-sha512",
+            "slh-dsa-sha2-256s-with-sha512",
+            "slh-dsa-shake-128f-with-shake128",
+            "slh-dsa-shake-128s-with-shake128",
+            "slh-dsa-shake-192f-with-shake256",
+            "slh-dsa-shake-192s-with-shake256",
+            "slh-dsa-shake-256f-with-shake256",
+            "slh-dsa-shake-256s-with-shake256",
             "MLDSA44-RSA2048-PSS-SHA256",
             "MLDSA44-RSA2048-PKCS15-SHA256",
             "MLDSA44-Ed25519-SHA512",
@@ -375,7 +405,7 @@ public class R3ArtifactGenerator
             KeyPairGenerator kpGen = KeyPairGenerator.getInstance(sigAlgorithms[alg].getId());
 
             KeyPair taKp = kpGen.generateKeyPair();
-
+                    
             X509Certificate taCert = createTACertificate(sigAlgNames[alg], taKp);
 
             //derOutput(aDir, sigAlgorithms[alg] + "_ta.der", taCert);
