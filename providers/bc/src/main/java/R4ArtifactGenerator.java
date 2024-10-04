@@ -415,7 +415,7 @@ public class R4ArtifactGenerator
         KeyPair eeKp = kpGen.generateKeyPair();
         X509Certificate eeCert = createEECertificate(sigAlgName, taPair, kemAlgName, eeKp);
 
-        derOutput(aDir, kemAlgName + "_" + kemAlg + "_ee.der", eeCert);
+        derOutput(aDir, kemAlgName + "-" + kemAlg + "_ee.der", eeCert);
 //        pemOutput(aDir, kemAlg + "_ee.pem", eeCert);
 
         return new PKIXPair(eeKp.getPrivate(), eeCert);
@@ -441,8 +441,8 @@ public class R4ArtifactGenerator
         KeyPair eeKp = kpGen.generateKeyPair();
         X509Certificate eeCert = createEECertificate(sigAlgName, taPair, kemAlgName, eeKp);
 
-        derOutput(aDir, "external_" + kemAlgName + "_" + kemAlg + "_ee.der", eeCert);
-        derOutput(aDir, "external_" + kemAlgName + "_" + kemAlg + "_public.der", eeKp.getPublic());
+        derOutput(aDir, "external_" + kemAlgName + "-" + kemAlg + "_ee.der", eeCert);
+        derOutput(aDir, "external_" + kemAlgName + "-" + kemAlg + "_public.der", eeKp.getPublic());
 //        pemOutput(aDir, kemAlg + "_ee.pem", eeCert);
 
         return new PKIXPair(eeKp.getPrivate(), eeCert);
@@ -470,7 +470,7 @@ public class R4ArtifactGenerator
 
             X509Certificate taCert = createTACertificate(sigAlgNames[alg], taKp);
 
-            derOutput(aDir, sigAlgNames[alg] + "_" + sigAlgorithms[alg] + "_ta.der", taCert);
+            derOutput(aDir, sigAlgNames[alg] + "-" + sigAlgorithms[alg] + "_ta.der", taCert);
 //            pemOutput(aDir, sigAlgorithms[alg] + "_ta.pem", taCert);
 
             sigParams.put(sigAlgNames[alg], new PKIXPair(taKp.getPrivate(), taCert));
@@ -489,7 +489,7 @@ public class R4ArtifactGenerator
 
             X509Certificate eeCert = createEECertificate(sigAlgNames[alg], taPair, kemAlgNames[alg], eeKp);
 
-            derOutput(aDir, kemAlgNames[alg] + "_" + kemAlgorithms[alg] + "_ee.der", eeCert);
+            derOutput(aDir, kemAlgNames[alg] + "-" + kemAlgorithms[alg] + "_ee.der", eeCert);
             //pemOutput(aDir, kemAlgorithms[alg] + "_ee.pem", eeCert);
 
             kemParams.put(kemAlgNames[alg], new PKIXPair(eeKp.getPrivate(), eeCert));
