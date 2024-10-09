@@ -7,9 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
+import java.security.PublicKey;
 import java.security.Security;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -42,7 +45,7 @@ import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
 import org.bouncycastle.util.io.Streams;
 import org.bouncycastle.util.io.pem.PemReader;
 
-public class R3ArtifactParser
+public class R4ArtifactParser
 {
     private static Map<String, Map<String, ZipEntry>> algEntries = new HashMap<>();
     private static Map<String, Map<String, File>> fileAlgEntries = new HashMap<>();
@@ -159,7 +162,7 @@ public class R3ArtifactParser
             return true;
         }
         catch (Exception e)
-        {          e.printStackTrace();
+        {
             return false;
         }
     }
@@ -171,6 +174,7 @@ public class R3ArtifactParser
 
         CertificateFactory certFact = CertificateFactory.getInstance("X.509", "BC");
         Map<String, X509Certificate> certificates = new TreeMap<>();
+        Map<String, PublicKey> publicKeys = new TreeMap<>();
         Set<String> ignored = new HashSet<>();
 
         for (Enumeration<? extends ZipEntry> en = zipFile.entries(); en.hasMoreElements(); )
@@ -197,15 +201,35 @@ public class R3ArtifactParser
             {
                 byte[] derData = Streams.readAll(zipFile.getInputStream(entry));
 
-                X509Certificate cert = null;
-                try
+                if (zipName.endsWith("public.der"))
                 {
-                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(derData));
-                    certificates.put(zipName, cert);
+                    PublicKey publicKey = null;
+                    try
+                    {
+                        SubjectPublicKeyInfo pubInfo = SubjectPublicKeyInfo.getInstance(derData);
+
+                        KeyFactory keyFact = KeyFactory.getInstance(pubInfo.getAlgorithm().getAlgorithm().getId());
+
+                        publicKey = (PublicKey)keyFact.generatePublic(new X509EncodedKeySpec(derData));
+                        publicKeys.put(zipName, publicKey);
+                    }
+                    catch (Exception e)
+                    {
+                        ignored.add(zipName);
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    ignored.add(zipName);
+                    X509Certificate cert = null;
+                    try
+                    {
+                        cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(derData));
+                        certificates.put(zipName, cert);
+                    }
+                    catch (Exception e)
+                    {
+                        ignored.add(zipName);
+                    }
                 }
             }
             else
@@ -226,6 +250,7 @@ public class R3ArtifactParser
     {
         CertificateFactory certFact = CertificateFactory.getInstance("X.509", "BC");
         Map<String, X509Certificate> certificates = new TreeMap<>();
+        Map<String, PublicKey> publicKeys = new TreeMap<>();
         Set<String> ignored = new HashSet<>();
 
         File artDir = new File(dirName);
@@ -256,16 +281,37 @@ public class R3ArtifactParser
             }
             else if (fileName.endsWith(".der"))
             {
-                X509Certificate cert = null;
-                try
+                if (fileName.endsWith("public.der"))
                 {
-                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(Streams.readAll(new FileInputStream(f))));
+                    PublicKey publicKey = null;
+                    try
+                    {
+                        byte[] derData = Streams.readAll(new FileInputStream(f));
+                        SubjectPublicKeyInfo pubInfo = SubjectPublicKeyInfo.getInstance(derData);
 
-                    certificates.put(fileName, cert);
+                        KeyFactory keyFact = KeyFactory.getInstance(pubInfo.getAlgorithm().getAlgorithm().getId());
+
+                        publicKey = (PublicKey)keyFact.generatePublic(new X509EncodedKeySpec(derData));
+                        publicKeys.put(fileName, publicKey);
+                    }
+                    catch (Exception e)
+                    {
+                        ignored.add(fileName);
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    ignored.add(fileName);
+                    X509Certificate cert = null;
+                    try
+                    {
+                        cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(Streams.readAll(new FileInputStream(f))));
+
+                        certificates.put(fileName, cert);
+                    }
+                    catch (Exception e)
+                    {
+                        ignored.add(fileName);
+                    }
                 }
             }
             else
