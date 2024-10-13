@@ -41,13 +41,13 @@ jobs:
           ref: jwl/versions-in-some-packages
           path: /opt/ACVP-Server
       - run: apt update && apt install zip unzip
-      - run: mkdir ./output
+      - run: mkdir /opt/output
       - run: /bin/bash /opt/pqc-certificates/src/test_certs_r3_with_acvts.sh /opt/pqc-certificates
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Compatibility_acvts_csv
-          path: ./output/
+          path: /opt/output/
   
   build_results_html:
     runs-on: ubuntu-latest
