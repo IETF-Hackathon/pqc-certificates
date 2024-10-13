@@ -47,7 +47,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Compatibility_acvts_csv
-          path: /opt/output/
           path: ./pqc-certificates
       - name: Checkout ACVP code
         uses: actions/checkout@v4
