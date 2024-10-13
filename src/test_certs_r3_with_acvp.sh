@@ -1,16 +1,43 @@
-#!/bin/sh
+#!/bin/bash
+
+# params:
+# $1 - PQC Certs dir (the root of the pqc-certificates repo)
+# $2 - ACVP-Server dir (the root of the ACVP-Server repo)
+
+if [ -z "$1" ]; then
+    pqcCertsDir="./"
+else
+    pqcCertsDir=$1
+fi
+
+if [ -z "$2" ]; then
+    acvpDir="./"
+else
+    acvpDir=$2
+fi
 
 certszipr3="artifacts_certs_r3.zip"
-cmszipr1="artifacts_cms_v1.zip"
-inputdir="./providers"
+inputdir="$pqcCertsDir/providers"
 outputdir="./output/certs"
-logfile=$outputdir/oqs_certs.log
+logfile=$outputdir/nist-acvp.log
+
+acvpTestDir="$acvpDir/gen-val/src/crypto/test"
+dilithiumTestDir=$acvpTestDir"/NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests"
+slhdsaTestDir=$acvpTestDir"/NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests"
+
+# These are expected to be JSON files with a list of {"oid":"alg_name"}, for example:
+# {"1.3.6.1.4.1.2.267.12.4.4": "ML-DSA-44-ipd", "1.3.6.1.4.1.2.267.12.6.5": "ML-DSA-65-ipd", "1.3.6.1.4.1.2.267.12.8.7": "ML-DSA-87-ipd"}
+supportedMLDSA_OIDs_json=$(cat $(dirname "$0")/../providers/nist-acvts-test/supported_mldsa_oids.json)
+supportedSLHDSA_OIDs_json=$(cat $(dirname "$0")/../providers/nist-acvts-test/supported_slhdsa_oids.json)
+
+printf "DEBUG: ls dilithiumTestDir: %s\n\n" "$(ls $dilithiumTestDir)"
 
 # Start the results CSV file
 mkdir -p $outputdir
 printf "Build time: %s\n\n" "$(date)" > $logfile
 
 alreadyTestedOIDs=";"
+
 
 # Requires an input: the TA file to test
 test_ta () {
@@ -28,14 +55,12 @@ test_ta () {
         oid=${tafileBasename%_ta.der.pem}
     else  # It's some other filename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename
-        printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename >> $logfile
         return
     fi
 
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
     if [[ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]]; then
-        printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid
-        printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid >> $logfile
+        printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid 
         return
     fi
 
@@ -43,9 +68,22 @@ test_ta () {
 
     printf "\nTesting %s\n" $tafile |tee -a $logfile
 
-    # The actual openssl command that is the heart of this script
-    test_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
-    test_status=$?
+    # The actual test command that is the heart of this script
+    if [[ $(expr match "$supportedMLDSA_OIDs_json" ".*\"$oid\".*") != 0 ]]; then
+        # this is a supported ML-DSA
+        printf "\nTesting %s\n" $tafile |tee -a $logfile
+        test_output=$(dotnet $dilithiumTestDir/test NIST.CVP.ACVTS.Libraries.Crypto.Dilithium.Tests.csproj $tafile 2>&1)
+        test_status=$?
+    elif [[ $(expr match "$supportedSLHDSA_OIDs_json" ".*\"$oid\".*") != 0 ]]; then
+        # this is a supported SLH-DSA
+        printf "\nTesting %s\n" $tafile |tee -a $logfile
+        test_output=$(dotnet $slhdsaTestDir/test NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests.csproj $tafile 2>&1)
+        test_status=$?
+    else
+        # this is not supported
+        printf "Algorithm %s is not supported by the NIST ACVP Tests. Skipping\n\n" $oid
+        return
+    fi
 
     # log it to file and to stdout
     echo "$test_output" |tee -a $logfile
@@ -61,7 +99,10 @@ test_ta () {
     fi
 }
 
+
 # MAIN()
+
+printf "Running in working directory %s\n" $(pwd)
 
 # First, recurse into any provider dir
 for providerdir in $(ls -d $inputdir/*/); do
@@ -73,7 +114,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     printf "Unziping %s to %s\n" $zip $unzipdir
     unzip -o $zip -d $unzipdir
 
-    resultsfile=${outputdir}/${provider}_oqs-provider.csv
+    resultsfile=${outputdir}/${provider}_nist-acvp.csv
     echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
 
     alreadyTestedOIDs=";"  # for a guard to skip testing the same cert multiple times
@@ -82,4 +123,3 @@ for providerdir in $(ls -d $inputdir/*/); do
         test_ta "$tafile" "$resultsfile"
     done
 done
-
