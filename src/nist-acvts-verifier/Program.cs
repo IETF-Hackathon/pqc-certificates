@@ -53,20 +53,23 @@ class Program
     static int Main(string[] args)
     {
         // Validate command line arguments
-        if (args.Length != 1)
+        if (args.Length != 2)
         {
-            Console.WriteLine("Usage: dotnet run <path-to-der-file>");
+            Console.WriteLine("Usage: dotnet run <expected-file-type: pem|der> <path-to-file>");
             return 1; // Return non-zero exit code on failure
         }
+        // File type to expect
+        string expectedFileType = args[0];
+        Console.WriteLine("Expected file type: " + expectedFileType);
         // Path to the file from command line argument
-        string filePath = args[0];
+        string filePath = args[1];
         Console.WriteLine("File to read: " + filePath);
         try
         {
             // Get DER bytes, depending on certificate file format
             // true = assume file is PEM-formatted; false = assume file is raw DER
             byte[] derContent;
-            if (true)
+            if (expectedFileType == "pem")
             {
                 Console.WriteLine("Encoding to expect: PEM");
                 // Read the PEM file content
@@ -74,7 +77,7 @@ class Program
                 int start = pemContent.IndexOf("-----BEGIN CERTIFICATE-----", StringComparison.Ordinal) + 27;
                 int end = pemContent.IndexOf("-----END CERTIFICATE-----", start, StringComparison.Ordinal);
                 string base64 = pemContent.Substring(start, end - start).Replace("\n", "").Replace("\r", "");
-                Console.WriteLine("Base64 from PEM: " + base64);
+                // Console.WriteLine("Base64 from PEM: " + base64);
                 derContent = Convert.FromBase64String(base64);
             } 
             else 
@@ -256,7 +259,6 @@ class Program
             }
             // Done!
             if (verified) Console.WriteLine("CERTIFICATE VERIFIED!!!");
-            Console.WriteLine("PROGRAM SUCCESS!");
             return Convert.ToInt32(!verified);
         }
         catch (Exception ex)

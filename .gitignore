@@ -4,6 +4,7 @@ providers/corey-digicert/default/artifacts
 providers/bc/java-artifacts
 providers/botan/default/artifacts
 **/artifacts*/
+**/output/
 
 # C-sharp artifacts
 src/nist-acvts-generator/bin/

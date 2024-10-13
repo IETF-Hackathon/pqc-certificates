@@ -271,12 +271,14 @@ class Program
         // Validate command line arguments
         if (args.Length != 2)
         {
-            Console.WriteLine("Usage: dotnet run <prefix-for-generated-files> <oid>");
+            Console.WriteLine("Usage: dotnet run <desired-file-type: pem|der> <prefix-for-generated-files> <oid>");
             return 1; // Return non-zero exit code on failure
         }
+        // Desired file type
+        string desiredFileType = args[0];
         // Path to the PEM file from command line argument
-        string filePathPrefix = args[0];
-        string alg = args[1];
+        string filePathPrefix = args[1];
+        string alg = args[2];
         Console.WriteLine("Algorithm OID from command line: " + alg);
         // Generate X.509 cert, DER-encoded
         byte[] derContent = GenerateX509Cert(alg);
@@ -285,7 +287,7 @@ class Program
         {
             // Write to file, depending on certificate file format
             // true = assume file is PEM-formatted; false = assume file is raw DER
-            if (true)
+            if (desiredFileType == "pem")
             {
                 Console.WriteLine("Encoding to generate: PEM");
                 // Encode DER bytes as PEM
@@ -306,7 +308,6 @@ class Program
                 File.WriteAllBytes(filePath, derContent);
             }
             // Done!
-            Console.WriteLine("PROGRAM SUCCESS!");
             return 0;
         }
         catch (Exception ex)
