@@ -73,3 +73,6 @@ dotnet test NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA.Tests.csproj > ~/Downloads/pq
 - Tools accomodate OIDs for FIPS 204 & FIPS 205 algorithms
 - **Still cannot assert any claims to the NIST code**; still would be good to have  NIST engineer verify that we're using the NIST code properly
 - Drafted an updated GitHub Actions file; not familiar with GitHub Actions, though, so need help with that part also
+- Also, I still need to amend the ACVP-Server code; relevant source packages do not specify version bounds for dependencies,
+which results in inconsistent version, and for me, that means compilation errors!  I added minimum versions to some dependencies,
+which fixes my problem; again, would be good to discuss with NIST POCs about merging these changes (or something similar)
