@@ -56,7 +56,7 @@ class Program
         if (args.Length != 2)
         {
             Console.WriteLine("Usage: dotnet run <expected-file-type: pem|der> <path-to-file>");
-            return 1; // Return non-zero exit code on failure
+            return -1; // Return non-zero exit code on failure
         }
         // File type to expect
         string expectedFileType = args[0];
@@ -254,17 +254,16 @@ class Program
                     );
                     break;
                 default:
-                    verified = false;
-                    break;
+                    Console.WriteLine("UNSUPPORTED ALGORITHM: " + alg);
+                    return 2;
             }
             // Done!
-            if (verified) Console.WriteLine("CERTIFICATE VERIFIED!!!");
             return Convert.ToInt32(!verified);
         }
         catch (Exception ex)
         {
             Console.WriteLine("An error occurred: " + ex.Message);
-            return 1;
+            return -1;
         }
     }
 }

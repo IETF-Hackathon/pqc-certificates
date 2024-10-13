@@ -72,12 +72,14 @@ test_ta () {
 
 
     # test for an error and print a link in the results CSV file
-    if [[ $test_status -ne 0 ]]; then
+    if [[ $test_status -eq 1 ]]; then
         echo "Certificate Validation Result: FAIL" |tee -a $logfile
         echo $oid,N >> $resultsfile
-    else
+    elif [[ $test_status -eq 0 ]]; then
         echo "Certificate Validation Result: SUCCESS" |tee -a $logfile
         echo $oid,Y >> $resultsfile
+    else
+        echo "Certificate could not be validated" |tee -a $logfile
     fi
 }
 
