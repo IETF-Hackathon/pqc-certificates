@@ -19,7 +19,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>nist-acvts-verifier</RootNamespace>
+    <RootNamespace>nist-acvts-generator</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -29,10 +29,6 @@
     <ProjectReference Include="../../../ACVP-Server/gen-val/src/crypto/src/NIST.CVP.ACVTS.Libraries.Crypto/NIST.CVP.ACVTS.Libraries.Crypto.csproj" />
     <ProjectReference Include="../../../ACVP-Server/gen-val/src/common/src/NIST.CVP.ACVTS.Libraries.Common/NIST.CVP.ACVTS.Libraries.Common.csproj" />
     <ProjectReference Include="../../../ACVP-Server/gen-val/src/common/src/NIST.CVP.ACVTS.Libraries.Math/NIST.CVP.ACVTS.Libraries.Math.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BouncyCastle.Cryptography" Version="2.4.0" />
   </ItemGroup>
 
 </Project>
