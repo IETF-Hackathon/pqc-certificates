@@ -29,6 +29,10 @@ jobs:
     runs-on: ubuntu-latest
     # Is this an appropriate dotnet image?
     container: mcr.microsoft.com/dotnet/sdk:net6.0/runtime
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
           path: /opt/pqc-certificates
       - name: Checkout acvts code
         uses: actions/checkout@v4
