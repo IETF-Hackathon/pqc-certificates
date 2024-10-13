@@ -1,13 +1,17 @@
-﻿using NIST.CVP.ACVTS.Libraries.Crypto.Common.PQC.SLHDSA;
-using NIST.CVP.ACVTS.Libraries.Crypto.Common.Hash.ShaWrapper;
+﻿using NIST.CVP.ACVTS.Libraries.Crypto.Common.Hash.ShaWrapper;
+using NIST.CVP.ACVTS.Libraries.Crypto.Common.PQC.Dilithium;
 using NIST.CVP.ACVTS.Libraries.Crypto.Common.PQC.SLHDSA;
 using NIST.CVP.ACVTS.Libraries.Crypto.Common.PQC.SLHDSA.Enums;
 using NIST.CVP.ACVTS.Libraries.Crypto.Common.PQC.SLHDSA.Helpers;
+using NIST.CVP.ACVTS.Libraries.Crypto.Dilithium;
 using NIST.CVP.ACVTS.Libraries.Crypto.SHA.NativeFastSha;
 using NIST.CVP.ACVTS.Libraries.Crypto.SLHDSA;
 using NIST.CVP.ACVTS.Libraries.Math;
+using NIST.CVP.ACVTS.Libraries.Math.Entropy;
+using NIST.CVP.ACVTS.Libraries.Math.Helpers;
 using Org.BouncyCastle.X509;
 using System;
+using System.Collections;
 using System.Formats.Asn1;
 using System.IO;
 using System.Text;
@@ -15,6 +19,21 @@ using System.Security.Cryptography;
 
 class Program
 {
+    static bool VerifyMLDSA(byte[] m, byte[] sig, byte[] pk, DilithiumParameterSet param) {
+        // initialize MLDSA
+        var seed = new BitString("0000000000000000000000000000000000000000000000000000000000000000").Bits;
+        var dilithium = new Dilithium(
+            new DilithiumParameters(param), 
+            new NativeShaFactory(), 
+            new EntropyProvider(new Random800_90())
+        );
+        // verify!
+        return dilithium.Verify(
+            pk, 
+            sig, 
+            new BitArray(m)
+        );
+    }
     static bool VerifySLHDSA(byte[] m, byte[] sig, PublicKey pk, SlhdsaParameterSet param) {
         // Initialize SLHDSA objects
         var shaFactory = new NativeShaFactory();
@@ -81,6 +100,36 @@ class Program
             bool verified = false;
             switch (alg)
             {
+                case "2.16.840.1.101.3.4.3.17":
+                    Console.WriteLine("MLDSA parameter set: ML_DSA_44");
+                    // Verify!
+                    verified = VerifyMLDSA(
+                        m, 
+                        sig, 
+                        pk_raw.ToArray(),
+                        DilithiumParameterSet.ML_DSA_44
+                    );
+                    break;
+                case "2.16.840.1.101.3.4.3.18":
+                    Console.WriteLine("MLDSA parameter set: ML_DSA_65");
+                    // Verify!
+                    verified = VerifyMLDSA(
+                        m, 
+                        sig, 
+                        pk_raw.ToArray(),
+                        DilithiumParameterSet.ML_DSA_65
+                    );
+                    break;
+                case "2.16.840.1.101.3.4.3.19":
+                    Console.WriteLine("MLDSA parameter set: ML_DSA_87");
+                    // Verify!
+                    verified = VerifyMLDSA(
+                        m, 
+                        sig, 
+                        pk_raw.ToArray(),
+                        DilithiumParameterSet.ML_DSA_87
+                    );
+                    break;
                 case "2.16.840.1.101.3.4.3.20":
                     Console.WriteLine("SLHDSA parameter set: SLH_DSA_SHA2_128s");
                     // Verify!

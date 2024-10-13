@@ -10,6 +10,7 @@ using NIST.CVP.ACVTS.Libraries.Math;
 using NIST.CVP.ACVTS.Libraries.Math.Entropy;
 using NIST.CVP.ACVTS.Libraries.Math.Helpers;
 using System;
+using System.Collections;
 using System.Formats.Asn1;
 using System.IO;
 using System.Text;
@@ -110,8 +111,8 @@ class Program
         // sign message
         var signature = dilithium.Sign(key.sk, new BitArray(message), true);
         // verify
-        dilithium.Verify(key.pk, signature, new BitArray(message));
-        if (result.Success) Console.WriteLine("TBSCERT & SIGNATURE GENERATED AND INTERNALLY VERIFIED!!");
+        bool success = dilithium.Verify(key.pk, signature, new BitArray(message));
+        if (success) Console.WriteLine("TBSCERT & SIGNATURE GENERATED AND INTERNALLY VERIFIED!!");
         // now for certificate structure
         var writer = new System.Formats.Asn1.AsnWriter(System.Formats.Asn1.AsnEncodingRules.DER);
         // begin cert sequence
@@ -243,7 +244,7 @@ class Program
             case "2.16.840.1.101.3.4.3.17":
             case "2.16.840.1.101.3.4.3.18":
             case "2.16.840.1.101.3.4.3.19":
-                return new byte[1];
+                return GenerateX509CertMLDSA(alg);
                 break;
             // SLHDSA
             case "2.16.840.1.101.3.4.3.20":
