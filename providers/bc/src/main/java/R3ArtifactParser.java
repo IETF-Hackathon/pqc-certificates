@@ -259,7 +259,7 @@ public class R3ArtifactParser
                 X509Certificate cert = null;
                 try
                 {
-                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(Streams.readAll(new FileInputStream(fileName))));
+                    cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(Streams.readAll(new FileInputStream(f))));
 
                     certificates.put(fileName, cert);
                 }

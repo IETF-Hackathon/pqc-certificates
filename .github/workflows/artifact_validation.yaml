@@ -24,15 +24,26 @@ jobs:
         with:
           name: Compatibility_oqs_csv
           path: ./output/
-
-  acvp_validation:
+          
+  acvts_validation:
     runs-on: ubuntu-latest
     # Is this an appropriate dotnet image?
-    container: mcr.microsoft.com/dotnet/runtime
-    steps:
-      - name: Checkout code
+    container: mcr.microsoft.com/dotnet/sdk:net6.0/runtime
+          path: /opt/pqc-certificates
+      - name: Checkout acvts code
         uses: actions/checkout@v4
         with:
+          repository: josephlukefahr/ACVP-Server
+          ref: jwl/versions-in-some-packages
+          path: /opt/ACVP-Server
+      - run: apt update && apt install zip unzip
+      - run: mkdir /opt/output
+      - run: /bin/bash /opt/pqc-certificates/src/test_certs_r3_with_acvts.sh /opt/pqc-certificates
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_acvts_csv
+          path: /opt/output/
           path: ./pqc-certificates
       - name: Checkout ACVP code
         uses: actions/checkout@v4
@@ -49,12 +60,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Compatibility_acvp_csv
-          path: ./output/
-  
+          path: ./output/ 
+          
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
-    needs: [oqs_validation, acvp_validation]
+    needs: [oqs_validation, acvts_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -73,10 +84,10 @@ jobs:
         with: 
           name: Compatibility_oqs_csv
           path: output/
-      - name: Get ACVP results from previous job
+      - name: Get acvts results from previous job
         uses: actions/download-artifact@v4
         with: 
-          name: Compatibility_acvp_csv
+          name: Compatibility_acvts_csv
           path: output/
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh

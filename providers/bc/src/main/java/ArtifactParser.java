@@ -579,7 +579,7 @@ public class ArtifactParser
                         }
                     }
                     else if (!name.contains("priv") && isRecognizedEncoding(name))
-                    {        System.err.println(fileEntry);
+                    {
                         caName = canonicalise(artDir, fileEntry);
                         caCert = (X509Certificate)certFact.generateCertificate(new FileInputStream(fileEntry));
                     }
