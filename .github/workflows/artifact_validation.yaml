@@ -41,29 +41,13 @@ jobs:
           ref: jwl/versions-in-some-packages
           path: ./ACVP-Server
       - run: apt update && apt install zip unzip
-      - run: mkdir /opt/output
+      - run: mkdir ./output
       - run: /bin/bash ./pqc-certificates/src/test_certs_r3_with_acvts.sh ./pqc-certificates
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Compatibility_acvts_csv
           path: ./pqc-certificates
-      - name: Checkout ACVP code
-        uses: actions/checkout@v4
-        with:
-          # I would rather clone the official repo usnistgov/ACVP-Server
-          # and then have any supporting code here in this pqc-certificates repo.
-          repository: josephlukefahr/ACVP-Server
-          path: ./ACVP-Server
-      - run: apt update && apt install zip unzip
-      - run: mkdir ./output
-      - run: /bin/bash ./pqc-certificates/providers/nist-acvts-test/setup_acvts_env.sh ./AVCP-Server
-      - run: /bin/bash ./pqc-certificates/src/test_certs_r3_with_acvp.sh ./pqc-certificates ./ACVP-Server
-      - name: Save artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Compatibility_acvp_csv
-          path: ./output/ 
           
   build_results_html:
     runs-on: ubuntu-latest
