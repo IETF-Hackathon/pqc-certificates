@@ -42,7 +42,7 @@ jobs:
           path: ./ACVP-Server
       - run: apt update && apt install zip unzip
       - run: mkdir /opt/output
-      - run: /bin/bash /opt/pqc-certificates/src/test_certs_r3_with_acvts.sh /opt/pqc-certificates
+      - run: /bin/bash ./pqc-certificates/src/test_certs_r3_with_acvts.sh ./pqc-certificates
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
