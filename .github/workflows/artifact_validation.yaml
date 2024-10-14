@@ -32,11 +32,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          path: ./pqc-certificates
       - name: Checkout acvts code
         uses: actions/checkout@v4
         with:
           repository: josephlukefahr/ACVP-Server
           ref: jwl/versions-in-some-packages
+          path: ./ACVP-Server
       - run: apt update && apt install zip unzip
       - run: mkdir /opt/output
       - run: /bin/bash /opt/pqc-certificates/src/test_certs_r3_with_acvts.sh /opt/pqc-certificates
