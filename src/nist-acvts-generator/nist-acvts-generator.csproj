@@ -1,0 +1,34 @@
+<!--
+  This csproj assumes the NIST ACVP-Server repo exists on the local filesystem 
+  "adjacent" to the pqc-certificates repo, so something like this:
+
+  /
+  = opt/
+  ====== ACVP-Server/
+  ====== pqc-certificates/
+
+  The GitHub action will use the mcr.microsoft.com/dotnet/sdk:6.0 image and then
+  checkout repos so that the container includes sources in this location.
+
+  Also, must not forget that the environment variable BuildGenValPackgages=false
+  is set.  The NIST C# packages need this set to properly reference dependencies.
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>nist-acvts-generator</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../../ACVP-Server/gen-val/src/crypto/src/NIST.CVP.ACVTS.Libraries.Crypto.Common/NIST.CVP.ACVTS.Libraries.Crypto.Common.csproj" />
+    <ProjectReference Include="../../../ACVP-Server/gen-val/src/crypto/src/NIST.CVP.ACVTS.Libraries.Crypto/NIST.CVP.ACVTS.Libraries.Crypto.csproj" />
+    <ProjectReference Include="../../../ACVP-Server/gen-val/src/common/src/NIST.CVP.ACVTS.Libraries.Common/NIST.CVP.ACVTS.Libraries.Common.csproj" />
+    <ProjectReference Include="../../../ACVP-Server/gen-val/src/common/src/NIST.CVP.ACVTS.Libraries.Math/NIST.CVP.ACVTS.Libraries.Math.csproj" />
+  </ItemGroup>
+
+</Project>
