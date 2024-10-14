@@ -60,12 +60,9 @@ test_ta () {
 
     # The actual test command that is the heart of this script
     printf "Testing %s\n" $tafile |tee -a $logfile
-    lastWorkingDir=$(pwd)
-    cd $pqcCertsDir/src/nist-acvts-verifier/
     # Usage: dotnet run <expected-file-type: pem|der> <path-to-file>
-    test_output=$(BuildGenValPackages=false dotnet run pem $tafile)
+    test_output=$(BuildGenValPackages=false dotnet run --project $pqcCertsDir/src/nist-acvts-verifier -- pem $tafile)
     test_status=$?
-    cd $lastWorkingDir
 
     # log it to file and to stdout
     echo "$test_output" |tee -a $logfile
