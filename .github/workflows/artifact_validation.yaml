@@ -64,10 +64,12 @@ jobs:
         with: 
           name: Compatibility_bc_csv
           path: output/
-      - name: Build compat matrix
+      - name: Build compat matrix (r3)
         run: ./src/rebuild_results_certs_r3.sh
+      - name: Build compat matrix (r4)
+        run: ./src/rebuild_results_certs_r4.sh
       - name: Copy output files
-        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./output/certs/oqs_certs.log ./output/certs/bc_certs.log ./docs/gh-pages
+        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_certs_r4.html ./docs/pqc_hackathon_results_cms_v1.html ./output/certs/oqs_certs.log ./output/certs/bc_certs.log ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download
         uses:  actions/upload-pages-artifact@v3
         with:
