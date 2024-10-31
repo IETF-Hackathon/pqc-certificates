@@ -97,3 +97,11 @@
 * Company website: https://www.gnutls.org/
 * Implementation: GNU TLS using OpenQuantumSafe.
 * Implementation link: https://github.com/gnutls/gnutls
+
+# Seventh Sense AI (QuantCrypt)
+
+* Provider short name: `seventhsense.ai`
+* Company name: Seventh Sense Artificial Intelligence
+* Company website: https://seventhsense.ai
+* Implementation: Open source
+* Implementation link: https://github.com/codespree/quantcrypt
