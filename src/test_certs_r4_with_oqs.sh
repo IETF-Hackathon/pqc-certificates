@@ -13,6 +13,8 @@ printf "Build time: %s\n\n" "$(date)" > $logfile
 
 alreadyTestedOIDs=";"
 
+_FILENAME_REGEX = re.compile(r'^(?P<friendlyName>.*)-(?P<oid>[^\.0-9]+)_ta.der$', re.IGNORECASE)
+
 # Requires an input: the TA file to test
 test_ta () {
     tafile=$1
@@ -20,13 +22,16 @@ test_ta () {
 
     tafileBasename=$(basename $tafile)
 
+    # strip off the friendly name
+    tafileBasename=$(echo $tafileBasename | egrep -o '[^-]+_ta.der$')
+
+
     # strip off the file suffix to get the OID name
-    if [[ $(expr match "$tafileBasename" ".*_ta\.pem$") != 0 ]]; then
-        oid=${tafileBasename%_ta.pem}
-    elif [[ $(expr match "$tafileBasename" ".*_ta\.der$") != 0 ]]; then
+    if [[ $(expr match "$tafileBasename" ".*_ta\.der$") != 0 ]]; then
         oid=${tafileBasename%_ta.der}
-    elif [[ $(expr match "$tafileBasename" ".*_ta\.der\.pem$") != 0 ]]; then
-        oid=${tafileBasename%_ta.der.pem}
+
+        printf "DEBUG: filename: $tafileBasename, OID: $oid\n"
+        
     else  # It's some other filename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename >> $logfile
