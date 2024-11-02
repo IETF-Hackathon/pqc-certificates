@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ $# -lt 1 ]; then
     echo "Error: must provide the name of the verifier to use, which must match a .cmd file in the /src dir."
@@ -57,10 +57,10 @@ test_ta () {
     printf "\nTesting %s\n" $tafile >> $logfile
 
     # The actual openssl command that is the heart of this script
-    if [ $verifier == "bc" ]; then
+    if [ $verifier -eq "bc" ]; then
         output=$(verify_r3.sh $(pwd)/$tafile 2>&1)
         status=$?
-    elif [ $verifier == "oqs" ]; then
+    elif [ $verifier -eq "oqs" ]; then
         output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
         status=$?
     else
