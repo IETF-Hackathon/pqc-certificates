@@ -46,7 +46,7 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
     relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.key_algorithm_oid == oid]
     
     for algorithmVerificationResult in relevant_avrs:
-        if algorithmVerificationResult.test_result == None or algorithmVerificationResult.test_result is '':
+        if algorithmVerificationResult.test_result == None or algorithmVerificationResult.test_result == '':
             continue
 
         if algorithmVerificationResult.test_result == 'Y':
