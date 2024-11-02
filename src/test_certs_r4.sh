@@ -6,7 +6,7 @@ if [ $# -lt 1 ]; then
 fi
 
 verifier=$1
-verifierCmd=$(<$verifier.cmd)
+verifierCmd=$(<./src/$verifier.cmd)
 
 echo "DEBUG: verifiedCmd: $verifierCmd"
 
