@@ -12,7 +12,7 @@ To generate the certificates on your own, first clone the QuantCrypt repository 
 git clone https://github.com/codespree/quantcrypt
 ```
 
-Artifacts in both [r3](https://github.com/IETF-Hackathon/pqc-certificates?tab=readme-ov-file#zip-format-r3---deprecated-will-be-removed-at-hackathon-in-november-2024) and [r4](https://github.com/IETF-Hackathon/pqc-certificates?tab=readme-ov-file#zip-format-r4) format are generated. They can be found in `artifacts/submission` folder.
+Artifacts in [r4](https://github.com/IETF-Hackathon/pqc-certificates?tab=readme-ov-file#zip-format-r4) format are generated. They can be found in `artifacts/submission` folder.
 
 ## About Seventh Sense
 
