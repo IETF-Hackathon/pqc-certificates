@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -lt 1 ]; then
     echo "Error: must provide the name of the verifier to use, which must match a .cmd file in the /src dir."
