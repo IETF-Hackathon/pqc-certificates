@@ -5,7 +5,7 @@ if [ $# -lt 1 ]; then
     exit -1
 fi
 
-verifier=%1
+verifier=$1
 verifierCmd=$(<$verifier.cmd)
 
 echo "DEBUG: verifiedCmd: $verifierCmd"
