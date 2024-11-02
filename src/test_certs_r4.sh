@@ -46,7 +46,7 @@ test_ta () {
     fi
 
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
-    if [[ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]]; then
+    if [ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]; then
         printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid
         printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid >> $logfile
         return
