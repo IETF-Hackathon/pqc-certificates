@@ -6,9 +6,7 @@ if [ $# -lt 1 ]; then
 fi
 
 verifier=$1
-if [ $verifier == "bc" ] || [ $verifier == "oqs"]; then
-    # verifier is supported
-else
+if [ $verifier != "bc" ] && [ $verifier != "oqs"]; then
     echo "ERROR: verifier \"$verifier\" not supported"
     exit -1
 fi
