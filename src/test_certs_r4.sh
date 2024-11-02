@@ -32,11 +32,11 @@ test_ta () {
     tafileBasename=$(basename $tafile)
 
     # strip off the friendly name
-    tafileBasename=$(echo $tafileBasename | egrep -o '[^-]+_ta.der$')
+    tafileBasename=$(echo $tafileBasename | egrep -o '[^-]*_ta.der$')
 
 
     # strip off the file suffix to get the OID name
-    if [[ $(expr match "$tafileBasename" ".*_ta\.der$") != 0 ]]; then
+    if [ $(expr match "$tafileBasename" ".*_ta\.der$") != 0 ]; then
         oid=${tafileBasename%_ta.der}        
     else  # It's some other filename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename
