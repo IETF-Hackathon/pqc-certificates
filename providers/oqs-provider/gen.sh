@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eux
 
 # be sure to not add wrapped pubkeys:
 unset DRAFT_MASSIMO_LAMPS_PQ_SIG_CERTIFICATES_00

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -x
+set -eux
 
 function check_dir() {
 
@@ -62,7 +62,7 @@ function check_dir() {
 }
 
 check() {
-	
+
 	# Extracts the argument
 	DIR=$1
     result=""
@@ -77,14 +77,14 @@ check() {
 	# Change Directory
 	cd "$DIR"
 
-	# Baseline test whether TA cert is well formed 
+	# Baseline test whether TA cert is well formed
 	openssl x509 -in ta/ta.pem -text -noout 2>/dev/null > /dev/null
 	if [ $? -ne 0 ]; then
 		#echo "No suitable ta/ta.pem found."
         echo "N,N,N,N,N,N"
 		return
 	fi
-	# Baseline test whether TA cert is self-signed 
+	# Baseline test whether TA cert is self-signed
 	openssl verify -CAfile ta/ta.pem ta/ta.pem 2>/dev/null >/dev/null
 	if [ $? -ne 0 ]; then
 		#echo "ta/ta.pem not self-signed."

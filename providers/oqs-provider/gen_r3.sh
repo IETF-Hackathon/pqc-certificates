@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eux
 
 # be sure to not add wrapped pubkeys:
 unset DRAFT_MASSIMO_LAMPS_PQ_SIG_CERTIFICATES_00
@@ -9,8 +9,8 @@ runandlog() {
    ALG=$1
    OID=$2
    DIR="./oqsprovider/artifacts"
-   openssl req -x509 -config ta.cnf -new -newkey ${ALG} -extensions v3_ca -out ${DIR}/${OID}_ta.pem -nodes -subj "/CN=OQS TA" >> log 2>&1 
-   # openssl req -x509 -config ta.cnf -new -newkey ${ALG} -extensions v3_ca -keyout ${DIR}/${OID}_key.pem -out ${DIR}/${OID}_ta.pem -nodes -subj "/CN=OQS TA" >> log 2>&1 
+   openssl req -x509 -config ta.cnf -new -newkey ${ALG} -extensions v3_ca -out ${DIR}/${OID}_ta.pem -nodes -subj "/CN=OQS TA" >> log 2>&1
+   # openssl req -x509 -config ta.cnf -new -newkey ${ALG} -extensions v3_ca -keyout ${DIR}/${OID}_key.pem -out ${DIR}/${OID}_ta.pem -nodes -subj "/CN=OQS TA" >> log 2>&1
    echo "${ALG} done..."
 }
 

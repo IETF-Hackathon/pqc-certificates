@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -x
+set -eux
 
 function check_cert() {
 
@@ -28,18 +28,18 @@ function check_cert() {
 }
 
 check() {
-	
+
 	# Extracts the argument
 	PEM=$1
 
-	# Baseline test whether TA cert is well formed 
+	# Baseline test whether TA cert is well formed
 	openssl x509 -in $PEM -text -noout 2>/dev/null > /dev/null
 	if [ $? -ne 0 ]; then
 		# echo "${PEM} not suitable."
         echo "N"
 		return
 	fi
-	# Baseline test whether TA cert is self-signed 
+	# Baseline test whether TA cert is self-signed
 	openssl verify -CAfile $PEM $PEM 2>/dev/null >/dev/null
 	if [ $? -ne 0 ]; then
         echo "N"
