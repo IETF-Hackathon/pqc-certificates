@@ -4,7 +4,7 @@ This project provides a set of data repositories for X.509 data
 structures that make use of post-quantum and composite algorithms
 (classic with PQC).
 
-This repo represents work done between IETF 115 - 120.
+This repo represents work done between IETF 115 - 121.
 
 The various output compatibility tables produced by this project can be viewed here:
 
@@ -113,27 +113,6 @@ Within `providers/<provider_name>/[implementation_name/]`
 
 The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
 
-## Zip Format (R3) - Deprecated, will be removed at Hackathon in November 2024
-
-### Certificates - artifacts_certs_r3.zip
-
-Starting with artifacts for the NIST Draft standards released 2023-08-24, we will use a much simpler artifact format:
-
-* Only produce a self-signed certificate (TAs). Let's not bother with CA / EE / CRL / OCSP; those are begging for compatibility issues that have nothing to do with the PQ algs.
-* We will restrict the R3 artifacts to only the algorithms with NIST draft standards.
-* Use PEM formats.
-* Switch to a flat folder structure with filenames <oid>_ta.pem
-* For Kyber, use the the Dilithium TA of the equivalent security level to sign a <kyber_oid>_ee.pem
-* For hybrid certificate formats, name the file `<hybrid_format>_<oid1>_with_<oid2>_ta.pem`
-
-Within `providers/<provider_name>/[implementation_name/]`
-- artifacts_certs_r3.zip
-  - `<oid>_ta.pem`  # self-signed cert for signature alg oids
-  - `<oid>_ee.pem`  # ex.: Kyber512  - signed with Dilithium2
-  - `<hybrid_format>_<oid1>_with_<oid2>_ta.pem`  # ex.: catalyst_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4_ta.pem
-
-The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
-
 ## CMS -- artifacts_cms_v1.zip
 
 This is version 1 of the CMS artifacts format.  It may change if needs change.
@@ -187,42 +166,6 @@ Each RFC will specify mandatory KDFs, and probably allow for others as well. You
 ### CMP -- artifacts_cmp.zip
 
 CMP artifacts should be placed into a `artifacts_cmp.zip` within `providers/<provider_name>/[implementation_name/]`. We will specify the exact file format when we start to see more robust artifacts submitted.
-
-## Old Zip Format (R2) - Deprecated and will be removed at Hackathon in November 2024
-
-OLD -- IF YOU ARE SUBMITTING ARTIFACTS AGAINST THE NIST DRAFT SPECS AS OF 2023-08-24, THEN PLEASE USE THE R3 FORMAT ABOVE.
-
-At the hackathon, we are all going to script our PKI toolkit to produce and read zip bundles of certs in the following format. Scripts should place data into files with the following names so that parsing scripts 
-
-(parentheses denotes optional files)
-
-- artifacts_r2.zip
-  - artifacts/
-    - alg_oid_dir/
-        - ta/     # trust anchor, aka root CA, aka self-signed
-            - ta.der
-            - ta_priv.der
-            - (*.pem)
-        - ca/     # certificate authority, aka intermediate CA
-            - ca.der
-            - ca_priv.der
-            - (*.pem)
-        - ee/     # end entity
-            - cert.der
-            - cert_priv.der    # corresponding private key
-            - cert.csr
-            - (*.pem)
-        - (crl/)
-            - crl_ta.crl
-            - crl_ca.crl
-        - (ocsp/)
-            - ocsp.der           /* R1 */
-            - (ocsp_ca.der)      /* R2 */
-            - (ocsp_cert.der)    /* R2 */
-
-NOTE: The OCSP filename has changed from R1 (ocsp.der) to R2 (ocsp_ca.der)
-      amd ocsp_cert.der for the OCSP responses for the Intermediate CA and
-      the EE certificate.
 
 ## OIDs
 
