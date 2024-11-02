@@ -413,7 +413,7 @@ public class R4ArtifactParser
     {
         if (args.length != 2)
         {
-            System.err.println("usage: R3ArtifactParser producer_name [artifacts.zip|artifacts_dir]");
+            System.err.println("usage: R4ArtifactParser producer_name [artifacts.zip|artifacts_dir]");
             System.exit(1);
         }
 

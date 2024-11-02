@@ -37,10 +37,10 @@ The project's directory structure is as follows:
     - docs/
     - providers/
         - provider_name_1/
-            - artifacts_certs_r3.zip
+            - artifacts_certs_r4.zip
             - artifacts_cms_v1.zip
             - compatMatrices
-              - artifacts_certs_r3
+              - artifacts_certs_r4
                 - prov2_prov1.csv
                 - prov3_prov1.csv
                 - ...
