@@ -13,8 +13,6 @@ printf "Build time: %s\n\n" "$(date)" > $logfile
 
 alreadyTestedOIDs=";"
 
-_FILENAME_REGEX = re.compile(r'^(?P<friendlyName>.*)-(?P<oid>[^\.0-9]+)_ta.der$', re.IGNORECASE)
-
 # Requires an input: the TA file to test
 test_ta () {
     tafile=$1
