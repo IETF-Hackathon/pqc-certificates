@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Test artifacts with OQS
-        run: ./src/test_certs_r3_with_oqs.sh
+        run: ./src/test_certs_r4_with_oqs.sh
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -31,7 +31,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Test artifacts with BC
-        run: ./src/test_certs_r3_with_bc.sh
+        run: ./src/test_certs_r4_with_bc.sh
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:

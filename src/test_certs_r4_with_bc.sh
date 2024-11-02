@@ -1,6 +1,7 @@
 #!/bin/bash
 
-certszipr3="artifacts_certs_r3.zip"
+certsdir_r4="artifacts_certs_r4"
+certzip_r4="artifacts_certs_r4.zip"
 cmszipr1="artifacts_cms_v1.zip"
 inputdir="./providers"
 outputdir="./output/certs"
@@ -78,8 +79,8 @@ for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
 
     # process certs
-    zip=${providerdir}$certszipr3
-    unzipdir=${providerdir}"artifacts_certs_r3"
+    zip=${providerdir}$certzip_r4
+    unzipdir=${providerdir}$certsdir_r4
     printf "Unziping %s to %s\n" $zip $unzipdir
     unzip -o $zip -d $unzipdir
 
