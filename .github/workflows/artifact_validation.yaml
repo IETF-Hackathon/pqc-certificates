@@ -24,23 +24,35 @@ jobs:
         with:
           name: Compatibility_oqs_csv
           path: ./output/
-  bc_validation:
+          
+  acvts_validation:
     runs-on: ubuntu-latest
-    container: bcdocker2000/bc_hackathon_pqc
+    # Is this an appropriate dotnet image?
+    container: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Test artifacts with BC
-        run: ./src/test_certs_r3_with_bc.sh
+        with:
+          path: ./pqc-certificates
+      - name: Checkout acvts code
+        uses: actions/checkout@v4
+        with:
+          repository: josephlukefahr/ACVP-Server
+          ref: jwl/versions-in-some-packages
+          path: ./ACVP-Server
+      - run: apt update && apt install zip unzip
+      - run: mkdir ./output
+      - run: /bin/bash ./pqc-certificates/src/test_certs_r3_with_acvts.sh ./pqc-certificates
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Compatibility_bc_csv
-          path: ./output/
+          name: Compatibility_acvts_csv
+          path: ./output
+          
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
-    needs: [oqs_validation, bc_validation]
+    needs: [oqs_validation, acvts_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -59,10 +71,10 @@ jobs:
         with: 
           name: Compatibility_oqs_csv
           path: output/
-      - name: Get BC results from previous job
+      - name: Get acvts results from previous job
         uses: actions/download-artifact@v4
         with: 
-          name: Compatibility_bc_csv
+          name: Compatibility_acvts_csv
           path: output/
       - name: Build compat matrix (r3)
         run: ./src/rebuild_results_certs_r3.sh
@@ -74,6 +86,7 @@ jobs:
         uses:  actions/upload-pages-artifact@v3
         with:
           path: ./docs/gh-pages
+
   publish_to_gh_pages:
     needs: build_results_html
     if: github.ref == 'refs/heads/master'

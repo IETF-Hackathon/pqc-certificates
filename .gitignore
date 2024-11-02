@@ -3,3 +3,11 @@ providers/entrust/default/artifacts
 providers/corey-digicert/default/artifacts
 providers/bc/java-artifacts
 providers/botan/default/artifacts
+**/artifacts*/
+**/output/
+
+# C-sharp artifacts
+src/nist-acvts-generator/bin/
+src/nist-acvts-generator/obj/
+src/nist-acvts-verifier/bin/
+src/nist-acvts-verifier/obj/
