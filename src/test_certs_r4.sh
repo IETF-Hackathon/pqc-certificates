@@ -10,9 +10,6 @@ verifierCmd=$(cat ./src/${verifier}.cmd)
 
 echo "DEBUG: verifiercmd: $verifierCmd"
 
-exit -1
-
-
 
 certsdir_r4="artifacts_certs_r4"
 certszip_r4="artifacts_certs_r4.zip"
