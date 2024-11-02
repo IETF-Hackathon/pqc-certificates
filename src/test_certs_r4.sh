@@ -10,6 +10,7 @@ if [ $verifier != "bc" ] && [ $verifier != "oqs" ]; then
     echo "ERROR: verifier \"$verifier\" not supported"
     exit -1
 fi
+echo "Running with verifier $verifier." 
 
 certsdir_r4="artifacts_certs_r4"
 certszip_r4="artifacts_certs_r4.zip"
