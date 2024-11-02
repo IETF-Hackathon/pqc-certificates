@@ -1,1 +1,0 @@
-verify_r3.sh $(pwd)/$tafile 2>&1

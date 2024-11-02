@@ -6,10 +6,12 @@ if [ $# -lt 1 ]; then
 fi
 
 verifier=$1
-verifierCmd=$(cat ./src/${verifier}.cmd)
-
-echo "DEBUG: verifiercmd: $verifierCmd"
-
+if [ $verifier == "bc" ] || [ $verifier == "oqs"]; then
+    # verifier is supported
+else
+    echo "ERROR: verifier \"$verifier\" not supported"
+    exit -1
+fi
 
 certsdir_r4="artifacts_certs_r4"
 certszip_r4="artifacts_certs_r4.zip"
@@ -57,16 +59,24 @@ test_ta () {
     printf "\nTesting %s\n" $tafile >> $logfile
 
     # The actual openssl command that is the heart of this script
-    ossl_output=$(eval $verifierCmd)
-    ossl_status=$?
+    if [ $verifier == "bc" ]; then
+        output=$(verify_r3.sh $(pwd)/$tafile 2>&1)
+        status=$?
+    elif [ $verifier == "oqs" ]; then
+        output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
+        status=$?
+    else
+        echo "ERROR: verifier \"$verifier\" not supported"
+        exit -1
+    fi
 
     # log it to file and to stdout
-    echo "$ossl_output" >> $logfile
-    echo "$ossl_output"
+    echo "$output" >> $logfile
+    echo "$output"
 
 
     # test for an error and print a link in the results CSV file
-    if [[ $ossl_status -ne 0 ]]; then
+    if [[ $status -ne 0 ]]; then
         echo "Certificate Validation Result: FAIL"
         echo $oid,N >> $resultsfile
     else
