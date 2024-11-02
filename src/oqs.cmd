@@ -1,0 +1,1 @@
+openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1

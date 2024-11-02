@@ -1,14 +1,23 @@
-#!/bin/bash
+#!/bin/sh
+
+if [ $# -lt 1 ]; then
+    echo "Error: must provide the name of the verifier to use, which must match a .cmd file in the /src dir."
+    exit -1
+fi
+
+verifier=%1
+verifierCmd=$(<$verifier.cmd)
+
+echo "DEBUG: verifiedCmd: $verifierCmd"
+
+
 
 certsdir_r4="artifacts_certs_r4"
-certzip_r4="artifacts_certs_r4.zip"
+certszip_r4="artifacts_certs_r4.zip"
 cmszipr1="artifacts_cms_v1.zip"
 inputdir="./providers"
 outputdir="./output/certs"
-logfile=$outputdir/bc_certs.log
-oidListFile=./docs/oids.json
-oidsList=$(cat $oidListFile)
-
+logfile=$outputdir/$verifier_certs.log
 
 # Start the results CSV file
 mkdir -p $outputdir
@@ -26,23 +35,13 @@ test_ta () {
     # strip off the friendly name
     tafileBasename=$(echo $tafileBasename | egrep -o '[^-]+_ta.der$')
 
+
     # strip off the file suffix to get the OID name
-    if [[ $(expr match "$tafileBasename" ".*_ta\.pem$") != 0 ]]; then
-        oid=${tafileBasename%_ta.pem}
-    elif [[ $(expr match "$tafileBasename" ".*_ta\.der$") != 0 ]]; then
-        oid=${tafileBasename%_ta.der}
-    elif [[ $(expr match "$tafileBasename" ".*_ta\.der\.pem$") != 0 ]]; then
-        oid=${tafileBasename%_ta.der.pem}
+    if [[ $(expr match "$tafileBasename" ".*_ta\.der$") != 0 ]]; then
+        oid=${tafileBasename%_ta.der}        
     else  # It's some other filename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename >> $logfile
-        return
-    fi
-
-    # Because invoking the JRE is slow, only test OIDs that will appear in the final table
-    if [[ $(expr match "$oidsList" ".*\"$oid\".*") -eq 0 ]]; then
-        printf "\nSkipping deprecated prototyping OID %s\n" $oid
-        printf "\nSkipping deprecated prototyping OID %s\n" $oid >> $logfile
         return
     fi
 
@@ -59,7 +58,7 @@ test_ta () {
     printf "\nTesting %s\n" $tafile >> $logfile
 
     # The actual openssl command that is the heart of this script
-    ossl_output=$(verify_r3.sh $(pwd)/$tafile 2>&1)
+    ossl_output=$(eval $verifierCmd)
     ossl_status=$?
 
     # log it to file and to stdout
@@ -82,12 +81,12 @@ for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
 
     # process certs
-    zip=${providerdir}$certzip_r4
+    zip=${providerdir}$certszip_r4
     unzipdir=${providerdir}$certsdir_r4
     printf "Unziping %s to %s\n" $zip $unzipdir
     unzip -o $zip -d $unzipdir
 
-    resultsfile=${outputdir}/${provider}_bc.csv
+    resultsfile=${outputdir}/${provider}_oqs-provider.csv
     echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
 
     alreadyTestedOIDs=";"  # for a guard to skip testing the same cert multiple times
@@ -96,3 +95,4 @@ for providerdir in $(ls -d $inputdir/*/); do
         test_ta "$tafile" "$resultsfile"
     done
 done
+
