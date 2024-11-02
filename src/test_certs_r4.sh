@@ -6,9 +6,11 @@ if [ $# -lt 1 ]; then
 fi
 
 verifier=$1
-verifierCmd=$(<./src/$verifier.cmd)
+verifierCmd=$(<./src/${verifier}.cmd)
 
-echo "DEBUG: verifiedCmd: $verifierCmd"
+echo "DEBUG: verifiercmd: $verifierCmd"
+
+exit -1
 
 
 
@@ -17,7 +19,7 @@ certszip_r4="artifacts_certs_r4.zip"
 cmszipr1="artifacts_cms_v1.zip"
 inputdir="./providers"
 outputdir="./output/certs"
-logfile=$outputdir/$verifier_certs.log
+logfile=$outputdir/${verifier}_certs.log
 
 # Start the results CSV file
 mkdir -p $outputdir
