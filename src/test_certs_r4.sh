@@ -75,7 +75,7 @@ test_ta () {
 
 
     # test for an error and print a link in the results CSV file
-    if [[ $status -ne 0 ]]; then
+    if [ $status -ne 0 ]; then
         echo "Certificate Validation Result: FAIL"
         echo $oid,N >> $resultsfile
     else
