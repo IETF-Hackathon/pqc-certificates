@@ -3,3 +3,5 @@ providers/entrust/default/artifacts
 providers/corey-digicert/default/artifacts
 providers/bc/java-artifacts
 providers/botan/default/artifacts
+
+docs/oids.json
