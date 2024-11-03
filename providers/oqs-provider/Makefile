@@ -15,7 +15,7 @@ GEN_SCRIPT := ./gen_r4.sh
 GEN_LOGFILE := logs/generate_log.txt
 
 # Script for Verifying the artifacts (if any)
-VERIFY_SCRIPT := ./check.sh
+VERIFY_SCRIPT := ./check_r4.sh
 VERIFY_LOGFILE := logs/verify_log.txt
 
 # Time
@@ -98,8 +98,8 @@ verify: requirements/verify
 			echo "[ $(PROVIDER_NAME) ] Product: $$i" ; \
 			echo "PRODUCT : $$i" >> "$(VERIFY_LOGFILE)" ; \
 			echo >> "$(VERIFY_LOGFILE)" ; \
-			result=`$(VERIFY_SCRIPT) "$$i" 2>&1 >> "$(VERIFY_LOGFILE)" `; \
-			echo $$result >> "$(VERIFY_LOGFILE)" ; \
+			result=`$(VERIFY_SCRIPT) "$$i" 2>>"$(VERIFY_LOGFILE)" | tee -a "$(VERIFY_LOGFILE)"`; \
+			echo "$$result" >> "$(VERIFY_LOGFILE)" ; \
 			echo >> "$(VERIFY_LOGFILE)"; \
 		done ; \
 		echo "----- END PROVIDER $(PROVIDER_NAME) -----" >> $(VERIFY_LOGFILE); \
