@@ -2,7 +2,6 @@
 
 #set -x
 source oids.sh
-source source
 
 function check_cert() {
 

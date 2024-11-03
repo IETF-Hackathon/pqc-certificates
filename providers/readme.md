@@ -69,7 +69,7 @@
 * Provider short name: `kris`
 * Company name: PQShield
 * Company website: https://pqshield.com/
-* Implementation: Proprietary
+* Implementation: Proprietary. It's a wrapper that internally uses proprietary ML-DSA implementation.
 
 
 # OpenCA

@@ -28,6 +28,26 @@ https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-regi
 | SLH-DSA-SHAKE-256s | 2.16.840.1.101.3.4.3.30 | FIPS 205 |
 | SLH-DSA-SHAKE-256f | 2.16.840.1.101.3.4.3.31 | FIPS 205 |
 
+This section provides the official OIDs assigned by NIST for the PRE-HASH FIPS 203 and 204 as per:
+https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration
+
+| Signature Algorithm Name | OID | Specification | Pre - Hash |
+| ------------------------ | --- | ------------- | --- |
+| HASH-ML-DSA-44 | 2.16.840.1.101.3.4.3.32 | FIPS 204 | SHA-512 |
+| HASH-ML-DSA-65 | 2.16.840.1.101.3.4.3.33 | FIPS 204 | SHA-512 |
+| HASH-ML-DSA-87 | 2.16.840.1.101.3.4.3.34 | FIPS 204 | SHA-512 |
+| HASH-SLH-DSA-SHA2-128s  | 2.16.840.1.101.3.4.3.35 | FIPS 205 | SHA-256 |
+| HASH-SLH-DSA-SHA2-128f  | 2.16.840.1.101.3.4.3.36 | FIPS 205 | SHA-256 |
+| HASH-SLH-DSA-SHA2-192s  | 2.16.840.1.101.3.4.3.37 | FIPS 205 | SHA-512 |
+| HASH-SLH-DSA-SHA2-192f  | 2.16.840.1.101.3.4.3.38 | FIPS 205 | SHA-512 |
+| HASH-SLH-DSA-SHA2-256s  | 2.16.840.1.101.3.4.3.39 | FIPS 205 | SHA-512 |
+| HASH-SLH-DSA-SHA2-256f  | 2.16.840.1.101.3.4.3.40 | FIPS 205 | SHA-512 |
+| HASH-SLH-DSA-SHAKE-128s | 2.16.840.1.101.3.4.3.41 | FIPS 205 | SHAKE-128 |
+| HASH-SLH-DSA-SHAKE-128f | 2.16.840.1.101.3.4.3.42 | FIPS 205 | SHAKE-128 |
+| HASH-SLH-DSA-SHAKE-192s | 2.16.840.1.101.3.4.3.43 | FIPS 205 | SHAKE-256 |
+| HASH-SLH-DSA-SHAKE-192f | 2.16.840.1.101.3.4.3.44 | FIPS 205 | SHAKE-256 |
+| HASH-SLH-DSA-SHAKE-256s | 2.16.840.1.101.3.4.3.45 | FIPS 205 | SHAKE-256 |
+| HASH-SLH-DSA-SHAKE-256f | 2.16.840.1.101.3.4.3.46 | FIPS 205 | SHAKE-256 |
 
 | KEM Algorithm Name | OID | Specification |
 | -----------------  | --- | ------------- |
