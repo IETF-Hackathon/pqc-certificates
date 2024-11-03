@@ -32,8 +32,6 @@ base=`cat lib/beta.ver`
   fi
 )
 
-javac -d classes -cp lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar src/main/java/*.java
-
 if [ "$1" != "" ] && [ "$2" != "" ]
 then
     java -cp classes:lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar R3ArtifactParser $1 $2
