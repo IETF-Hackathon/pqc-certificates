@@ -11,7 +11,7 @@ PROVIDER_NAME := OQS
 DIRS := oqsprovider
 
 # Script for Generating the artifacts (if any)
-GEN_SCRIPT := ./gen.sh
+GEN_SCRIPT := ./gen_r4.sh
 GEN_LOGFILE := logs/generate_log.txt
 
 # Script for Verifying the artifacts (if any)
