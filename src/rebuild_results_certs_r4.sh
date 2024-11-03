@@ -16,11 +16,8 @@ python3 src/pqc_report_writer_common.py docs/oid_mapping.md pqc_hackathon_result
 pandoc -f markdown pqc_hackathon_results_certs_r4.md > pqc_hackathon_results_certs_r4.html
 mv pqc_hackathon_results_certs_r4.md pqc_hackathon_results_certs_r4.html docs
 
-
-# Also generate a results html with only automated test results
-# TOOD: not yet enabled, need to differentiate r3 and r4 automated results (or remove r3 automation)
-# if [ -d ./output/certs ]; then
-#     python3 src/pqc_report_writer_common.py docs/oid_mapping.md pqc_hackathon_results_certs_r4_automated_tests.md "Certificate Automated Verification" $(find ./output/certs -name "*.csv")
-#     pandoc -f markdown pqc_hackathon_results_certs_r4_automated_tests.md > pqc_hackathon_results_certs_r4_automated_tests.html
-#     mv pqc_hackathon_results_certs_r4_automated_tests.md pqc_hackathon_results_certs_r4_automated_tests.html docs
-# fi
+if [ -d ./output/certs ]; then
+    python3 src/pqc_report_writer_common.py docs/oid_mapping.md pqc_hackathon_results_certs_r4_automated_tests.md "Certificate Automated Verification" $(find ./output/certs -name "*.csv")
+    pandoc -f markdown pqc_hackathon_results_certs_r4_automated_tests.md > pqc_hackathon_results_certs_r4_automated_tests.html
+    mv pqc_hackathon_results_certs_r4_automated_tests.md pqc_hackathon_results_certs_r4_automated_tests.html docs
+fi
