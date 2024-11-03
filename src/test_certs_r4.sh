@@ -94,7 +94,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     printf "Unziping %s to %s\n" $zip $unzipdir
     unzip -o $zip -d $unzipdir
 
-    resultsfile=${outputdir}/${provider}_oqs-provider.csv
+    resultsfile=${outputdir}/${provider}_${verifier}.csv
     echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
 
     alreadyTestedOIDs=";"  # for a guard to skip testing the same cert multiple times
