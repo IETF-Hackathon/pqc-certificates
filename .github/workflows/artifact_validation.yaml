@@ -37,6 +37,19 @@ jobs:
         with:
           name: Compatibility_bc_csv
           path: ./output/
+    ssai_validation:
+    runs-on: ubuntu-latest
+    container: jethrolow/quantcrypt_validator
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Test artifacts with SSAI
+        run: ./src/test_certs_r4.sh ssai
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_ssai_csv
+          path: ./output/
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
