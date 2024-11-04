@@ -37,7 +37,7 @@ jobs:
         with:
           name: Compatibility_bc_csv
           path: ./output/
-    ssai_validation:
+  ssai_validation:
     runs-on: ubuntu-latest
     container: jethrolow/quantcrypt_validator
     steps:
