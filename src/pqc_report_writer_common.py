@@ -254,6 +254,8 @@ def main():
             0: did not pass any verifiers
             1: passed some verifiers
             2: passed all verifiers
+
+            Columns represent producers who submitted artifacts. Verifiers are not listed in this table, but are listed in the broken-out tables below.
             """
             no = passedAllVerifiers(generator, alg_oid, algorithmVerificationResults)
             if (no == -1):
