@@ -53,7 +53,7 @@ jobs:
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
-    needs: [oqs_validation, bc_validation]
+    needs: [oqs_validation, bc_validation, ssai_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
