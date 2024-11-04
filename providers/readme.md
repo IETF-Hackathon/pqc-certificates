@@ -23,7 +23,7 @@
 * Provider short name: `carl-redhound`
 * Company name: Red Hound Software
 * Company website: http://www.hound.red/about.html
-* Implementation: Proprietary wrapper for Rust crypto, which internally is PQClean.
+* Implementation: Open source certification path builder/validation library. Internally uses PQCrypto/PQClean for ml-dsa and ml-kem and RustCrypto for slh-dsa.
 
 # Chunghwa Telecom Company (CHT)
 
