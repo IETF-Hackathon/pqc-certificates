@@ -235,7 +235,7 @@ def main():
 
     md_file.new_paragraph()
     md_file.new_header(level=1, title=f'Algorithms Submitted')
-    md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers<br>")
+    md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers<br>Columns represent producers who submitted artifacts. Verifiers are not listed in this table, but are listed in the broken-out tables below.<br>")
     md_file.new_paragraph()
     _submittedAlgsList.sort()
 
