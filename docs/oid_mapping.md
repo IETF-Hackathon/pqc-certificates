@@ -55,7 +55,14 @@ https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-regi
 | ML-KEM-768  | 2.16.840.1.101.3.4.4.2 | FIPS 203 |
 | ML-KEM-1024 | 2.16.840.1.101.3.4.4.3 | FIPS 203 |
 
-## NTRU
+## Falcon (Prototype - NIST Round 3 Finalist to be standardized)
+
+| Signature Algorithm Name | Signature OID | Specification |
+| ----------- | ----------- | ----------- |
+| Falcon-512 | 1.3.9999* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| Falcon-1024 | 1.3.9999.3.9* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+
+## NTRU (Prototype - NIST Round 3)
 
 | KEM Algorithm Name | OID |  Specification |
 | ----------- | ----------- | ----------- |
@@ -65,7 +72,6 @@ https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-regi
 | NTRUHPS40961229 | 1.3.6.1.4.1.22554.5.5.5 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 | NTRUHRSS701 | 1.3.6.1.4.1.22554.5.5.4 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 | NTRUHRSS1373 | 1.3.6.1.4.1.22554.5.5.6 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
-
 
 # Prototype OIDs for Composite Signatures-03
 The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-sigs. Final OID assignment will be handled by IANA.
@@ -141,10 +147,8 @@ testing of the NIST Draft standard OIDs
 | Signature Algorithm Name | Signature OID | Specification |
 | ----------- | ----------- | ----------- |
 | ML-DSA-44-ipd | 1.3.6.1.4.1.2.267.12.4.4 | FIPS 204 (Initial Public Draft) |
-| ML-DSA-65-ipd | 1.3.6.1.4.1.2.267.12.6.5 | FIPS 204 (Initial Public Draft) |
-| ML-DSA-87-ipd | 1.3.6.1.4.1.2.267.12.8.7 | FIPS 204 (Initial Public Draft) |
-| Falcon-512 | 1.3.9999.3.6* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
-| Falcon-1024 | 1.3.9999.3.9* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| ML-DSA-65-ipd | 1.1.4.1.2.267.12.6.5 | FIPS 204 (Initial Public Draft) |
+| ML-DSA-87-ipd | 1.1.4.1.2.267.12.8.7 | FIPS 204 (Initial Public Draft) |
 | SLH-DSA-SHA2-128s-ipd | 1.3.9999.6.4.16 | FIPS 205 (Initial Public Draft) |
 | SLH-DSA-SHAKE-128s-ipd | 1.3.9999.6.7.16 | FIPS 205 (Initial Public Draft) |
 | SLH-DSA-SHA2-128f-ipd | 1.3.9999.6.4.13 | FIPS 205 (Initial Public Draft) |
