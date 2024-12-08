@@ -63,6 +63,13 @@
 * Implementation: WolfSSL, which internally uses WolfSSL, which internally uses OpenQuantumSafe. No artifacts were provided since they would not be different from other OQS artifacts, but test vectors are provided which test parsing other providers' artifacts with WolfSSL.
 * Implementation link: https://github.com/wolfSSL
 
+# Leancrypto
+
+* Provider short name: `leancrypto`
+* Company name:
+* Company website: 
+* Implementation: Open source certification path builder/validation library.
+* Implementation link: https://github.com/smuellerDD/leancrypto
 
 # PQShield
 
