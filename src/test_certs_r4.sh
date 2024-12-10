@@ -6,7 +6,7 @@ if [ $# -lt 1 ]; then
 fi
 
 verifier=$1
-if [ "$verifier" != "bc" ] && [ "$verifier" != "oqs" ]; then
+if [ "$verifier" != "bc" ] && [ "$verifier" != "oqs" ] && [ "$verifier" != "ssai"]; then
     echo "ERROR: verifier \"$verifier\" not supported"
     exit -1
 fi
@@ -63,6 +63,9 @@ test_ta () {
         status=$?
     elif [ "$verifier" = "oqs" ]; then
         output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
+        status=$?
+    elif [ "$verifier" = "ssai" ]; then
+        output=$(validator ta --ta-certificate $tafile 2>&1)
         status=$?
     else
         echo "ERROR: verifier \"$verifier\" not supported"
