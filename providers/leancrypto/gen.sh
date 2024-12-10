@@ -30,13 +30,11 @@ CERTTYPES_SLH_DSA="
 	SLH-DSA-SHAKE-128S:2.16.840.1.101.3.4.3.26
 	SLH-DSA-SHAKE-128F:2.16.840.1.101.3.4.3.27"
 
-# These definitions are currently disabled as there seems to be an issue in
-# leancrypto
 CERTTYPES_COMPOSITE_ML_DSA="
 	ML-DSA65-ED25519:SHA512-2.16.840.1.114027.80.8.1.30
 	ML-DSA44-ED25519:SHA512-2.16.840.1.114027.80.8.1.23"
 
-CERTTYPES="$CERTTYPES_ML_DSA $CERTTYPES_SLH_DSA"
+CERTTYPES="$CERTTYPES_ML_DSA $CERTTYPES_SLH_DSA $CERTTYPES_COMPOSITE_ML_DSA"
 
 ################################################################################
 # No further configurations below this line
