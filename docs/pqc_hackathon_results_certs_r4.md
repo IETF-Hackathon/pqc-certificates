@@ -5,7 +5,7 @@ IETF PQC Hackathon Certificate Interoperability Results
 
 <style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>
 
-Generated: 2024-12-19 23:33 UTC
+Generated: 2025-01-07 13:16 UTC
 
 
 # Algorithms Submitted
@@ -79,7 +79,7 @@ Generated: 2024-12-19 23:33 UTC
 |id-HashMLDSA65-ECDSA-brainpoolP256r1-SHA512|✅||✅|||||||✅|
 |id-HashMLDSA65-Ed25519-SHA512|✅||✅|||||||✅|
 |id-HashMLDSA87-ECDSA-P384-SHA512|✅||✅|||||||✅|
-|id-HashMLDSA87-ECDSA-brainpoolP384r1-SHA51|✅||✅|||||||✅|
+|id-HashMLDSA87-ECDSA-brainpoolP384r1-SHA512|✅||✅|||||||✅|
 |id-HashMLDSA87-Ed448-SHA512|✅||✅|||||||✅|
 
 # NTRUHPS2048677 (1.3.6.1.4.1.22554.5.5.2)
@@ -1216,7 +1216,7 @@ Rows are producers. Columns are parsers.
 |leancrypto|||||||||
 |seventhsense.ai|✅|||||||✅|
 
-# id-HashMLDSA87-ECDSA-brainpoolP384r1-SHA51 (2.16.840.1.114027.80.8.1.52)
+# id-HashMLDSA87-ECDSA-brainpoolP384r1-SHA512 (2.16.840.1.114027.80.8.1.52)
 
 
 Rows are producers. Columns are parsers.

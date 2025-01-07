@@ -104,7 +104,7 @@ The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-compos
 | id-HashMLDSA65-ECDSA-brainpoolP256r1-SHA512 | 2.16.840.1.114027.80.8.1.49 | draft-ietf-lamps-pq-composite-sigs-03 |
 | id-HashMLDSA65-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.50 | draft-ietf-lamps-pq-composite-sigs-03 |
 | id-HashMLDSA87-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.8.1.51 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA87-ECDSA-brainpoolP384r1-SHA51 | 2.16.840.1.114027.80.8.1.52 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA87-ECDSA-brainpoolP384r1-SHA512 | 2.16.840.1.114027.80.8.1.52 | draft-ietf-lamps-pq-composite-sigs-03 |
 | id-HashMLDSA87-Ed448-SHA512 | 2.16.840.1.114027.80.8.1.53 | draft-ietf-lamps-pq-composite-sigs-03 |
 
 # Prototype OIDs for Composite KEM
