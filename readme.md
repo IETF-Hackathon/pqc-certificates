@@ -92,6 +92,31 @@ Where:
     generated via the implementation. See the `Zip format` section
     for more information about its structure.
 
+## Zip Format (R5)
+
+### Certificates - artifacts_certs_r5.zip
+
+Starting with artifacts for the Hackathon in March 15th, 2025
+
+* NEW:  Private key testing for ML-DSA and ML-KEM
+  * Support the seed, expanded or both ML-DSA and ML-KEM private key format
+  * To test private key formats, include in the private key with this naming:
+  * seed_priv.der
+  * expandedkey_priv.der
+  * both_priv.der
+* Only produce a self-signed certificate (TAs). 
+* Only Use DER Encoding format (so that PEM encoding doesn't cause issues).
+* Use a flat folder structure with filenames <friendlyname>-<oid>_ta.der
+* For ML-KEM, use the the ML-DSA TA of the equivalent security level to sign a <ML-KEM_oid>_ee.der
+* For hybrid certificate formats, name the file `<hybrid_format>_<oid1>_with_<oid2>_ta.der`
+
+Within `providers/<provider_name>/[implementation_name/]`
+- artifacts_certs_r5.zip
+  - `<friendlyname>-<oid>_ta.der`  # self-signed cert for signature alg oids
+  - `<friendlyname>-<oid>_ee.der`  # ex.: ML-KEM-512  - signed with ML-DSA-44
+  - `<hybrid_format>_<oid1>_with_<oid2>_ta.der`  # ex.: catalyst_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4_ta.der
+
+The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
 
 ## Zip Format (R4)
 
