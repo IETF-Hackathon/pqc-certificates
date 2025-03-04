@@ -100,10 +100,10 @@ Starting with artifacts for the Hackathon in March 15th, 2025
 
 * NEW:  Private key testing for ML-DSA and ML-KEM
   * Support the seed, expanded or both ML-DSA and ML-KEM private key format
-  * To test private key formats, include in the private key with this naming:
-  * seed_priv.der
-  * expandedkey_priv.der
-  * both_priv.der
+  * To test private key formats, use this naming convention:
+    * <friendlyname>-<oid>_seed_priv.der
+    * <friendlyname>-<oid>_expandedkey_priv.der
+    * <friendlyname>-<oid>_both_priv.der
 * Only produce a self-signed certificate (TAs). 
 * Only Use DER Encoding format (so that PEM encoding doesn't cause issues).
 * Use a flat folder structure with filenames <friendlyname>-<oid>_ta.der
