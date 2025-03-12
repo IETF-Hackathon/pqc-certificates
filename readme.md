@@ -100,10 +100,16 @@ Starting with artifacts for the Hackathon in March 15th, 2025
 
 * NEW:  Private key testing for ML-DSA and ML-KEM
   * Support the seed, expanded or both ML-DSA and ML-KEM private key format
-  * To test private key formats, use this naming convention:
+  * To test private key formats, use this naming convention with prefix `<friendlyname>-<oid>` to match public and private keys and other related artifacts:
     * `<friendlyname>-<oid>_seed_priv.der` #private key in seed format
     * `<friendlyname>-<oid>_expandedkey_priv.der`  #private key in expanded format
     * `<friendlyname>-<oid>_both_priv.der`  #both the seed and expanded format
+  * To support testing of KEM private keys artifacts
+    * `<friendlyname>-<oid>_ciphertext.bin` #KEM public keys encapsulated public key
+    * `<friendlyname>-<oid>_ss.bin` #KEM shared secret resulting
+    * To test, the verifier MUST decapsulate the`<friendlyname>-<oid>_ciphertext.bin` file with the private key files and the output for each decapsulation MUST match the `<friendlyname>-<oid>_ss.bin` file
+  * To support testing of the Signature private keys
+    * A signature MUST be produced with the private keys, and the public key from the matching certificate files `<friendlyname>-<oid>_ta.der` should be used to verify the signature.  The signature can be produced over any data.  For example, a file with the string "This is a test of signature data" could be used. 
 * Only produce a self-signed certificate (TAs). 
 * Only Use DER Encoding format (so that PEM encoding doesn't cause issues).
 * Use a flat folder structure with filenames <friendlyname>-<oid>_ta.der
