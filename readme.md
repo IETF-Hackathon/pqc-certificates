@@ -37,14 +37,14 @@ The project's directory structure is as follows:
     - docs/
     - providers/
         - provider_name_1/
-            - artifacts_certs_r3.zip
-            - artifacts_cms_v1.zip
+            - artifacts_certs_r5.zip
+            - artifacts_cms_v3.zip
             - compatMatrices
-              - artifacts_certs_r3
+              - artifacts_certs_r5
                 - prov2_prov1.csv
                 - prov3_prov1.csv
                 - ...
-              - artifacts_cms_v1
+              - artifacts_cms_v3
                 - prov2_prov1.csv
                 - prov3_prov1.csv
                 - ...
@@ -53,7 +53,6 @@ The project's directory structure is as follows:
             - Makefile
                 - unzip, generate, verify, and cross_verify targets
         - provider_name_2
-            - implementation_name_1
             - ...
 ~~~
 Note that some vendors have multiple providers with artifacts. Due to automation for generating the results HTML page which takes the provider name from the directory name; please create a new top-level provider directory for each of your providers.
@@ -98,12 +97,14 @@ Where:
 
 Starting with artifacts for the Hackathon in March 15th, 2025
 
-* NEW:  Private key testing for ML-DSA and ML-KEM
+* NEW:  Private key testing for ML-DSA, SLH-DSA and ML-KEM
   * Support the seed, expanded or both ML-DSA and ML-KEM private key format
+  * Support the single SLH-DSA private key format
   * To test private key formats, use this naming convention with prefix `<friendlyname>-<oid>` to match public and private keys and other related artifacts:
     * `<friendlyname>-<oid>_seed_priv.der` #private key in seed format
     * `<friendlyname>-<oid>_expandedkey_priv.der`  #private key in expanded format
     * `<friendlyname>-<oid>_both_priv.der`  #both the seed and expanded format
+    * `<friendlyname>-<oid>_priv.der` #For private keys which don't have multiple formats (e.g. SLH-DSA)
   * To support testing of KEM private keys artifacts
     * `<friendlyname>-<oid>_ciphertext.bin` #KEM public keys encapsulated public key
     * `<friendlyname>-<oid>_ss.bin` #KEM shared secret resulting
@@ -144,21 +145,22 @@ Within `providers/<provider_name>/[implementation_name/]`
 
 The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
 
-## CMS -- artifacts_cms_v1.zip
+## CMS -- artifacts_cms_v3.zip
 
-This is version 1 of the CMS artifacts format.  It may change if needs change.
+This is version 3 of the CMS artifacts format.  It may change if needs change.
 
 Within `providers/<provider_name>/[implementation_name/]`
-- artifacts_cms_v1.zip
-  - `artifacts_cms_v1/` subfolder which will contain the artifacts
-  - `artifacts_cms_v1/expected_plaintext.txt` # The message which was encrypted and can be compared against the decrypted artifacts.
-  - `artifacts_cms_v1/ukm.txt` # The User Keying Material (UKM) included in some of the enveloped messages.
-  - `artifacts_cms_v1/<ta>.der` # dilithium2 trust anchor used to sign the KEM end-entity certificates.
-  - `artifacts_cms_v1/<oid>_<friendly>_ee.der` # The KEM certificate that the message is enveloped to.
-  - `artifacts_cms_v1/<oid>_<friendly>_priv.der` # The private key to decrypt the enveloped messages.
-  - `artifacts_cms_v1/<oid>_<friendly>_kemri_ukm.der` # An Enveloped artifact using KEMRI’s UKM field and one of the MTI KDFs for the KEM algorithm.
-  - `artifacts_cms_v1/<oid>_<friendly>_kemri_auth.der` # An AuthEnveloped artifact using KEMRI without UKM and one of the MTI KDFs for the KEM algorithm.
-  - `artifacts_cms_v1/<oid>_<friendly>_kemri_<kdf>.der` # Enveloped artifacts using KEMRI without UKM and the specified KDF. Implementations must provide artifacts for each of the MTI KDFs for the OID, and may provider artifacts for others.
+- artifacts_cms_v3.zip
+  - `artifacts_cms_v3/` subfolder which will contain the artifacts
+  - `artifacts_cms_v3/expected_plaintext.txt` # The message which was encrypted and can be compared against the decrypted artifacts.
+  - `artifacts_cms_v3/ukm.txt` # The User Keying Material (UKM) included in some of the enveloped messages.
+  - `artifacts_cms_v3/ta.der` # ML-DSA-44 trust anchor used to sign the end-entity certificates.
+  - `artifacts_cms_v3/<friendly>-<oid>_ee.der` # The KEM certificate that the message is enveloped to.
+  - `artifacts_cms_v3/<friendly>-<oid>_both_priv.der` # The private KEM key to decrypt the enveloped messages.
+  - `artifacts_cms_v3/<friendly>-<oid>_kemri_ukm.der` # An Enveloped artifact using KEMRI’s UKM field and one of the MTI KDFs for the KEM algorithm.
+  - `artifacts_cms_v3/<friendly>-<oid>_kemri_auth.der` # An AuthEnveloped artifact using KEMRI without UKM and one of the MTI KDFs for the KEM algorithm.
+  - `artifacts_cms_v3/<friendly>-<oid>_kemri_<kdf>.der` # Enveloped artifacts using KEMRI without UKM, and the specified KDF. Implementations must provide artifacts for each of the MTI KDFs for the OID, and may provide artifacts for other KDFs.
+  - `artifacts_cms_v3/<friendly>-<oid>_signed_attrs.der` # Signed artifact, with attached content and signed attributes.
 
 #### Friendly
 
