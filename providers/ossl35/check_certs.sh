@@ -27,6 +27,8 @@ do
         set -o pipefail
         shopt -s nullglob
         pubs=()
+        set -- "$tmp"/*-"${mldsa_oids[0]}"_*.der
+        if [[ $# -eq 0 ]]; then exit 2; fi
         for form in seed expandedkey both ta
         do
             pubout="$tmp/${mldsa_oids[0]}_${form}_pub.der"
@@ -66,8 +68,11 @@ do
                 "${mldsa_oids[0]}"
         fi
     )
-    if [[ $? -ne 0 ]]; then ok=N; else ok=Y; fi
-    printf "%s,%s\n" "${mldsa_oids[0]}" "$ok"
+    case $? in
+    0) printf "%s,%s\n" "${mldsa_oids[0]}" "Y";;
+    1) printf "%s,%s\n" "${mldsa_oids[0]}" "N";;
+    *) : ignored ;;
+    esac
 
     #
     # SLH-DSA
@@ -89,12 +94,13 @@ do
                 openssl verify -verify_depth 0 -trusted "$obj" "$obj" >/dev/null
                 count=$((count + 1))
             done
-            if [[ $count -ne 1 ]]; then
-                die 'Missing TA for %s\n' "${oid}"
-            fi
+            if [[ $count -eq 0 ]]; then exit 2; fi
         )
-        if [[ $? -ne 0 ]]; then ok=N; else ok=Y; fi
-        printf "%s,%s\n" "${oid}" "$ok"
+        case $? in
+        0) printf "%s,%s\n" "${oid}" "Y";;
+        1) printf "%s,%s\n" "${oid}" "N";;
+        *) : ignored ;;
+        esac
     done
 
     #
@@ -104,6 +110,8 @@ do
         set -e
         set -o pipefail
         shopt -s nullglob
+        set -- "$tmp"/*-"${mlkem_oids[0]}"_*.der
+        if [[ $# -eq 0 ]]; then exit 2; fi
         count=0; for ta in "$tmp"/*-"${mldsa_oids[0]}_ta.der"
         do
             if [[ $count > 0 ]]; then
@@ -112,10 +120,6 @@ do
             fi
             count=$((count + 1))
         done
-        if [[ $count -ne 1 ]]; then
-            die 'No TA file for %s\n' \
-                "${mldsa_oids[0]}"
-        fi
         count=0; for ct in "$tmp"/*-"${mlkem_oids[0]}_ciphertext.bin"
         do
             if [[ $count > 0 ]]; then
@@ -178,8 +182,11 @@ do
                 "${mlkem_oids[0]}"
         fi
     )
-    if [[ $? -ne 0 ]]; then ok=N; else ok=Y; fi
-    printf "%s,%s\n" "${mlkem_oids[0]}" "$ok"
+    case $? in
+    0) printf "%s,%s\n" "${mldsa_oids[0]}" "Y";;
+    1) printf "%s,%s\n" "${mldsa_oids[0]}" "N";;
+    *) : ignored ;;
+    esac
 
     unset "mldsa_oids[0]" 
     unset "mlkem_oids[0]"

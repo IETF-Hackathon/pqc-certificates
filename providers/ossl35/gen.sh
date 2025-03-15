@@ -14,7 +14,8 @@ slh3s_names=(slh-dsa-shake-{128,192,256}s)
 slh3s_oids=(2.16.840.1.101.3.4.3.{26,28,30})
 slh3f_names=(slh-dsa-shake-{128,192,256}f)
 slh3f_oids=(2.16.840.1.101.3.4.3.{27,29,31})
-md_names=(sha{256,512,512})
+md2_names=(sha{256,512,512})
+md3_names=(sha3-{256,512,512})
 
 mkdir -p cms
 printf 'Attack at dawn!\r\n' > cms/expected_plaintext.txt
@@ -74,7 +75,7 @@ do
         ;;
     esac
 
-    gencms "${mldsa_names[0]}" "${mldsa_oids[0]}" "${md_names[0]}"
+    gencms "${mldsa_names[0]}" "${mldsa_oids[0]}" "${md2_names[0]}"
 
     #
     # SLH-DSA
@@ -112,10 +113,10 @@ do
         -addext "basicConstraints=critical,CA:true" \
         -addext "keyUsage=critical,keyCertSign,cRLSign" -outform DER
 
-    gencms "${slh2f_names[0]}" "${slh2f_oids[0]}" "${md_names[0]}"
-    gencms "${slh2s_names[0]}" "${slh2s_oids[0]}" "${md_names[0]}"
-    gencms "${slh3f_names[0]}" "${slh3f_oids[0]}" "${md_names[0]}"
-    gencms "${slh3s_names[0]}" "${slh3s_oids[0]}" "${md_names[0]}"
+    gencms "${slh2f_names[0]}" "${slh2f_oids[0]}" "${md2_names[0]}"
+    gencms "${slh2s_names[0]}" "${slh2s_oids[0]}" "${md2_names[0]}"
+    gencms "${slh3f_names[0]}" "${slh3f_oids[0]}" "${md3_names[0]}"
+    gencms "${slh3s_names[0]}" "${slh3s_oids[0]}" "${md3_names[0]}"
 
     #
     # ML-KEM
@@ -149,7 +150,8 @@ do
         -out "${mlkem_der}_ciphertext.bin" \
         -secret "${mlkem_der}_ss.bin"
     #
-    unset "md_names[0]"; md_names=("${md_names[@]}")
+    unset "md2_names[0]"; md2_names=("${md2_names[@]}")
+    unset "md3_names[0]"; md3_names=("${md3_names[@]}")
     unset "mldsa_names[0]"; mldsa_names=("${mldsa_names[@]}")
     unset "mlkem_names[0]"; mlkem_names=("${mlkem_names[@]}")
     unset "slh2f_names[0]"; slh2f_names=("${slh2f_names[@]}")
