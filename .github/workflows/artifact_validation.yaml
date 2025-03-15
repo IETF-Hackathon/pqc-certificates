@@ -1,6 +1,7 @@
 name: Artifact validation
 
 on:
+  pull_request:
   push:
     branches: [ '*' ]
 
