@@ -12,6 +12,7 @@ import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Security;
+import java.security.Signature;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -41,6 +42,8 @@ import org.bouncycastle.cert.CertException;
 import org.bouncycastle.cert.DeltaCertificateTool;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
+import org.bouncycastle.jcajce.interfaces.MLDSAPrivateKey;
+import org.bouncycastle.jcajce.interfaces.SLHDSAPrivateKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.ContentVerifierProvider;
 import org.bouncycastle.operator.OperatorCreationException;
@@ -49,6 +52,7 @@ import org.bouncycastle.pqc.crypto.mlkem.MLKEMExtractor;
 import org.bouncycastle.pqc.crypto.mlkem.MLKEMPrivateKeyParameters;
 import org.bouncycastle.pqc.crypto.util.PrivateKeyFactory;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
+import org.bouncycastle.util.Strings;
 import org.bouncycastle.util.io.Streams;
 import org.bouncycastle.util.io.pem.PemReader;
 
@@ -238,7 +242,11 @@ public class R5ArtifactParser
 
                         privateKey = (PrivateKey)keyFact.generatePrivate(new PKCS8EncodedKeySpec(derData));
                         privateKeys.put(zipName, privateKey);
-                        System.err.println(zipName);
+
+                        if (privateKey instanceof SLHDSAPrivateKey || privateKey instanceof MLDSAPrivateKey)
+                        {
+                            doSigCheck(privateKey);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -296,6 +304,34 @@ public class R5ArtifactParser
         }
 
         checkCertificates(producer, certificates, ignored, privateKeys, cipherTexts);
+    }
+
+    public static void doSigCheck(PrivateKey privKey)
+        throws Exception
+    {
+        Signature sig = Signature.getInstance(privKey.getAlgorithm(), "BC");
+
+        sig.initSign(privKey);
+
+        sig.update(Strings.toByteArray("abc"));
+
+        byte[] genSig = sig.sign();
+
+        if (privKey instanceof MLDSAPrivateKey)
+        {
+            sig.initVerify(((MLDSAPrivateKey)privKey).getPublicKey());
+        }
+        else
+        {
+            sig.initVerify(((SLHDSAPrivateKey)privKey).getPublicKey());
+        }
+
+        sig.update(Strings.toByteArray("abc"));
+
+        if (!sig.verify(genSig))
+        {
+            throw new IllegalStateException("sig failed to verify");
+        }
     }
 
     public static void processArtifacts(String producer, String dirName)
@@ -366,6 +402,11 @@ public class R5ArtifactParser
 
                         privateKey = (PrivateKey)keyFact.generatePrivate(new PKCS8EncodedKeySpec(derData));
                         privateKeys.put(fileName, privateKey);
+
+                        if (privateKey instanceof SLHDSAPrivateKey || privateKey instanceof MLDSAPrivateKey)
+                        {
+                            doSigCheck(privateKey);
+                        }
                     }
                     catch (Exception e)
                     {
