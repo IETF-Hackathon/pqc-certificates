@@ -37,14 +37,14 @@ The project's directory structure is as follows:
     - docs/
     - providers/
         - provider_name_1/
-            - artifacts_certs_r3.zip
-            - artifacts_cms_v1.zip
+            - artifacts_certs_r5.zip
+            - artifacts_cms_v3.zip
             - compatMatrices
-              - artifacts_certs_r3
+              - artifacts_certs_r5
                 - prov2_prov1.csv
                 - prov3_prov1.csv
                 - ...
-              - artifacts_cms_v1
+              - artifacts_cms_v3
                 - prov2_prov1.csv
                 - prov3_prov1.csv
                 - ...
@@ -53,7 +53,6 @@ The project's directory structure is as follows:
             - Makefile
                 - unzip, generate, verify, and cross_verify targets
         - provider_name_2
-            - implementation_name_1
             - ...
 ~~~
 Note that some vendors have multiple providers with artifacts. Due to automation for generating the results HTML page which takes the provider name from the directory name; please create a new top-level provider directory for each of your providers.
@@ -92,6 +91,39 @@ Where:
     generated via the implementation. See the `Zip format` section
     for more information about its structure.
 
+## Zip Format (R5)
+
+### Certificates - artifacts_certs_r5.zip
+
+Starting with artifacts for the Hackathon in March 15th, 2025
+
+* NEW:  Private key testing for ML-DSA, SLH-DSA and ML-KEM
+  * Support the seed, expanded or both ML-DSA and ML-KEM private key format
+  * Support the single SLH-DSA private key format
+  * To test private key formats, use this naming convention with prefix `<friendlyname>-<oid>` to match public and private keys and other related artifacts:
+    * `<friendlyname>-<oid>_seed_priv.der` #private key in seed format
+    * `<friendlyname>-<oid>_expandedkey_priv.der`  #private key in expanded format
+    * `<friendlyname>-<oid>_both_priv.der`  #both the seed and expanded format
+    * `<friendlyname>-<oid>_priv.der` #For private keys which don't have multiple formats (e.g. SLH-DSA)
+  * To support testing of KEM private keys artifacts
+    * `<friendlyname>-<oid>_ciphertext.bin` #KEM public keys encapsulated public key
+    * `<friendlyname>-<oid>_ss.bin` #KEM shared secret resulting
+    * To test, the verifier MUST decapsulate the`<friendlyname>-<oid>_ciphertext.bin` file with the private key files and the output for each decapsulation MUST match the `<friendlyname>-<oid>_ss.bin` file
+  * To support testing of the Signature private keys
+    * A signature MUST be produced with the private keys, and the public key from the matching certificate files `<friendlyname>-<oid>_ta.der` should be used to verify the signature.  The signature can be produced over any data.  For example, a file with the string "This is a test of signature data" could be used. 
+* Only produce a self-signed certificate (TAs). 
+* Only Use DER Encoding format (so that PEM encoding doesn't cause issues).
+* Use a flat folder structure with filenames <friendlyname>-<oid>_ta.der
+* For ML-KEM, use the the ML-DSA TA of the equivalent security level to sign a <ML-KEM_oid>_ee.der
+* For hybrid certificate formats, name the file `<hybrid_format>_<oid1>_with_<oid2>_ta.der`
+
+Within `providers/<provider_name>/[implementation_name/]`
+- artifacts_certs_r5.zip
+  - `<friendlyname>-<oid>_ta.der`  # self-signed cert for signature alg oids
+  - `<friendlyname>-<oid>_ee.der`  # ex.: ML-KEM-512  - signed with ML-DSA-44
+  - `<hybrid_format>_<oid1>_with_<oid2>_ta.der`  # ex.: catalyst_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4_ta.der
+
+The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
 
 ## Zip Format (R4)
 
@@ -113,42 +145,22 @@ Within `providers/<provider_name>/[implementation_name/]`
 
 The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
 
-## Zip Format (R3) - Deprecated, will be removed at Hackathon in November 2024
+## CMS -- artifacts_cms_v3.zip
 
-### Certificates - artifacts_certs_r3.zip
-
-Starting with artifacts for the NIST Draft standards released 2023-08-24, we will use a much simpler artifact format:
-
-* Only produce a self-signed certificate (TAs). Let's not bother with CA / EE / CRL / OCSP; those are begging for compatibility issues that have nothing to do with the PQ algs.
-* We will restrict the R3 artifacts to only the algorithms with NIST draft standards.
-* Use PEM formats.
-* Switch to a flat folder structure with filenames <oid>_ta.pem
-* For Kyber, use the the Dilithium TA of the equivalent security level to sign a <kyber_oid>_ee.pem
-* For hybrid certificate formats, name the file `<hybrid_format>_<oid1>_with_<oid2>_ta.pem`
+This is version 3 of the CMS artifacts format.  It may change if needs change.
 
 Within `providers/<provider_name>/[implementation_name/]`
-- artifacts_certs_r3.zip
-  - `<oid>_ta.pem`  # self-signed cert for signature alg oids
-  - `<oid>_ee.pem`  # ex.: Kyber512  - signed with Dilithium2
-  - `<hybrid_format>_<oid1>_with_<oid2>_ta.pem`  # ex.: catalyst_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4_ta.pem
-
-The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
-
-## CMS -- artifacts_cms_v1.zip
-
-This is version 1 of the CMS artifacts format.  It may change if needs change.
-
-Within `providers/<provider_name>/[implementation_name/]`
-- artifacts_cms_v1.zip
-  - `artifacts_cms_v1/` subfolder which will contain the artifacts
-  - `artifacts_cms_v1/expected_plaintext.txt` # The message which was encrypted and can be compared against the decrypted artifacts.
-  - `artifacts_cms_v1/ukm.txt` # The User Keying Material (UKM) included in some of the enveloped messages.
-  - `artifacts_cms_v1/<ta>.der` # dilithium2 trust anchor used to sign the KEM end-entity certificates.
-  - `artifacts_cms_v1/<oid>_<friendly>_ee.der` # The KEM certificate that the message is enveloped to.
-  - `artifacts_cms_v1/<oid>_<friendly>_priv.der` # The private key to decrypt the enveloped messages.
-  - `artifacts_cms_v1/<oid>_<friendly>_kemri_ukm.der` # An Enveloped artifact using KEMRI’s UKM field and one of the MTI KDFs for the KEM algorithm.
-  - `artifacts_cms_v1/<oid>_<friendly>_kemri_auth.der` # An AuthEnveloped artifact using KEMRI without UKM and one of the MTI KDFs for the KEM algorithm.
-  - `artifacts_cms_v1/<oid>_<friendly>_kemri_<kdf>.der` # Enveloped artifacts using KEMRI without UKM and the specified KDF. Implementations must provide artifacts for each of the MTI KDFs for the OID, and may provider artifacts for others.
+- artifacts_cms_v3.zip
+  - `artifacts_cms_v3/` subfolder which will contain the artifacts
+  - `artifacts_cms_v3/expected_plaintext.txt` # The message which was encrypted and can be compared against the decrypted artifacts.
+  - `artifacts_cms_v3/ukm.txt` # The User Keying Material (UKM) included in some of the enveloped messages.
+  - `artifacts_cms_v3/ta.der` # ML-DSA-44 trust anchor used to sign the end-entity certificates.
+  - `artifacts_cms_v3/<friendly>-<oid>_ee.der` # The KEM certificate that the message is enveloped to.
+  - `artifacts_cms_v3/<friendly>-<oid>_both_priv.der` # The private KEM key to decrypt the enveloped messages.
+  - `artifacts_cms_v3/<friendly>-<oid>_kemri_ukm.der` # An Enveloped artifact using KEMRI’s UKM field and one of the MTI KDFs for the KEM algorithm.
+  - `artifacts_cms_v3/<friendly>-<oid>_kemri_auth.der` # An AuthEnveloped artifact using KEMRI without UKM and one of the MTI KDFs for the KEM algorithm.
+  - `artifacts_cms_v3/<friendly>-<oid>_kemri_<kdf>.der` # Enveloped artifacts using KEMRI without UKM, and the specified KDF. Implementations must provide artifacts for each of the MTI KDFs for the OID, and may provide artifacts for other KDFs.
+  - `artifacts_cms_v3/<friendly>-<oid>_signed_attrs.der` # Signed artifact, with attached content and signed attributes.
 
 #### Friendly
 
@@ -278,3 +290,4 @@ $ make verify
 # Interoperability Results
 
 Instructions for documenting each provider's compatibility test results can be found in [compat_matrix_intructions.md](docs/compat_matrix_instructions.md).
+

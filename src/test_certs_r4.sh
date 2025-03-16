@@ -1,10 +1,23 @@
 #!/bin/sh
 
-certszipr3="artifacts_certs_r3.zip"
+if [ $# -lt 1 ]; then
+    echo "Error: must provide the name of the verifier to use, which must match a .cmd file in the /src dir."
+    exit -1
+fi
+
+verifier=$1
+if [ "$verifier" != "bc" ] && [ "$verifier" != "oqs" ] && [ "$verifier" != "ssai"]; then
+    echo "ERROR: verifier \"$verifier\" not supported"
+    exit -1
+fi
+echo "Running with verifier $verifier." 
+
+certsdir_r4="artifacts_certs_r4"
+certszip_r4="artifacts_certs_r4.zip"
 cmszipr1="artifacts_cms_v1.zip"
 inputdir="./providers"
 outputdir="./output/certs"
-logfile=$outputdir/oqs_certs.log
+logfile=$outputdir/${verifier}_certs.log
 
 # Start the results CSV file
 mkdir -p $outputdir
@@ -19,13 +32,13 @@ test_ta () {
 
     tafileBasename=$(basename $tafile)
 
+    # strip off the friendly name
+    tafileBasename=$(echo $tafileBasename | egrep -o '[^-]*_ta.der$')
+
+
     # strip off the file suffix to get the OID name
-    if [[ $(expr match "$tafileBasename" ".*_ta\.pem$") != 0 ]]; then
-        oid=${tafileBasename%_ta.pem}
-    elif [[ $(expr match "$tafileBasename" ".*_ta\.der$") != 0 ]]; then
-        oid=${tafileBasename%_ta.der}
-    elif [[ $(expr match "$tafileBasename" ".*_ta\.der\.pem$") != 0 ]]; then
-        oid=${tafileBasename%_ta.der.pem}
+    if [ $(expr match "$tafileBasename" ".*_ta\.der$") != 0 ]; then
+        oid=${tafileBasename%_ta.der}        
     else  # It's some other filename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename
         printf "ERROR: file name is not in the expected format: %s\n" $tafileBasename >> $logfile
@@ -33,7 +46,7 @@ test_ta () {
     fi
 
     # some artifacts submit multiple copies of the same cert as .pem, .der, etc. Just skip the second one
-    if [[ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]]; then
+    if [ $(expr match "$alreadyTestedOIDs" ".*\;$oid\;.*") != 0 ]; then
         printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid
         printf "\nWarning: %s has been submitted multiple times by this provider. Skipping\n" $oid >> $logfile
         return
@@ -45,16 +58,27 @@ test_ta () {
     printf "\nTesting %s\n" $tafile >> $logfile
 
     # The actual openssl command that is the heart of this script
-    ossl_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
-    ossl_status=$?
+    if [ "$verifier" = "bc" ]; then
+        output=$(verify_r3.sh $(pwd)/$tafile 2>&1)
+        status=$?
+    elif [ "$verifier" = "oqs" ]; then
+        output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
+        status=$?
+    elif [ "$verifier" = "ssai" ]; then
+        output=$(validator ta --ta-certificate $tafile 2>&1)
+        status=$?
+    else
+        echo "ERROR: verifier \"$verifier\" not supported"
+        exit -1
+    fi
 
     # log it to file and to stdout
-    echo "$ossl_output" >> $logfile
-    echo "$ossl_output"
+    echo "$output" >> $logfile
+    echo "$output"
 
 
     # test for an error and print a link in the results CSV file
-    if [[ $ossl_status -ne 0 ]]; then
+    if [ $status -ne 0 ]; then
         echo "Certificate Validation Result: FAIL"
         echo $oid,N >> $resultsfile
     else
@@ -68,12 +92,12 @@ for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
 
     # process certs
-    zip=${providerdir}$certszipr3
-    unzipdir=${providerdir}"artifacts_certs_r3"
+    zip=${providerdir}$certszip_r4
+    unzipdir=${providerdir}$certsdir_r4
     printf "Unziping %s to %s\n" $zip $unzipdir
     unzip -o $zip -d $unzipdir
 
-    resultsfile=${outputdir}/${provider}_oqs-provider.csv
+    resultsfile=${outputdir}/${provider}_${verifier}.csv
     echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
 
     alreadyTestedOIDs=";"  # for a guard to skip testing the same cert multiple times

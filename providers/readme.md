@@ -23,7 +23,7 @@
 * Provider short name: `carl-redhound`
 * Company name: Red Hound Software
 * Company website: http://www.hound.red/about.html
-* Implementation: Proprietary wrapper for Rust crypto, which internally is PQClean.
+* Implementation: Open source certification path builder/validation library. Internally uses PQCrypto/PQClean for ml-dsa and ml-kem and RustCrypto for slh-dsa.
 
 # Chunghwa Telecom Company (CHT)
 
@@ -63,13 +63,20 @@
 * Implementation: WolfSSL, which internally uses WolfSSL, which internally uses OpenQuantumSafe. No artifacts were provided since they would not be different from other OQS artifacts, but test vectors are provided which test parsing other providers' artifacts with WolfSSL.
 * Implementation link: https://github.com/wolfSSL
 
+# Leancrypto
+
+* Provider short name: `leancrypto`
+* Company name:
+* Company website: 
+* Implementation: Open source certification path builder/validation library.
+* Implementation link: https://github.com/smuellerDD/leancrypto
 
 # PQShield
 
 * Provider short name: `kris`
 * Company name: PQShield
 * Company website: https://pqshield.com/
-* Implementation: Proprietary
+* Implementation: Proprietary. It's a wrapper that internally uses proprietary ML-DSA implementation.
 
 
 # OpenCA

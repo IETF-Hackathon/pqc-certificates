@@ -55,6 +55,88 @@ https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-regi
 | ML-KEM-768  | 2.16.840.1.101.3.4.4.2 | FIPS 203 |
 | ML-KEM-1024 | 2.16.840.1.101.3.4.4.3 | FIPS 203 |
 
+## Falcon (Prototype - NIST Round 3 Finalist to be standardized)
+
+| Signature Algorithm Name | Signature OID | Specification |
+| ----------- | ----------- | ----------- |
+| Falcon-512 | 1.3.9999* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| Falcon-1024 | 1.3.9999.3.9* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+
+## NTRU (Prototype - NIST Round 3)
+
+| KEM Algorithm Name | OID |  Specification |
+| ----------- | ----------- | ----------- |
+| NTRUHPS2048509 | 1.3.6.1.4.1.22554.5.5.1 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| NTRUHPS2048677 | 1.3.6.1.4.1.22554.5.5.2 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| NTRUHPS4096821 | 1.3.6.1.4.1.22554.5.5.3 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| NTRUHPS40961229 | 1.3.6.1.4.1.22554.5.5.5 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| NTRUHRSS701 | 1.3.6.1.4.1.22554.5.5.4 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+| NTRUHRSS1373 | 1.3.6.1.4.1.22554.5.5.6 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
+
+# Prototype OIDs for Composite Signatures-03
+The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-sigs. Final OID assignment will be handled by IANA.
+
+| Composite Algorithm Name | OID | Specification |
+| ----------- | ----------- | ----------- |
+| id-MLDSA44-RSA2048-PSS | 2.16.840.1.114027.80.8.1.21 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA44-RSA2048-PKCS15 | 2.16.840.1.114027.80.8.1.22 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA44-Ed25519 | 2.16.840.1.114027.80.8.1.23 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA44-ECDSA-P256 | 2.16.840.1.114027.80.8.1.24 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA65-RSA3072-PSS | 2.16.840.1.114027.80.8.1.26 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA65-RSA3072-PKCS15 | 2.16.840.1.114027.80.8.1.27 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA65-RSA4096-PSS | 2.16.840.1.114027.80.8.1.34 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA65-RSA4096-PKCS15 | 2.16.840.1.114027.80.8.1.35 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA65-ECDSA-P384 | 2.16.840.1.114027.80.8.1.28 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA65-ECDSA-brainpoolP256r1 | 2.16.840.1.114027.80.8.1.29 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA65-Ed25519 | 2.16.840.1.114027.80.8.1.30 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA87-ECDSA-P384 | 2.16.840.1.114027.80.8.1.31 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA87-ECDSA-brainpoolP384r1 | 2.16.840.1.114027.80.8.1.32 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA87-Ed448 | 2.16.840.1.114027.80.8.1.33 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA44-RSA2048-PSS-SHA256 | 2.16.840.1.114027.80.8.1.40 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA44-RSA2048-PKCS15-SHA256 | 2.16.840.1.114027.80.8.1.41 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA44-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.42 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA44-ECDSA-P256-SHA256 | 2.16.840.1.114027.80.8.1.43 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA65-RSA3072-PSS-SHA512 | 2.16.840.1.114027.80.8.1.44 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA65-RSA3072-PKCS15-SHA512 | 2.16.840.1.114027.80.8.1.45 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA65-RSA4096-PSS-SHA512 | 2.16.840.1.114027.80.8.1.46 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA65-RSA4096-PKCS15-SHA512 | 2.16.840.1.114027.80.8.1.47 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA65-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.8.1.48 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA65-ECDSA-brainpoolP256r1-SHA512 | 2.16.840.1.114027.80.8.1.49 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA65-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.50 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA87-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.8.1.51 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA87-ECDSA-brainpoolP384r1-SHA512 | 2.16.840.1.114027.80.8.1.52 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-HashMLDSA87-Ed448-SHA512 | 2.16.840.1.114027.80.8.1.53 | draft-ietf-lamps-pq-composite-sigs-03 |
+
+# Prototype OIDs for Composite KEM
+The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-kem. Final OID assignment will be handled by IANA.
+
+| Composite Algorithm Name | OID | Specification |
+| ----------- | ----------- | ----------- |
+| id-MLKEM768-RSA2048 | 2.16.840.1.114027.80.5.2.21 |  draft-ietf-lamps-pq-composite-kem-05 |
+| id-MLKEM768-RSA3072 | 2.16.840.1.114027.80.5.2.22 | draft-ietf-lamps-pq-composite-kem-05 |
+| id-MLKEM768-RSA4096 | 2.16.840.1.114027.80.5.2.23 | draft-ietf-lamps-pq-composite-kem-05 |
+| id-MLKEM768-X25519 | 2.16.840.1.114027.80.5.2.24 | draft-ietf-lamps-pq-composite-kem-05 |
+| id-MLKEM768-ECDH-P384 | 2.16.840.1.114027.80.5.2.25 | draft-ietf-lamps-pq-composite-kem-05 |
+| id-MLKEM768-ECDH-brainpoolP256r1 | 2.16.840.1.114027.80.5.2.26 | draft-ietf-lamps-pq-composite-kem-05 |
+| id-MLKEM1024-ECDH-P384 | 2.16.840.1.114027.80.5.2.27 | draft-ietf-lamps-pq-composite-kem-05 |
+| id-MLKEM1024-ECDH-brainpoolP384r1 | 2.16.840.1.114027.80.5.2.28 | draft-ietf-lamps-pq-composite-kem-05 |
+| id-MLKEM1024-X448 | 2.16.840.1.114027.80.5.2.29 | draft-ietf-lamps-pq-composite-kem-05 |
+
+# Experimental and Historical OIDs
+The following are historical or experimental OIDs used in this project.     
+
+Historical document: 
+* https://docs.google.com/document/d/1A2-D82du0qJjygvBuOlG8Xao3MzDYz1pRDzjT9eY6ls/edit#
+
+Notes: 
+2. ~~Strikethrough~~ means that this is a deprecated OID as it refers to an older (non-compatible) version of the algorithm spec.
+
+## Note on naming
+
+As of the draft NIST standards released August 24, 2023, we have the names "ML-DSA", "SLH-DSA", and "ML-KEM" to replace the names "Dilithium", "SPHINCS+", and "Kyber".  
+
+In order to avoid confusion between prototype versions and the eventual final standard versions, this hackathon project will continue using the names "Dilithium", "SPHINCS+", and "Kyber".
+
 ## NIST Draft Standard Algorithm OIDs
 
 This section provides the individual OIDs for the NIST draft standard OIDs
@@ -65,10 +147,8 @@ testing of the NIST Draft standard OIDs
 | Signature Algorithm Name | Signature OID | Specification |
 | ----------- | ----------- | ----------- |
 | ML-DSA-44-ipd | 1.3.6.1.4.1.2.267.12.4.4 | FIPS 204 (Initial Public Draft) |
-| ML-DSA-65-ipd | 1.3.6.1.4.1.2.267.12.6.5 | FIPS 204 (Initial Public Draft) |
-| ML-DSA-87-ipd | 1.3.6.1.4.1.2.267.12.8.7 | FIPS 204 (Initial Public Draft) |
-| Falcon-512 | 1.3.9999.3.6* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
-| Falcon-1024 | 1.3.9999.3.9* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| ML-DSA-65-ipd | 1.1.4.1.2.267.12.6.5 | FIPS 204 (Initial Public Draft) |
+| ML-DSA-87-ipd | 1.1.4.1.2.267.12.8.7 | FIPS 204 (Initial Public Draft) |
 | SLH-DSA-SHA2-128s-ipd | 1.3.9999.6.4.16 | FIPS 205 (Initial Public Draft) |
 | SLH-DSA-SHAKE-128s-ipd | 1.3.9999.6.7.16 | FIPS 205 (Initial Public Draft) |
 | SLH-DSA-SHA2-128f-ipd | 1.3.9999.6.4.13 | FIPS 205 (Initial Public Draft) |
@@ -108,7 +188,7 @@ This section provides the list of OIDs for composite KEMs.
 | mceliece6960119 | 1.3.6.1.4.1.22554.5.1.7 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 | mceliece8192128 | 1.3.6.1.4.1.22554.5.1.9 | NIST Round 4 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 
-# Prototype OIDs for Composite Signatures
+# Prototype OIDs for Composite Signatures-02
 The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-sigs. Final OID assignment will be handled by IANA.
 
 | Composite Algorithm Name | OID | Specification |
@@ -127,7 +207,7 @@ The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-compos
 | MLDSA87-ECDSA-brainpoolP384r1-SHA512 | 2.16.840.1.114027.80.8.1.12 | draft-ietf-lamps-pq-composite-sigs-01 |
 | MLDSA87-Ed448-SHA512 | 2.16.840.1.114027.80.8.1.13 | draft-ietf-lamps-pq-composite-sigs-01 |
 
-# Prototype OIDs for Composite KEM
+# Prototype OIDs for Composite KEM-04
 The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-kem. Final OID assignment will be handled by IANA.
 
 | Composite Algorithm Name | OID | Specification |
@@ -144,20 +224,6 @@ The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-compos
 | MLKEM1024ipd-ECDH-brainpoolP384r1-KMAC256 | 2.16.840.1.114027.80.5.2.9 | draft-ietf-lamps-pq-composite-kem-03 |
 | MLKEM1024ipd-X448-KMAC256 | 2.16.840.1.114027.80.5.2.10 | draft-ounsworth-pq-composite-sigs-13 |
 
-# Experimental and Historical OIDs
-The following are historical or experimental OIDs used in this project.     
-
-Historical document: 
-* https://docs.google.com/document/d/1A2-D82du0qJjygvBuOlG8Xao3MzDYz1pRDzjT9eY6ls/edit#
-
-Notes: 
-2. ~~Strikethrough~~ means that this is a deprecated OID as it refers to an older (non-compatible) version of the algorithm spec.
-
-## Note on naming
-
-As of the draft NIST standards released August 24, 2023, we have the names "ML-DSA", "SLH-DSA", and "ML-KEM" to replace the names "Dilithium", "SPHINCS+", and "Kyber".  
-
-In order to avoid confusion between prototype versions and the eventual final standard versions, this hackathon project will continue using the names "Dilithium", "SPHINCS+", and "Kyber".
 
 
 ## Deprecated Single-algorithm OIDs used previously

@@ -46,10 +46,10 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
     relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.key_algorithm_oid == oid]
     
     for algorithmVerificationResult in relevant_avrs:
-        if algorithmVerificationResult.test_result is None or algorithmVerificationResult.test_result is '':
+        if algorithmVerificationResult.test_result == None or algorithmVerificationResult.test_result == '':
             continue
 
-        if algorithmVerificationResult.test_result is 'Y':
+        if algorithmVerificationResult.test_result == 'Y':
             passedOne = True
         else:
             failedOne = True
@@ -178,6 +178,16 @@ def main():
     with open("oids.json", "w") as f:  
         json.dump(oids_json, f)
 
+    # load the oid_name_mappings from the json file
+    with open("./docs/oid_composite.json", "r") as f:
+        oid_latest = json.load(f)
+    
+
+    # udpate only if the oid is not in the oid_name_mappings
+    for oid in oid_latest:
+        if oid not in oid_name_mappings:
+            oid_name_mappings[oid] = oid_latest[oid]
+
     
     algorithmVerificationResults = []
 
@@ -225,7 +235,7 @@ def main():
 
     md_file.new_paragraph()
     md_file.new_header(level=1, title=f'Algorithms Submitted')
-    md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers<br>")
+    md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers<br>Columns represent producers who submitted artifacts. Verifiers are not listed in this table, but are listed in the broken-out tables below.<br>")
     md_file.new_paragraph()
     _submittedAlgsList.sort()
 

@@ -1,0 +1,39 @@
+#
+# OpenSSL example configuration file.
+# See doc/man5/config.pod for more info.
+#
+# This is mostly being used for generation of certificate requests,
+# but may be used for auto loading of providers
+
+# Note that you can include other files from the main configuration
+# file using the .include directive.
+#.include filename
+
+# This definition stops the following lines choking if HOME isn't
+# defined.
+HOME           = .
+#DEFAULT_GROUPS = kyber768
+
+# Use this in order to automatically load providers.
+openssl_conf = openssl_init
+
+[openssl_init]
+providers = provider_sect
+#ssl_conf = ssl_sect
+
+#[ssl_sect]
+#system_default = system_default_sect
+#
+#[system_default_sect]
+#Groups = $ENV::DEFAULT_GROUPS
+
+
+# List of providers to load
+[provider_sect]
+default = default_sect
+oqsprovider = oqsprovider_sect
+
+[default_sect]
+activate = 1
+[oqsprovider_sect]
+activate = 1
