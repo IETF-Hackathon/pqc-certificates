@@ -4,7 +4,7 @@ This project provides a set of data repositories for X.509 data
 structures that make use of post-quantum and composite algorithms
 (classic with PQC).
 
-This repo represents work done between IETF 115 - 120.
+This repo represents work done between IETF 115 - 122.
 
 The various output compatibility tables produced by this project can be viewed here:
 
