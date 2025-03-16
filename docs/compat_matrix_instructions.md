@@ -7,6 +7,64 @@ The `rebuild_results.sh` script will compile the interop test results from all p
 If you have updated your test results, then please re-run `rebuild_reselts.sh` before committing.
 https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html displays the /docs folder of the `master` branch.
 
+## The interoperability results format R5
+
+Results for the R5 *certs* tests should be placed in
+`providers/<provider_name>/compatMatrices/artifacts_certs_r5/<producer>_<consumer>.csv`.
+Because there in this format there can be multiple files for each OID (up to
+three private key formats, a certificate, and for ML-KEM possible ciphertext
+and shared secret), there are now three columns in the CSV file.  For example,
+the results for ML-DSA-44 and SLH-DSA-SHA2-128s might be:
+
+```
+key_algorithm_oid,type,test_result
+2.16.840.1.101.3.4.3.17,cert,Y
+2.16.840.1.101.3.4.3.17,seed,Y
+2.16.840.1.101.3.4.3.17,expandedkey,Y
+2.16.840.1.101.3.4.3.17,both,Y
+2.16.840.1.101.3.4.3.17,consistent,Y
+2.16.840.1.101.3.4.3.20,priv,Y
+2.16.840.1.101.3.4.3.20,cert,Y
+```
+
+The `type` column takes the following values:
+
+- cert
+    - The TA certificate (ML-DSA or SLH-DSA) had a valid self-signature, or
+    - The ML-KEM EE certificate had a valid signature, by the associated ML-DSA TA.
+- priv
+    - The single SLH-DSA private key form was well formed.
+    - A signature made with the private key can be verified with the
+      corresponding public key.
+- seed
+    - The seed form of an ML-DSA or ML-KEM private key form was well formed.
+    - A signature made with that ML-DSA private key can be verified with the
+      corresponding public key.
+    - The encapsulation ciphertext provided for that ML-KEM OID decapsulates
+      via the seed-only key to a shared secret identical with the provided
+      shared secret.
+- expandedkey
+    - The expanded key form of an ML-DSA or ML-KEM private key form was well
+      formed.
+    - A signature made with that ML-DSA private key can be verified with the
+      corresponding public key.
+    - The encapsulation ciphertext provided for that ML-KEM OID decapsulates
+      via the expanded key to a shared secret identical with the provided
+      shared secret.
+- both
+    - The seed plus expanded key (both) form of an ML-DSA or ML-KEM private key
+      form was well formed.
+    - A signature made with that ML-DSA private key can be verified with the
+      corresponding public key.
+    - The encapsulation ciphertext provided for that ML-KEM OID decapsulates
+      via the seed plus expanded key form to a shared secret identical with the
+      provided shared secret.
+- consistent
+    - All the private key forms yield the same public key form, that is also
+      the public key in the certificate.
+    - This test is not applicable if only a certificate and no keys, or only
+      one key and no certificate is provided.
+
 ## The interoperability results format R3
 
 This is simplified relative to the R2 format.
