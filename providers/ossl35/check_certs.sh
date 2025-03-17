@@ -6,7 +6,7 @@ if [[ $# != 1 ]]; then die 'Usage: %s <zipfile>\n' "$0"; fi
 xxd -p </dev/null || die 'Missing xxd command\n'
 
 case $(openssl version -v) in
-"OpenSSL 3.5".*) : ;;
+"OpenSSL 3".[56].*) : ;;
 *) die 'Unsupported OpenSSL version\n';;
 esac
 
@@ -55,7 +55,7 @@ check_keys() {
             fi;;
         ta) openssl x509 -in "$obj" -pubkey -noout |
                 openssl pkey -pubin -pubout -outform DER -out "$pubout" &&
-            openssl verify -verify_depth 0 -trusted "$obj" "$obj" >/dev/null &&
+            openssl verify -verify_depth 0 -check_ss_sig -trusted "$obj" "$obj" >/dev/null &&
             ta_file="$obj" &&
             dgst=$(openssl dgst -sha256 -binary < "$pubout" | xxd -p -c32) &&
             pubs=("${pubs[@]}" "$dgst") &&
@@ -68,10 +68,10 @@ check_keys() {
             pubs=("${pubs[@]}" "$dgst") &&
             printf "%s,%s,%s\n" "${oid}" "cert" "Y" ||
             printf "%s,%s,%s\n" "${oid}" "cert" "N";;
-        *)  openssl pkey -in "$obj" -pubout -outform DER -out "$pubout" &&
+        *)  openssl pkey -inform DER -in "$obj" -pubout -outform DER -out "$pubout" &&
             if [[ -n "$sigfile" ]]; then
-                openssl pkeyutl -sign -rawin -inkey "$obj" -in "$ptext" -out "$sigfile" &&
-                openssl pkeyutl -verify -rawin -in "$ptext" -pubin -inkey "$pubout" \
+                openssl pkeyutl -sign -rawin -keyform DER -inkey "$obj" -in "$ptext" -out "$sigfile" &&
+                openssl pkeyutl -verify -rawin -in "$ptext" -keyform DER -pubin -inkey "$pubout" \
                     -sigfile "$sigfile" >/dev/null
             elif [[ -n "$ct_file" && -n "$ss_file" ]]; then
                 cmp -s "$ss_file" <(
