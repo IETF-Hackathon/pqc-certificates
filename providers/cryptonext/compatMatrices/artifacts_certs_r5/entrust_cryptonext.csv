@@ -2,6 +2,9 @@ key_algorithm_oid,type,test_result
 1.3.9999.3.9,priv,N
 1.3.9999.3.9,consistent,N
 1.3.9999.3.9,cert,Y
+1.3.9999.3.6,priv,N
+1.3.9999.3.6,consistent,N
+1.3.9999.3.6,cert,Y
 2.16.840.1.101.3.4.3.17,expandedkey,N
 2.16.840.1.101.3.4.3.17,consistent,N
 2.16.840.1.101.3.4.3.17,cert,Y
