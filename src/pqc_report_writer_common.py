@@ -7,6 +7,7 @@ import re
 import argparse
 from typing import NamedTuple, Optional, Sequence, Mapping
 from mdutils.mdutils import MdUtils
+from mdutils.tools.Link import Inline
 from datetime import datetime
 import pytz
 
@@ -264,7 +265,7 @@ def main():
 
     for alg_oid, SubmittedAlgorithmResults in sars_by_alg.items():
         friendly = friendly_by_alg[alg_oid]
-        submittedAlgsCells.append(friendly)
+        submittedAlgsCells.append(Inline.new_link('#'+friendly, friendly))
         for generator in generators:
             """
             -1: no verifiers
@@ -289,7 +290,7 @@ def main():
     for alg_oid, algorithmVerificationResults in avrs_by_alg.items():
         friendly = friendly_by_alg[alg_oid]
 
-        md_file.new_header(level=1, title=f'{friendly} ({alg_oid})')
+        md_file.new_header(level=1, title=f'{friendly} ({alg_oid})', header_id=friendly)
         md_file.new_paragraph(text='Rows are producers. Columns are parsers.\n')
 
         cells = ['-'] + verifiers
