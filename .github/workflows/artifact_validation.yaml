@@ -12,19 +12,6 @@ concurrency:
   cancel-in-progress: false
   
 jobs:
-  oqs_validation:
-    runs-on: ubuntu-latest
-    container: openquantumsafe/oqs-ossl3
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Test artifacts with OQS
-        run: ./src/test_certs_r5.sh oqs
-      - name: Save artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Compatibility_oqs_csv
-          path: ./output/
   bc_validation:
     runs-on: ubuntu-latest
     container: bcdocker2000/bc_hackathon_pqc
@@ -54,7 +41,7 @@ jobs:
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
-    needs: [oqs_validation, bc_validation, ssai_validation]
+    needs: [bc_validation, ssai_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -68,11 +55,6 @@ jobs:
           python-version: '3.x'
       - name: Install python requirements
         run: python -m pip install -r src/requirements.txt
-      - name: Get OQS results from previous job
-        uses: actions/download-artifact@v4
-        with: 
-          name: Compatibility_oqs_csv
-          path: output/
       - name: Get BC results from previous job
         uses: actions/download-artifact@v4
         with: 
@@ -88,7 +70,7 @@ jobs:
       - name: Build compat matrix (cms_v3)
         run: ./src/rebuild_results_cms_v3.sh
       - name: Copy output files (automated r5/v1)
-        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./output/certs/oqs_certs.log ./output/certs/bc_certs.log ./output/certs/ssai_certs.log ./docs/gh-pages
+        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./output/certs/bc_certs.log ./output/certs/ssai_certs.log ./docs/gh-pages
       - name: Copy output files (manual r5/v1)
         run: cp ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/gh-pages
       - name: Copy output files (manual r5/v3)
