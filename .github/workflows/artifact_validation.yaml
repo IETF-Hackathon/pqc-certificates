@@ -83,16 +83,16 @@ jobs:
         with: 
           name: Compatibility_ssai_csv
           path: output/
-      - name: Build compat matrix (certs_r4)
-        run: ./src/rebuild_results_certs_r4.sh
+      - name: Build compat matrix (certs_r5)
+        run: ./src/rebuild_results_certs_r5.sh
       - name: Build compat matrix (certs_r5)
         run: ./src/rebuild_results_certs_r5.sh
       - name: Build compat matrix (cms_v3)
         run: ./src/rebuild_results_cms_v3.sh
-      - name: Copy output files (automated r4/v1)
-        run: mv ./docs/pqc_hackathon_results_certs_r4_automated_tests.html ./output/certs/oqs_certs.log ./output/certs/bc_certs.log ./output/certs/ssai_certs.log ./docs/gh-pages
-      - name: Copy output files (manual r4/v1)
-        run: mv ./docs/pqc_hackathon_results_certs_r4.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/gh-pages
+      - name: Copy output files (automated r5/v1)
+        run: mv ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./output/certs/oqs_certs.log ./output/certs/bc_certs.log ./output/certs/ssai_certs.log ./docs/gh-pages
+      - name: Copy output files (manual r5/v1)
+        run: mv ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/gh-pages
       - name: Copy output files (manual r5/v3)
         run: mv ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_cms_v3.html ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download

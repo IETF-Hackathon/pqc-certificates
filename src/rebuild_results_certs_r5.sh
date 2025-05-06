@@ -17,7 +17,7 @@ pandoc -f markdown pqc_hackathon_results_certs_r5.md > pqc_hackathon_results_cer
 mv pqc_hackathon_results_certs_r5.md pqc_hackathon_results_certs_r5.html docs
 
 if [ -d ./output/certs ]; then
-    python3 src/pqc_report_writer_common.py docs/oid_mapping.md pqc_hackathon_results_certs_r5_automated_tests.md "Certificate Automated Verification" $(find ./output/certs -name "*.csv")
+    python3 src/pqc_report_writer_common_r5.py docs/oid_mapping.md pqc_hackathon_results_certs_r5_automated_tests.md "Certificate Automated Verification" $(find ./output/certs -name "*.csv")
     pandoc -f markdown pqc_hackathon_results_certs_r5_automated_tests.md > pqc_hackathon_results_certs_r5_automated_tests.html
     mv pqc_hackathon_results_certs_r5_automated_tests.md pqc_hackathon_results_certs_r5_automated_tests.html docs
 fi
