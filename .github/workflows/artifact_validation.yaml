@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Test artifacts with OQS
-        run: ./src/test_certs_r4.sh oqs
+        run: ./src/test_certs_r5.sh oqs
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -32,7 +32,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Test artifacts with BC
-        run: ./src/test_certs_r4.sh bc
+        run: ./src/test_certs_r5.sh bc
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -45,7 +45,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Test artifacts with SSAI
-        run: ./src/test_certs_r4.sh ssai
+        run: ./src/test_certs_r5.sh ssai
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
