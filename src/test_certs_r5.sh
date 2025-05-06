@@ -80,10 +80,10 @@ test_ta () {
     # test for an error and print a link in the results CSV file
     if [ $status -ne 0 ]; then
         echo "Certificate Validation Result: FAIL"
-        echo $oid,N >> $resultsfile
+        echo $oid,cert,N >> $resultsfile
     else
         echo "Certificate Validation Result: SUCCESS"
-        echo $oid,Y >> $resultsfile
+        echo $oid,cert,Y >> $resultsfile
     fi
 }
 
@@ -98,7 +98,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     unzip -o $zip -d $unzipdir
 
     resultsfile=${outputdir}/${provider}_${verifier}.csv
-    echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
+    echo "key_algorithm_oid,type,test_result" > $resultsfile  # CSV header row
 
     alreadyTestedOIDs=";"  # for a guard to skip testing the same cert multiple times
     # test each TA file
