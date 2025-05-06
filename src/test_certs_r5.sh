@@ -12,8 +12,8 @@ if [ "$verifier" != "bc" ] && [ "$verifier" != "oqs" ] && [ "$verifier" != "ssai
 fi
 echo "Running with verifier $verifier." 
 
-certsdir_r5="artifacts_certs_r5"
-certszip_r5="artifacts_certs_r5.zip"
+certsdir="artifacts_certs_r5"
+certszip="artifacts_certs_r5.zip"
 cmszipr1="artifacts_cms_v1.zip"
 inputdir="./providers"
 outputdir="./output/certs"
@@ -92,8 +92,8 @@ for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
 
     # process certs
-    zip=${providerdir}$certszip_r4
-    unzipdir=${providerdir}$certsdir_r4
+    zip=${providerdir}$certszip
+    unzipdir=${providerdir}$certsdir
     printf "Unziping %s to %s\n" $zip $unzipdir
     unzip -o $zip -d $unzipdir
 
