@@ -555,9 +555,12 @@ public class R5ArtifactGenerator
             {
                 derOutput(aDir, sigAlgNames[alg] + "-" + sigAlgorithms[alg] + "_seed_priv.der", ((MLDSAPrivateKey)taKp.getPrivate()).getPrivateKey(true));
                 derOutput(aDir, sigAlgNames[alg] + "-" + sigAlgorithms[alg] + "_expandedkey_priv.der",  ((MLDSAPrivateKey)taKp.getPrivate()).getPrivateKey(false));
+                derOutput(aDir, sigAlgNames[alg] + "-" + sigAlgorithms[alg] + "_both_priv.der", taKp.getPrivate());
             }
-
-            derOutput(aDir, sigAlgNames[alg] + "-" + sigAlgorithms[alg] + "_priv.der", taKp.getPrivate());
+            else
+            {
+                derOutput(aDir, sigAlgNames[alg] + "-" + sigAlgorithms[alg] + "_priv.der", taKp.getPrivate());
+            }
 
             sigParams.put(sigAlgNames[alg], new PKIXPair(taKp.getPrivate(), taCert));
         }
@@ -582,9 +585,12 @@ public class R5ArtifactGenerator
             {
                 derOutput(aDir, kemAlgNames[alg].toLowerCase(Locale.ROOT) + "-" + kemAlgorithms[alg] + "_seed_priv.der", ((MLKEMPrivateKey)eeKp.getPrivate()).getPrivateKey(true));
                 derOutput(aDir, kemAlgNames[alg].toLowerCase(Locale.ROOT) + "-" + kemAlgorithms[alg] + "_expandedkey_priv.der",  ((MLKEMPrivateKey)eeKp.getPrivate()).getPrivateKey(false));
+                derOutput(aDir, kemAlgNames[alg].toLowerCase(Locale.ROOT) + "-" + kemAlgorithms[alg] + "_both_priv.der", eeKp.getPrivate());
             }
-   
-            derOutput(aDir, kemAlgNames[alg].toLowerCase(Locale.ROOT) + "-" + kemAlgorithms[alg] + "_priv.der", eeKp.getPrivate());
+            else
+            {
+                derOutput(aDir, kemAlgNames[alg].toLowerCase(Locale.ROOT) + "-" + kemAlgorithms[alg] + "_priv.der", eeKp.getPrivate());
+            }
 
             kemSampleOutput(aDir, kemAlgNames[alg].toLowerCase(Locale.ROOT) + "-" + kemAlgorithms[alg], eeKp);
 

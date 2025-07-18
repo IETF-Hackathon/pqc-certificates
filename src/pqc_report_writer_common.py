@@ -7,6 +7,7 @@ import re
 import argparse
 from typing import NamedTuple, Optional, Sequence, Mapping
 from mdutils.mdutils import MdUtils
+from mdutils.tools.Link import Inline
 from datetime import datetime
 import pytz
 
@@ -18,6 +19,7 @@ _HYBRID_FORMAT_NAME_REGEX = re.compile(r'(?P<hybrid_format>[^_]+)_(?P<oid1>[^_]+
 class SubmittedAlgorithmResult(NamedTuple):
     generator: str
     key_algorithm_oid: str
+    friendly: str
 
 # set to automatically not add duplicates
 _submittedAlgorithmResults = []
@@ -27,6 +29,7 @@ class AlgorithmVerificationResult(NamedTuple):
     generator: str
     verifier: str
     key_algorithm_oid: str
+    friendly: str
     test_result: Optional[bool]
 
 def _parse_json_file(generator, verifier, f) -> Sequence[AlgorithmVerificationResult]:
@@ -42,6 +45,8 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
     """
     passedOne = False
     failedOne = False
+    passCount = 0
+    totalCount = 0
 
     relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.key_algorithm_oid == oid]
     
@@ -49,19 +54,21 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
         if algorithmVerificationResult.test_result == None or algorithmVerificationResult.test_result == '':
             continue
 
+        totalCount += 1
         if algorithmVerificationResult.test_result == 'Y':
             passedOne = True
+            passCount += 1
         else:
             failedOne = True
 
     if not passedOne and not failedOne:
-        return -1
+        return (-1, passCount, totalCount)
     elif not passedOne and failedOne:
-        return 0
+        return (0, passCount, totalCount)
     elif passedOne and failedOne:
-        return 1
+        return (1, passCount, totalCount)
     elif passedOne and not failedOne:
-        return 2
+        return (2, passCount, totalCount)
     
 def _parse_csv_file(
     generator, verifier, f, oid_name_mappings, include_all_oids
@@ -75,10 +82,15 @@ def _parse_csv_file(
             key_algorithm_oid = row['key_algorithm_oid']
             if not include_all_oids and not key_algorithm_oid in oid_name_mappings:
                 continue
+            friendly = _get_alg_name_by_oid_str(oid_name_mappings, key_algorithm_oid)
+            if 'type' in row and row['type'] != None and row['type'] != "":
+                friendly += "-" + row['type']
+                key_algorithm_oid += "-" + row['type']
             d = {
                 'generator': generator,
                 'verifier': verifier,
                 'key_algorithm_oid': key_algorithm_oid,
+                'friendly': friendly,
                 'test_result': row['test_result']
             }
 
@@ -87,7 +99,8 @@ def _parse_csv_file(
             if row['test_result'] != None and row['test_result'] != "":
                 e = {
                     'generator': generator,
-                    'key_algorithm_oid': key_algorithm_oid
+                    'key_algorithm_oid': key_algorithm_oid,
+                    'friendly': friendly
                 }
 
                 # The algorithms Tested table should only contain tests with a pass or fail result
@@ -227,9 +240,13 @@ def main():
     for algorithmVerificationResult in algorithmVerificationResults:
         avrs_by_alg[algorithmVerificationResult.key_algorithm_oid].append(algorithmVerificationResult)
 
+    friendly_by_alg = {k: [] for k in algorithms}
+    for algorithmVerificationResult in algorithmVerificationResults:
+        friendly_by_alg[algorithmVerificationResult.key_algorithm_oid] = algorithmVerificationResult.friendly
+
     md_file = MdUtils(file_name=args.outfile, title=f'IETF PQC Hackathon {args.interop_type} Interoperability Results')
 
-    md_file.new_paragraph(text="<style> table { border-collapse: collapse; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>")
+    md_file.new_paragraph(text="<style> table { border-collapse: collapse; width:auto !important; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>")
 
     md_file.new_paragraph(text="Generated: "+str(datetime.now(tz=pytz.utc).strftime('%Y-%m-%d %H:%M %Z')))
 
@@ -247,7 +264,8 @@ def main():
 
 
     for alg_oid, SubmittedAlgorithmResults in sars_by_alg.items():
-        submittedAlgsCells.append(_get_alg_name_by_oid_str(oid_name_mappings, alg_oid))
+        friendly = friendly_by_alg[alg_oid]
+        submittedAlgsCells.append(Inline.new_link('#'+friendly, friendly))
         for generator in generators:
             """
             -1: no verifiers
@@ -255,24 +273,24 @@ def main():
             1: passed some verifiers
             2: passed all verifiers
             """
-            no = passedAllVerifiers(generator, alg_oid, algorithmVerificationResults)
+            (no, passCount, totalCount) = passedAllVerifiers(generator, alg_oid, algorithmVerificationResults)
             if (no == -1):
                 submittedAlgsCells.append('')
             elif (no == 0):
-                submittedAlgsCells.append('⚪︎')
+                submittedAlgsCells.append(f'⚪︎ {passCount}/{totalCount}')
             elif (no == 1):
-                submittedAlgsCells.append('◒')
+                submittedAlgsCells.append(f'◒ {passCount}/{totalCount}')
             else:
-                submittedAlgsCells.append('✅')
+                submittedAlgsCells.append(f'✅ {passCount}/{totalCount}')
 
     md_file.new_table(columns=len(generators) + 1, rows=len(_submittedAlgsList) + 1, text=submittedAlgsCells, text_align='left')
 
 
 
     for alg_oid, algorithmVerificationResults in avrs_by_alg.items():
-        alg_name = _get_alg_name_by_oid_str(oid_name_mappings, alg_oid)
+        friendly = friendly_by_alg[alg_oid]
 
-        md_file.new_header(level=1, title=f'{alg_name} ({alg_oid})')
+        md_file.new_header(level=1, title=f'{friendly} ({alg_oid})', header_id=friendly)
         md_file.new_paragraph(text='Rows are producers. Columns are parsers.\n')
 
         cells = ['-'] + verifiers
@@ -287,7 +305,7 @@ def main():
 
                 if len(relevant_avrs) == 0:
                     # synthesize a result
-                    relevant_avr = AlgorithmVerificationResult(generator, verifier, alg_oid, None)
+                    relevant_avr = AlgorithmVerificationResult(generator, verifier, alg_oid, friendly, None)
                 else:
                     relevant_avr = relevant_avrs[0]
 
