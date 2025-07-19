@@ -106,8 +106,9 @@ Starting with artifacts for the Hackathon in March 15th, 2025
     * `<friendlyname>-<oid>_both_priv.der`  #both the seed and expanded format
     * `<friendlyname>-<oid>_priv.der` #For private keys which don't have multiple formats (e.g. SLH-DSA)
   * To support testing of KEM private keys artifacts
-    * `<friendlyname>-<oid>_ciphertext.bin` #KEM public keys encapsulated public key
-    * `<friendlyname>-<oid>_ss.bin` #KEM shared secret resulting
+    * `<friendlyname>-<oid>_ee.der` #certificate for a KEM public key
+    * `<friendlyname>-<oid>_ciphertext.bin` #encapsulation of a shared secret
+    * `<friendlyname>-<oid>_ss.bin` #decapsulation of the shared secret
     * To test, the verifier MUST decapsulate the`<friendlyname>-<oid>_ciphertext.bin` file with the private key files and the output for each decapsulation MUST match the `<friendlyname>-<oid>_ss.bin` file
   * To support testing of the Signature private keys
     * A signature MUST be produced with the private keys, and the public key from the matching certificate files `<friendlyname>-<oid>_ta.der` should be used to verify the signature.  The signature can be produced over any data.  For example, a file with the string "This is a test of signature data" could be used. 
