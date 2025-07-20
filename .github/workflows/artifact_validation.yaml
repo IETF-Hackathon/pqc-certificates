@@ -94,6 +94,11 @@ jobs:
       - name: Get SSAI results from previous job
         uses: actions/download-artifact@v4
         with: 
+          name: Compatibility_composite-refl-impl_csv
+          path: output/
+      - name: Get composite-sigs-ref-impl results from previous job
+        uses: actions/download-artifact@v4
+        with: 
           name: Compatibility_ssai_csv
           path: output/
       - name: Build compat matrix (certs_r5)
