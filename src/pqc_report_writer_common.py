@@ -302,8 +302,9 @@ def main():
 
                 if len(relevant_avrs) > 1:
                     print(f'Multiple results for {alg_oid}: {generator}-{verifier}, skipping duplicate entry.')
-                    continue
-                if len(relevant_avrs) == 0:
+                    # just use the first one
+                    relevant_avr = relevant_avrs[0]
+                elif len(relevant_avrs) == 0:
                     # synthesize a result
                     relevant_avr = AlgorithmVerificationResult(generator, verifier, alg_oid, friendly, None)
                 else:
