@@ -3,7 +3,7 @@
 # PQC Certificates Tests
 
 # Name for this provider
-PROVIDER_NAME := corey_snakefoot
+PROVIDER_NAME := safelogict
 
 # Directories for (possibly) multiple products
 # supported by the same provider
