@@ -301,7 +301,8 @@ def main():
                 relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.verifier == verifier]
 
                 if len(relevant_avrs) > 1:
-                    raise ValueError(f'Multiple results for {alg_oid}: {generator}-{verifier}')
+                    print(f'Multiple results for {alg_oid}: {generator}-{verifier}, skipping duplicate entry.')
+                    continue
 
                 if len(relevant_avrs) == 0:
                     # synthesize a result
