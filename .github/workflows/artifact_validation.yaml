@@ -58,7 +58,7 @@ jobs:
         run: python -m pip install -r ./draft-composite-sigs/src/requirements.txt
       - name: Test artifacts with composite reference implementation
         run: |
-            for i in **/artifacts_certs_r5.zip; do; ./draft-composite-sigs/src/test_artifacts_r5.py $(basename $(dirname "$i")) "$i" | tee ./output/certs/composite-sigs-ref-impl.log; done;
+            for i in **/artifacts_certs_r5.zip; do ./draft-composite-sigs/src/test_artifacts_r5.py $(basename $(dirname "$i")) "$i" | tee ./output/certs/composite-sigs-ref-impl.log; done;
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
