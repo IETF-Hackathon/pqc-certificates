@@ -191,16 +191,6 @@ def main():
     with open("oids.json", "w") as f:  
         json.dump(oids_json, f)
 
-    # load the oid_name_mappings from the json file
-    with open("./docs/oid_composite.json", "r") as f:
-        oid_latest = json.load(f)
-    
-
-    # udpate only if the oid is not in the oid_name_mappings
-    for oid in oid_latest:
-        if oid not in oid_name_mappings:
-            oid_name_mappings[oid] = oid_latest[oid]
-
     
     algorithmVerificationResults = []
 
