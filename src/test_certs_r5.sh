@@ -6,7 +6,7 @@ if [ $# -lt 1 ]; then
 fi
 
 verifier=$1
-if [ "$verifier" != "bc" ] && [ "$verifier" != "oqs" ] && [ "$verifier" != "ssai"]; then
+if [ "$verifier" != "bc" ] && [ "$verifier" != "ssai"]; then
     echo "ERROR: verifier \"$verifier\" not supported"
     exit -1
 fi
@@ -57,12 +57,9 @@ test_ta () {
     printf "\nTesting %s\n" $tafile
     printf "\nTesting %s\n" $tafile >> $logfile
 
-    # The actual openssl command that is the heart of this script
+    # The actual command that is the heart of this script
     if [ "$verifier" = "bc" ]; then
         output=$(verify_r3.sh $(pwd)/$tafile 2>&1)
-        status=$?
-    elif [ "$verifier" = "oqs" ]; then
-        output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile 2>&1)
         status=$?
     elif [ "$verifier" = "ssai" ]; then
         output=$(validator ta --ta-certificate $tafile 2>&1)
