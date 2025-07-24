@@ -27,12 +27,12 @@ jobs:
           path: ./output/
   openssl_validation:
     runs-on: ubuntu-latest
-    container: fedora:42
+    container: fedora:43
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install OpenSSL 3.5
-        run: dnf -y install openssl
+        run: dnf -y install zip diff openssl
       - name: Test artifacts with OpenSSL 3.5
         run: ./src/test_certs_r5_openssl.sh
       - name: Save artifacts
