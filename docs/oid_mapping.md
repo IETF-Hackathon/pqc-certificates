@@ -101,18 +101,18 @@ The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-compos
 
 | Composite Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
-| id-MLKEM768-RSA2048-SHA3-256 | 2.16.840.1.114027.80.5.2.62 |  draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM768-RSA3072-SHA3-256 | 2.16.840.1.114027.80.5.2.63 | draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM768-RSA4096-SHA3-256 | 2.16.840.1.114027.80.5.2.64 | draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM768-X25519-SHA3-256 | 2.16.840.1.114027.80.5.2.65 | draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM768-ECDH-P256-SHA3-256 | 2.16.840.1.114027.80.5.2.66 | draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM768-ECDH-P384-SHA3-256 | 2.16.840.1.114027.80.5.2.67 | draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256 | 2.16.840.1.114027.80.5.2.68 | draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM1024-RSA3072-SHA3-256 | 2.16.840.1.114027.80.5.2.69 | draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM1024-ECDH-P384-SHA3-256 | 2.16.840.1.114027.80.5.2.70 | draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256 | 2.16.840.1.114027.80.5.2.71 | draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM1024-X448-SHA3-256 | 2.16.840.1.114027.80.5.2.72 | draft-ietf-lamps-pq-composite-kem-08 |
-| id-MLKEM1024-ECDH-P521-SHA3-256 | 2.16.840.1.114027.80.5.2.73 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM768-RSA2048-SHA3-256 | 2.16.840.1.114027.80.5.2.74 |  draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM768-RSA3072-SHA3-256 | 2.16.840.1.114027.80.5.2.75 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM768-RSA4096-SHA3-256 | 2.16.840.1.114027.80.5.2.76 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM768-X25519-SHA3-256 | 2.16.840.1.114027.80.5.2.77 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM768-ECDH-P256-SHA3-256 | 2.16.840.1.114027.80.5.2.78 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM768-ECDH-P384-SHA3-256 | 2.16.840.1.114027.80.5.2.79 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256 | 2.16.840.1.114027.80.5.2.80 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM1024-RSA3072-SHA3-256 | 2.16.840.1.114027.80.5.2.81 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM1024-ECDH-P384-SHA3-256 | 2.16.840.1.114027.80.5.2.82 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256 | 2.16.840.1.114027.80.5.2.83 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM1024-X448-SHA3-256 | 2.16.840.1.114027.80.5.2.84 | draft-ietf-lamps-pq-composite-kem-08 |
+| id-MLKEM1024-ECDH-P521-SHA3-256 | 2.16.840.1.114027.80.5.2.85 | draft-ietf-lamps-pq-composite-kem-08 |
 
 # Experimental and Historical OIDs
 The following are historical or experimental OIDs used in this project.     
