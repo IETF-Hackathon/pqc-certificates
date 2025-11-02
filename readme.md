@@ -191,18 +191,18 @@ Each RFC will specify mandatory KDFs, and probably allow for others as well. You
 | cms-kyber | ML-KEM-512 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
 | cms-kyber | ML-KEM-768 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
 | cms-kyber | ML-KEM-1024 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
-| TBD | id-MLKEM768-RSA2048-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM768-RSA3072-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM768-RSA4096-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM768-X25519-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM768-ECDH-P256-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM768-ECDH-P384-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM1024-RSA3072-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM1024-ECDH-P384-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM1024-X448-SHA3-256 | KMAC256-KDF | id-kmac256 |
-| TBD | id-MLKEM1024-ECDH-P521-SHA3-256 | KMAC256-KDF | id-kmac256 |
+| TBD | id-MLKEM768-RSA2048-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-RSA3072-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-RSA4096-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-X25519-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-ECDH-P256-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-ECDH-P384-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM1024-RSA3072-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM1024-ECDH-P384-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM1024-X448-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM1024-ECDH-P521-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
 
 ### CMP -- artifacts_cmp.zip
 
