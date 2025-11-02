@@ -170,7 +170,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     unzip -o $zip -d $unzipdir
 
     resultsfile=${outputdir}/${provider}_openssl.csv
-    echo "key_algorithm_oid,type,test_result" > $resultsfile  # CSV header row
+    echo "key_algorithm_oid,test_result" > $resultsfile  # CSV header row
 
     alreadyTestedSigOIDs=";"  # for a guard to skip testing the same cert multiple times
     alreadyTestedKEMOIDs=";"  # for a guard to skip testing the same cert multiple times
