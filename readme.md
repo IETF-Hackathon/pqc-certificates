@@ -154,13 +154,13 @@ Within `providers/<provider_name>/[implementation_name/]`
 - artifacts_cms_v3.zip
   - `artifacts_cms_v3/` subfolder which will contain the artifacts
   - `artifacts_cms_v3/expected_plaintext.txt` # The message which was encrypted and can be compared against the decrypted artifacts.
-  - `artifacts_cms_v3/ukm.txt` # The User Keying Material (UKM) included in some of the enveloped messages.
   - `artifacts_cms_v3/ta.der` # ML-DSA-44 trust anchor used to sign the end-entity certificates.
   - `artifacts_cms_v3/<friendly>-<oid>_ee.der` # The KEM certificate that the message is enveloped to.
-  - `artifacts_cms_v3/<friendly>-<oid>_both_priv.der` # The private KEM key to decrypt the enveloped messages.
+  - `artifacts_cms_v3/<friendly>-<oid>_priv.der` # The private KEM key to decrypt the enveloped messages.
   - `artifacts_cms_v3/<friendly>-<oid>_kemri_ukm.der` # An Enveloped artifact using KEMRI’s UKM field and one of the MTI KDFs for the KEM algorithm.
   - `artifacts_cms_v3/<friendly>-<oid>_kemri_auth.der` # An AuthEnveloped artifact using KEMRI without UKM and one of the MTI KDFs for the KEM algorithm.
   - `artifacts_cms_v3/<friendly>-<oid>_kemri_<kdf>.der` # Enveloped artifacts using KEMRI without UKM, and the specified KDF. Implementations must provide artifacts for each of the MTI KDFs for the OID, and may provide artifacts for other KDFs.
+  - `artifacts_cms_v3/<friendly>-<oid>_kemri_auth_<kdf>.der` # An AuthEnveloped artifact using KEMRI without UKM and the specified KDF.
   - `artifacts_cms_v3/<friendly>-<oid>_signed_attrs.der` # Signed artifact, with attached content and signed attributes.
 
 #### Friendly
@@ -169,7 +169,7 @@ Per https://github.com/IETF-Hackathon/pqc-certificates/issues/96 we would like a
 
 #### Trust Anchor
 
-A trust anchor isn't necessary to verify the KEMRecipientInfo artifacts, but some implementations may find it useful. We're using dilithium2 at the moment since some might not have implemented ML-DSA.ipd.
+A trust anchor isn't necessary to verify the KEMRecipientInfo artifacts, but some implementations may find it useful. We're using ML-DSA-44.
 
 #### DER vs PEM
 
@@ -188,14 +188,21 @@ Each RFC will specify mandatory KDFs, and probably allow for others as well. You
 | I-D/RFC | Algorithm | MTI KDF | `<kdf> string` |
 | - | - | - | - |
 | rfc5990bis | RSA-KEM | KDF3 w/ SHA-256 | id-kdf-kdf3 |
-| cms-kyber | ML-KEM-512 | KMAC128-KDF\* | id-kmac128\* |
-| cms-kyber | ML-KEM-768 | KMAC256-KDF\* | id-kmac256\* |
-| cms-kyber | ML-KEM-1024 | KMAC256-KDF\* | id-kmac256\* |
-| - | kyber512 | KMAC256-KDF\* | id-kmac128\* |
-| - | kyber768 | KMAC256-KDF\* | id-kmac256\* |
-| - | kyber1024 | KMAC256-KDF\* | id-kmac256\* |
-
-\* The MTI artifacts were updated to KMAC-based KDFs in draft-ietf-lamps-cms-kyber-03.
+| cms-kyber | ML-KEM-512 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| cms-kyber | ML-KEM-768 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| cms-kyber | ML-KEM-1024 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-RSA2048-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-RSA3072-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-RSA4096-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-X25519-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-ECDH-P256-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-ECDH-P384-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM1024-RSA3072-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM1024-ECDH-P384-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM1024-X448-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
+| TBD | id-MLKEM1024-ECDH-P521-SHA3-256 | HKDF with SHA256 | id-alg-hkdf-with-sha256 |
 
 ### CMP -- artifacts_cmp.zip
 

@@ -5,7 +5,7 @@ IETF PQC Hackathon CMS Interoperability Results
 
 <style> table { border-collapse: collapse; width:auto !important; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>
 
-Generated: 2025-10-29 20:59 UTC
+Generated: 2025-11-14 12:58 UTC
 
 
 # Algorithms Submitted
@@ -65,20 +65,20 @@ Generated: 2025-10-29 20:59 UTC
 |[HASH-SLH-DSA-SHAKE-256s](#HASH-SLH-DSA-SHAKE-256s)|✅ 1/1|||
 |[HASH-SLH-DSA-SHAKE-256f](#HASH-SLH-DSA-SHAKE-256f)|✅ 1/1|||
 |[ML-KEM-512](#ML-KEM-512)|✅ 1/1||✅ 1/1|
-|[ML-KEM-768](#ML-KEM-768)|✅ 1/1||⚪︎ 0/1|
+|[ML-KEM-768](#ML-KEM-768)|✅ 1/1||✅ 1/1|
 |[ML-KEM-1024](#ML-KEM-1024)|✅ 1/1||✅ 1/1|
-|[id-MLKEM768-RSA2048-SHA3-256](#id-MLKEM768-RSA2048-SHA3-256)|✅ 1/1|||
-|[id-MLKEM768-RSA3072-SHA3-256](#id-MLKEM768-RSA3072-SHA3-256)|✅ 1/1|||
-|[id-MLKEM768-RSA4096-SHA3-256](#id-MLKEM768-RSA4096-SHA3-256)|✅ 1/1|||
+|[id-MLKEM768-RSA2048-SHA3-256](#id-MLKEM768-RSA2048-SHA3-256)|✅ 1/1||✅ 1/1|
+|[id-MLKEM768-RSA3072-SHA3-256](#id-MLKEM768-RSA3072-SHA3-256)|✅ 1/1||⚪︎ 0/1|
+|[id-MLKEM768-RSA4096-SHA3-256](#id-MLKEM768-RSA4096-SHA3-256)|✅ 1/1||✅ 1/1|
 |[id-MLKEM768-X25519-SHA3-256](#id-MLKEM768-X25519-SHA3-256)|✅ 1/1|||
-|[id-MLKEM768-ECDH-P256-SHA3-256](#id-MLKEM768-ECDH-P256-SHA3-256)|✅ 1/1|||
-|[id-MLKEM768-ECDH-P384-SHA3-256](#id-MLKEM768-ECDH-P384-SHA3-256)|✅ 1/1|||
+|[id-MLKEM768-ECDH-P256-SHA3-256](#id-MLKEM768-ECDH-P256-SHA3-256)|✅ 1/1||✅ 1/1|
+|[id-MLKEM768-ECDH-P384-SHA3-256](#id-MLKEM768-ECDH-P384-SHA3-256)|✅ 1/1||✅ 1/1|
 |[id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256](#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256)|✅ 1/1|||
-|[id-MLKEM1024-RSA3072-SHA3-256](#id-MLKEM1024-RSA3072-SHA3-256)|✅ 1/1|||
-|[id-MLKEM1024-ECDH-P384-SHA3-256](#id-MLKEM1024-ECDH-P384-SHA3-256)|✅ 1/1|||
+|[id-MLKEM1024-RSA3072-SHA3-256](#id-MLKEM1024-RSA3072-SHA3-256)|✅ 1/1||✅ 1/1|
+|[id-MLKEM1024-ECDH-P384-SHA3-256](#id-MLKEM1024-ECDH-P384-SHA3-256)|✅ 1/1||✅ 1/1|
 |[id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256](#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256)|✅ 1/1|||
 |[id-MLKEM1024-X448-SHA3-256](#id-MLKEM1024-X448-SHA3-256)|✅ 1/1|||
-|[id-MLKEM1024-ECDH-P521-SHA3-256](#id-MLKEM1024-ECDH-P521-SHA3-256)|✅ 1/1|||
+|[id-MLKEM1024-ECDH-P521-SHA3-256](#id-MLKEM1024-ECDH-P521-SHA3-256)|✅ 1/1||✅ 1/1|
 
 # id-MLDSA44-RSA2048-PSS-SHA256 (1.3.6.1.5.5.7.6.37) {#id-MLDSA44-RSA2048-PSS-SHA256}
 
@@ -628,7 +628,7 @@ Rows are producers. Columns are parsers.
 | :--- | :--- | :--- |
 |cryptonext|✅||
 |ossl35|||
-|redhound|❌||
+|redhound|✅||
 
 # ML-KEM-1024 (2.16.840.1.101.3.4.4.3) {#ML-KEM-1024}
 
@@ -641,7 +641,40 @@ Rows are producers. Columns are parsers.
 |ossl35|||
 |redhound|✅||
 
-# id-MLKEM768-RSA2048-SHA3-256 (2.16.840.1.114027.80.5.2.62) {#id-MLKEM768-RSA2048-SHA3-256}
+# id-MLKEM768-RSA2048-SHA3-256 (2.16.840.1.114027.80.5.2.74) {#id-MLKEM768-RSA2048-SHA3-256}
+
+
+Rows are producers. Columns are parsers.
+
+|-|cryptonext|ossl35|
+| :--- | :--- | :--- |
+|cryptonext|✅||
+|ossl35|||
+|redhound|✅||
+
+# id-MLKEM768-RSA3072-SHA3-256 (2.16.840.1.114027.80.5.2.75) {#id-MLKEM768-RSA3072-SHA3-256}
+
+
+Rows are producers. Columns are parsers.
+
+|-|cryptonext|ossl35|
+| :--- | :--- | :--- |
+|cryptonext|✅||
+|ossl35|||
+|redhound|❌||
+
+# id-MLKEM768-RSA4096-SHA3-256 (2.16.840.1.114027.80.5.2.76) {#id-MLKEM768-RSA4096-SHA3-256}
+
+
+Rows are producers. Columns are parsers.
+
+|-|cryptonext|ossl35|
+| :--- | :--- | :--- |
+|cryptonext|✅||
+|ossl35|||
+|redhound|✅||
+
+# id-MLKEM768-X25519-SHA3-256 (2.16.840.1.114027.80.5.2.77) {#id-MLKEM768-X25519-SHA3-256}
 
 
 Rows are producers. Columns are parsers.
@@ -652,7 +685,29 @@ Rows are producers. Columns are parsers.
 |ossl35|||
 |redhound|||
 
-# id-MLKEM768-RSA3072-SHA3-256 (2.16.840.1.114027.80.5.2.63) {#id-MLKEM768-RSA3072-SHA3-256}
+# id-MLKEM768-ECDH-P256-SHA3-256 (2.16.840.1.114027.80.5.2.78) {#id-MLKEM768-ECDH-P256-SHA3-256}
+
+
+Rows are producers. Columns are parsers.
+
+|-|cryptonext|ossl35|
+| :--- | :--- | :--- |
+|cryptonext|✅||
+|ossl35|||
+|redhound|✅||
+
+# id-MLKEM768-ECDH-P384-SHA3-256 (2.16.840.1.114027.80.5.2.79) {#id-MLKEM768-ECDH-P384-SHA3-256}
+
+
+Rows are producers. Columns are parsers.
+
+|-|cryptonext|ossl35|
+| :--- | :--- | :--- |
+|cryptonext|✅||
+|ossl35|||
+|redhound|✅||
+
+# id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256 (2.16.840.1.114027.80.5.2.80) {#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256}
 
 
 Rows are producers. Columns are parsers.
@@ -663,7 +718,29 @@ Rows are producers. Columns are parsers.
 |ossl35|||
 |redhound|||
 
-# id-MLKEM768-RSA4096-SHA3-256 (2.16.840.1.114027.80.5.2.64) {#id-MLKEM768-RSA4096-SHA3-256}
+# id-MLKEM1024-RSA3072-SHA3-256 (2.16.840.1.114027.80.5.2.81) {#id-MLKEM1024-RSA3072-SHA3-256}
+
+
+Rows are producers. Columns are parsers.
+
+|-|cryptonext|ossl35|
+| :--- | :--- | :--- |
+|cryptonext|✅||
+|ossl35|||
+|redhound|✅||
+
+# id-MLKEM1024-ECDH-P384-SHA3-256 (2.16.840.1.114027.80.5.2.82) {#id-MLKEM1024-ECDH-P384-SHA3-256}
+
+
+Rows are producers. Columns are parsers.
+
+|-|cryptonext|ossl35|
+| :--- | :--- | :--- |
+|cryptonext|✅||
+|ossl35|||
+|redhound|✅||
+
+# id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256 (2.16.840.1.114027.80.5.2.83) {#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256}
 
 
 Rows are producers. Columns are parsers.
@@ -674,7 +751,7 @@ Rows are producers. Columns are parsers.
 |ossl35|||
 |redhound|||
 
-# id-MLKEM768-X25519-SHA3-256 (2.16.840.1.114027.80.5.2.65) {#id-MLKEM768-X25519-SHA3-256}
+# id-MLKEM1024-X448-SHA3-256 (2.16.840.1.114027.80.5.2.84) {#id-MLKEM1024-X448-SHA3-256}
 
 
 Rows are producers. Columns are parsers.
@@ -685,7 +762,7 @@ Rows are producers. Columns are parsers.
 |ossl35|||
 |redhound|||
 
-# id-MLKEM768-ECDH-P256-SHA3-256 (2.16.840.1.114027.80.5.2.66) {#id-MLKEM768-ECDH-P256-SHA3-256}
+# id-MLKEM1024-ECDH-P521-SHA3-256 (2.16.840.1.114027.80.5.2.85) {#id-MLKEM1024-ECDH-P521-SHA3-256}
 
 
 Rows are producers. Columns are parsers.
@@ -694,81 +771,4 @@ Rows are producers. Columns are parsers.
 | :--- | :--- | :--- |
 |cryptonext|✅||
 |ossl35|||
-|redhound|||
-
-# id-MLKEM768-ECDH-P384-SHA3-256 (2.16.840.1.114027.80.5.2.67) {#id-MLKEM768-ECDH-P384-SHA3-256}
-
-
-Rows are producers. Columns are parsers.
-
-|-|cryptonext|ossl35|
-| :--- | :--- | :--- |
-|cryptonext|✅||
-|ossl35|||
-|redhound|||
-
-# id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256 (2.16.840.1.114027.80.5.2.68) {#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256}
-
-
-Rows are producers. Columns are parsers.
-
-|-|cryptonext|ossl35|
-| :--- | :--- | :--- |
-|cryptonext|✅||
-|ossl35|||
-|redhound|||
-
-# id-MLKEM1024-RSA3072-SHA3-256 (2.16.840.1.114027.80.5.2.69) {#id-MLKEM1024-RSA3072-SHA3-256}
-
-
-Rows are producers. Columns are parsers.
-
-|-|cryptonext|ossl35|
-| :--- | :--- | :--- |
-|cryptonext|✅||
-|ossl35|||
-|redhound|||
-
-# id-MLKEM1024-ECDH-P384-SHA3-256 (2.16.840.1.114027.80.5.2.70) {#id-MLKEM1024-ECDH-P384-SHA3-256}
-
-
-Rows are producers. Columns are parsers.
-
-|-|cryptonext|ossl35|
-| :--- | :--- | :--- |
-|cryptonext|✅||
-|ossl35|||
-|redhound|||
-
-# id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256 (2.16.840.1.114027.80.5.2.71) {#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256}
-
-
-Rows are producers. Columns are parsers.
-
-|-|cryptonext|ossl35|
-| :--- | :--- | :--- |
-|cryptonext|✅||
-|ossl35|||
-|redhound|||
-
-# id-MLKEM1024-X448-SHA3-256 (2.16.840.1.114027.80.5.2.72) {#id-MLKEM1024-X448-SHA3-256}
-
-
-Rows are producers. Columns are parsers.
-
-|-|cryptonext|ossl35|
-| :--- | :--- | :--- |
-|cryptonext|✅||
-|ossl35|||
-|redhound|||
-
-# id-MLKEM1024-ECDH-P521-SHA3-256 (2.16.840.1.114027.80.5.2.73) {#id-MLKEM1024-ECDH-P521-SHA3-256}
-
-
-Rows are producers. Columns are parsers.
-
-|-|cryptonext|ossl35|
-| :--- | :--- | :--- |
-|cryptonext|✅||
-|ossl35|||
-|redhound|||
+|redhound|✅||

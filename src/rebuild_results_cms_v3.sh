@@ -15,3 +15,9 @@ python3 src/pqc_report_writer_common.py docs/oid_mapping.md pqc_hackathon_result
 # convert to html
 pandoc -f markdown pqc_hackathon_results_cms_v3.md > pqc_hackathon_results_cms_v3.html
 mv pqc_hackathon_results_cms_v3.md pqc_hackathon_results_cms_v3.html docs
+
+if [ -d ./output/cms ]; then
+    python3 src/pqc_report_writer_common.py docs/oid_mapping.md pqc_hackathon_results_cms_v3_automated_tests.md "CMS Automated Verification" $(find ./output/cms -name "*.csv")
+    pandoc -f markdown pqc_hackathon_results_cms_v3_automated_tests.md > pqc_hackathon_results_cms_v3_automated_tests.html
+    mv pqc_hackathon_results_cms_v3_automated_tests.md pqc_hackathon_results_cms_v3_automated_tests.html docs
+fi
