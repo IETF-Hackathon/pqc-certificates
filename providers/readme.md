@@ -40,6 +40,14 @@
 * Implementation: Proprietary, but internally uses OpenQuantumSafe?
 
 
+# Crypto4A
+
+* Provider short name: `crypto4a`
+* Company name: Crypto4A Inc.
+* Company website: https://www.crypto4a.com/
+* Implementation: Proprietary
+
+
 # Cryptonext Security
 
 * Provider short name: `cryptonext`
