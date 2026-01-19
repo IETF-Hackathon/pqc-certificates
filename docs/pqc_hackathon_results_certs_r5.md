@@ -5,7 +5,7 @@ IETF PQC Hackathon Certificate Interoperability Results
 
 <style> table { border-collapse: collapse; width:auto !important; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>
 
-Generated: 2025-11-14 12:59 UTC
+Generated: 2026-01-19 15:18 UTC
 
 
 # Algorithms Submitted
@@ -16,60 +16,96 @@ Generated: 2025-11-14 12:59 UTC
 
 |-|bc|carl-redhound|cht|composite-kem-ref-impl|composite-ref-impl|composite-sigs-ref-impl|corey-digicert|crypto4a|cryptonext|entrust|ossl35|safelogic|seventhsense.ai|
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|[id-MLDSA44-RSA2048-PSS-SHA256-cert](#id-MLDSA44-RSA2048-PSS-SHA256-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA44-RSA2048-PSS-SHA256-consistent](#id-MLDSA44-RSA2048-PSS-SHA256-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA44-RSA2048-PSS-SHA256-priv](#id-MLDSA44-RSA2048-PSS-SHA256-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA44-RSA2048-PKCS15-SHA256-cert](#id-MLDSA44-RSA2048-PKCS15-SHA256-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA44-RSA2048-PKCS15-SHA256-consistent](#id-MLDSA44-RSA2048-PKCS15-SHA256-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA44-RSA2048-PKCS15-SHA256-priv](#id-MLDSA44-RSA2048-PKCS15-SHA256-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA44-Ed25519-SHA512-cert](#id-MLDSA44-Ed25519-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA44-Ed25519-SHA512-consistent](#id-MLDSA44-Ed25519-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA44-Ed25519-SHA512-priv](#id-MLDSA44-Ed25519-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA44-ECDSA-P256-SHA256-cert](#id-MLDSA44-ECDSA-P256-SHA256-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA44-ECDSA-P256-SHA256-consistent](#id-MLDSA44-ECDSA-P256-SHA256-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA44-ECDSA-P256-SHA256-priv](#id-MLDSA44-ECDSA-P256-SHA256-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-RSA3072-PSS-SHA512-cert](#id-MLDSA65-RSA3072-PSS-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-RSA3072-PSS-SHA512-consistent](#id-MLDSA65-RSA3072-PSS-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA65-RSA3072-PSS-SHA512-priv](#id-MLDSA65-RSA3072-PSS-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-RSA3072-PKCS15-SHA512-cert](#id-MLDSA65-RSA3072-PKCS15-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-RSA3072-PKCS15-SHA512-consistent](#id-MLDSA65-RSA3072-PKCS15-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA65-RSA3072-PKCS15-SHA512-priv](#id-MLDSA65-RSA3072-PKCS15-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-RSA4096-PSS-SHA512-cert](#id-MLDSA65-RSA4096-PSS-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-RSA4096-PSS-SHA512-consistent](#id-MLDSA65-RSA4096-PSS-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA65-RSA4096-PSS-SHA512-priv](#id-MLDSA65-RSA4096-PSS-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-RSA4096-PKCS15-SHA512-cert](#id-MLDSA65-RSA4096-PKCS15-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-RSA4096-PKCS15-SHA512-consistent](#id-MLDSA65-RSA4096-PKCS15-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA65-RSA4096-PKCS15-SHA512-priv](#id-MLDSA65-RSA4096-PKCS15-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-ECDSA-P256-SHA512-cert](#id-MLDSA65-ECDSA-P256-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-ECDSA-P256-SHA512-consistent](#id-MLDSA65-ECDSA-P256-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA65-ECDSA-P256-SHA512-priv](#id-MLDSA65-ECDSA-P256-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-ECDSA-P384-SHA512-cert](#id-MLDSA65-ECDSA-P384-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-ECDSA-P384-SHA512-consistent](#id-MLDSA65-ECDSA-P384-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA65-ECDSA-P384-SHA512-priv](#id-MLDSA65-ECDSA-P384-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-cert](#id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-consistent](#id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-priv](#id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA65-Ed25519-SHA512-cert](#id-MLDSA65-Ed25519-SHA512-cert)|||✅ 3/3|||✅ 2/2|||✅ 3/3|||✅ 2/2||
-|[id-MLDSA65-Ed25519-SHA512-consistent](#id-MLDSA65-Ed25519-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||⚪︎ 0/1||
-|[id-MLDSA65-Ed25519-SHA512-priv](#id-MLDSA65-Ed25519-SHA512-priv)|||◒ 2/3|||◒ 1/2|||◒ 2/3|||⚪︎ 0/1||
-|[id-MLDSA87-ECDSA-P384-SHA512-cert](#id-MLDSA87-ECDSA-P384-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-ECDSA-P384-SHA512-consistent](#id-MLDSA87-ECDSA-P384-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA87-ECDSA-P384-SHA512-priv](#id-MLDSA87-ECDSA-P384-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-cert](#id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-consistent](#id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-priv](#id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-Ed448-SHAKE256-cert](#id-MLDSA87-Ed448-SHAKE256-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-Ed448-SHAKE256-consistent](#id-MLDSA87-Ed448-SHAKE256-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA87-Ed448-SHAKE256-priv](#id-MLDSA87-Ed448-SHAKE256-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-RSA3072-PSS-SHA512-cert](#id-MLDSA87-RSA3072-PSS-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-RSA3072-PSS-SHA512-consistent](#id-MLDSA87-RSA3072-PSS-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA87-RSA3072-PSS-SHA512-priv](#id-MLDSA87-RSA3072-PSS-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-RSA4096-PSS-SHA512-cert](#id-MLDSA87-RSA4096-PSS-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-RSA4096-PSS-SHA512-consistent](#id-MLDSA87-RSA4096-PSS-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA87-RSA4096-PSS-SHA512-priv](#id-MLDSA87-RSA4096-PSS-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-ECDSA-P521-SHA512-cert](#id-MLDSA87-ECDSA-P521-SHA512-cert)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
-|[id-MLDSA87-ECDSA-P521-SHA512-consistent](#id-MLDSA87-ECDSA-P521-SHA512-consistent)|||✅ 1/1|||✅ 1/1|||✅ 1/1|||||
-|[id-MLDSA87-ECDSA-P521-SHA512-priv](#id-MLDSA87-ECDSA-P521-SHA512-priv)|||✅ 2/2|||✅ 1/1|||✅ 2/2|||||
+|[id-MLDSA44-RSA2048-PSS-SHA256-cert](#id-MLDSA44-RSA2048-PSS-SHA256-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA44-RSA2048-PSS-SHA256-consistent](#id-MLDSA44-RSA2048-PSS-SHA256-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA44-RSA2048-PSS-SHA256-priv](#id-MLDSA44-RSA2048-PSS-SHA256-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA44-RSA2048-PKCS15-SHA256-cert](#id-MLDSA44-RSA2048-PKCS15-SHA256-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA44-RSA2048-PKCS15-SHA256-consistent](#id-MLDSA44-RSA2048-PKCS15-SHA256-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA44-RSA2048-PKCS15-SHA256-priv](#id-MLDSA44-RSA2048-PKCS15-SHA256-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA44-Ed25519-SHA512-cert](#id-MLDSA44-Ed25519-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA44-Ed25519-SHA512-consistent](#id-MLDSA44-Ed25519-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA44-Ed25519-SHA512-priv](#id-MLDSA44-Ed25519-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA44-ECDSA-P256-SHA256-cert](#id-MLDSA44-ECDSA-P256-SHA256-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA44-ECDSA-P256-SHA256-consistent](#id-MLDSA44-ECDSA-P256-SHA256-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA44-ECDSA-P256-SHA256-priv](#id-MLDSA44-ECDSA-P256-SHA256-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-RSA3072-PSS-SHA512-cert](#id-MLDSA65-RSA3072-PSS-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-RSA3072-PSS-SHA512-consistent](#id-MLDSA65-RSA3072-PSS-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA65-RSA3072-PSS-SHA512-priv](#id-MLDSA65-RSA3072-PSS-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-RSA3072-PKCS15-SHA512-cert](#id-MLDSA65-RSA3072-PKCS15-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-RSA3072-PKCS15-SHA512-consistent](#id-MLDSA65-RSA3072-PKCS15-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA65-RSA3072-PKCS15-SHA512-priv](#id-MLDSA65-RSA3072-PKCS15-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-RSA4096-PSS-SHA512-cert](#id-MLDSA65-RSA4096-PSS-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-RSA4096-PSS-SHA512-consistent](#id-MLDSA65-RSA4096-PSS-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA65-RSA4096-PSS-SHA512-priv](#id-MLDSA65-RSA4096-PSS-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-RSA4096-PKCS15-SHA512-cert](#id-MLDSA65-RSA4096-PKCS15-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-RSA4096-PKCS15-SHA512-consistent](#id-MLDSA65-RSA4096-PKCS15-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA65-RSA4096-PKCS15-SHA512-priv](#id-MLDSA65-RSA4096-PKCS15-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-ECDSA-P256-SHA512-cert](#id-MLDSA65-ECDSA-P256-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-ECDSA-P256-SHA512-consistent](#id-MLDSA65-ECDSA-P256-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA65-ECDSA-P256-SHA512-priv](#id-MLDSA65-ECDSA-P256-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-ECDSA-P384-SHA512-cert](#id-MLDSA65-ECDSA-P384-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-ECDSA-P384-SHA512-consistent](#id-MLDSA65-ECDSA-P384-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA65-ECDSA-P384-SHA512-priv](#id-MLDSA65-ECDSA-P384-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-cert](#id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-consistent](#id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-priv](#id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA65-Ed25519-SHA512-cert](#id-MLDSA65-Ed25519-SHA512-cert)|||✅ 3/3|||✅ 2/2||✅ 1/1|✅ 3/3|||✅ 2/2||
+|[id-MLDSA65-Ed25519-SHA512-consistent](#id-MLDSA65-Ed25519-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||⚪︎ 0/1||
+|[id-MLDSA65-Ed25519-SHA512-priv](#id-MLDSA65-Ed25519-SHA512-priv)|||◒ 2/3|||◒ 1/2||✅ 1/1|◒ 2/3|||⚪︎ 0/1||
+|[id-MLDSA87-ECDSA-P384-SHA512-cert](#id-MLDSA87-ECDSA-P384-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-ECDSA-P384-SHA512-consistent](#id-MLDSA87-ECDSA-P384-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA87-ECDSA-P384-SHA512-priv](#id-MLDSA87-ECDSA-P384-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-cert](#id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-consistent](#id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-priv](#id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-Ed448-SHAKE256-cert](#id-MLDSA87-Ed448-SHAKE256-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-Ed448-SHAKE256-consistent](#id-MLDSA87-Ed448-SHAKE256-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA87-Ed448-SHAKE256-priv](#id-MLDSA87-Ed448-SHAKE256-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-RSA3072-PSS-SHA512-cert](#id-MLDSA87-RSA3072-PSS-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-RSA3072-PSS-SHA512-consistent](#id-MLDSA87-RSA3072-PSS-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA87-RSA3072-PSS-SHA512-priv](#id-MLDSA87-RSA3072-PSS-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-RSA4096-PSS-SHA512-cert](#id-MLDSA87-RSA4096-PSS-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-RSA4096-PSS-SHA512-consistent](#id-MLDSA87-RSA4096-PSS-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA87-RSA4096-PSS-SHA512-priv](#id-MLDSA87-RSA4096-PSS-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-ECDSA-P521-SHA512-cert](#id-MLDSA87-ECDSA-P521-SHA512-cert)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLDSA87-ECDSA-P521-SHA512-consistent](#id-MLDSA87-ECDSA-P521-SHA512-consistent)|||✅ 1/1|||✅ 1/1||✅ 1/1|✅ 1/1|||||
+|[id-MLDSA87-ECDSA-P521-SHA512-priv](#id-MLDSA87-ECDSA-P521-SHA512-priv)|||✅ 2/2|||✅ 1/1||✅ 1/1|✅ 2/2|||||
+|[id-MLKEM768-RSA2048-SHA3-256-cert](#id-MLKEM768-RSA2048-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-RSA2048-SHA3-256-consistent](#id-MLKEM768-RSA2048-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-RSA2048-SHA3-256-priv](#id-MLKEM768-RSA2048-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-RSA3072-SHA3-256-cert](#id-MLKEM768-RSA3072-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-RSA3072-SHA3-256-consistent](#id-MLKEM768-RSA3072-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-RSA3072-SHA3-256-priv](#id-MLKEM768-RSA3072-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-RSA4096-SHA3-256-cert](#id-MLKEM768-RSA4096-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-RSA4096-SHA3-256-consistent](#id-MLKEM768-RSA4096-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-RSA4096-SHA3-256-priv](#id-MLKEM768-RSA4096-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-X25519-SHA3-256-cert](#id-MLKEM768-X25519-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-X25519-SHA3-256-consistent](#id-MLKEM768-X25519-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-X25519-SHA3-256-priv](#id-MLKEM768-X25519-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-ECDH-P256-SHA3-256-cert](#id-MLKEM768-ECDH-P256-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-ECDH-P256-SHA3-256-consistent](#id-MLKEM768-ECDH-P256-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-ECDH-P256-SHA3-256-priv](#id-MLKEM768-ECDH-P256-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-ECDH-P384-SHA3-256-cert](#id-MLKEM768-ECDH-P384-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-ECDH-P384-SHA3-256-consistent](#id-MLKEM768-ECDH-P384-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-ECDH-P384-SHA3-256-priv](#id-MLKEM768-ECDH-P384-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-cert](#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-consistent](#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-priv](#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-RSA3072-SHA3-256-cert](#id-MLKEM1024-RSA3072-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-RSA3072-SHA3-256-consistent](#id-MLKEM1024-RSA3072-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-RSA3072-SHA3-256-priv](#id-MLKEM1024-RSA3072-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-ECDH-P384-SHA3-256-cert](#id-MLKEM1024-ECDH-P384-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-ECDH-P384-SHA3-256-consistent](#id-MLKEM1024-ECDH-P384-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-ECDH-P384-SHA3-256-priv](#id-MLKEM1024-ECDH-P384-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-cert](#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-consistent](#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-priv](#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-X448-SHA3-256-cert](#id-MLKEM1024-X448-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-X448-SHA3-256-consistent](#id-MLKEM1024-X448-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-X448-SHA3-256-priv](#id-MLKEM1024-X448-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-ECDH-P521-SHA3-256-cert](#id-MLKEM1024-ECDH-P521-SHA3-256-cert)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-ECDH-P521-SHA3-256-consistent](#id-MLKEM1024-ECDH-P521-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
+|[id-MLKEM1024-ECDH-P521-SHA3-256-priv](#id-MLKEM1024-ECDH-P521-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
 |[ML-DSA-44-both](#ML-DSA-44-both)|✅ 5/5|✅ 6/6|✅ 4/4||||✅ 6/6|✅ 6/6|✅ 6/6|✅ 1/1|✅ 6/6|✅ 3/3|◒ 2/3|
 |[ML-DSA-44-cert](#ML-DSA-44-cert)|✅ 5/5|✅ 5/5|✅ 3/3||✅ 1/1|✅ 2/2|✅ 5/5|✅ 5/5|✅ 5/5|✅ 5/5|✅ 5/5|✅ 3/3|✅ 2/2|
 |[ML-DSA-44-consistent](#ML-DSA-44-consistent)|✅ 4/4|✅ 4/4|✅ 2/2||||✅ 4/4|✅ 4/4|✅ 4/4|✅ 2/2|✅ 4/4|✅ 2/2|✅ 2/2|
@@ -265,42 +301,6 @@ Generated: 2025-11-14 12:59 UTC
 |[ML-KEM-1024-expandedkey](#ML-KEM-1024-expandedkey)|✅ 6/6||◒ 2/4||||||✅ 6/6||✅ 6/6|✅ 2/2||
 |[ML-KEM-1024-priv](#ML-KEM-1024-priv)||||◒ 1/2|||||||||⚪︎ 0/2|
 |[ML-KEM-1024-seed](#ML-KEM-1024-seed)|✅ 6/6||◒ 2/4||||||✅ 6/6||✅ 6/6|✅ 2/2||
-|[id-MLKEM768-RSA2048-SHA3-256-cert](#id-MLKEM768-RSA2048-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM768-RSA2048-SHA3-256-consistent](#id-MLKEM768-RSA2048-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-RSA2048-SHA3-256-priv](#id-MLKEM768-RSA2048-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-RSA3072-SHA3-256-cert](#id-MLKEM768-RSA3072-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM768-RSA3072-SHA3-256-consistent](#id-MLKEM768-RSA3072-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-RSA3072-SHA3-256-priv](#id-MLKEM768-RSA3072-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-RSA4096-SHA3-256-cert](#id-MLKEM768-RSA4096-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM768-RSA4096-SHA3-256-consistent](#id-MLKEM768-RSA4096-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-RSA4096-SHA3-256-priv](#id-MLKEM768-RSA4096-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-X25519-SHA3-256-cert](#id-MLKEM768-X25519-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM768-X25519-SHA3-256-consistent](#id-MLKEM768-X25519-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-X25519-SHA3-256-priv](#id-MLKEM768-X25519-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-ECDH-P256-SHA3-256-cert](#id-MLKEM768-ECDH-P256-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM768-ECDH-P256-SHA3-256-consistent](#id-MLKEM768-ECDH-P256-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-ECDH-P256-SHA3-256-priv](#id-MLKEM768-ECDH-P256-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-ECDH-P384-SHA3-256-cert](#id-MLKEM768-ECDH-P384-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM768-ECDH-P384-SHA3-256-consistent](#id-MLKEM768-ECDH-P384-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-ECDH-P384-SHA3-256-priv](#id-MLKEM768-ECDH-P384-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-cert](#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-consistent](#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-priv](#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM1024-RSA3072-SHA3-256-cert](#id-MLKEM1024-RSA3072-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM1024-RSA3072-SHA3-256-consistent](#id-MLKEM1024-RSA3072-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM1024-RSA3072-SHA3-256-priv](#id-MLKEM1024-RSA3072-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM1024-ECDH-P384-SHA3-256-cert](#id-MLKEM1024-ECDH-P384-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM1024-ECDH-P384-SHA3-256-consistent](#id-MLKEM1024-ECDH-P384-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM1024-ECDH-P384-SHA3-256-priv](#id-MLKEM1024-ECDH-P384-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-cert](#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-consistent](#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-priv](#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM1024-X448-SHA3-256-cert](#id-MLKEM1024-X448-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM1024-X448-SHA3-256-consistent](#id-MLKEM1024-X448-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM1024-X448-SHA3-256-priv](#id-MLKEM1024-X448-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM1024-ECDH-P521-SHA3-256-cert](#id-MLKEM1024-ECDH-P521-SHA3-256-cert)||||✅ 1/1|||||✅ 2/2|||||
-|[id-MLKEM1024-ECDH-P521-SHA3-256-consistent](#id-MLKEM1024-ECDH-P521-SHA3-256-consistent)||||✅ 1/1|||||✅ 1/1|||||
-|[id-MLKEM1024-ECDH-P521-SHA3-256-priv](#id-MLKEM1024-ECDH-P521-SHA3-256-priv)||||✅ 1/1|||||✅ 1/1|||||
 
 # id-MLDSA44-RSA2048-PSS-SHA256-cert (1.3.6.1.5.5.7.6.37-cert) {#id-MLDSA44-RSA2048-PSS-SHA256-cert}
 
@@ -316,7 +316,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -337,7 +337,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -358,7 +358,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -379,7 +379,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -400,7 +400,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -421,7 +421,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -442,7 +442,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -463,7 +463,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -484,7 +484,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -505,7 +505,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -526,7 +526,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -547,7 +547,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -568,7 +568,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -589,7 +589,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -610,7 +610,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -631,7 +631,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -652,7 +652,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -673,7 +673,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -694,7 +694,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -715,7 +715,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -736,7 +736,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -757,7 +757,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -778,7 +778,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -799,7 +799,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -820,7 +820,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -841,7 +841,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -862,7 +862,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -883,7 +883,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -904,7 +904,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -925,7 +925,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -946,7 +946,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -967,7 +967,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -988,7 +988,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1009,7 +1009,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅||✅|
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅||✅|
 |entrust|||||||
 |ossl35|||||||
@@ -1030,7 +1030,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1051,7 +1051,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅||❌|
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅||❌|
 |entrust|||||||
 |ossl35|||||||
@@ -1072,7 +1072,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1093,7 +1093,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1114,7 +1114,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1135,7 +1135,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1156,7 +1156,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1177,7 +1177,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1198,7 +1198,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1219,7 +1219,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1240,7 +1240,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1261,7 +1261,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1282,7 +1282,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1303,7 +1303,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1324,7 +1324,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1345,7 +1345,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1366,7 +1366,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1387,7 +1387,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1408,7 +1408,7 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
@@ -1429,8 +1429,764 @@ Rows are producers. Columns are parsers.
 |composite-ref-impl|||||||
 |composite-sigs-ref-impl||||✅|||
 |corey-digicert|||||||
-|crypto4a|||||||
+|crypto4a||||✅|||
 |cryptonext||✅||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-RSA2048-SHA3-256-cert (1.3.6.1.5.5.7.6.55-cert) {#id-MLKEM768-RSA2048-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-RSA2048-SHA3-256-consistent (1.3.6.1.5.5.7.6.55-consistent) {#id-MLKEM768-RSA2048-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-RSA2048-SHA3-256-priv (1.3.6.1.5.5.7.6.55-priv) {#id-MLKEM768-RSA2048-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-RSA3072-SHA3-256-cert (1.3.6.1.5.5.7.6.56-cert) {#id-MLKEM768-RSA3072-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-RSA3072-SHA3-256-consistent (1.3.6.1.5.5.7.6.56-consistent) {#id-MLKEM768-RSA3072-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-RSA3072-SHA3-256-priv (1.3.6.1.5.5.7.6.56-priv) {#id-MLKEM768-RSA3072-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-RSA4096-SHA3-256-cert (1.3.6.1.5.5.7.6.57-cert) {#id-MLKEM768-RSA4096-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-RSA4096-SHA3-256-consistent (1.3.6.1.5.5.7.6.57-consistent) {#id-MLKEM768-RSA4096-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-RSA4096-SHA3-256-priv (1.3.6.1.5.5.7.6.57-priv) {#id-MLKEM768-RSA4096-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-X25519-SHA3-256-cert (1.3.6.1.5.5.7.6.58-cert) {#id-MLKEM768-X25519-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-X25519-SHA3-256-consistent (1.3.6.1.5.5.7.6.58-consistent) {#id-MLKEM768-X25519-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-X25519-SHA3-256-priv (1.3.6.1.5.5.7.6.58-priv) {#id-MLKEM768-X25519-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-ECDH-P256-SHA3-256-cert (1.3.6.1.5.5.7.6.59-cert) {#id-MLKEM768-ECDH-P256-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-ECDH-P256-SHA3-256-consistent (1.3.6.1.5.5.7.6.59-consistent) {#id-MLKEM768-ECDH-P256-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-ECDH-P256-SHA3-256-priv (1.3.6.1.5.5.7.6.59-priv) {#id-MLKEM768-ECDH-P256-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-ECDH-P384-SHA3-256-cert (1.3.6.1.5.5.7.6.60-cert) {#id-MLKEM768-ECDH-P384-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-ECDH-P384-SHA3-256-consistent (1.3.6.1.5.5.7.6.60-consistent) {#id-MLKEM768-ECDH-P384-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-ECDH-P384-SHA3-256-priv (1.3.6.1.5.5.7.6.60-priv) {#id-MLKEM768-ECDH-P384-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-cert (1.3.6.1.5.5.7.6.61-cert) {#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-consistent (1.3.6.1.5.5.7.6.61-consistent) {#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-priv (1.3.6.1.5.5.7.6.61-priv) {#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-RSA3072-SHA3-256-cert (1.3.6.1.5.5.7.6.62-cert) {#id-MLKEM1024-RSA3072-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-RSA3072-SHA3-256-consistent (1.3.6.1.5.5.7.6.62-consistent) {#id-MLKEM1024-RSA3072-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-RSA3072-SHA3-256-priv (1.3.6.1.5.5.7.6.62-priv) {#id-MLKEM1024-RSA3072-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-ECDH-P384-SHA3-256-cert (1.3.6.1.5.5.7.6.63-cert) {#id-MLKEM1024-ECDH-P384-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-ECDH-P384-SHA3-256-consistent (1.3.6.1.5.5.7.6.63-consistent) {#id-MLKEM1024-ECDH-P384-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-ECDH-P384-SHA3-256-priv (1.3.6.1.5.5.7.6.63-priv) {#id-MLKEM1024-ECDH-P384-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-cert (1.3.6.1.5.5.7.6.64-cert) {#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-consistent (1.3.6.1.5.5.7.6.64-consistent) {#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-priv (1.3.6.1.5.5.7.6.64-priv) {#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-X448-SHA3-256-cert (1.3.6.1.5.5.7.6.65-cert) {#id-MLKEM1024-X448-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-X448-SHA3-256-consistent (1.3.6.1.5.5.7.6.65-consistent) {#id-MLKEM1024-X448-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-X448-SHA3-256-priv (1.3.6.1.5.5.7.6.65-priv) {#id-MLKEM1024-X448-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-ECDH-P521-SHA3-256-cert (1.3.6.1.5.5.7.6.66-cert) {#id-MLKEM1024-ECDH-P521-SHA3-256-cert}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-ECDH-P521-SHA3-256-consistent (1.3.6.1.5.5.7.6.66-consistent) {#id-MLKEM1024-ECDH-P521-SHA3-256-consistent}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
+|entrust|||||||
+|ossl35|||||||
+|safelogic|||||||
+|seventhsense.ai|||||||
+
+# id-MLKEM1024-ECDH-P521-SHA3-256-priv (1.3.6.1.5.5.7.6.66-priv) {#id-MLKEM1024-ECDH-P521-SHA3-256-priv}
+
+
+Rows are producers. Columns are parsers.
+
+|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|bc|||||||
+|carl-redhound|||||||
+|cht|||||||
+|composite-kem-ref-impl||||✅|||
+|composite-ref-impl|||||||
+|composite-sigs-ref-impl|||||||
+|corey-digicert|||||||
+|crypto4a|||||||
+|cryptonext||||✅|||
 |entrust|||||||
 |ossl35|||||||
 |safelogic|||||||
@@ -5529,760 +6285,4 @@ Rows are producers. Columns are parsers.
 |entrust|||||||
 |ossl35|✅|✅|✅|✅|✅|✅|
 |safelogic||✅|✅||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-RSA2048-SHA3-256-cert (2.16.840.1.114027.80.5.2.74-cert) {#id-MLKEM768-RSA2048-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-RSA2048-SHA3-256-consistent (2.16.840.1.114027.80.5.2.74-consistent) {#id-MLKEM768-RSA2048-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-RSA2048-SHA3-256-priv (2.16.840.1.114027.80.5.2.74-priv) {#id-MLKEM768-RSA2048-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-RSA3072-SHA3-256-cert (2.16.840.1.114027.80.5.2.75-cert) {#id-MLKEM768-RSA3072-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-RSA3072-SHA3-256-consistent (2.16.840.1.114027.80.5.2.75-consistent) {#id-MLKEM768-RSA3072-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-RSA3072-SHA3-256-priv (2.16.840.1.114027.80.5.2.75-priv) {#id-MLKEM768-RSA3072-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-RSA4096-SHA3-256-cert (2.16.840.1.114027.80.5.2.76-cert) {#id-MLKEM768-RSA4096-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-RSA4096-SHA3-256-consistent (2.16.840.1.114027.80.5.2.76-consistent) {#id-MLKEM768-RSA4096-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-RSA4096-SHA3-256-priv (2.16.840.1.114027.80.5.2.76-priv) {#id-MLKEM768-RSA4096-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-X25519-SHA3-256-cert (2.16.840.1.114027.80.5.2.77-cert) {#id-MLKEM768-X25519-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-X25519-SHA3-256-consistent (2.16.840.1.114027.80.5.2.77-consistent) {#id-MLKEM768-X25519-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-X25519-SHA3-256-priv (2.16.840.1.114027.80.5.2.77-priv) {#id-MLKEM768-X25519-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-ECDH-P256-SHA3-256-cert (2.16.840.1.114027.80.5.2.78-cert) {#id-MLKEM768-ECDH-P256-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-ECDH-P256-SHA3-256-consistent (2.16.840.1.114027.80.5.2.78-consistent) {#id-MLKEM768-ECDH-P256-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-ECDH-P256-SHA3-256-priv (2.16.840.1.114027.80.5.2.78-priv) {#id-MLKEM768-ECDH-P256-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-ECDH-P384-SHA3-256-cert (2.16.840.1.114027.80.5.2.79-cert) {#id-MLKEM768-ECDH-P384-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-ECDH-P384-SHA3-256-consistent (2.16.840.1.114027.80.5.2.79-consistent) {#id-MLKEM768-ECDH-P384-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-ECDH-P384-SHA3-256-priv (2.16.840.1.114027.80.5.2.79-priv) {#id-MLKEM768-ECDH-P384-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-cert (2.16.840.1.114027.80.5.2.80-cert) {#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-consistent (2.16.840.1.114027.80.5.2.80-consistent) {#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-priv (2.16.840.1.114027.80.5.2.80-priv) {#id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-RSA3072-SHA3-256-cert (2.16.840.1.114027.80.5.2.81-cert) {#id-MLKEM1024-RSA3072-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-RSA3072-SHA3-256-consistent (2.16.840.1.114027.80.5.2.81-consistent) {#id-MLKEM1024-RSA3072-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-RSA3072-SHA3-256-priv (2.16.840.1.114027.80.5.2.81-priv) {#id-MLKEM1024-RSA3072-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-ECDH-P384-SHA3-256-cert (2.16.840.1.114027.80.5.2.82-cert) {#id-MLKEM1024-ECDH-P384-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-ECDH-P384-SHA3-256-consistent (2.16.840.1.114027.80.5.2.82-consistent) {#id-MLKEM1024-ECDH-P384-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-ECDH-P384-SHA3-256-priv (2.16.840.1.114027.80.5.2.82-priv) {#id-MLKEM1024-ECDH-P384-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-cert (2.16.840.1.114027.80.5.2.83-cert) {#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-consistent (2.16.840.1.114027.80.5.2.83-consistent) {#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-priv (2.16.840.1.114027.80.5.2.83-priv) {#id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-X448-SHA3-256-cert (2.16.840.1.114027.80.5.2.84-cert) {#id-MLKEM1024-X448-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-X448-SHA3-256-consistent (2.16.840.1.114027.80.5.2.84-consistent) {#id-MLKEM1024-X448-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-X448-SHA3-256-priv (2.16.840.1.114027.80.5.2.84-priv) {#id-MLKEM1024-X448-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-ECDH-P521-SHA3-256-cert (2.16.840.1.114027.80.5.2.85-cert) {#id-MLKEM1024-ECDH-P521-SHA3-256-cert}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||✅||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-ECDH-P521-SHA3-256-consistent (2.16.840.1.114027.80.5.2.85-consistent) {#id-MLKEM1024-ECDH-P521-SHA3-256-consistent}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
-|seventhsense.ai|||||||
-
-# id-MLKEM1024-ECDH-P521-SHA3-256-priv (2.16.840.1.114027.80.5.2.85-priv) {#id-MLKEM1024-ECDH-P521-SHA3-256-priv}
-
-
-Rows are producers. Columns are parsers.
-
-|-|carl-redhound|cht|crypto4a|cryptonext|ossl35|safelogic|
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|bc|||||||
-|carl-redhound|||||||
-|cht|||||||
-|composite-kem-ref-impl||||✅|||
-|composite-ref-impl|||||||
-|composite-sigs-ref-impl|||||||
-|corey-digicert|||||||
-|crypto4a|||||||
-|cryptonext||||✅|||
-|entrust|||||||
-|ossl35|||||||
-|safelogic|||||||
 |seventhsense.ai|||||||
