@@ -94,21 +94,32 @@ public class Test {
                 var bytes = zis.readAllBytes();
                 switch (type) {
                     case "priv.der", "seed_priv.der", "expandedkey_priv.der", "both_priv.der" -> {
+                        var label = switch (type) {
+                            case "seed_priv.der" -> "seed";
+                            case "expandedkey_priv.der" -> "expandedkey";
+                            case "both_priv.der" -> "both";
+                            default -> null;
+                        };
                         try {
                             var sk = (NamedPKCS8Key) kf.generatePrivate(new PKCS8EncodedKeySpec(bytes));
                             var old = allkeys.get(oid);
                             if (old != null) {
                                 if (!Arrays.equals(old.getExpanded(), sk.getExpanded())) {
                                     System.out.println("different key: " + zname);
-                                    failed.add(oid);
+                                    failed.add(oid + ",consistent");
                                 }
                             } else {
                                 allkeys.put(oid, sk);
                             }
-                            passed.add(oid);
+                            if (label != null) {
+                                passed.add(oid + "," + label);
+                                passed.add(oid + ",consistent"); // no problem, failed always overwrite passed
+                            }
                         } catch (Exception e) {
                             System.out.println("cannot parse file: " + zname + ": " + e);
-                            failed.add(oid);
+                            if (label != null) {
+                                failed.add(oid + "," + label);
+                            }
                         }
                     }
                     case "ss.bin" -> {
@@ -137,9 +148,9 @@ public class Test {
                 var e = kem.newDecapsulator(allkeys.get(oid));
                 if (!Arrays.equals(e.decapsulate(allct.get(oid)).getEncoded(), allss.get(oid))) {
                     System.out.println("decapsulation failure: " + oid);
-                    failed.add(oid);
+                    failed.add(oid + ",cert");
                 } else {
-                    passed.add(oid);
+                    passed.add(oid + ",cert");
                 }
             } catch (Exception e) {
                 System.out.println("cannot decapsulate: " + e);
@@ -153,22 +164,22 @@ public class Test {
                         : allcerts.get(oid);
                 if (pk != null) {
                     allcerts.get(oid).verify(pk.getPublicKey());
-                    passed.add(oid);
+                    passed.add(oid + ",cert");
                 }
             } catch (Exception e) {
                 System.out.println("unverified certs: " + oid);
-                failed.add(oid);
+                failed.add(oid + ",cert");
             }
         }
         var dir = Files.createDirectories(Path.of("compatMatrices", "artifacts_certs_r5"));
         try (var w = Files.newBufferedWriter(dir.resolve(provider + "_openjdk.csv"))) {
             w.write("key_algorithm_oid,test_result\n");
-            for (var oid : passed) {
-                if (failed.contains(oid)) {
-                    w.write(oid + ",N\n");
-                    failed.remove(oid);
+            for (var key : passed) {
+                if (failed.contains(key)) {
+                    w.write(key + ",N\n");
+                    failed.remove(key);
                 } else {
-                    w.write(oid + ",Y\n");
+                    w.write(key + ",Y\n");
                 }
             }
             for (var oid : failed) {
