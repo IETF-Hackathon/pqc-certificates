@@ -88,6 +88,14 @@
 * Implementation link: https://github.com/openca
 
 
+# OpenJDK
+
+* Provider short name: `openjdk`
+* Company name: OpenJDK
+* Company website: https://openjdk.org/
+* Implementation: Open source
+* Implementation link: https://github.com/openjdk/jdk
+
 # Open Quantum Safe
 
 * Provider short name: `oqs`
