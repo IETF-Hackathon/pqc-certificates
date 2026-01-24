@@ -40,6 +40,14 @@
 * Implementation: Proprietary, but internally uses OpenQuantumSafe?
 
 
+# Crypto4A
+
+* Provider short name: `crypto4a`
+* Company name: Crypto4A Inc.
+* Company website: https://www.crypto4a.com/
+* Implementation: Proprietary
+
+
 # Cryptonext Security
 
 * Provider short name: `cryptonext`
@@ -87,6 +95,14 @@
 * Implementation: Open sourceOpenCA / LibPKI. Internally uses OpenQuantumSafe?
 * Implementation link: https://github.com/openca
 
+
+# OpenJDK
+
+* Provider short name: `openjdk`
+* Company name: OpenJDK
+* Company website: https://openjdk.org/
+* Implementation: Open source
+* Implementation link: https://github.com/openjdk/jdk
 
 # Open Quantum Safe
 

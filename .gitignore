@@ -6,3 +6,5 @@ providers/botan/default/artifacts
 
 docs/oids.json
 output/
+.project
+/bin/

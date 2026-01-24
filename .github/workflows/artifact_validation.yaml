@@ -10,21 +10,8 @@ on:
 concurrency:
   group: "pages"
   cancel-in-progress: false
-  
+
 jobs:
-  oqs_validation:
-    runs-on: ubuntu-latest
-    container: openquantumsafe/oqs-ossl3
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Test artifacts with OQS
-        run: ./src/test_certs_r4.sh oqs
-      - name: Save artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Compatibility_oqs_csv
-          path: ./output/
   bc_validation:
     runs-on: ubuntu-latest
     container: bcdocker2000/bc_hackathon_pqc
@@ -32,11 +19,47 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Test artifacts with BC
-        run: ./src/test_certs_r4.sh bc
+        run: ./src/test_certs_r5.sh bc
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Compatibility_bc_csv
+          path: ./output/
+  openssl_validation:
+    runs-on: ubuntu-latest
+    container: fedora:43
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install OpenSSL 3.5
+        run: dnf -y install zip diff openssl
+      - name: Test artifacts with OpenSSL 3.5
+        run: ./src/test_certs_r5_openssl.sh
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_openssl_csv
+          path: ./output/
+  openssl36_validation:
+    runs-on: ubuntu-latest
+    container: ubuntu:24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install OpenSSL 3.6
+        run: |
+            apt update
+            apt install -y zip gnupg
+            apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6ED0E7B82643E131
+            echo "deb http://deb.debian.org/debian experimental main" > /etc/apt/sources.list
+            apt update
+            apt install -y openssl/experimental
+      - name: Test CMS artifacts with OpenSSL 3.6
+        run: ./src/test_cms_v3_openssl.sh
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_openssl36_csv
           path: ./output/
   ssai_validation:
     runs-on: ubuntu-latest
@@ -45,21 +68,65 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Test artifacts with SSAI
-        run: ./src/test_certs_r4.sh ssai
+        run: ./src/test_certs_r5.sh ssai
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Compatibility_ssai_csv
           path: ./output/
+  composite_ref_impl_validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install python requirements of pqc-certificates
+        run: python -m pip install -r src/requirements.txt
+      - name: Clone composite sigs ref impl repo
+        uses: actions/checkout@v4
+        with:
+          repository: lamps-wg/draft-composite-sigs
+          path: ./draft-composite-sigs
+      - name: Install python requirements of composite-sigs
+        run: python -m pip install -r ./draft-composite-sigs/src/requirements.txt
+      - name: Test artifacts with composite Sigs reference implementation
+        run: |
+            shopt -s globstar
+            for i in **/artifacts_certs_r5.zip; do ./draft-composite-sigs/src/test_artifacts_r5.py "$(basename $(dirname "$i"))" "$i" | tee -a composite-sigs-ref-impl.log; done;
+      - name: Clone composite kem ref impl repo
+        uses: actions/checkout@v4
+        with:
+          repository: lamps-wg/draft-composite-kem
+          path: ./draft-composite-kem
+      - name: Install python requirements of composite-kem
+        run: python -m pip install -r ./draft-composite-kem/src/requirements.txt
+      - name: Test artifacts with composite KEM reference implementation
+        run: |
+            shopt -s globstar
+            for i in **/artifacts_certs_r5.zip; do ./draft-composite-kem/src/test_artifacts_r5.py "$(basename $(dirname "$i"))" "$i" | tee -a composite-kem-ref-impl.log; done;
+      
+      - name: Copy logs to output
+        run: |
+            mkdir -p ./output/certs
+            cp composite-sigs-ref-impl.log ./output/certs/
+            cp composite-kem-ref-impl.log ./output/certs/
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_composite-refl-impl_csv
+          path: ./output/
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
-    needs: [oqs_validation, bc_validation, ssai_validation]
+    needs: [bc_validation, openssl_validation, openssl36_validation, ssai_validation, composite_ref_impl_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install packages
-        run: | 
+        run: |
           apt-get update && \
           apt-get install -y pandoc lsb-release
       - name: Install Python
@@ -68,25 +135,43 @@ jobs:
           python-version: '3.x'
       - name: Install python requirements
         run: python -m pip install -r src/requirements.txt
-      - name: Get OQS results from previous job
-        uses: actions/download-artifact@v4
-        with: 
-          name: Compatibility_oqs_csv
-          path: output/
       - name: Get BC results from previous job
         uses: actions/download-artifact@v4
-        with: 
+        with:
           name: Compatibility_bc_csv
+          path: output/
+      - name: Get OpenSSL results from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: Compatibility_openssl_csv
+          path: output/
+      - name: Get OpenSSL 3.6 results from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: Compatibility_openssl36_csv
           path: output/
       - name: Get SSAI results from previous job
         uses: actions/download-artifact@v4
-        with: 
+        with:
+          name: Compatibility_composite-refl-impl_csv
+          path: output/
+      - name: Get composite-sigs-ref-impl results from previous job
+        uses: actions/download-artifact@v4
+        with:
           name: Compatibility_ssai_csv
           path: output/
-      - name: Build compat matrix (r4)
-        run: ./src/rebuild_results_certs_r4.sh
-      - name: Copy output files
-        run: mv ./docs/pqc_hackathon_results_certs_r4.html ./docs/pqc_hackathon_results_certs_r4_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html ./output/certs/oqs_certs.log ./output/certs/bc_certs.log ./output/certs/ssai_certs.log ./docs/gh-pages
+      - name: Build compat matrix (certs_r5)
+        run: ./src/rebuild_results_certs_r5.sh
+      - name: Build compat matrix (cms_v3)
+        run: ./src/rebuild_results_cms_v3.sh
+      - name: Copy output files (automated certs_r5)
+        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/ssai_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./docs/gh-pages
+      - name: Copy output files (automated cms_v3)
+        run: cp ./docs/pqc_hackathon_results_cms_v3_automated_tests.html ./output/cms/openssl_cms.log ./docs/gh-pages
+      - name: Copy output files (manual r5/v1)
+        run: cp ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/gh-pages
+      - name: Copy output files (manual r5/v3)
+        run: cp ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_cms_v3.html ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download
         uses:  actions/upload-pages-artifact@v3
         with:
