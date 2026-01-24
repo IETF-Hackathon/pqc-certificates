@@ -73,54 +73,46 @@ https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-regi
 | NTRUHRSS701 | 1.3.6.1.4.1.22554.5.5.4 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 | NTRUHRSS1373 | 1.3.6.1.4.1.22554.5.5.6 | NIST Round 3 -- [BouncyCastle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) |
 
-# Prototype OIDs for Composite Signatures-03
-The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-sigs. Final OID assignment will be handled by IANA.
+# Production OIDs for Composite Signatures
 
 | Composite Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
-| id-MLDSA44-RSA2048-PSS | 2.16.840.1.114027.80.8.1.21 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA44-RSA2048-PKCS15 | 2.16.840.1.114027.80.8.1.22 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA44-Ed25519 | 2.16.840.1.114027.80.8.1.23 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA44-ECDSA-P256 | 2.16.840.1.114027.80.8.1.24 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA65-RSA3072-PSS | 2.16.840.1.114027.80.8.1.26 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA65-RSA3072-PKCS15 | 2.16.840.1.114027.80.8.1.27 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA65-RSA4096-PSS | 2.16.840.1.114027.80.8.1.34 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA65-RSA4096-PKCS15 | 2.16.840.1.114027.80.8.1.35 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA65-ECDSA-P384 | 2.16.840.1.114027.80.8.1.28 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA65-ECDSA-brainpoolP256r1 | 2.16.840.1.114027.80.8.1.29 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA65-Ed25519 | 2.16.840.1.114027.80.8.1.30 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA87-ECDSA-P384 | 2.16.840.1.114027.80.8.1.31 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA87-ECDSA-brainpoolP384r1 | 2.16.840.1.114027.80.8.1.32 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-MLDSA87-Ed448 | 2.16.840.1.114027.80.8.1.33 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA44-RSA2048-PSS-SHA256 | 2.16.840.1.114027.80.8.1.40 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA44-RSA2048-PKCS15-SHA256 | 2.16.840.1.114027.80.8.1.41 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA44-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.42 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA44-ECDSA-P256-SHA256 | 2.16.840.1.114027.80.8.1.43 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA65-RSA3072-PSS-SHA512 | 2.16.840.1.114027.80.8.1.44 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA65-RSA3072-PKCS15-SHA512 | 2.16.840.1.114027.80.8.1.45 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA65-RSA4096-PSS-SHA512 | 2.16.840.1.114027.80.8.1.46 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA65-RSA4096-PKCS15-SHA512 | 2.16.840.1.114027.80.8.1.47 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA65-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.8.1.48 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA65-ECDSA-brainpoolP256r1-SHA512 | 2.16.840.1.114027.80.8.1.49 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA65-Ed25519-SHA512 | 2.16.840.1.114027.80.8.1.50 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA87-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.8.1.51 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA87-ECDSA-brainpoolP384r1-SHA512 | 2.16.840.1.114027.80.8.1.52 | draft-ietf-lamps-pq-composite-sigs-03 |
-| id-HashMLDSA87-Ed448-SHA512 | 2.16.840.1.114027.80.8.1.53 | draft-ietf-lamps-pq-composite-sigs-03 |
+| id-MLDSA44-RSA2048-PSS-SHA256 | 1.3.6.1.5.5.7.6.37 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA44-RSA2048-PKCS15-SHA256 | 1.3.6.1.5.5.7.6.38 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA44-Ed25519-SHA512 | 1.3.6.1.5.5.7.6.39 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA44-ECDSA-P256-SHA256 | 1.3.6.1.5.5.7.6.40 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA65-RSA3072-PSS-SHA512 | 1.3.6.1.5.5.7.6.41 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA65-RSA3072-PKCS15-SHA512 | 1.3.6.1.5.5.7.6.42 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA65-RSA4096-PSS-SHA512 | 1.3.6.1.5.5.7.6.43 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA65-RSA4096-PKCS15-SHA512 | 1.3.6.1.5.5.7.6.44 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA65-ECDSA-P256-SHA512 | 1.3.6.1.5.5.7.6.45 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA65-ECDSA-P384-SHA512 | 1.3.6.1.5.5.7.6.46 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA65-ECDSA-brainpoolP256r1-SHA512 | 1.3.6.1.5.5.7.6.47 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA65-Ed25519-SHA512 | 1.3.6.1.5.5.7.6.48 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA87-ECDSA-P384-SHA512 | 1.3.6.1.5.5.7.6.49 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA87-ECDSA-brainpoolP384r1-SHA512 | 1.3.6.1.5.5.7.6.50 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA87-Ed448-SHAKE256 | 1.3.6.1.5.5.7.6.51 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA87-RSA3072-PSS-SHA512 | 1.3.6.1.5.5.7.6.52 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA87-RSA4096-PSS-SHA512 | 1.3.6.1.5.5.7.6.53 | draft-ietf-lamps-pq-composite-sigs-12 |
+| id-MLDSA87-ECDSA-P521-SHA512 | 1.3.6.1.5.5.7.6.54 | draft-ietf-lamps-pq-composite-sigs-12 |
 
-# Prototype OIDs for Composite KEM
+# Production OIDs for Composite KEM
 The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-kem. Final OID assignment will be handled by IANA.
 
 | Composite Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
-| id-MLKEM768-RSA2048 | 2.16.840.1.114027.80.5.2.21 |  draft-ietf-lamps-pq-composite-kem-05 |
-| id-MLKEM768-RSA3072 | 2.16.840.1.114027.80.5.2.22 | draft-ietf-lamps-pq-composite-kem-05 |
-| id-MLKEM768-RSA4096 | 2.16.840.1.114027.80.5.2.23 | draft-ietf-lamps-pq-composite-kem-05 |
-| id-MLKEM768-X25519 | 2.16.840.1.114027.80.5.2.24 | draft-ietf-lamps-pq-composite-kem-05 |
-| id-MLKEM768-ECDH-P384 | 2.16.840.1.114027.80.5.2.25 | draft-ietf-lamps-pq-composite-kem-05 |
-| id-MLKEM768-ECDH-brainpoolP256r1 | 2.16.840.1.114027.80.5.2.26 | draft-ietf-lamps-pq-composite-kem-05 |
-| id-MLKEM1024-ECDH-P384 | 2.16.840.1.114027.80.5.2.27 | draft-ietf-lamps-pq-composite-kem-05 |
-| id-MLKEM1024-ECDH-brainpoolP384r1 | 2.16.840.1.114027.80.5.2.28 | draft-ietf-lamps-pq-composite-kem-05 |
-| id-MLKEM1024-X448 | 2.16.840.1.114027.80.5.2.29 | draft-ietf-lamps-pq-composite-kem-05 |
+| id-MLKEM768-RSA2048-SHA3-256 | 1.3.6.1.5.5.7.6.55 |  draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM768-RSA3072-SHA3-256 | 1.3.6.1.5.5.7.6.56 | draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM768-RSA4096-SHA3-256 | 1.3.6.1.5.5.7.6.57 | draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM768-X25519-SHA3-256 | 1.3.6.1.5.5.7.6.58 | draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM768-ECDH-P256-SHA3-256 | 1.3.6.1.5.5.7.6.59 | draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM768-ECDH-P384-SHA3-256 | 1.3.6.1.5.5.7.6.60 | draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256 | 1.3.6.1.5.5.7.6.61 | draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM1024-RSA3072-SHA3-256 | 1.3.6.1.5.5.7.6.62 | draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM1024-ECDH-P384-SHA3-256 | 1.3.6.1.5.5.7.6.63 | draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256 | 1.3.6.1.5.5.7.6.64 | draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM1024-X448-SHA3-256 | 1.3.6.1.5.5.7.6.65 | draft-ietf-lamps-pq-composite-kem-12 |
+| id-MLKEM1024-ECDH-P521-SHA3-256 | 1.3.6.1.5.5.7.6.66 | draft-ietf-lamps-pq-composite-kem-12 |
 
 # Experimental and Historical OIDs
 The following are historical or experimental OIDs used in this project.     
@@ -169,6 +161,30 @@ KEM Algoirthm OIDs
 | ML-KEM-512-ipd |  1.3.6.1.4.1.22554.5.6.1 | FIPS 203 (Initial Public Draft) |
 | ML-KEM-768-ipd |  1.3.6.1.4.1.22554.5.6.2 | FIPS 203 (Initial Public Draft) |
 | ML-KEM-1024-ipd | 1.3.6.1.4.1.22554.5.6.3 | FIPS 203 (Initial Public Draft) |
+
+# Prototype OIDs for Composite Signatures-07
+The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-sigs. Final OID assignment will be handled by IANA.
+
+| Composite Algorithm Name | OID | Specification |
+| ----------- | ----------- | ----------- |
+| id-MLDSA44-RSA2048-PSS-SHA256 | 2.16.840.1.114027.80.9.1.0 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA44-RSA2048-PKCS15-SHA256 | 2.16.840.1.114027.80.9.1.1 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA44-Ed25519-SHA512 | 2.16.840.1.114027.80.9.1.2 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA44-ECDSA-P256-SHA256 | 2.16.840.1.114027.80.9.1.3 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA65-RSA3072-PSS-SHA512 | 2.16.840.1.114027.80.9.1.4 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA65-RSA3072-PKCS15-SHA512 | 2.16.840.1.114027.80.9.1.5 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA65-RSA4096-PSS-SHA512 | 2.16.840.1.114027.80.9.1.6 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA65-RSA4096-PKCS15-SHA512 | 2.16.840.1.114027.80.9.1.7 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA65-ECDSA-P256-SHA512 | 2.16.840.1.114027.80.9.1.8 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA65-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.9.1.9 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA65-ECDSA-brainpoolP256r1-SHA512 | 2.16.840.1.114027.80.9.1.10 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA65-Ed25519-SHA512 | 2.16.840.1.114027.80.9.1.11 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA87-ECDSA-P384-SHA512 | 2.16.840.1.114027.80.9.1.12 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA87-ECDSA-brainpoolP384r1-SHA512 | 2.16.840.1.114027.80.9.1.13 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA87-Ed448-SHAKE256 | 2.16.840.1.114027.80.9.1.14 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA87-RSA3072-PSS-SHA512 | 2.16.840.1.114027.80.9.1.15 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA87-RSA4096-PSS-SHA512 | 2.16.840.1.114027.80.9.1.16 | draft-ietf-lamps-pq-composite-sigs-07 |
+| id-MLDSA87-ECDSA-P521-SHA512 | 2.16.840.1.114027.80.9.1.17 | draft-ietf-lamps-pq-composite-sigs-07 |
 
 ## NIST Round 4 KEM Algorithm OIDs 
 
