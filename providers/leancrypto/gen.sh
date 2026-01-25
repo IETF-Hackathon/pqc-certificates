@@ -13,9 +13,10 @@
 #    $TARGETDIR (NOTE: The private keys are deleted in the gen_cert function.)
 #
 
-LC_X509_GENERATOR="lc_x509_generator"
+LC_X509_GENERATOR="/home/sm/hacking/sources/leancrypto/leancrypto/build/apps/src/lc_x509_generator"
+#LC_X509_GENERATOR="lc_x509_generator"
 
-TARGETDIR="artifacts_certs_r4"
+TARGETDIR="artifacts_certs_r5"
 
 CERTTYPES_ML_DSA="
 	ML-DSA87:2.16.840.1.101.3.4.3.19
@@ -31,10 +32,11 @@ CERTTYPES_SLH_DSA="
 	SLH-DSA-SHAKE-128F:2.16.840.1.101.3.4.3.27"
 
 CERTTYPES_COMPOSITE_ML_DSA="
-	ML-DSA65-ED25519:SHA512-2.16.840.1.114027.80.8.1.30
-	ML-DSA44-ED25519:SHA512-2.16.840.1.114027.80.8.1.23"
+	ML-DSA44-ED25519:SHA512-1.3.6.1.5.5.7.6.39
+	ML-DSA65-ED25519:SHA512-1.3.6.1.5.5.7.6.48
+	ML-DSA87-ED448:SHAKE256-1.3.6.1.5.5.7.6.51"
 
-CERTTYPES="$CERTTYPES_ML_DSA $CERTTYPES_SLH_DSA $CERTTYPES_COMPOSITE_ML_DSA"
+CERTTYPES="$CERTTYPES_SLH_DSA $CERTTYPES_COMPOSITE_ML_DSA"
 
 ################################################################################
 # No further configurations below this line
@@ -44,6 +46,8 @@ CERTTYPES="$CERTTYPES_ML_DSA $CERTTYPES_SLH_DSA $CERTTYPES_COMPOSITE_ML_DSA"
 gen_cert()
 {
 	local input=$1
+	local priv_ext=$2
+	local priv_gentype=$3
 
 	if [ -z "$input" ]
 	then
@@ -57,22 +61,18 @@ gen_cert()
 	echo "Generating CA certificate for key type $certtype"
 
 	CA_FILENAME="${certtype}-${fileext}_ta.der"
+	PRIV_FILENAME="${certtype}-${fileext}_${priv_ext}.der"
 	${LC_X509_GENERATOR}						\
 	  --keyusage digitalSignature					\
 	  --keyusage keyEncipherment					\
 	  --keyusage keyCertSign					\
 	  --keyusage critical						\
 	  --ca 								\
-	  --valid-from 1729527728					\
-	  --valid-to 2044210606						\
-	  --subject-cn "leancrypto test CA"				\
-	  --subject-ou "leancrypto test OU"				\
-	  --issuer-cn "leancrypto test CA"				\
-	  --issuer-ou "leancrypto test OU"				\
-	  --serial 0102030405060708					\
+	  --valid-days 3650						\
+	  --subject-cn "$certtype leancrypto CA"			\
 	  -o ${TARGETDIR}/${CA_FILENAME}				\
-	  --sk-file ${TARGETDIR}/${CA_FILENAME}.privkey			\
-	  --create-keypair ${certtype}
+	  --sk-file ${TARGETDIR}/${PRIV_FILENAME}			\
+	  ${priv_gentype} ${certtype}
 
 	if [ $? -eq 0 ]
 	then
@@ -81,8 +81,6 @@ gen_cert()
 		echo "CA certificate generation failed"
 		exit 1
 	fi
-
-	rm -f ${TARGETDIR}/${CA_FILENAME}.privkey
 }
 
 rm -rf $TARGETDIR
@@ -90,5 +88,9 @@ mkdir -p $TARGETDIR
 
 for i in $CERTTYPES
 do
-	gen_cert $i
+	gen_cert $i "priv" "--create-keypair-pkcs8"
 done
+
+gen_cert "ML-DSA87:2.16.840.1.101.3.4.3.19" "seed_priv" "--create-keypair-pkcs8-seed"
+gen_cert "ML-DSA65:2.16.840.1.101.3.4.3.18" "expandedkey_priv" "--create-keypair-pkcs8"
+gen_cert "ML-DSA44:2.16.840.1.101.3.4.3.17" "expandedkey_priv" "--create-keypair-pkcs8"
