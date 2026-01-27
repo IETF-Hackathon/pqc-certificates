@@ -481,12 +481,31 @@ public class R5ArtifactParser
         byte[] encSecret = Streams.readAll(inStr);
         inStr.close();
 
-        inStr = parent.getInputStream(new ZipEntry(baseName + "_priv.der"));
-        byte[] privKey = Streams.readAll(inStr);
-        inStr.close();
+        MLKEMPrivateKeyParameters kemPrivKey = null;
 
+        if (parent.getEntry(baseName + "_priv.der") != null)
+        {
+            inStr = parent.getInputStream(new ZipEntry(baseName + "_priv.der"));
+            byte[] privKey = Streams.readAll(inStr);
+            inStr.close();
+            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
+        }
+        if (parent.getEntry(baseName + "_both_priv.der") != null)
+        {
+            inStr = parent.getInputStream(new ZipEntry(baseName + "_both_priv.der"));
+            byte[] privKey = Streams.readAll(inStr);
+            inStr.close();
+            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
+        }
+        if (parent.getEntry(baseName + "_expandedkey_priv.der") != null)
+        {
+            inStr = parent.getInputStream(new ZipEntry(baseName + "_expandedkey_priv.der"));
+            byte[] privKey = Streams.readAll(inStr);
+            inStr.close();
+            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
+        }
+        
         // Extract secret from encapsulation
-        MLKEMPrivateKeyParameters kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
 
         MLKEMExtractor extractor = new MLKEMExtractor(kemPrivKey);
 
@@ -512,13 +531,33 @@ public class R5ArtifactParser
         byte[] encSecret = Streams.readAll(inStr);
         inStr.close();
 
-        inStr = new FileInputStream(new File(parent, baseName + "_priv.der"));
-        byte[] privKey = Streams.readAll(inStr);
-        inStr.close();
+        MLKEMPrivateKeyParameters kemPrivKey = null;
+        File priv = new File(parent, baseName + "_priv.der");
+        if (priv.exists())
+        {
+            inStr = new FileInputStream(new File(parent, baseName + "_priv.der"));
+            byte[] privKey = Streams.readAll(inStr);
+            inStr.close();
+            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
+        }
+        priv = new File(parent, baseName + "_expandedkey_priv.der");
+        if (priv.exists())
+        {
+            inStr = new FileInputStream(priv);
+            byte[] privKey = Streams.readAll(inStr);
+            inStr.close();
+            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
+        }
+        priv = new File(parent, baseName + "_both_priv.der");
+        if (priv.exists())
+        {
+            inStr = new FileInputStream(priv);
+            byte[] privKey = Streams.readAll(inStr);
+            inStr.close();
+            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
+        }
 
         // Extract secret from encapsulation
-        MLKEMPrivateKeyParameters kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
-
         MLKEMExtractor extractor = new MLKEMExtractor(kemPrivKey);
 
         byte[] decSecret = extractor.extractSecret(encapsulation);
