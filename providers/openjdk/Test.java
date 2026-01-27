@@ -1,5 +1,8 @@
 import sun.security.pkcs.NamedPKCS8Key;
 import sun.security.tools.keytool.CertAndKeyGen;
+import sun.security.x509.BasicConstraintsExtension;
+import sun.security.x509.CertificateExtensions;
+import sun.security.x509.KeyUsageExtension;
 import sun.security.x509.X500Name;
 
 import javax.crypto.KEM;
@@ -18,6 +21,7 @@ import java.security.cert.CertificateFactory;
 import java.security.spec.NamedParameterSpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -198,6 +202,7 @@ public class Test {
                 System.arraycopy(seed, 0, bytes, 0, bytes.length);
             }
         };
+        var kps = new HashMap<String,KeyPair>();
         try (var fos = new FileOutputStream("artifacts_certs_r5.zip");
                 var zos = new ZipOutputStream(fos)) {
             for (var oidAndName : OID_2_NAME.entrySet()) {
@@ -209,6 +214,7 @@ public class Test {
                 for (var format : List.of("seed", "expandedkey", "both")) {
                     System.setProperty("jdk.ml" + name.substring(3, 6) + ".pkcs8.encoding", format);
                     kp = g.generateKeyPair();
+                    kps.put(name, kp);
                     byte[] bytes = kp.getPrivate().getEncoded();
                     zos.putNextEntry(new ZipEntry(name + "-" + oid + "_" + format + "_priv.der"));
                     zos.write(bytes);
@@ -231,12 +237,17 @@ public class Test {
                 var doid = nn.getValue();
                 var dname = OID_2_NAME.get(doid);
                 var g1 = new CertAndKeyGen(dname, dname);
-                g1.generate(dname);
-                var c1 = g1.getSelfCertificate(new X500Name("CN=" + dname), 100 * 365 * 86400L);
+                g1.generate(dname, kps.get(dname));
+                var exts = new CertificateExtensions();
+                exts.setExtension("bc", new BasicConstraintsExtension(true, -1));
+                var ku = new KeyUsageExtension();
+                ku.set("key_certsign", true);
+                exts.setExtension("ku", ku);
+                var c1 = g1.getSelfCertificate(new X500Name("CN=" + dname), new Date(), 100 * 365 * 86400L, exts);
                 var g2 = new CertAndKeyGen(kname, dname, null, g1.getPrivateKey(), new X500Name("CN=" + dname));
-                g2.generate(kname);
+                g2.generate(kname, kps.get(kname));
                 // The getSelfCertificate name could be misleading. It can also generate certs signed by others.
-                var c2 = g2.getSelfCertificate(new X500Name("CN=" + kname), 100 * 365 * 86400L);
+                var c2 = g2.getSelfCertificate(new X500Name("CN=" + kname), new Date(), 100 * 365 * 86400L);
                 byte[] bytes1 = c1.getEncoded();
                 zos.putNextEntry(new ZipEntry(dname + "-" + doid + "_ta.der"));
                 zos.write(bytes1);
