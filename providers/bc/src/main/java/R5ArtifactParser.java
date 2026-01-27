@@ -133,7 +133,6 @@ public class R5ArtifactParser
             X509CertificateHolder x509CertHolder = new JcaX509CertificateHolder(cert);
             Extensions exts = x509CertHolder.getExtensions();
 
-
             if (x509CertHolder.getSignatureAlgorithm().getParameters() != null)
             {
                 ASN1ObjectIdentifier sigOid = x509CertHolder.getSignatureAlgorithm().getAlgorithm();
@@ -144,29 +143,33 @@ public class R5ArtifactParser
                         + sigOid);
                 }
             }
-            // check catalyst
-            Extension ext = exts.getExtension(Extension.altSignatureAlgorithm);
 
-            if (ext != null)
+            if (exts != null)
             {
-                ContentVerifierProvider vProv = new JcaContentVerifierProviderBuilder().build(
-                    SubjectPublicKeyInfo.getInstance(x509CertHolder.getExtension(Extension.subjectAltPublicKeyInfo).getParsedValue()));
-                if (!x509CertHolder.isAlternativeSignatureValid(vProv))
+                // check catalyst
+                Extension ext = exts.getExtension(Extension.altSignatureAlgorithm);
+
+                if (ext != null)
                 {
-                    return false;
+                    ContentVerifierProvider vProv = new JcaContentVerifierProviderBuilder().build(
+                        SubjectPublicKeyInfo.getInstance(x509CertHolder.getExtension(Extension.subjectAltPublicKeyInfo).getParsedValue()));
+                    if (!x509CertHolder.isAlternativeSignatureValid(vProv))
+                    {
+                        return false;
+                    }
                 }
-            }
 
-            // check chameleon
-            ext = exts.getExtension(new ASN1ObjectIdentifier("2.16.840.1.114027.80.6.1"));
-            if (ext != null)
-            {
-                X509CertificateHolder exDeltaCert = DeltaCertificateTool.extractDeltaCertificate(x509CertHolder);
-                ContentVerifierProvider verifier = new JcaContentVerifierProviderBuilder().setProvider("BC").build(exDeltaCert.getSubjectPublicKeyInfo());
-
-                if (!exDeltaCert.isSignatureValid(verifier))
+                // check chameleon
+                ext = exts.getExtension(new ASN1ObjectIdentifier("2.16.840.1.114027.80.6.1"));
+                if (ext != null)
                 {
-                    return false;
+                    X509CertificateHolder exDeltaCert = DeltaCertificateTool.extractDeltaCertificate(x509CertHolder);
+                    ContentVerifierProvider verifier = new JcaContentVerifierProviderBuilder().setProvider("BC").build(exDeltaCert.getSubjectPublicKeyInfo());
+
+                    if (!exDeltaCert.isSignatureValid(verifier))
+                    {
+                        return false;
+                    }
                 }
             }
 
