@@ -94,6 +94,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     # than invoking a new JVM for each cert.
     if [ "$verifier" = "bc" ]; then
         if [ -f  $(pwd)/$zip ]; then
+            echo "key_algorithm_oid,type,test_result" > $resultsfile  # CSV header row
             (verify_r3.sh $(pwd)/$zip >> $resultsfile)
         fi
     else # other providers
