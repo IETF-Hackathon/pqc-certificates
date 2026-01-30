@@ -93,6 +93,10 @@ for providerdir in $(ls -d $inputdir/*/); do
     # BC scripts can handle a whole zip file, which has better performance
     # than invoking a new JVM for each cert.
     if [ "$verifier" = "bc" ]; then
+        echo "DEBUG $(pwd)/$zip"
+        echo $(pwd)/$zip
+        echo "ls -l $(pwd)/$zip"
+        echo $(pwd)/$zip
         (verify_r3.sh $(pwd)/$zip >> $resultsfile)
     else # other providers
         unzipdir=${providerdir}$certsdir
