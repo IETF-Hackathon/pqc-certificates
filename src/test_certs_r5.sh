@@ -58,10 +58,7 @@ test_ta () {
     printf "\nTesting %s\n" $tafile >> $logfile
 
     # The actual command that is the heart of this script
-    if [ "$verifier" = "bc" ]; then
-        output=$(verify_r3.sh $(pwd)/$tafile 2>&1)
-        status=$?
-    elif [ "$verifier" = "ssai" ]; then
+    if [ "$verifier" = "ssai" ]; then
         output=$(validator ta --ta-certificate $tafile 2>&1)
         status=$?
     else
@@ -84,23 +81,33 @@ test_ta () {
     fi
 }
 
+
 # First, recurse into any provider dir
 for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
 
     # process certs
     zip=${providerdir}$certszip
-    unzipdir=${providerdir}$certsdir
-    printf "Unziping %s to %s\n" $zip $unzipdir
-    unzip -o $zip -d $unzipdir
-
     resultsfile=${outputdir}/${provider}_${verifier}.csv
-    echo "key_algorithm_oid,type,test_result" > $resultsfile  # CSV header row
 
-    alreadyTestedOIDs=";"  # for a guard to skip testing the same cert multiple times
-    # test each TA file
-    for tafile in $(find $unzipdir \( -iname "*_ta.pem" -o -iname "*_ta.der" -o -iname "*_ta.der.pem" \)); do
-        test_ta "$tafile" "$resultsfile"
-    done
+    # BC scripts can handle a whole zip file, which has better performance
+    # than invoking a new JVM for each cert.
+    if [ "$verifier" = "bc" ]; then
+        if [ -f  $(pwd)/$zip ]; then
+            echo "key_algorithm_oid,type,test_result" > $resultsfile  # CSV header row
+            (verify_r3.sh $(pwd)/$zip >> $resultsfile)
+        fi
+    else # other providers
+        unzipdir=${providerdir}$certsdir
+        printf "Unziping %s to %s\n" $zip $unzipdir
+        unzip -o $zip -d $unzipdir
+
+        echo "key_algorithm_oid,type,test_result" > $resultsfile  # CSV header row
+
+        alreadyTestedOIDs=";"  # for a guard to skip testing the same cert multiple times
+        # test each TA file
+        for tafile in $(find $unzipdir \( -iname "*_ta.pem" -o -iname "*_ta.der" -o -iname "*_ta.der.pem" \)); do
+            test_ta "$tafile" "$resultsfile"
+        done
+    fi
 done
-
