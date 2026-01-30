@@ -135,5 +135,57 @@ public class Verify
             System.out.println(oid + ",cert,N");
         }
     }
+
+    private static String createResultName(String fileName)
+    {
+        String oid = fileName.substring(fileName.lastIndexOf('-') + 1);
+        oid = oid.substring(0, oid.indexOf("_"));
+        return oid;
+    }
+
+    private static void parsePem(CertificateFactory certFact, String arg, InputStream input)
+        throws IOException, CertificateException
+    {
+        PEMParser pemPrs = new PEMParser(new InputStreamReader(input));
+
+        X509CertificateHolder hld = (X509CertificateHolder)pemPrs.readObject();
+
+        pemPrs.close();
+
+        byte[] data = hld.getEncoded();
+
+        X509Certificate cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(data));
+
+        String oid = createResultName(arg);
+        try
+        {
+            cert.verify(cert.getPublicKey());
+
+            System.out.println(oid + ",cert,Y");
+        }
+        catch (Exception e)
+        {
+            System.out.println(oid + ",cert,N");
+        }
+    }
+
+    private static void parseDer(CertificateFactory certFact, String arg, InputStream input)
+        throws IOException, CertificateException
+    {
+        byte[] data = Streams.readAll(input);
+
+        X509Certificate cert = (X509Certificate)certFact.generateCertificate(new ByteArrayInputStream(data));
+        String oid = createResultName(arg);
+        try
+        {
+            cert.verify(cert.getPublicKey());
+
+            System.out.println(oid + ",cert,Y");
+        }
+        catch (Exception e)
+        {
+            System.out.println(oid + ",cert,N");
+        }
+    }
 }
 
