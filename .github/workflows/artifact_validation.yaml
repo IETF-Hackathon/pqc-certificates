@@ -25,7 +25,22 @@ jobs:
         with:
           name: Compatibility_bc_csv
           path: ./output/
-  openssl36_validation:
+  openssl_cert_validation:
+    runs-on: ubuntu-latest
+    container: fedora:43
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install OpenSSL 3.5
+        run: dnf -y install zip diff openssl
+      - name: Test artifacts with OpenSSL 3.5
+        run: ./src/test_certs_r5_openssl.sh
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_openssl_csv
+          path: ./output/
+  openssl_cms_validation:
     runs-on: ubuntu-latest
     container: ubuntu:24.04
     steps:
@@ -106,7 +121,7 @@ jobs:
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
-    needs: [bc_validation, openssl36_validation, ssai_validation, composite_ref_impl_validation]
+    needs: [bc_validation, openssl_validation, openssl36_validation, ssai_validation, composite_ref_impl_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -124,6 +139,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Compatibility_bc_csv
+          path: output/
+      - name: Get OpenSSL results from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: Compatibility_openssl_csv
           path: output/
       - name: Get OpenSSL 3.6 results from previous job
         uses: actions/download-artifact@v4
