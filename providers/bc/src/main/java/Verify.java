@@ -78,9 +78,10 @@ public class Verify
         else
         {
             System.out.println("unknown command: " + args[0]);
+            System.exit(1);
         }
 
-        System.exit(1);
+        System.exit(0);
     }
 
     private static String createResultName(String fileName)
