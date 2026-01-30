@@ -84,13 +84,6 @@ public class Verify
         System.exit(0);
     }
 
-    private static String createResultName(String fileName)
-    {
-        String oid = fileName.substring(fileName.lastIndexOf('-') + 1);
-        oid = oid.substring(0, oid.indexOf("_"));
-        return oid;
-    }
-
     private static void parsePem(CertificateFactory certFact, String arg, InputStream input)
         throws IOException, CertificateException
     {
