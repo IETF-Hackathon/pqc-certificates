@@ -125,11 +125,6 @@ jobs:
         with:
           name: Compatibility_bc_csv
           path: output/
-      - name: Get OpenSSL results from previous job
-        uses: actions/download-artifact@v4
-        with:
-          name: Compatibility_openssl_csv
-          path: output/
       - name: Get OpenSSL 3.6 results from previous job
         uses: actions/download-artifact@v4
         with:
