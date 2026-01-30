@@ -106,7 +106,7 @@ jobs:
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
-    needs: [bc_validation, openssl_validation, openssl36_validation, ssai_validation, composite_ref_impl_validation]
+    needs: [bc_validation, openssl36_validation, ssai_validation, composite_ref_impl_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
