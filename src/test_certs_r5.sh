@@ -94,7 +94,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     # than invoking a new JVM for each cert.
     if [ "$verifier" = "bc" ]; then
         echo `pwd`
-        echo `ls $zip`
+        echo `ls -l $zip`
         (verify_r3.sh $zip >> $resultsfile)
     else # other providers
         unzipdir=${providerdir}$certsdir
