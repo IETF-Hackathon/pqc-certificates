@@ -28,6 +28,7 @@ public class Verify
         if (args.length != 2)
         {
             System.out.println("usage: " + "Verify self-signed <certfile>");
+            System.exit(1);
         }
         else if (args[0].equals("self-signed"))
         {
