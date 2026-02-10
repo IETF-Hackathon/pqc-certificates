@@ -126,26 +126,6 @@ Within `providers/<provider_name>/[implementation_name/]`
 
 The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
 
-## Zip Format (R4)
-
-### Certificates - artifacts_certs_r4.zip
-
-Starting with artifacts for the NIST standards released 2024-08-13, we will use a much simpler artifact format:
-
-* Only produce a self-signed certificate (TAs). 
-* Only Use DER Encoding format (so that PEM encoding doesn't cause issues).
-* Use a flat folder structure with filenames <friendlyname>-<oid>_ta.der
-* For ML-KEM, use the the ML-DSA TA of the equivalent security level to sign a <ML-KEM_oid>_ee.der
-* For hybrid certificate formats, name the file `<hybrid_format>_<oid1>_with_<oid2>_ta.der`
-
-Within `providers/<provider_name>/[implementation_name/]`
-- artifacts_certs_r4.zip
-  - `<friendlyname>-<oid>_ta.der`  # self-signed cert for signature alg oids
-  - `<friendlyname>-<oid>_ee.der`  # ex.: ML-KEM-512  - signed with ML-DSA-44
-  - `<hybrid_format>_<oid1>_with_<oid2>_ta.der`  # ex.: catalyst_1.2.840.10045.4.3.2_with_1.3.6.1.4.1.2.267.12.4.4_ta.der
-
-The KEM end entity certificate can be used to validate encrypted artifacts in either the CMS or CMP artifacts zips.
-
 ## CMS -- artifacts_cms_v3.zip
 
 This is version 3 of the CMS artifacts format.  It may change if needs change.
@@ -163,9 +143,6 @@ Within `providers/<provider_name>/[implementation_name/]`
   - `artifacts_cms_v3/<friendly>-<oid>_kemri_auth_<kdf>.der` # An AuthEnveloped artifact using KEMRI without UKM and the specified KDF.
   - `artifacts_cms_v3/<friendly>-<oid>_signed_attrs.der` # Signed artifact, with attached content and signed attributes.
 
-#### Friendly
-
-Per https://github.com/IETF-Hackathon/pqc-certificates/issues/96 we would like a text description of the algorithm in the artifact names to make artifacts directory listings easier to read. Stick something same in there, for example the appropriate name from [oid_mapping.md](docs/oid_mapping.md).
 
 #### Trust Anchor
 
