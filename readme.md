@@ -185,41 +185,6 @@ Each RFC will specify mandatory KDFs, and probably allow for others as well. You
 
 CMP artifacts should be placed into a `artifacts_cmp.zip` within `providers/<provider_name>/[implementation_name/]`. We will specify the exact file format when we start to see more robust artifacts submitted.
 
-## Old Zip Format (R2) - Deprecated and will be removed at Hackathon in November 2024
-
-OLD -- IF YOU ARE SUBMITTING ARTIFACTS AGAINST THE NIST DRAFT SPECS AS OF 2023-08-24, THEN PLEASE USE THE R3 FORMAT ABOVE.
-
-At the hackathon, we are all going to script our PKI toolkit to produce and read zip bundles of certs in the following format. Scripts should place data into files with the following names so that parsing scripts 
-
-(parentheses denotes optional files)
-
-- artifacts_r2.zip
-  - artifacts/
-    - alg_oid_dir/
-        - ta/     # trust anchor, aka root CA, aka self-signed
-            - ta.der
-            - ta_priv.der
-            - (*.pem)
-        - ca/     # certificate authority, aka intermediate CA
-            - ca.der
-            - ca_priv.der
-            - (*.pem)
-        - ee/     # end entity
-            - cert.der
-            - cert_priv.der    # corresponding private key
-            - cert.csr
-            - (*.pem)
-        - (crl/)
-            - crl_ta.crl
-            - crl_ca.crl
-        - (ocsp/)
-            - ocsp.der           /* R1 */
-            - (ocsp_ca.der)      /* R2 */
-            - (ocsp_cert.der)    /* R2 */
-
-NOTE: The OCSP filename has changed from R1 (ocsp.der) to R2 (ocsp_ca.der)
-      amd ocsp_cert.der for the OCSP responses for the Intermediate CA and
-      the EE certificate.
 
 ## OIDs
 
