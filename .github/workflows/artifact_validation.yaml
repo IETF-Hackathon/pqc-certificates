@@ -148,7 +148,7 @@ jobs:
       - name: Build compat matrix (cms_v3)
         run: ./src/rebuild_results_cms_v3.sh
       - name: Copy output files (automated certs_r5)
-        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/ssai_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./docs/gh-pages
+        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./docs/gh-pages
       - name: Copy output files (automated cms_v3)
         run: cp ./docs/pqc_hackathon_results_cms_v3_automated_tests.html ./output/cms/openssl_cms.log ./docs/gh-pages
       - name: Copy output files (manual r5/v1)
