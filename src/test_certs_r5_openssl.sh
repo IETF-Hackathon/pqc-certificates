@@ -18,6 +18,18 @@ printf "Build time: %s\n\n" "$(date)" | tee -a $logfile
 alreadyTestedSigOIDs=";"
 alreadyTestedKEMOIDs=";"
 
+# OIDs of algorithms that use the private key CHOICE format
+declare -A ChoiceOIDs
+ChoiceOIDs["2.16.840.1.101.3.4.3.17"]=1 # ML-DSA-44
+ChoiceOIDs["2.16.840.1.101.3.4.3.18"]=1 # ML-DSA-65
+ChoiceOIDs["2.16.840.1.101.3.4.3.19"]=1 # ML-DSA-87
+ChoiceOIDs["2.16.840.1.101.3.4.3.32"]=1 # HASH-ML-DSA-44
+ChoiceOIDs["2.16.840.1.101.3.4.3.33"]=1 # HASH-ML-DSA-65
+ChoiceOIDs["2.16.840.1.101.3.4.3.34"]=1 # HASH-ML-DSA-87
+ChoiceOIDs["2.16.840.1.101.3.4.4.1"]=1 # ML-KEM-512
+ChoiceOIDs["2.16.840.1.101.3.4.4.2"]=1 # ML-KEM-768
+ChoiceOIDs["2.16.840.1.101.3.4.4.3"]=1 # ML-KEM-1024
+
 check_ta() {
     TA=$1
 
@@ -240,45 +252,49 @@ test_sig_ta () {
 
     result_consistent_success=0
     result_consistent_fail=0
-    both_priv=$( find $(dirname $tafile) -name "*${oid}_both_priv.der" -print -quit )
-    if ! [ -z "$both_priv" ]; then
-        printf "\nTesting key %s\n" $both_priv | tee -a $logfile
-        output+=$(check_sig_private_key $both_priv $tafile "both")
-        printf "\nTesting consistency %s\n" $both_priv | tee -a $logfile
-        output+=$(check_consistent $both_priv $tafile "both")
-        status=$?
-        [ $status != 0 ] && ((result_consistent_fail+=1))
-        [ $status == 0 ] && ((result_consistent_success+=1))
-    fi
-    seed_priv=$( find $(dirname $tafile) -name "*${oid}_seed_priv.der" -print -quit )
-    if ! [ -z "$seed_priv" ]; then
-        printf "\nTesting key %s\n" $seed_priv | tee -a $logfile
-        output+=$(check_sig_private_key $seed_priv $tafile "seed")
-        printf "\nTesting consistency %s\n" $seed_priv | tee -a $logfile
-        output+=$(check_consistent $seed_priv $tafile "seed")
-        status=$?
-        [ $status != 0 ] && ((result_consistent_fail+=1))
-        [ $status == 0 ] && ((result_consistent_success+=1))
-    fi
-    expanded_priv=$( find $(dirname $tafile) -name "*${oid}_expandedkey_priv.der" -print -quit )
-    if ! [ -z "$expanded_priv" ]; then
-        printf "\nTesting key %s\n" $expanded_priv | tee -a $logfile
-        output+=$(check_sig_private_key $expanded_priv $tafile "expandedkey")
-        printf "\nTesting consistency %s\n" $expanded_priv | tee -a $logfile
-        output+=$(check_consistent $expanded_priv $tafile "expandedonly")
-        status=$?
-        [ $status != 0 ] && ((result_consistent_fail+=1))
-        [ $status == 0 ] && ((result_consistent_success+=1))
-    fi
-    normal_priv=$( find $(dirname $tafile) -name "*${oid}_priv.der" -print -quit )
-    if ! [ -z "$normal_priv" ]; then
-        printf "\nTesting key %s\n" $normal_priv | tee -a $logfile
-        output+=$(check_sig_private_key $normal_priv $tafile "priv")
-        printf "\nTesting consistency %s\n" $normal_priv | tee -a $logfile
-        output+=$(check_consistent $normal_priv $tafile "priv")
-        status=$?
-        [ $status != 0 ] && ((result_consistent_fail+=1))
-        [ $status == 0 ] && ((result_consistent_success+=1))
+
+    if [[ -v ChoiceOIDs["${oid}"] ]]; then
+        both_priv=$( find $(dirname $tafile) -name "*${oid}_both_priv.der" -print -quit )
+        if ! [ -z "$both_priv" ]; then
+            printf "\nTesting key %s\n" $both_priv | tee -a $logfile
+            output+=$(check_sig_private_key $both_priv $tafile "both")
+            printf "\nTesting consistency %s\n" $both_priv | tee -a $logfile
+            output+=$(check_consistent $both_priv $tafile "both")
+            status=$?
+            [ $status != 0 ] && ((result_consistent_fail+=1))
+            [ $status == 0 ] && ((result_consistent_success+=1))
+        fi
+        seed_priv=$( find $(dirname $tafile) -name "*${oid}_seed_priv.der" -print -quit )
+        if ! [ -z "$seed_priv" ]; then
+            printf "\nTesting key %s\n" $seed_priv | tee -a $logfile
+            output+=$(check_sig_private_key $seed_priv $tafile "seed")
+            printf "\nTesting consistency %s\n" $seed_priv | tee -a $logfile
+            output+=$(check_consistent $seed_priv $tafile "seed")
+            status=$?
+            [ $status != 0 ] && ((result_consistent_fail+=1))
+            [ $status == 0 ] && ((result_consistent_success+=1))
+        fi
+        expanded_priv=$( find $(dirname $tafile) -name "*${oid}_expandedkey_priv.der" -print -quit )
+        if ! [ -z "$expanded_priv" ]; then
+            printf "\nTesting key %s\n" $expanded_priv | tee -a $logfile
+            output+=$(check_sig_private_key $expanded_priv $tafile "expandedkey")
+            printf "\nTesting consistency %s\n" $expanded_priv | tee -a $logfile
+            output+=$(check_consistent $expanded_priv $tafile "expandedonly")
+            status=$?
+            [ $status != 0 ] && ((result_consistent_fail+=1))
+            [ $status == 0 ] && ((result_consistent_success+=1))
+        fi
+    else
+        normal_priv=$( find $(dirname $tafile) -name "*${oid}_priv.der" -print -quit )
+        if ! [ -z "$normal_priv" ]; then
+            printf "\nTesting key %s\n" $normal_priv | tee -a $logfile
+            output+=$(check_sig_private_key $normal_priv $tafile "priv")
+            printf "\nTesting consistency %s\n" $normal_priv | tee -a $logfile
+            output+=$(check_consistent $normal_priv $tafile "priv")
+            status=$?
+            [ $status != 0 ] && ((result_consistent_fail+=1))
+            [ $status == 0 ] && ((result_consistent_success+=1))
+        fi
     fi
 
     if [ $result_consistent_fail -gt 0 ]; then
