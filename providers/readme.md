@@ -135,3 +135,11 @@
 * Company website: https://seventhsense.ai
 * Implementation: Open source
 * Implementation link: https://github.com/codespree/quantcrypt
+
+# OpenSSL Composite Preliminary Implementation
+
+* Provider short name: 'openssl-composite-preliminary-impl"
+* Company name: Entrust
+* Company website: https://www.entrust.com/
+* Implementation: Open source
+* Implementation link: https://github.com/feventura/openssl
