@@ -138,7 +138,7 @@
 
 # OpenSSL Composite Preliminary Implementation
 
-* Provider short name: 'openssl-composite-preliminary-impl'
+* Provider short name: `openssl-composite-preliminary-impl`
 * Company name: Entrust
 * Company website: https://www.entrust.com/
 * Implementation: Open source
