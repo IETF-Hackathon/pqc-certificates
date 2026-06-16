@@ -142,4 +142,12 @@
 * Company name: Entrust
 * Company website: https://www.entrust.com/
 * Implementation: Open source
-* Implementation link: https://github.com/feventura/openssl
+* Implementation link: https://github.com/EntrustCorporation/openssl
+
+# Composite Crypto
+
+* Provider short name: `composite-crypto`
+* Company name: 
+* Company website: 
+* Implementation: Open source
+* Implementation link: https://github.com/CompositeCrypto/composite-provider
