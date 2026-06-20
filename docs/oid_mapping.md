@@ -128,3 +128,24 @@ The draft-smyslov-lamps-frodokem-certificates contains the following ISO registe
 | id-kem-efrodokem976-aes | 1.0.18033.2.2.7.7 | draft-smyslov-lamps-frodokem-certificates |
 | id-kem-efrodokem1344-aes | 1.0.18033.2.2.7.8 | draft-smyslov-lamps-frodokem-certificates |
 
+# Classic McEliece Object Identifiers   
+The Classic McEliece Object identifers have been specified by ISO
+
+| McEliece Algorithm Name | OID | Specification |
+| ----------- | ----------- | ----------- |
+| id-kem-mceliece460896 | 1.0.18033.2.2.6.1 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece460896f | 1.0.18033.2.2.6.2 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece460896pc | 1.0.18033.2.2.6.3 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece460896pcf | 1.0.18033.2.2.6.4 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece6688128 | 1.0.18033.2.2.6.5 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece6688128f | 1.0.18033.2.2.6.6 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece6688128pc | 1.0.18033.2.2.6.7 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece6688128pcf | 1.0.18033.2.2.6.8 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece6960119 | 1.0.18033.2.2.6.9 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece6960119f | 1.0.18033.2.2.6.10 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece6960119pc | 1.0.18033.2.2.6.11 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece6960119pcf | 1.0.18033.2.2.6.12 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece8192128 | 1.0.18033.2.2.6.13 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece8192128f | 1.0.18033.2.2.6.14 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece8192128pc | 1.0.18033.2.2.6.15 | https://www.iso.org/standard/86890.html |
+| id-kem-mceliece8192128pcf | 1.0.18033.2.2.6.16 | https://www.iso.org/standard/86890.html |
