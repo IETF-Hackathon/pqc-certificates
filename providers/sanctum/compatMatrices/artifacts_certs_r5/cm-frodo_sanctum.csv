@@ -1,0 +1,8 @@
+oid,cm-frodo_ok,sanctum_ok,depth,notes
+1.0.18033.2.2.6.1,not-tested,no,planned,id-kem-mceliece460896 (Classic McEliece 460896; ISO 86890)
+1.0.18033.2.2.6.5,not-tested,no,planned,id-kem-mceliece6688128 (Classic McEliece 6688128; ISO 86890)
+1.0.18033.2.2.6.9,not-tested,no,planned,id-kem-mceliece6960119 (Classic McEliece 6960119; ISO 86890)
+1.0.18033.2.2.6.13,not-tested,no,planned,id-kem-mceliece8192128 (Classic McEliece 8192128; ISO 86890)
+1.0.18033.2.2.7.1,not-tested,no,planned,id-kem-frodokem976-shake (FrodoKEM 976 SHAKE; draft-smyslov-lamps-frodokem-certificates)
+1.0.18033.2.2.7.2,not-tested,no,planned,id-kem-frodokem1344-shake (FrodoKEM 1344 SHAKE; draft-smyslov-lamps-frodokem-certificates)
+
