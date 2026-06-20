@@ -8,3 +8,4 @@ docs/oids.json
 output/
 .project
 /bin/
+.env
