@@ -114,8 +114,8 @@ The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-compos
 | id-MLKEM1024-X448-SHA3-256 | 1.3.6.1.5.5.7.6.65 | draft-ietf-lamps-pq-composite-kem-15 |
 | id-MLKEM1024-ECDH-P521-SHA3-256 | 1.3.6.1.5.5.7.6.66 | draft-ietf-lamps-pq-composite-kem-15 |
 
-# FrodoKEM has been standardized by ISO.   draft-smyslov-lamps-frodokem-certificates contains the following object
-The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-kem. Final OID assignment will be handled by IANA.
+# FrodoKEM Object Identifiers   
+The draft-smyslov-lamps-frodokem-certificates contains the following ISO registered object Identifiers
 
 | FrodoKEM Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
