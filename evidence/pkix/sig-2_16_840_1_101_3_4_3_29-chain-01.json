@@ -1,0 +1,32 @@
+{
+  "profile_name": "sig-2_16_840_1_101_3_4_3_29-chain-01",
+  "kem_oid": null,
+  "sig_oid": "2.16.840.1.101.3.4.3.29",
+  "chain": {
+    "root": {
+      "pem_b64": "",
+      "der_b64": "",
+      "role": "root",
+      "expected_validation": "pass"
+    },
+    "intermediate": {
+      "pem_b64": "",
+      "der_b64": "",
+      "role": "intermediate",
+      "expected_validation": "pass"
+    },
+    "leaf": {
+      "pem_b64": "",
+      "der_b64": "",
+      "role": "leaf",
+      "expected_validation": "pass"
+    }
+  },
+  "ocsp": {
+    "present": false
+  },
+  "metadata": {
+    "created_at": "2026-06-21T22:43:32.743634Z",
+    "generator": "sanctum-pqc-evidence-runner"
+  }
+}
