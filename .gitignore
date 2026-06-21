@@ -8,3 +8,5 @@ docs/oids.json
 output/
 .project
 /bin/
+.env
+requirements.txt
