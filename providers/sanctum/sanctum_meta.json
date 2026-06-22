@@ -1455,6 +1455,57 @@
       "verified_by" : [ ],
       "tls_1_3_handshake_ok" : false
     }
+    {
+      "oid": "2.16.840.1.101.3.4.3.17",
+      "type": "sig",
+      "hardware_anchor": "yubikey-5.8-piv-test-env",
+      "chain_file": "sig-2_16_840_1_101_3_4_3_17-chain-01.json",
+      "crypto_checks": {
+        "public_key_type": "ml-dsa-44",
+        "public_key_params": "default",
+        "signature_algorithm_oid": "2.16.840.1.101.3.4.3.17",
+        "key_size_bits": 0,
+        "signature_verified": true
+      },
+      "path_validation": {
+        "trust_anchor_subject": "CN=Sanctum ML-DSA-44 TA,O=Sanctum SecOps,C=US",
+        "not_before_ok": true,
+        "not_after_ok": true,
+        "critical_extensions_understood": true,
+        "name_constraints_ok": true,
+        "policy_id": "sanctum-pqc-default",
+        "validation_time": "2026-06-22T00:06:51.711702Z"
+      },
+      "interop": {
+        "verified_by": [],
+        "tls_1_3_handshake_ok": false
+      }
+    },{
+      "oid": "2.16.840.1.101.3.4.3.18",
+      "type": "sig",
+      "hardware_anchor": "yubikey-5.8-piv-test-env",
+      "chain_file": "sig-2_16_840_1_101_3_4_3_18-chain-01.json",
+      "crypto_checks": {
+        "public_key_type": "ml-dsa-65",
+        "public_key_params": "default",
+        "signature_algorithm_oid": "2.16.840.1.101.3.4.3.18",
+        "key_size_bits": 0,
+        "signature_verified": true
+      },
+      "path_validation": {
+        "trust_anchor_subject": "CN=Sanctum ML-DSA-65 TA,O=Sanctum SecOps,C=US",
+        "not_before_ok": true,
+        "not_after_ok": true,
+        "critical_extensions_understood": true,
+        "name_constraints_ok": true,
+        "policy_id": "sanctum-pqc-default",
+        "validation_time": "2026-06-22T00:06:51.711702Z"
+      },
+      "interop": {
+        "verified_by": [],
+        "tls_1_3_handshake_ok": false
+      }
+    }
   }, {
     "oid" : "2.16.840.1.101.3.4.3.20",
     "type" : "sig",
