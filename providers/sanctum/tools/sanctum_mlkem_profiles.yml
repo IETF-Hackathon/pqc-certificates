@@ -1,0 +1,28 @@
+profiles:
+  - name: mlkem768-rsa2048
+    oid: 1.3.6.1.5.5.7.6.55
+    type: kem
+
+  - name: mlkem768-rsa3072
+    oid: 1.3.6.1.5.5.7.6.56
+    type: kem
+
+  - name: mlkem768-rsa4096
+    oid: 1.3.6.1.5.5.7.6.57
+    type: kem
+
+  - name: mlkem768-x25519
+    oid: 1.3.6.1.5.5.7.6.58
+    type: kem
+
+  - name: mlkem768-ecdh-p256
+    oid: 1.3.6.1.5.5.7.6.59
+    type: kem
+
+  - name: mlkem768-ecdh-p384
+    oid: 1.3.6.1.5.5.7.6.60
+    type: kem
+
+  - name: mlkem768-ecdh-brainpoolp256r1
+    oid: 1.3.6.1.5.5.7.6.61
+    type: kem
