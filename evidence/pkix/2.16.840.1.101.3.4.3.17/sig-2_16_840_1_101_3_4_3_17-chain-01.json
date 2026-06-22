@@ -1,0 +1,6 @@
+{
+  "format": "pkix-pem",
+  "ta_cert": "ta.crt",
+  "ee_cert": "ee.crt",
+  "chain": "chain.pem"
+}
