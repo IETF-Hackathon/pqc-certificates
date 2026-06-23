@@ -10,3 +10,11 @@ output/
 /bin/
 .env
 requirements.txt
+
+# Private key files — never commit to public repo
+*_key.pem
+*_private.pem
+*.key.pem
+*_sk.pem
+*secret*.pem
+
