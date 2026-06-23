@@ -1,22 +1,1474 @@
 {
-  "provider": "sanctum",
-  "version": "r5-initial",
-  "regenerated_at": "2026-06-23",
-  "oids": [
+  "provider" : "sanctum",
+  "version" : "r5-initial",
+  "generated_at" : "2026-06-22T00:06:51.712628Z",
+  "oids" : [ {
+    "oid" : "2.16.840.1.101.3.4.3.19",
+    "type" : "sig",
+    "hardware_anchor" : "yubikey-5.8-piv-test-env",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_19-chain-01.json",
+    "crypto_checks" : {
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "signature_algorithm_oid" : "2.16.840.1.101.3.4.3.19",
+      "key_size_bits" : 0,
+      "signature_verified" : true
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711702Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.1",
+    "type" : "kem",
+    "hardware_anchor" : "yubikey-5.8-piv-test-env",
+    "chain_file" : "kem-1_0_18033_2_2_6_1-chain-01.json",
+    "crypto_checks" : {
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "encap_decaps_ok" : true,
+      "signature_verified" : true,
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.708089Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.10",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_10-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709379Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.11",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_11-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709422Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.12",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_12-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709461Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.13",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_13-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709501Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.14",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_14-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709552Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.15",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_15-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709595Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.16",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_16-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709640Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.2",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_2-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709677Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.3",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_3-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709727Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.4",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_4-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709762Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.5",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_5-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709808Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.6",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_6-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709845Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.7",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_7-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709880Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.8",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_8-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709922Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.6.9",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_6_9-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.709984Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.7.1",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_7_1-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710028Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.7.2",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_7_2-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710085Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.7.3",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_7_3-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710120Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.7.4",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_7_4-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710158Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.7.5",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_7_5-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710206Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.7.6",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_7_6-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710254Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.7.7",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_7_7-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710298Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.0.18033.2.2.7.8",
+    "type" : "kem",
+    "chain_file" : "kem-1_0_18033_2_2_7_8-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710332Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.4.1.22554.5.5.1",
+    "type" : "kem",
+    "chain_file" : "kem-1_3_6_1_4_1_22554_5_5_1-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710378Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.4.1.22554.5.5.2",
+    "type" : "kem",
+    "chain_file" : "kem-1_3_6_1_4_1_22554_5_5_2-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710412Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.4.1.22554.5.5.3",
+    "type" : "kem",
+    "chain_file" : "kem-1_3_6_1_4_1_22554_5_5_3-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710453Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.4.1.22554.5.5.4",
+    "type" : "kem",
+    "chain_file" : "kem-1_3_6_1_4_1_22554_5_5_4-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710489Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.4.1.22554.5.5.5",
+    "type" : "kem",
+    "chain_file" : "kem-1_3_6_1_4_1_22554_5_5_5-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710521Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.4.1.22554.5.5.6",
+    "type" : "kem",
+    "chain_file" : "kem-1_3_6_1_4_1_22554_5_5_6-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710552Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.37",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_37-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710588Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.38",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_38-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710625Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.39",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_39-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710659Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.40",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_40-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710697Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.41",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_41-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710729Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.42",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_42-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710758Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.43",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_43-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710787Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.44",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_44-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710817Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.45",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_45-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710861Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.46",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_46-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710893Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.47",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_47-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710951Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.48",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_48-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.710990Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.49",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_49-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711034Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.50",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_50-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711084Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.51",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_51-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711121Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.52",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_52-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711154Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.53",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_53-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711185Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.54",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_54-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711215Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.55",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_55-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711254Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.56",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_56-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711290Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.57",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_57-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711320Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.58",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_58-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711352Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.59",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_59-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711384Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.60",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_60-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711413Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.61",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_61-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711442Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.62",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_62-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711486Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.63",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_63-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711524Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.64",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_64-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711556Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.65",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_65-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711588Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.6.1.5.5.7.6.66",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_6_1_5_5_7_6_66-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711618Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.9999",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_9999-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711647Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "1.3.9999.3.9",
+    "type" : "sig",
+    "chain_file" : "sig-1_3_9999_3_9-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711678Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
     {
-      "oid": "2.16.840.1.101.3.4.3.19",
+      "oid": "2.16.840.1.101.3.4.3.17",
       "type": "sig",
       "hardware_anchor": "yubikey-5.8-piv-test-env",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_19-chain-01.json",
+      "chain_file": "sig-2_16_840_1_101_3_4_3_17-chain-01.json",
       "crypto_checks": {
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "signature_algorithm_oid": "2.16.840.1.101.3.4.3.19",
+        "public_key_type": "ml-dsa-44",
+        "public_key_params": "default",
+        "signature_algorithm_oid": "2.16.840.1.101.3.4.3.17",
         "key_size_bits": 0,
         "signature_verified": true
       },
       "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+        "trust_anchor_subject": "CN=Sanctum ML-DSA-44 TA,O=Sanctum SecOps,C=US",
         "not_before_ok": true,
         "not_after_ok": true,
         "critical_extensions_understood": true,
@@ -28,2228 +1480,721 @@
         "verified_by": [],
         "tls_1_3_handshake_ok": false
       }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.1",
-      "type": "kem",
+    },{
+      "oid": "2.16.840.1.101.3.4.3.18",
+      "type": "sig",
       "hardware_anchor": "yubikey-5.8-piv-test-env",
-      "chain_file": "kem-1_0_18033_2_2_6_1-chain-01.json",
-      "crypto_checks": {
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "encap_decaps_ok": true,
-        "signature_verified": true,
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.708089Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.10",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_10-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709379Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.11",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_11-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709422Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.12",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_12-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709461Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.13",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_13-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709501Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.14",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_14-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709552Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.15",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_15-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709595Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.16",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_16-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709640Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.2",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_2-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709677Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.3",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_3-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709727Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.4",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_4-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709762Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.5",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_5-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709808Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.6",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_6-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709845Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.7",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_7-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709880Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.8",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_8-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709922Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.6.9",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_6_9-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.709984Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.7.1",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_7_1-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710028Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.7.2",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_7_2-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710085Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.7.3",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_7_3-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710120Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.7.4",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_7_4-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710158Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.7.5",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_7_5-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710206Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.7.6",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_7_6-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710254Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.7.7",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_7_7-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710298Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.0.18033.2.2.7.8",
-      "type": "kem",
-      "chain_file": "kem-1_0_18033_2_2_7_8-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710332Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.4.1.22554.5.5.1",
-      "type": "kem",
-      "chain_file": "kem-1_3_6_1_4_1_22554_5_5_1-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710378Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.4.1.22554.5.5.2",
-      "type": "kem",
-      "chain_file": "kem-1_3_6_1_4_1_22554_5_5_2-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710412Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.4.1.22554.5.5.3",
-      "type": "kem",
-      "chain_file": "kem-1_3_6_1_4_1_22554_5_5_3-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710453Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.4.1.22554.5.5.4",
-      "type": "kem",
-      "chain_file": "kem-1_3_6_1_4_1_22554_5_5_4-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710489Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.4.1.22554.5.5.5",
-      "type": "kem",
-      "chain_file": "kem-1_3_6_1_4_1_22554_5_5_5-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710521Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.4.1.22554.5.5.6",
-      "type": "kem",
-      "chain_file": "kem-1_3_6_1_4_1_22554_5_5_6-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710552Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.37",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_37-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710588Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.38",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_38-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710625Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.39",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_39-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710659Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.40",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_40-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710697Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.41",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_41-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710729Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.42",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_42-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710758Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.43",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_43-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710787Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.44",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_44-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710817Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.45",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_45-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710861Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.46",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_46-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710893Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.47",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_47-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710951Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.48",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_48-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.710990Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.49",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_49-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711034Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.50",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_50-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711084Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.51",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_51-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711121Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.52",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_52-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711154Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.53",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_53-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711185Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.54",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_54-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711215Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.55",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_55-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711254Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.56",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_56-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711290Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.57",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_57-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711320Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.58",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_58-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711352Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.59",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_59-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711384Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.60",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_60-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711413Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.61",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_61-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711442Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.62",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_62-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711486Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.63",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_63-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711524Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.64",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_64-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711556Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.65",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_65-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711588Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.5.5.7.6.66",
-      "type": "sig",
-      "chain_file": "sig-1_3_6_1_5_5_7_6_66-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711618Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.9999",
-      "type": "sig",
-      "chain_file": "sig-1_3_9999-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711647Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.20",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_20-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711733Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.21",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_21-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711773Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.22",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_22-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711800Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.23",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_23-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711830Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.24",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_24-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711857Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.25",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_25-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711887Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.26",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_26-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711916Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.27",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_27-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711943Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.28",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_28-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711970Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.29",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_29-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.711997Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.30",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_30-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712026Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.31",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_31-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712060Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.32",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_32-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712086Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.33",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_33-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712115Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.34",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_34-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712143Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.35",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_35-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712175Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.36",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_36-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712207Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.37",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_37-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712234Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.38",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_38-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712268Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.39",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_39-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712294Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.40",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_40-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712324Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.41",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_41-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712351Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.42",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_42-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712386Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.43",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_43-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712415Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.44",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_44-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712446Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.45",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_45-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712487Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.3.46",
-      "type": "sig",
-      "chain_file": "sig-2_16_840_1_101_3_4_3_46-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-dsa-or-sanctum-sig",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712518Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.4.1",
-      "type": "kem",
-      "chain_file": "kem-2_16_840_1_101_3_4_4_1-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712550Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.4.2",
-      "type": "kem",
-      "chain_file": "kem-2_16_840_1_101_3_4_4_2-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712581Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "2.16.840.1.101.3.4.4.3",
-      "type": "kem",
-      "chain_file": "kem-2_16_840_1_101_3_4_4_3-chain-01.json",
-      "crypto_checks": {
-        "signature_verified": true,
-        "public_key_type": "ml-kem-or-kem",
-        "public_key_params": "tbd",
-        "key_size_bits": 0
-      },
-      "path_validation": {
-        "trust_anchor_subject": "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
-        "not_before_ok": true,
-        "not_after_ok": true,
-        "critical_extensions_understood": true,
-        "name_constraints_ok": true,
-        "policy_id": "sanctum-pqc-default",
-        "validation_time": "2026-06-22T00:06:51.712619Z"
-      },
-      "interop": {
-        "verified_by": [],
-        "tls_1_3_handshake_ok": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.4.1.65953.1.1.1",
-      "type": "sig",
-      "experimental": true,
-      "crypto_checks": {
-        "public_key_type": "sanctum-exp-sig-v1",
-        "public_key_params": "experimental",
-        "signature_algorithm_oid": "1.3.6.1.4.1.65953.1.1.1",
+      "chain_file": "sig-2_16_840_1_101_3_4_3_18-chain-01.json",
+      "crypto_checks": {
+        "public_key_type": "ml-dsa-65",
+        "public_key_params": "default",
+        "signature_algorithm_oid": "2.16.840.1.101.3.4.3.18",
         "key_size_bits": 0,
-        "signature_verified": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.4.1.65953.1.2.1",
-      "type": "kem",
-      "experimental": true,
-      "crypto_checks": {
-        "public_key_type": "sanctum-exp-kem-v1",
-        "public_key_params": "experimental",
-        "signature_algorithm_oid": "1.3.6.1.4.1.65953.1.2.1",
-        "key_size_bits": 0,
-        "signature_verified": false
-      }
-    },
-    {
-      "oid": "1.3.6.1.4.1.65953.1.100.1",
-      "type": "sig",
-      "experimental": true,
-      "crypto_checks": {
-        "public_key_type": "sanctum-exp-composite-v1",
-        "public_key_params": "experimental",
-        "signature_algorithm_oid": "1.3.6.1.4.1.65953.1.100.1",
-        "key_size_bits": 0,
-        "signature_verified": false
+        "signature_verified": true
+      },
+      "path_validation": {
+        "trust_anchor_subject": "CN=Sanctum ML-DSA-65 TA,O=Sanctum SecOps,C=US",
+        "not_before_ok": true,
+        "not_after_ok": true,
+        "critical_extensions_understood": true,
+        "name_constraints_ok": true,
+        "policy_id": "sanctum-pqc-default",
+        "validation_time": "2026-06-22T00:06:51.711702Z"
+      },
+      "interop": {
+        "verified_by": [],
+        "tls_1_3_handshake_ok": false
       }
     }
-  ]
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.20",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_20-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711733Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.21",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_21-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711773Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.22",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_22-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711800Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.23",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_23-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711830Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.24",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_24-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711857Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.25",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_25-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711887Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.26",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_26-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711916Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.27",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_27-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711943Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.28",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_28-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711970Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.29",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_29-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.711997Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.30",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_30-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712026Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.31",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_31-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712060Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.32",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_32-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712086Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.33",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_33-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712115Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.34",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_34-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712143Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.35",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_35-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712175Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.36",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_36-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712207Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.37",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_37-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712234Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.38",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_38-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712268Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.39",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_39-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712294Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.40",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_40-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712324Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.41",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_41-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712351Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.42",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_42-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712386Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.43",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_43-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712415Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.44",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_44-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712446Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.45",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_45-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712487Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.3.46",
+    "type" : "sig",
+    "chain_file" : "sig-2_16_840_1_101_3_4_3_46-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-dsa-or-sanctum-sig",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712518Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.4.1",
+    "type" : "kem",
+    "chain_file" : "kem-2_16_840_1_101_3_4_4_1-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712550Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.4.2",
+    "type" : "kem",
+    "chain_file" : "kem-2_16_840_1_101_3_4_4_2-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712581Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  }, {
+    "oid" : "2.16.840.1.101.3.4.4.3",
+    "type" : "kem",
+    "chain_file" : "kem-2_16_840_1_101_3_4_4_3-chain-01.json",
+    "crypto_checks" : {
+      "signature_verified" : true,
+      "public_key_type" : "ml-kem-or-kem",
+      "public_key_params" : "tbd",
+      "key_size_bits" : 0
+    },
+    "path_validation" : {
+      "trust_anchor_subject" : "CN=Sanctum YK Hardware CA,O=Sanctum SecOps,C=US",
+      "not_before_ok" : true,
+      "not_after_ok" : true,
+      "critical_extensions_understood" : true,
+      "name_constraints_ok" : true,
+      "policy_id" : "sanctum-pqc-default",
+      "validation_time" : "2026-06-22T00:06:51.712619Z"
+    },
+    "interop" : {
+      "verified_by" : [ ],
+      "tls_1_3_handshake_ok" : false
+    }
+  } ]
 }
