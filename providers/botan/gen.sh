@@ -1,96 +1,69 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Botan (3.6+) port of providers/ossl35/gen.sh — SLH-DSA + ML-DSA.
+# Per variant, flat dir, matching filenames:
+#   SLH-DSA: <name>-<oid>_priv.der        + <name>-<oid>_ta.der
+#   ML-DSA:  <name>-<oid>_seed_priv.der   + <name>-<oid>_ta.der
+# Private key MATCHES the key in the TA (single keypair per variant).
+# ML-DSA key is assumed to be in Botan's default (seed) format.
+set -euo pipefail
+V=3.6
+BOTAN=${BOTAN:-botan}
 
-gen_dirs() {
+# --- ML-DSA ---------------------------------------------------------------
+mldsa_names=(ml-dsa-44 ml-dsa-65 ml-dsa-87)
+mldsa_oids=(2.16.840.1.101.3.4.3.17 2.16.840.1.101.3.4.3.18 2.16.840.1.101.3.4.3.19)
+mldsa_params=(ML-DSA-4x4 ML-DSA-6x5 ML-DSA-8x7)
 
-   # Generates the internal directories
-   # An argument is expected for the name of
-   # the OID/Parent directory
-   _BASE_DIR=$1
+# --- SLH-DSA --------------------------------------------------------------
+slh_names=(
+  slh-dsa-sha2-128s slh-dsa-sha2-192s slh-dsa-sha2-256s
+  slh-dsa-sha2-128f slh-dsa-sha2-192f slh-dsa-sha2-256f
+  slh-dsa-shake-128s slh-dsa-shake-192s slh-dsa-shake-256s
+  slh-dsa-shake-128f slh-dsa-shake-192f slh-dsa-shake-256f
+)
+slh_oids=(
+  2.16.840.1.101.3.4.3.20 2.16.840.1.101.3.4.3.22 2.16.840.1.101.3.4.3.24
+  2.16.840.1.101.3.4.3.21 2.16.840.1.101.3.4.3.23 2.16.840.1.101.3.4.3.25
+  2.16.840.1.101.3.4.3.26 2.16.840.1.101.3.4.3.28 2.16.840.1.101.3.4.3.30
+  2.16.840.1.101.3.4.3.27 2.16.840.1.101.3.4.3.29 2.16.840.1.101.3.4.3.31
+)
 
-   # Creates the Main Dir
-   [ -d "$_BASE_DIR" ] || mkdir -p "$_BASE_DIR"
-
-   # Default folders
-   SUBDIRS="ta ca ee crl ocsp"
-
-   # Creates the Directory and the SubDirs
-   for dir in ${SUBDIRS} ; do
-      mkdir -p "${_BASE_DIR}/${dir}"
-   done
+slh_params_name() {  # slh-dsa-sha2-128s -> SLH-DSA-SHA2-128s
+  local rest=${1#slh-dsa-}; local hash=${rest%%-*}; local size=${rest#*-}
+  printf 'SLH-DSA-%s-%s' "${hash^^}" "$size"
 }
 
-gen() {
-   # Function to generate the ta/, ca/, and ee/
-   # directories and X.509 key + req + cert.
-   #
-   # Additionally it also creates the crl/ and
-   # ocsp/ directories.
-
-   # Generates the directories
-   gen_dirs "$2"
-   
-   if [ "$1" = "dilithium2" ]
-   then
-   	ALGO="Dilithium"
-   	PARAMS="Dilithium-4x4-r3"
-   elif [ "$1" = "dilithium3" ]
-   then
-   	ALGO="Dilithium"
-   	PARAMS="Dilithium-6x5-r3"
-   elif [ "$1" = "dilithium5" ]
-   then
-   	ALGO="Dilithium"
-   	PARAMS="Dilithium-8x7-r3"
-   elif [ "$1" = "dilithium2aes" ]
-   then
-   	ALGO="Dilithium"
-   	PARAMS="Dilithium-4x4-AES-r3"
-   elif [ "$1" = "dilithium3aes" ]
-   then
-   	ALGO="Dilithium"
-   	PARAMS="Dilithium-6x5-AES-r3"
-   elif [ "$1" = "dilithium5aes" ]
-   then
-   	ALGO="Dilithium"
-   	PARAMS="Dilithium-8x7-AES-r3"
-   fi
-   
-   botan keygen --algo=${ALGO} --params=${PARAMS} > "$2/ta/ta_key.pem"
-   botan keygen --algo=${ALGO} --params=${PARAMS} > "$2/ca/ca_key.pem"
-   botan keygen --algo=${ALGO} --params=${PARAMS} > "$2/ee/ee_key.pem"
-   
-   botan gen_self_signed "$2/ta/ta_key.pem" "Trust Root CA ${PARAMS}" --ca > "$2/ta/ta.pem"
-   
-   botan gen_pkcs10 "$2/ca/ca_key.pem" "CA ${PARAMS}" --ca > "$2/ca/ca.csr.pem"
-   botan sign_cert "$2/ta/ta.pem" "$2/ta/ta_key.pem" "$2/ca/ca.csr.pem" > "$2/ca/ca.pem"
-   
-   botan gen_pkcs10 "$2/ee/ee_key.pem" "End Entity ${PARAMS}" > "$2/ee/ee.csr.pem"
-   botan sign_cert "$2/ca/ca.pem" "$2/ca/ca_key.pem" "$2/ee/ee.csr.pem" > "$2/ee/ee.pem"
+# key PEM -> key DER  (try botan pkcs8 first, then openssl)
+key_pem2der() {  # $1=pem-in $2=der-out
+  if "$BOTAN" pkcs8 --der-out "$1" > "$2" 2>/dev/null && [ -s "$2" ]; then return 0; fi
+  if command -v openssl >/dev/null 2>&1; then openssl pkey -in "$1" -outform DER -out "$2"; return 0; fi
+  echo "ERROR: need 'botan pkcs8' or 'openssl' to export the private key as DER." >&2; exit 1
 }
 
-# Sub folders for the provider
-ARTIFACTDIRS=default
+# Generate one keypair, the DER private-key artifact, and the self-signed TA.
+#   $1=friendly name  $2=oid  $3=botan algo  $4=botan params  $5=priv suffix
+gen_variant() {
+  local name=$1 oid=$2 algo=$3 params=$4 suffix=$5
+  local base="${name}-${oid}"
+  local key_pem="${name}-prv.pem"
 
-for dir in ${ARTIFACTDIRS} ; do 
+  "$BOTAN" keygen --algo="$algo" --params="$params" > "$key_pem"
+  key_pem2der "$key_pem" "${base}${suffix}"
+  "$BOTAN" gen_self_signed "$key_pem" "OpenSSL $V ${name} Root" --ca --der > "${base}_ta.der"
+  /bin/rm -f "$key_pem"
+}
 
-   # Generates the product's directory (if missing)
-   [ -d "${dir}" ] || mkdir -p "${dir}"
-   [ -d "${dir}i/artifacts" ] || mkdir -p "${dir}/artifacts"
-
-   # PQC Implementation
-   result=$(cd ${dir}/artifacts && gen dilithium2 1.3.6.1.4.1.2.267.7.4.4)
-   result=$(cd ${dir}/artifacts && gen dilithium3 1.3.6.1.4.1.2.267.7.6.5)
-   result=$(cd ${dir}/artifacts && gen dilithium5 1.3.6.1.4.1.2.267.7.8.7)
-   result=$(cd ${dir}/artifacts && gen dilithium2aes 1.3.6.1.4.1.2.267.11.4.4)
-   result=$(cd ${dir}/artifacts && gen dilithium3aes 1.3.6.1.4.1.2.267.11.6.5)
-   result=$(cd ${dir}/artifacts && gen dilithium5aes 1.3.6.1.4.1.2.267.11.8.7)
-#   result=$(cd ${dir}/artifacts && gen falcon512 1.3.9999.3.1)
-#   result=$(cd ${dir}/artifacts && gen falcon1024 1.3.9999.3.4)
-#   result=$(cd ${dir}/artifacts && gen sphincssha256128frobust 1.3.9999.6.4.1)
-
-   # Composite Implementation
-   # result=$(cd ${dir}/artifacts && gen composite 1.3.6.7.8. )
-
+# ML-DSA — default (seed) private-key format -> _seed_priv.der
+for i in "${!mldsa_names[@]}"; do
+  gen_variant "${mldsa_names[$i]}" "${mldsa_oids[$i]}" \
+              "ML-DSA" "${mldsa_params[$i]}" "_seed_priv.der"
 done
 
-exit 0;
+# SLH-DSA — single private-key format -> _priv.der
+for i in "${!slh_names[@]}"; do
+  gen_variant "${slh_names[$i]}" "${slh_oids[$i]}" \
+              "SLH-DSA" "$(slh_params_name "${slh_names[$i]}")" "_priv.der"
+done
+
+zip -qq artifacts_certs_r5.zip $(ls *.der)
+/bin/rm -f *.der *.pem
