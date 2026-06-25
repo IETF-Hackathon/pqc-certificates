@@ -236,7 +236,7 @@ def main():
 
     md_file = MdUtils(file_name=args.outfile, title=f'IETF PQC Hackathon {args.interop_type} Interoperability Results')
 
-    md_file.new_paragraph(text="<style> table { border-collapse: collapse; width:auto !important; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>")
+    md_file.new_paragraph(text="<style> table { border-collapse: collapse; width:auto !important; } thead th { position: sticky; top: 0; z-index: 1; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>")
 
     md_file.new_paragraph(text="Generated: "+str(datetime.now(tz=pytz.utc).strftime('%Y-%m-%d %H:%M %Z')))
 
