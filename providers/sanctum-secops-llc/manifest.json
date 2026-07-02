@@ -1,0 +1,673 @@
+{
+  "package": "artifacts_certs_r5.zip",
+  "package_sha256": "6e9c4a87f5c013b361ddee07bf889edb356e4a83c34d977a49243df5f685f4f8",
+  "package_bytes": 302661,
+  "generator": "verify_sanctum.py --build-manifest",
+  "files": [
+    {
+      "filename": "id-ML-DSA-44-2.16.840.1.101.3.4.3.17_seed.der",
+      "bytes": 54,
+      "sha256": "9c37f8fba20b0671a17e63a2388314f0814f72563739e4f6fb95c88784391dc7"
+    },
+    {
+      "filename": "id-ML-DSA-44-2.16.840.1.101.3.4.3.17_seed.raw",
+      "bytes": 32,
+      "sha256": "bec19de71567bcafbf907f7b1a18a543cb4b70bea891b5e7ddb010ed375731a6"
+    },
+    {
+      "filename": "id-ML-DSA-44-2.16.840.1.101.3.4.3.17_ta.der",
+      "bytes": 3984,
+      "sha256": "c99a6b45d08bbafc1d000e4b6eedf20cf0d2b3a912a4534d5d0cf7693012ca10"
+    },
+    {
+      "filename": "id-ML-DSA-65-2.16.840.1.101.3.4.3.18_seed.der",
+      "bytes": 54,
+      "sha256": "46fac74138670f336db29e5b429cb678ee1020aa4717470dfe7362fc5e783ebf"
+    },
+    {
+      "filename": "id-ML-DSA-65-2.16.840.1.101.3.4.3.18_seed.raw",
+      "bytes": 32,
+      "sha256": "86aa67de5dbeabb7acbbfb4bbb3eaba68806c91b776b3a64fe7d31d96caa4ce7"
+    },
+    {
+      "filename": "id-ML-DSA-65-2.16.840.1.101.3.4.3.18_ta.der",
+      "bytes": 5513,
+      "sha256": "99000bee41f818ea49077484a1b86eca11f7c82a04c7e521e0f4f9a6e8129723"
+    },
+    {
+      "filename": "id-ML-DSA-87-2.16.840.1.101.3.4.3.19_seed.der",
+      "bytes": 54,
+      "sha256": "aaf47c2b7c331c589df86814cb9c6f7e3a3964c217793c788a0f1b99e314db47"
+    },
+    {
+      "filename": "id-ML-DSA-87-2.16.840.1.101.3.4.3.19_seed.raw",
+      "bytes": 32,
+      "sha256": "50cdcbc50e1af430b2c52aecfcbef3dc96176e3b0701f56b44e749cecfffe146"
+    },
+    {
+      "filename": "id-ML-DSA-87-2.16.840.1.101.3.4.3.19_ta.der",
+      "bytes": 7471,
+      "sha256": "71b8ff87054ac420453b4a07fd960186f9e74509e9fb6fb00f6c4b72a897d51e"
+    },
+    {
+      "filename": "id-MLDSA44-ECDSA-P256-SHA256-1.3.6.1.5.5.7.6.40_priv.der",
+      "bytes": 102,
+      "sha256": "2f7dfbe0ace6b1998a88a5ab9aab66f5625e2949032ed0eada6289311c80d846"
+    },
+    {
+      "filename": "id-MLDSA44-ECDSA-P256-SHA256-1.3.6.1.5.5.7.6.40_priv.raw",
+      "bytes": 83,
+      "sha256": "6fcc3a59bb5e764312d47619ab91161721cc6f4288c268523a37134e75d1d52d"
+    },
+    {
+      "filename": "id-MLDSA44-ECDSA-P256-SHA256-1.3.6.1.5.5.7.6.40_ta.der",
+      "bytes": 4149,
+      "sha256": "4517e4c8979f9ac1f306f0ea75adde3db0d5949fd4d84d24dad7f39d1835f100"
+    },
+    {
+      "filename": "id-MLDSA44-Ed25519-SHA512-1.3.6.1.5.5.7.6.39_priv.der",
+      "bytes": 83,
+      "sha256": "4da218909a253a4162a2f6f04cad53634dbf6e561cffa1aba3a32b7c495e46bd"
+    },
+    {
+      "filename": "id-MLDSA44-Ed25519-SHA512-1.3.6.1.5.5.7.6.39_priv.raw",
+      "bytes": 64,
+      "sha256": "5b44c65aecc73ab925810e89bc254498c9ac1456895fd7fa739b6cdac8cdba03"
+    },
+    {
+      "filename": "id-MLDSA44-Ed25519-SHA512-1.3.6.1.5.5.7.6.39_ta.der",
+      "bytes": 4103,
+      "sha256": "be0efad185d25f1f163b7ea3996c862d54f4c6b5f5744a102368d697e4ed28a4"
+    },
+    {
+      "filename": "id-MLDSA44-RSA2048-PKCS15-SHA256-1.3.6.1.5.5.7.6.38_priv.der",
+      "bytes": 1247,
+      "sha256": "8c66d1e6f955e859be5435df7000746e76db46f422b8c1160221d9917c7af131"
+    },
+    {
+      "filename": "id-MLDSA44-RSA2048-PKCS15-SHA256-1.3.6.1.5.5.7.6.38_priv.raw",
+      "bytes": 1224,
+      "sha256": "95ca0a353e0cbdd6397169e7b891a77a953d5fa0e372973e23ecbcd0a30510d1"
+    },
+    {
+      "filename": "id-MLDSA44-RSA2048-PKCS15-SHA256-1.3.6.1.5.5.7.6.38_ta.der",
+      "bytes": 4547,
+      "sha256": "fedaea6a8358a58cca060d4032f5e9bb192f25ade9cbcc938d8eb9c655b2a21b"
+    },
+    {
+      "filename": "id-MLDSA44-RSA2048-PSS-SHA256-1.3.6.1.5.5.7.6.37_priv.der",
+      "bytes": 1246,
+      "sha256": "84affe6072b620bcefb11f83ac89c707e2449a68660ffa8527a21028cee58462"
+    },
+    {
+      "filename": "id-MLDSA44-RSA2048-PSS-SHA256-1.3.6.1.5.5.7.6.37_priv.raw",
+      "bytes": 1223,
+      "sha256": "312d756f31589136d6f162223e8534e4e12aadc76c9c28fc8a0df2890c7995a7"
+    },
+    {
+      "filename": "id-MLDSA44-RSA2048-PSS-SHA256-1.3.6.1.5.5.7.6.37_ta.der",
+      "bytes": 4541,
+      "sha256": "f1740707068bbb9c1ef1a50efbce8a4f2d4b60e518304b726852ec5d9cabd31c"
+    },
+    {
+      "filename": "id-MLDSA65-ECDSA-P256-SHA512-1.3.6.1.5.5.7.6.45_priv.der",
+      "bytes": 102,
+      "sha256": "e43e9f9033fbf7cd8a372feb77f2399d5f9072f20199c701cfc5be0bad817aa5"
+    },
+    {
+      "filename": "id-MLDSA65-ECDSA-P256-SHA512-1.3.6.1.5.5.7.6.45_priv.raw",
+      "bytes": 83,
+      "sha256": "81e4714feb1a3ad4b1860f273d93f3366dce4c0d894925eab2075e2d4c51e401"
+    },
+    {
+      "filename": "id-MLDSA65-ECDSA-P256-SHA512-1.3.6.1.5.5.7.6.45_ta.der",
+      "bytes": 5678,
+      "sha256": "7fe63cdad66492b137d0936f888e9b310955b34f0f82f0248d2eda221ae6ce73"
+    },
+    {
+      "filename": "id-MLDSA65-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.46_priv.der",
+      "bytes": 115,
+      "sha256": "5fcb4158b5f147e1b26be0b8819b94070dde13645425bdb69d5c529925588b51"
+    },
+    {
+      "filename": "id-MLDSA65-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.46_priv.raw",
+      "bytes": 96,
+      "sha256": "11d8516b3817212c2f226d99c671f3352618b162f63d274ea5b58b77aa4f04ee"
+    },
+    {
+      "filename": "id-MLDSA65-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.46_ta.der",
+      "bytes": 5742,
+      "sha256": "57c23101c59bb6a3f0b8b65924c2484042d0c9d6e5ce50cb8a5779fb6ce1dca6"
+    },
+    {
+      "filename": "id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-1.3.6.1.5.5.7.6.47_priv.der",
+      "bytes": 103,
+      "sha256": "57239ae9e44023b4304aa6b16e6c3adac1b7fecb059d1647977fea91da695c1a"
+    },
+    {
+      "filename": "id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-1.3.6.1.5.5.7.6.47_priv.raw",
+      "bytes": 84,
+      "sha256": "fc6b62a1a8d499edc2da5bda6c6b31ed10ea05029d0ba8ad34f84a716a5cdc0e"
+    },
+    {
+      "filename": "id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-1.3.6.1.5.5.7.6.47_ta.der",
+      "bytes": 5699,
+      "sha256": "3dd8160fc2ac60524f9db75d615f9c6ddfb2d090bba47e05133ef43c24470bec"
+    },
+    {
+      "filename": "id-MLDSA65-Ed25519-SHA512-1.3.6.1.5.5.7.6.48_priv.der",
+      "bytes": 83,
+      "sha256": "f2268b51916d33cdf38126ee055902adc04e6e351ef77609aadfcf18c1694411"
+    },
+    {
+      "filename": "id-MLDSA65-Ed25519-SHA512-1.3.6.1.5.5.7.6.48_priv.raw",
+      "bytes": 64,
+      "sha256": "3d58db605df20099e9c7fa9b05f8ea02d9cb250841ff0ab253a85a0e2c5d8d2d"
+    },
+    {
+      "filename": "id-MLDSA65-Ed25519-SHA512-1.3.6.1.5.5.7.6.48_ta.der",
+      "bytes": 5632,
+      "sha256": "875a8aacf5f9255e69fd686a07029f148ff5b1288bc68e514c081fe9a89c0fee"
+    },
+    {
+      "filename": "id-MLDSA65-RSA3072-PKCS15-SHA512-1.3.6.1.5.5.7.6.42_priv.der",
+      "bytes": 1822,
+      "sha256": "567c1757a0448509339dca682838afdb49325a6f4663f4075c863d3cb0c36051"
+    },
+    {
+      "filename": "id-MLDSA65-RSA3072-PKCS15-SHA512-1.3.6.1.5.5.7.6.42_priv.raw",
+      "bytes": 1799,
+      "sha256": "b379e0e73221c5b735579ec4b50a94530caa83970f96d4759798b854072e35cb"
+    },
+    {
+      "filename": "id-MLDSA65-RSA3072-PKCS15-SHA512-1.3.6.1.5.5.7.6.42_ta.der",
+      "bytes": 6332,
+      "sha256": "2de5e4c397b365fcfb572ae8a7de6f3c44f9e58a9512aff5817ad75ce918e96d"
+    },
+    {
+      "filename": "id-MLDSA65-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.41_priv.der",
+      "bytes": 1822,
+      "sha256": "8391c3ba3a62e8052b4fe4e34b7d70825955e8c0ac7b12aa85b23572947d1cb2"
+    },
+    {
+      "filename": "id-MLDSA65-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.41_priv.raw",
+      "bytes": 1799,
+      "sha256": "20bebcd0fe4902323a750adc0b9fd4567d8397a418334348774961aeab5868aa"
+    },
+    {
+      "filename": "id-MLDSA65-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.41_ta.der",
+      "bytes": 6326,
+      "sha256": "fc1106cdc305e6481ebaca7cd335fabe60f49a9e596658e29df648150bac71bc"
+    },
+    {
+      "filename": "id-MLDSA65-RSA4096-PKCS15-SHA512-1.3.6.1.5.5.7.6.44_priv.der",
+      "bytes": 2404,
+      "sha256": "716f8ab13694714ad00bd90c4a2d0dffb8f00c621135b96bb420793a45919497"
+    },
+    {
+      "filename": "id-MLDSA65-RSA4096-PKCS15-SHA512-1.3.6.1.5.5.7.6.44_priv.raw",
+      "bytes": 2381,
+      "sha256": "1219f206d21a11c9eb0a5eef92a7aa15a29a45ac6b3472ccfa87373b26d1e6df"
+    },
+    {
+      "filename": "id-MLDSA65-RSA4096-PKCS15-SHA512-1.3.6.1.5.5.7.6.44_ta.der",
+      "bytes": 6588,
+      "sha256": "7d8f8e1cadccc19ba28331a6e00cd11f05b853284e16996891dc6926ec4db300"
+    },
+    {
+      "filename": "id-MLDSA65-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.43_priv.der",
+      "bytes": 2402,
+      "sha256": "cb3af37493628a4728fe84cbbd6114eb223ebf5dda8c4a403e7e1b4f40cdfaed"
+    },
+    {
+      "filename": "id-MLDSA65-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.43_priv.raw",
+      "bytes": 2379,
+      "sha256": "8dac59203f4eb9ef62eeb0079adfacfef48d2ac5d3b3e8003edaaeec54aba1a3"
+    },
+    {
+      "filename": "id-MLDSA65-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.43_ta.der",
+      "bytes": 6582,
+      "sha256": "1ebb2c26d45266d14a04173fa2e8f0b9517b6ebb9147e391334b4dd355e73a0c"
+    },
+    {
+      "filename": "id-MLDSA87-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.49_priv.der",
+      "bytes": 115,
+      "sha256": "0c6278b980433d08ccacd5df5d7fee3986729120ed9498267b52444961fa8970"
+    },
+    {
+      "filename": "id-MLDSA87-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.49_priv.raw",
+      "bytes": 96,
+      "sha256": "a74bfe26ac7f9d721d536238fd14430db08541d0fa453b78d66b69539a5c3ae6"
+    },
+    {
+      "filename": "id-MLDSA87-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.49_ta.der",
+      "bytes": 7699,
+      "sha256": "ff38e3d7a61d3dc0a808cb8de6d7b875211ce24d90815939d55ededc0bc049a6"
+    },
+    {
+      "filename": "id-MLDSA87-ECDSA-P521-SHA512-1.3.6.1.5.5.7.6.54_priv.der",
+      "bytes": 134,
+      "sha256": "549a57e020f2dc76fa7d9d6624f2de8f2c985c9d30802b04b455853303409419"
+    },
+    {
+      "filename": "id-MLDSA87-ECDSA-P521-SHA512-1.3.6.1.5.5.7.6.54_priv.raw",
+      "bytes": 114,
+      "sha256": "34a4b72da02b421b3f8c59ce4e3b684e1b01dd3962a7cf1df351792323242971"
+    },
+    {
+      "filename": "id-MLDSA87-ECDSA-P521-SHA512-1.3.6.1.5.5.7.6.54_ta.der",
+      "bytes": 7772,
+      "sha256": "08de15125d6d31bcd970b82eeaf14829197741ec201d5a1928537bccc2c8cefa"
+    },
+    {
+      "filename": "id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-1.3.6.1.5.5.7.6.50_priv.der",
+      "bytes": 119,
+      "sha256": "05c54ea860ae7abb1dbfe77bc130fe76c33ea6ac1145b9ebe69f8b9d29701792"
+    },
+    {
+      "filename": "id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-1.3.6.1.5.5.7.6.50_priv.raw",
+      "bytes": 100,
+      "sha256": "f1223e4b7e83006a9b6c41c16f83f150b0cec6c096e61e82b858c4696cc6c856"
+    },
+    {
+      "filename": "id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-1.3.6.1.5.5.7.6.50_ta.der",
+      "bytes": 7722,
+      "sha256": "40662308d99fe36b57cc3037efc7f1a1dea29f16584007a972545a17700b8cbe"
+    },
+    {
+      "filename": "id-MLDSA87-Ed448-SHAKE256-1.3.6.1.5.5.7.6.51_priv.der",
+      "bytes": 108,
+      "sha256": "6e0abf6d578994ee092018155410f3424311277961e4c91c09b74e6619fb587c"
+    },
+    {
+      "filename": "id-MLDSA87-Ed448-SHAKE256-1.3.6.1.5.5.7.6.51_priv.raw",
+      "bytes": 89,
+      "sha256": "0a95e04d1d6b89aaf272c33fd42da0b23033d34608bc2ab5b7b294d962d68e94"
+    },
+    {
+      "filename": "id-MLDSA87-Ed448-SHAKE256-1.3.6.1.5.5.7.6.51_ta.der",
+      "bytes": 7665,
+      "sha256": "d015c568eb7232ddc9e213a1749d0124a4d644cf661510a0e9564d0de5bd2253"
+    },
+    {
+      "filename": "id-MLDSA87-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.52_priv.der",
+      "bytes": 1821,
+      "sha256": "258558c5669a2aa1329e38746e50377a0cf5f7d9b50cbbb2fff26b05ede8bb8c"
+    },
+    {
+      "filename": "id-MLDSA87-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.52_priv.raw",
+      "bytes": 1798,
+      "sha256": "b227957f6d729e58f82a228ecc9aca423e053075386bb414a3b99bf2fc226ee1"
+    },
+    {
+      "filename": "id-MLDSA87-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.52_ta.der",
+      "bytes": 8284,
+      "sha256": "2a45c622e3a2099670842ea5c288f06820cc985df037753789598262ab81b3a8"
+    },
+    {
+      "filename": "id-MLDSA87-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.53_priv.der",
+      "bytes": 2403,
+      "sha256": "ded49c3eb8732e847ab21a6c84e51cb2183369dbacb1f93eef6642ab6165ea36"
+    },
+    {
+      "filename": "id-MLDSA87-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.53_priv.raw",
+      "bytes": 2380,
+      "sha256": "d6958ebd5568b35f5037bc86ad5d6555eada82bdc17c42079ec385248f54ee2c"
+    },
+    {
+      "filename": "id-MLDSA87-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.53_ta.der",
+      "bytes": 8540,
+      "sha256": "13bdd3291c998386a230fa1c64cd11fac4351be67ac063596b19a9f9fde8a18e"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_ciphertext.bin",
+      "bytes": 1665,
+      "sha256": "17daeb23e65ab2f6cbcad4fb9c25ed00737b947b630c5950b522ba01a622db53"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_ee.der",
+      "bytes": 5251,
+      "sha256": "2e2c9e6a94fefe94df272901e61051f8d3f60e0d19818aaf37519a021d7c7b9b"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_priv.der",
+      "bytes": 149,
+      "sha256": "4e7052ab762eb8e1686ec84fd8869986c9d96c1e62ad85e4cbe123370337bbc8"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_priv.raw",
+      "bytes": 128,
+      "sha256": "452b4e42b862c5ea1de4a3b78d78f45c9012cf628a635cb2d24bfb7a4cbfe578"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_ss.bin",
+      "bytes": 32,
+      "sha256": "31143627fdc32635919f134764f48863f99ea41c7749c4523140983ff875ece3"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_ciphertext.bin",
+      "bytes": 1701,
+      "sha256": "2b95f29dd201e7d3f0ce1e33319eea97d41258e4b570e4d08990bf0dc4b4ec6c"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_ee.der",
+      "bytes": 5287,
+      "sha256": "c6c95583419c0940a069a9ae995970f567c7b3fb2d03a501da99d7a609cb90e1"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_priv.der",
+      "bytes": 167,
+      "sha256": "eaaa45e66058aa80665ac2f4aef487ca4bc2be7ec32de16e466d107d7efccc39"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_priv.raw",
+      "bytes": 146,
+      "sha256": "1d2ecbc5c19f916cf8d688f39a1bc79b0ac34bd96ff0b35f18ec2dea2db45b2f"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_ss.bin",
+      "bytes": 32,
+      "sha256": "38bd3672610199a9ef7cd69394d0db0735702ba0aae1bfb2c18a2bbc3910a183"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_ciphertext.bin",
+      "bytes": 1665,
+      "sha256": "3858215497a318b7b4dd507a1cac89ee979210b60f0da26a83e3ae45bfdfca5b"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_ee.der",
+      "bytes": 5262,
+      "sha256": "a9147035ddf2e8f5cf614f0c66c258499ad4e3ebcb171c4a72f4dd9b896a77ac"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_priv.der",
+      "bytes": 153,
+      "sha256": "8f37ba1f5e60553828e44acfa164088ec71248b0e295c7258874227e888e360b"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_priv.raw",
+      "bytes": 132,
+      "sha256": "1aacf8caf2438604606a63ad22cf1788c419ab66e18afb44f66584f4a7c43dc9"
+    },
+    {
+      "filename": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_ss.bin",
+      "bytes": 32,
+      "sha256": "b76ea75ee85c314c9e12292eb1f5013c705de3e8bf74e7b877610b647638e923"
+    },
+    {
+      "filename": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_ciphertext.bin",
+      "bytes": 1952,
+      "sha256": "fc08cc22dfca93e0db91679088cd695dc989b7964b73bf80b2c27ffc7ee8f0a4"
+    },
+    {
+      "filename": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_ee.der",
+      "bytes": 5550,
+      "sha256": "aed7815ebb5d8bfb6007f47bce818be650126d08d46a6302b90da46a15439122"
+    },
+    {
+      "filename": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_priv.der",
+      "bytes": 1854,
+      "sha256": "aa538174e008cc3f2ac6d52ca2fc3ec52bd800060b283ed10c493ae9c2e05f00"
+    },
+    {
+      "filename": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_priv.raw",
+      "bytes": 1831,
+      "sha256": "a70240f993b7ba2d98df7ec3d2f71f14967e13ea155367834ce8774af0fac5e8"
+    },
+    {
+      "filename": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_ss.bin",
+      "bytes": 32,
+      "sha256": "275afa1f2b58495923268797643d84a4e4c5e5115d32a78a78eb57026a7e6a57"
+    },
+    {
+      "filename": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_ciphertext.bin",
+      "bytes": 1624,
+      "sha256": "e3d9adc5332c7b08447b4fd2a31de56068a97e5aed4c3a34a8a8b1258c3cd450"
+    },
+    {
+      "filename": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_ee.der",
+      "bytes": 5205,
+      "sha256": "76a593a0dd53b6d87a3981d124ec1502899bacb244a5458134a173f45ffc1c9f"
+    },
+    {
+      "filename": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_priv.der",
+      "bytes": 140,
+      "sha256": "dbcdb3c6bfdfe6eb07f08c4a784cf0cdfaa8bab6523f4462b4ea0ed793969c6b"
+    },
+    {
+      "filename": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_priv.raw",
+      "bytes": 120,
+      "sha256": "e5788a280c6523fbbf08d8b1e6623824996007270e293572e4516d1efdc5ade7"
+    },
+    {
+      "filename": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_ss.bin",
+      "bytes": 32,
+      "sha256": "1047eeef6748d35e9165330edb2c8d391f3369d6dfccfc8bd8ff916600c54f94"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_ciphertext.bin",
+      "bytes": 1153,
+      "sha256": "1b05484381964604e06ade1b56130feee6b32e9eb55fe42d151e19952a6e2dbf"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_ee.der",
+      "bytes": 4834,
+      "sha256": "8141f8f7af857c47d32d6e37bb6f74bacae84165f169cd1c6fb0dd467742d299"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_priv.der",
+      "bytes": 135,
+      "sha256": "0fcda2a8dc7c7b94e444fc51478c7cb6eb0bff685a27507470c82f4bff2ac961"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_priv.raw",
+      "bytes": 115,
+      "sha256": "73ef21fe4032fba00ce534167425cccd0a345cb4918c28a9b871bf11d5f2ef84"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_ss.bin",
+      "bytes": 32,
+      "sha256": "330befe3c70405b6bb717a60d676493589a8801bc523187b3ee30f8e8fba43f2"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_ciphertext.bin",
+      "bytes": 1185,
+      "sha256": "f0d1ed57ded6bc98ec3434716c9ed9d3ab8d5d3192ba3bf9c236334885cf00a6"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_ee.der",
+      "bytes": 4866,
+      "sha256": "34007dd24e84a09fac99a3d20cc38aa497714fb08a3364385888081f3c453cd6"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_priv.der",
+      "bytes": 149,
+      "sha256": "8532bee102dada994c6af810be41bd8e96417c2ac3effa16d579f40f9cfd4a0c"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_priv.raw",
+      "bytes": 128,
+      "sha256": "3cb9460850324e1d48c069fc32967e339daf32b72191297c34babdf6af28d77a"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_ss.bin",
+      "bytes": 32,
+      "sha256": "abda68735dcabb03c8a58dea5dab86217b0d044d850957393fd0fa8829be01c7"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_ciphertext.bin",
+      "bytes": 1153,
+      "sha256": "a38cd2b3fdc94686a6b369848f13d5923271d8aeb043a9ed66d9c5f19eaa34a4"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_ee.der",
+      "bytes": 4845,
+      "sha256": "873c0ad03547697052285f11d1e95b3544f35630d6980e992359febf4cd76529"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_priv.der",
+      "bytes": 136,
+      "sha256": "66b5cbd7917f84448da07757620b512a897abde67a7bc9bec717121f4eb24d6d"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_priv.raw",
+      "bytes": 116,
+      "sha256": "da47e641a668f93ec96376b29225041c97bc3240573bbc395292438948e3484d"
+    },
+    {
+      "filename": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_ss.bin",
+      "bytes": 32,
+      "sha256": "5857ff67558114a3af6a1a7451d9f82c1896792a143d42760565c21ef7a2a8bf"
+    },
+    {
+      "filename": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_ciphertext.bin",
+      "bytes": 1344,
+      "sha256": "2478b7ccf52280f519f8e07f9f8a8c6a7d8af44d79e4012c576533671543b667"
+    },
+    {
+      "filename": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_ee.der",
+      "bytes": 5037,
+      "sha256": "2a0a8a5ed6cdd7d8497904a285deb8ea9574e714ed7e929d473628b9d13c34bb"
+    },
+    {
+      "filename": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_priv.der",
+      "bytes": 1277,
+      "sha256": "1d84d2aa33c0971b18c771b881684f3a9445ebf3d1a465ba707a171468945c84"
+    },
+    {
+      "filename": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_priv.raw",
+      "bytes": 1254,
+      "sha256": "bba7da49d44a1c14a0897680feb4b920c9f51837ef72a4586ac2adf19dd88040"
+    },
+    {
+      "filename": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_ss.bin",
+      "bytes": 32,
+      "sha256": "3b4601027946beb19da7c1a21959627a3180153540ffa06059a47a6c5300177e"
+    },
+    {
+      "filename": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_ciphertext.bin",
+      "bytes": 1472,
+      "sha256": "304a192e3924eba05f200476f324ae9f6b6011a28ede9ceb85bc3683069e5d4f"
+    },
+    {
+      "filename": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_ee.der",
+      "bytes": 5165,
+      "sha256": "8b07edf39e48d2328f3a0098159207eb40dc4142b9fc19a6138afc5d4168e1a9"
+    },
+    {
+      "filename": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_priv.der",
+      "bytes": 1855,
+      "sha256": "b4070376d7755519706c308d1521bb918b7b52ba2680c60b1ba172a63e5a8ecc"
+    },
+    {
+      "filename": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_priv.raw",
+      "bytes": 1832,
+      "sha256": "a22738d072afc125b5ebbe8eb33c5317b8658afc3ca19586875c372ba26e3b89"
+    },
+    {
+      "filename": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_ss.bin",
+      "bytes": 32,
+      "sha256": "6eefbb9a72642f3dc9a5867aa73f450ebc40efcd3b37e8783d9868d73ce4644e"
+    },
+    {
+      "filename": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_ciphertext.bin",
+      "bytes": 1600,
+      "sha256": "1a1b8af49f82c1419b2d63295210dbc277c916685bcaccea6254721ba063de57"
+    },
+    {
+      "filename": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_ee.der",
+      "bytes": 5293,
+      "sha256": "f0e08b929fe7e5b28ad8ee52e17672ad40cef457106880a8c750b5a832a27dae"
+    },
+    {
+      "filename": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_priv.der",
+      "bytes": 2435,
+      "sha256": "32c3ced99020f1aced354545f02b37a4d1eb5ba90825cbb11f3797e242ad6174"
+    },
+    {
+      "filename": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_priv.raw",
+      "bytes": 2412,
+      "sha256": "b28062c8cf778a80071cdc74939da7b3bec38d09f5352a6f9b566109029501fa"
+    },
+    {
+      "filename": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_ss.bin",
+      "bytes": 32,
+      "sha256": "61200d9b4bd0544a802cda988c7be53263efe7089186962f7bcaec50055e642a"
+    },
+    {
+      "filename": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_ciphertext.bin",
+      "bytes": 1120,
+      "sha256": "0c444dcebd2ae5eb5016c2946f85555aaca23503824664a94cf30572c3c02517"
+    },
+    {
+      "filename": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_ee.der",
+      "bytes": 4798,
+      "sha256": "57db2dca86e03315c6a16d30f7b58bb671dcdd4de87eabaa8ad1671f5e42d767"
+    },
+    {
+      "filename": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_priv.der",
+      "bytes": 115,
+      "sha256": "84f25bdf7beeccfd23113da3832a0c7f8bd2f5b438fac085da76cae00a12d265"
+    },
+    {
+      "filename": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_priv.raw",
+      "bytes": 96,
+      "sha256": "26f1c0c799ba53647b10310eb23eabf6a49124ea3b424ff13d6a942d14fb15ce"
+    },
+    {
+      "filename": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_ss.bin",
+      "bytes": 32,
+      "sha256": "32f466e3b61403e8938a5b80fcc0bec1de1d6f232cce598684557355dee4fd55"
+    },
+    {
+      "filename": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_ciphertext.bin",
+      "bytes": 1568,
+      "sha256": "fc51810eba33543b039f47d63bc00fee0fff26f7f122e2b7f9733d315ab01c6a"
+    },
+    {
+      "filename": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_ee.der",
+      "bytes": 5142,
+      "sha256": "cca7fce5d622be1dfdec4934aef805cc302c7b11d6d22e3a8866e4a6adf14656"
+    },
+    {
+      "filename": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_priv.der",
+      "bytes": 86,
+      "sha256": "dce9722dcb8cad7643c40221bbadf2c9b2803de4a7ea2b147d217a5dec0cfc43"
+    },
+    {
+      "filename": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_priv.raw",
+      "bytes": 64,
+      "sha256": "657d8992ee26c8a531cb9609e306033ab3c4c35168b1456fbc7d466e1c17e8fb"
+    },
+    {
+      "filename": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_ss.bin",
+      "bytes": 32,
+      "sha256": "d3267ceb6cba438cc3c0bc7cd077c4cb71341adb109be5975994f6293fd4aaf8"
+    },
+    {
+      "filename": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_ciphertext.bin",
+      "bytes": 1088,
+      "sha256": "d5a40a193756bfd9d3d87735ba5930cdc6c0b8989a98b32333521cb2a3114e2f"
+    },
+    {
+      "filename": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_ee.der",
+      "bytes": 4757,
+      "sha256": "16b9a50ff66f76b070e4f47f4a18eb925d28269cc56be89f33f8077c1422f00e"
+    },
+    {
+      "filename": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_priv.der",
+      "bytes": 86,
+      "sha256": "2a26c73e1c5393695e8df067bb8865d8f1af3d00eea1fa3a594ee11f42cc72e8"
+    },
+    {
+      "filename": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_priv.raw",
+      "bytes": 64,
+      "sha256": "0299bcc92310499bba71cab82d01fdbf471de4e5785d237783dcf331a65125d6"
+    },
+    {
+      "filename": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_ss.bin",
+      "bytes": 32,
+      "sha256": "cc0f515d60fb35487a52725e500a359f0c52605313214eac8b1347c0254eb20b"
+    }
+  ]
+}

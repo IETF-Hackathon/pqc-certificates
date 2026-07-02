@@ -1,0 +1,1058 @@
+{
+  "producer": "sanctum-secops-llc",
+  "generated_utc": "2026-07-02T17:42:20Z",
+  "package": "artifacts_certs_r5.zip",
+  "package_size_bytes": 302661,
+  "package_sha256": "6e9c4a87f5c013b361ddee07bf889edb356e4a83c34d977a49243df5f685f4f8",
+  "totals": {
+    "passed": 171,
+    "total": 171,
+    "status": "PASS"
+  },
+  "by_kind": {
+    "Signature round-trip": {
+      "passed": 21,
+      "total": 21
+    },
+    "KEM round-trip": {
+      "passed": 14,
+      "total": 14
+    },
+    "Seed consistency": {
+      "passed": 3,
+      "total": 3
+    },
+    "manifest": {
+      "passed": 133,
+      "total": 133
+    }
+  },
+  "results": [
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-ML-DSA-44-2.16.840.1.101.3.4.3.17_ta.der",
+      "ok": true,
+      "detail": "id-ML-DSA-44 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-ML-DSA-65-2.16.840.1.101.3.4.3.18_ta.der",
+      "ok": true,
+      "detail": "id-ML-DSA-65 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-ML-DSA-87-2.16.840.1.101.3.4.3.19_ta.der",
+      "ok": true,
+      "detail": "id-ML-DSA-87 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA44-ECDSA-P256-SHA256-1.3.6.1.5.5.7.6.40_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA44-ECDSA-P256-SHA256 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA44-Ed25519-SHA512-1.3.6.1.5.5.7.6.39_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA44-Ed25519-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA44-RSA2048-PKCS15-SHA256-1.3.6.1.5.5.7.6.38_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA44-RSA2048-PKCS15-SHA256 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA44-RSA2048-PSS-SHA256-1.3.6.1.5.5.7.6.37_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA44-RSA2048-PSS-SHA256 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA65-ECDSA-P256-SHA512-1.3.6.1.5.5.7.6.45_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA65-ECDSA-P256-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA65-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.46_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA65-ECDSA-P384-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-1.3.6.1.5.5.7.6.47_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA65-ECDSA-brainpoolP256r1-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA65-Ed25519-SHA512-1.3.6.1.5.5.7.6.48_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA65-Ed25519-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA65-RSA3072-PKCS15-SHA512-1.3.6.1.5.5.7.6.42_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA65-RSA3072-PKCS15-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA65-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.41_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA65-RSA3072-PSS-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA65-RSA4096-PKCS15-SHA512-1.3.6.1.5.5.7.6.44_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA65-RSA4096-PKCS15-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA65-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.43_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA65-RSA4096-PSS-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA87-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.49_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA87-ECDSA-P384-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA87-ECDSA-P521-SHA512-1.3.6.1.5.5.7.6.54_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA87-ECDSA-P521-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-1.3.6.1.5.5.7.6.50_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA87-ECDSA-brainpoolP384r1-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA87-Ed448-SHAKE256-1.3.6.1.5.5.7.6.51_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA87-Ed448-SHAKE256 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA87-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.52_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA87-RSA3072-PSS-SHA512 via reference verifier"
+    },
+    {
+      "kind": "Signature round-trip",
+      "artifact": "id-MLDSA87-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.53_ta.der",
+      "ok": true,
+      "detail": "id-MLDSA87-RSA4096-PSS-SHA512 via reference verifier"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM1024-ECDH-P384-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM1024-ECDH-P521-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM1024-RSA3072-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM1024-X448-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM768-ECDH-P256-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM768-ECDH-P384-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM768-RSA2048-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM768-RSA3072-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM768-RSA4096-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_ee.der",
+      "ok": true,
+      "detail": "id-MLKEM768-X25519-SHA3-256 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_ee.der",
+      "ok": true,
+      "detail": "id-alg-ml-kem-1024 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "KEM round-trip",
+      "artifact": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_ee.der",
+      "ok": true,
+      "detail": "id-alg-ml-kem-768 structural-only (install draft-composite-kem for full round-trip)"
+    },
+    {
+      "kind": "Seed consistency",
+      "artifact": "id-ML-DSA-44-2.16.840.1.101.3.4.3.17_seed.der",
+      "ok": true,
+      "detail": "id-ML-DSA-44 seed derives matching SPKI"
+    },
+    {
+      "kind": "Seed consistency",
+      "artifact": "id-ML-DSA-65-2.16.840.1.101.3.4.3.18_seed.der",
+      "ok": true,
+      "detail": "id-ML-DSA-65 seed derives matching SPKI"
+    },
+    {
+      "kind": "Seed consistency",
+      "artifact": "id-ML-DSA-87-2.16.840.1.101.3.4.3.19_seed.der",
+      "ok": true,
+      "detail": "id-ML-DSA-87 seed derives matching SPKI"
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-ML-DSA-44-2.16.840.1.101.3.4.3.17_seed.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-ML-DSA-44-2.16.840.1.101.3.4.3.17_seed.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-ML-DSA-44-2.16.840.1.101.3.4.3.17_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-ML-DSA-65-2.16.840.1.101.3.4.3.18_seed.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-ML-DSA-65-2.16.840.1.101.3.4.3.18_seed.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-ML-DSA-65-2.16.840.1.101.3.4.3.18_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-ML-DSA-87-2.16.840.1.101.3.4.3.19_seed.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-ML-DSA-87-2.16.840.1.101.3.4.3.19_seed.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-ML-DSA-87-2.16.840.1.101.3.4.3.19_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-ECDSA-P256-SHA256-1.3.6.1.5.5.7.6.40_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-ECDSA-P256-SHA256-1.3.6.1.5.5.7.6.40_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-ECDSA-P256-SHA256-1.3.6.1.5.5.7.6.40_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-Ed25519-SHA512-1.3.6.1.5.5.7.6.39_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-Ed25519-SHA512-1.3.6.1.5.5.7.6.39_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-Ed25519-SHA512-1.3.6.1.5.5.7.6.39_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-RSA2048-PKCS15-SHA256-1.3.6.1.5.5.7.6.38_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-RSA2048-PKCS15-SHA256-1.3.6.1.5.5.7.6.38_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-RSA2048-PKCS15-SHA256-1.3.6.1.5.5.7.6.38_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-RSA2048-PSS-SHA256-1.3.6.1.5.5.7.6.37_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-RSA2048-PSS-SHA256-1.3.6.1.5.5.7.6.37_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA44-RSA2048-PSS-SHA256-1.3.6.1.5.5.7.6.37_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-ECDSA-P256-SHA512-1.3.6.1.5.5.7.6.45_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-ECDSA-P256-SHA512-1.3.6.1.5.5.7.6.45_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-ECDSA-P256-SHA512-1.3.6.1.5.5.7.6.45_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.46_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.46_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.46_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-1.3.6.1.5.5.7.6.47_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-1.3.6.1.5.5.7.6.47_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-ECDSA-brainpoolP256r1-SHA512-1.3.6.1.5.5.7.6.47_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-Ed25519-SHA512-1.3.6.1.5.5.7.6.48_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-Ed25519-SHA512-1.3.6.1.5.5.7.6.48_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-Ed25519-SHA512-1.3.6.1.5.5.7.6.48_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA3072-PKCS15-SHA512-1.3.6.1.5.5.7.6.42_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA3072-PKCS15-SHA512-1.3.6.1.5.5.7.6.42_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA3072-PKCS15-SHA512-1.3.6.1.5.5.7.6.42_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.41_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.41_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.41_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA4096-PKCS15-SHA512-1.3.6.1.5.5.7.6.44_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA4096-PKCS15-SHA512-1.3.6.1.5.5.7.6.44_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA4096-PKCS15-SHA512-1.3.6.1.5.5.7.6.44_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.43_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.43_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA65-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.43_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.49_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.49_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-ECDSA-P384-SHA512-1.3.6.1.5.5.7.6.49_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-ECDSA-P521-SHA512-1.3.6.1.5.5.7.6.54_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-ECDSA-P521-SHA512-1.3.6.1.5.5.7.6.54_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-ECDSA-P521-SHA512-1.3.6.1.5.5.7.6.54_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-1.3.6.1.5.5.7.6.50_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-1.3.6.1.5.5.7.6.50_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-ECDSA-brainpoolP384r1-SHA512-1.3.6.1.5.5.7.6.50_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-Ed448-SHAKE256-1.3.6.1.5.5.7.6.51_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-Ed448-SHAKE256-1.3.6.1.5.5.7.6.51_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-Ed448-SHAKE256-1.3.6.1.5.5.7.6.51_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.52_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.52_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-RSA3072-PSS-SHA512-1.3.6.1.5.5.7.6.52_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.53_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.53_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLDSA87-RSA4096-PSS-SHA512-1.3.6.1.5.5.7.6.53_ta.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.63_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-P521-SHA3-256-1.3.6.1.5.5.7.6.66_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-ECDH-brainpoolP384r1-SHA3-256-1.3.6.1.5.5.7.6.64_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.62_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM1024-X448-SHA3-256-1.3.6.1.5.5.7.6.65_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-P256-SHA3-256-1.3.6.1.5.5.7.6.59_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-P384-SHA3-256-1.3.6.1.5.5.7.6.60_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-ECDH-brainpoolP256r1-SHA3-256-1.3.6.1.5.5.7.6.61_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA2048-SHA3-256-1.3.6.1.5.5.7.6.55_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA3072-SHA3-256-1.3.6.1.5.5.7.6.56_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-RSA4096-SHA3-256-1.3.6.1.5.5.7.6.57_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-MLKEM768-X25519-SHA3-256-1.3.6.1.5.5.7.6.58_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-alg-ml-kem-1024-2.16.840.1.101.3.4.4.3_ss.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_ciphertext.bin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_ee.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_priv.der",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_priv.raw",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "kind": "manifest",
+      "artifact": "id-alg-ml-kem-768-2.16.840.1.101.3.4.4.2_ss.bin",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}
