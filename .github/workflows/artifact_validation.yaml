@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   bc_validation:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     container: bcdocker2000/bc_hackathon_pqc
     steps:
       - name: Checkout code
@@ -26,7 +26,7 @@ jobs:
           name: Compatibility_bc_csv
           path: ./output/
   openssl_cert_validation:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     container: fedora:43
     steps:
       - name: Checkout code
@@ -41,7 +41,7 @@ jobs:
           name: Compatibility_openssl_csv
           path: ./output/
   openssl_cms_validation:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     container: ubuntu:24.04
     steps:
       - name: Checkout code
@@ -62,7 +62,7 @@ jobs:
           name: Compatibility_openssl36_csv
           path: ./output/
   composite_ref_impl_validation:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -106,7 +106,7 @@ jobs:
           name: Compatibility_composite-refl-impl_csv
           path: ./output/
   build_results_html:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     container: ubuntu:latest
     # needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, ssai_validation, composite_ref_impl_validation]
     needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, composite_ref_impl_validation]
@@ -169,7 +169,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     steps:
       - name: Update git pages with new compatibiliy matrix
         id: deployment
