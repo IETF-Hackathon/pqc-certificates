@@ -1,0 +1,657 @@
+<h1 id="ietf-pqc-hackathon-josecose-interoperability-results">IETF PQC
+Hackathon JOSE/COSE Interoperability Results</h1>
+<style> table { border-collapse: collapse; width:auto !important; } thead th { position: sticky; top: 0; z-index: 1; background: white; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>
+<p>Generated: 2026-07-18 12:56 UTC</p>
+<h1 id="algorithms-submitted">Algorithms Submitted</h1>
+<p>✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not
+passing any verifiers<br>Columns represent producers who submitted
+artifacts.<br></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#ML-DSA-44-ES256-cose">ML-DSA-44-ES256-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#ML-DSA-44-ES256-jws">ML-DSA-44-ES256-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#ML-DSA-44-Ed25519-cose">ML-DSA-44-Ed25519-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#ML-DSA-44-Ed25519-jws">ML-DSA-44-Ed25519-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#ML-DSA-44-cose">ML-DSA-44-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#ML-DSA-44-jws">ML-DSA-44-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#ML-DSA-65-ES256-cose">ML-DSA-65-ES256-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#ML-DSA-65-ES256-jws">ML-DSA-65-ES256-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#ML-DSA-65-Ed25519-cose">ML-DSA-65-Ed25519-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#ML-DSA-65-Ed25519-jws">ML-DSA-65-Ed25519-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#ML-DSA-65-cose">ML-DSA-65-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#ML-DSA-65-jws">ML-DSA-65-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#ML-DSA-87-ES384-cose">ML-DSA-87-ES384-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#ML-DSA-87-ES384-jws">ML-DSA-87-ES384-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#ML-DSA-87-Ed448-cose">ML-DSA-87-Ed448-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#ML-DSA-87-Ed448-jws">ML-DSA-87-Ed448-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#ML-DSA-87-cose">ML-DSA-87-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#ML-DSA-87-jws">ML-DSA-87-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#SLH-DSA-SHA2-128s-cose">SLH-DSA-SHA2-128s-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#SLH-DSA-SHA2-128s-jws">SLH-DSA-SHA2-128s-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="#SLH-DSA-SHAKE-128s-cose">SLH-DSA-SHAKE-128s-cose</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="#SLH-DSA-SHAKE-128s-jws">SLH-DSA-SHAKE-128s-jws</a></td>
+<td style="text-align: left;">✅ 2/2</td>
+<td style="text-align: left;">✅ 2/2</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-44-ES256-cose">ML-DSA-44-ES256-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-44-ES256-jws">ML-DSA-44-ES256-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-44-Ed25519-cose">ML-DSA-44-Ed25519-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-44-Ed25519-jws">ML-DSA-44-Ed25519-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-44-cose">ML-DSA-44-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-44-jws">ML-DSA-44-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-65-ES256-cose">ML-DSA-65-ES256-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-65-ES256-jws">ML-DSA-65-ES256-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-65-Ed25519-cose">ML-DSA-65-Ed25519-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-65-Ed25519-jws">ML-DSA-65-Ed25519-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-65-cose">ML-DSA-65-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-65-jws">ML-DSA-65-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-87-ES384-cose">ML-DSA-87-ES384-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-87-ES384-jws">ML-DSA-87-ES384-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-87-Ed448-cose">ML-DSA-87-Ed448-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-87-Ed448-jws">ML-DSA-87-Ed448-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-87-cose">ML-DSA-87-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ML-DSA-87-jws">ML-DSA-87-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="SLH-DSA-SHA2-128s-cose">SLH-DSA-SHA2-128s-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="SLH-DSA-SHA2-128s-jws">SLH-DSA-SHA2-128s-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="SLH-DSA-SHAKE-128s-cose">SLH-DSA-SHAKE-128s-cose</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="SLH-DSA-SHAKE-128s-jws">SLH-DSA-SHAKE-128s-jws</h1>
+<p>Rows are producers. Columns are parsers.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">-</th>
+<th style="text-align: left;">pqc-jose-cose-noble-ref</th>
+<th style="text-align: left;">pqc-jose-cose-py-ref</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pqc-jose-cose-noble-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pqc-jose-cose-py-ref</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>

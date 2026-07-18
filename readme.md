@@ -185,6 +185,21 @@ Each RFC will specify mandatory KDFs, and probably allow for others as well. You
 
 CMP artifacts should be placed into a `artifacts_cmp.zip` within `providers/<provider_name>/[implementation_name/]`. We will specify the exact file format when we start to see more robust artifacts submitted.
 
+## JOSE/COSE -- artifacts_jose_cose_v1.zip
+
+This is version 1 of the JOSE/COSE artifacts format.
+
+Within `providers/<provider_name>/`:
+- `artifacts_jose_cose_v1.zip`
+  - `artifacts_jose_cose_v1/payload.txt` -- the fixed message signed by every artifact in the zip
+  - `artifacts_jose_cose_v1/<algid>_jwk_pub.json` / `_jwk_priv.json` -- public/private AKP JWK
+  - `artifacts_jose_cose_v1/<algid>_jws.txt` -- compact JWS over `payload.txt`
+  - `artifacts_jose_cose_v1/<algid>_cose_key_pub.cbor` / `_cose_key_priv.cbor` -- public/private AKP COSE_Key
+  - `artifacts_jose_cose_v1/<algid>_cose_sign1.cbor` -- COSE_Sign1 over `payload.txt`
+
+`<algid>` is the JOSE `alg` string (e.g. `ML-DSA-44`, `ML-DSA-65-Ed25519`) -- see
+[jose_cose_alg_mapping.md](docs/jose_cose_alg_mapping.md) for the full list and
+their COSE integer values.
 
 ## OIDs
 
