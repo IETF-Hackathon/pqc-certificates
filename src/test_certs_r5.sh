@@ -6,7 +6,7 @@ if [ $# -lt 1 ]; then
 fi
 
 verifier=$1
-if [ "$verifier" != "bc" ] && [ "$verifier" != "ssai"]; then
+if [ "$verifier" != "bc" ] && [ "$verifier" != "ssai"] && [ "$verifier" != "openssl"]; then
     echo "ERROR: verifier \"$verifier\" not supported"
     exit -1
 fi
@@ -24,6 +24,37 @@ mkdir -p $outputdir
 printf "Build time: %s\n\n" "$(date)" > $logfile
 
 alreadyTestedOIDs=";"
+
+
+# This only tests self-signed TA certs with openssl
+# The outcome depends on openssl version and its configuration: extra providers
+# can add support for algorithm not supported by the OpenSSL `default`
+# provider.
+openssl_check_ta() {
+    _tafile="$1"
+    _oid="$2"
+
+    openssl list --signature-algorithms --kem-algorithms | grep " $oid,"
+    if [ $? != 0 ]; then
+        printf "\nSkipping %s, unsupported\n" "$_tafile" | tee -a "$logfile"
+        return 1
+    fi
+
+    # Baseline test whether TA cert is well formed
+    openssl x509 -in "$_tafile" -text -noout
+    if [ $? -ne 0 ]; then
+        echo "ERROR: malformed cert" | tee -a "$logfile"
+        return 1
+    fi
+
+    # Baseline test whether TA cert is self-signed
+    openssl verify -no_check_time -check_ss_sig -CAfile "$_tafile" "$_tafile"
+    if [ $? -ne 0 ]; then
+        echo "ERROR: self-signed signature verification" | tee -a "$logfile"
+        return 1
+    fi
+    return 0
+}
 
 # Requires an input: the TA file to test
 test_ta () {
@@ -60,6 +91,9 @@ test_ta () {
     # The actual command that is the heart of this script
     if [ "$verifier" = "ssai" ]; then
         output=$(validator ta --ta-certificate $tafile 2>&1)
+        status=$?
+    elif [ "$verifier" = "openssl" ]; then
+        output=$(openssl_check_ta "$tafile" "$oid" 2>&1)
         status=$?
     else
         echo "ERROR: verifier \"$verifier\" not supported"
