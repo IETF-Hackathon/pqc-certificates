@@ -42,6 +42,8 @@ import org.bouncycastle.cert.jcajce.JcaCertStore;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
 import org.bouncycastle.cms.CMSAlgorithm;
+import org.bouncycastle.cms.CMSAuthEnvelopedData;
+import org.bouncycastle.cms.CMSAuthEnvelopedDataGenerator;
 import org.bouncycastle.cms.CMSEnvelopedData;
 import org.bouncycastle.cms.CMSEnvelopedDataGenerator;
 import org.bouncycastle.cms.CMSException;
@@ -57,7 +59,13 @@ import org.bouncycastle.cms.jcajce.JceCMSContentEncryptorBuilder;
 import org.bouncycastle.cms.jcajce.JceKEMRecipientInfoGenerator;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.SecretWithEncapsulation;
-import org.bouncycastle.internal.asn1.iana.IANAObjectIdentifiers;
+import org.bouncycastle.asn1.iana.IANAObjectIdentifiers;
+import org.bouncycastle.asn1.iso.ISOIECObjectIdentifiers;
+import org.bouncycastle.crypto.kems.FrodoKEMExtractor;
+import org.bouncycastle.crypto.kems.FrodoKEMGenerator;
+import org.bouncycastle.crypto.params.FrodoKEMPrivateKeyParameters;
+import org.bouncycastle.crypto.params.FrodoKEMPublicKeyParameters;
+import org.bouncycastle.jcajce.spec.FrodoKEMParameterSpec;
 import org.bouncycastle.jcajce.CompositePrivateKey;
 import org.bouncycastle.jcajce.CompositePublicKey;
 import org.bouncycastle.jcajce.interfaces.MLDSAPrivateKey;
@@ -68,6 +76,7 @@ import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.DigestCalculatorProvider;
 import org.bouncycastle.operator.OperatorCreationException;
+import org.bouncycastle.operator.OutputAEADEncryptor;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 import org.bouncycastle.pqc.crypto.mlkem.MLKEMExtractor;
@@ -82,6 +91,7 @@ import org.bouncycastle.pqc.crypto.util.PublicKeyFactory;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
 import org.bouncycastle.pqc.jcajce.spec.NTRUParameterSpec;
 import org.bouncycastle.util.Arrays;
+import org.bouncycastle.util.encoders.Hex;
 import org.bouncycastle.util.Pack;
 import org.bouncycastle.util.Store;
 import org.bouncycastle.util.Strings;
@@ -197,7 +207,7 @@ public class R5ArtifactGenerator
             "MLDSA87-RSA3072-PSS-SHA512"
         };
     
-    private static File aDir = new File("artifacts_certs_r4");
+    private static File aDir = new File("artifacts_certs_r5");
 
     private static final ASN1ObjectIdentifier[] kemAlgorithms =
         {
@@ -211,6 +221,46 @@ public class R5ArtifactGenerator
             "ml-kem-512",
             "ml-kem-768",
             "ml-kem-1024"
+        };
+
+    //
+    // FrodoKEM: only the level 3 (976) and level 5 (1344) parameter sets are assigned
+    // object identifiers by ISO/IEC 18033-2, so only those can appear in certificates.
+    // draft-chen-lamps-cms-frodokem pairs 976 with AES-Wrap-192 and 1344 with AES-Wrap-256,
+    // both keyed via HKDF-SHA256.
+    //
+    private static final ASN1ObjectIdentifier[] frodoAlgorithms =
+        {
+            ISOIECObjectIdentifiers.frodokem976_aes,
+            ISOIECObjectIdentifiers.frodokem976_shake,
+            ISOIECObjectIdentifiers.frodokem1344_aes,
+            ISOIECObjectIdentifiers.frodokem1344_shake
+        };
+
+    private static final String[] frodoAlgNames =
+        {
+            "frodokem976aes",
+            "frodokem976shake",
+            "frodokem1344aes",
+            "frodokem1344shake"
+        };
+
+    // signing TA to use for each FrodoKEM EE certificate, matched by NIST security level.
+    private static final String[] frodoSigAlgNames =
+        {
+            "ml-dsa-65",
+            "ml-dsa-65",
+            "ml-dsa-87",
+            "ml-dsa-87"
+        };
+
+    // CMS key-wrap algorithm to use for each FrodoKEM parameter set.
+    private static final ASN1ObjectIdentifier[] frodoWrapAlgorithms =
+        {
+            CMSAlgorithm.AES192_WRAP,
+            CMSAlgorithm.AES192_WRAP,
+            CMSAlgorithm.AES256_WRAP,
+            CMSAlgorithm.AES256_WRAP
         };
 
     private static final long BEFORE_DELTA = 60 * 1000L;
@@ -401,6 +451,45 @@ public class R5ArtifactGenerator
         fWrt.close();
     }
 
+    private static void frodoKemSampleOutput(File parent, String name, KeyPair kemKp)
+        throws Exception
+    {
+        // Generate secret and encapsulation
+        FrodoKEMPublicKeyParameters kemPubKey = (FrodoKEMPublicKeyParameters)
+            org.bouncycastle.crypto.util.PublicKeyFactory.createKey(kemKp.getPublic().getEncoded());
+
+        FrodoKEMGenerator generator = new FrodoKEMGenerator(new SecureRandom());
+        SecretWithEncapsulation secWenc = generator.generateEncapsulated(kemPubKey);
+
+        byte[] encapsulation = secWenc.getEncapsulation();
+        byte[] encSecret = secWenc.getSecret();
+
+        // Extract secret from encapsulation
+        FrodoKEMPrivateKeyParameters kemPrivKey = (FrodoKEMPrivateKeyParameters)
+            org.bouncycastle.crypto.util.PrivateKeyFactory.createKey(kemKp.getPrivate().getEncoded());
+
+        FrodoKEMExtractor extractor = new FrodoKEMExtractor(kemPrivKey);
+
+        byte[] decSecret = extractor.extractSecret(encapsulation);
+
+        if (!Arrays.areEqual(decSecret, encSecret))
+        {
+            throw new IllegalStateException("mismatch in KEM secrets!!!");
+        }
+
+        FileOutputStream fWrt = new FileOutputStream(new File(parent, name + "_ciphertext.bin"));
+
+        fWrt.write(encapsulation);
+
+        fWrt.close();
+
+        fWrt = new FileOutputStream(new File(parent, name + "_ss.bin"));
+
+        fWrt.write(encSecret);
+
+        fWrt.close();
+    }
+
     private static void derOutput(File parent, String name, PrivateKey key)
         throws Exception
     {
@@ -467,7 +556,7 @@ public class R5ArtifactGenerator
         }
         else
         {
-            kpGen = KeyPairGenerator.getInstance(kemAlg.getId());
+            kpGen = KeyPairGenerator.getInstance(kemAlg.getId(), "BC");
         }
 
         KeyPair eeKp = kpGen.generateKeyPair();
@@ -493,7 +582,7 @@ public class R5ArtifactGenerator
         }
         else
         {
-            kpGen = KeyPairGenerator.getInstance(kemAlg.getId());
+            kpGen = KeyPairGenerator.getInstance(kemAlg.getId(), "BC");
         }
 
         KeyPair eeKp = kpGen.generateKeyPair();
@@ -522,7 +611,7 @@ public class R5ArtifactGenerator
         Map<String, PKIXPair> sigParams = new HashMap<String, PKIXPair>();
         for (int alg = 0; alg != sigAlgorithms.length; alg++)
         {
-            KeyPairGenerator kpGen = KeyPairGenerator.getInstance(sigAlgorithms[alg].getId());
+            KeyPairGenerator kpGen = KeyPairGenerator.getInstance(sigAlgorithms[alg].getId(), "BC");
 
             KeyPair taKp = kpGen.generateKeyPair();
 
@@ -552,7 +641,7 @@ public class R5ArtifactGenerator
         for (int alg = 0; alg != kemAlgorithms.length; alg++)
         {
             PKIXPair taPair = sigParams.get(sigAlgNames[alg]);
-            KeyPairGenerator kpGen = KeyPairGenerator.getInstance(kemAlgorithms[alg].getId());
+            KeyPairGenerator kpGen = KeyPairGenerator.getInstance(kemAlgorithms[alg].getId(), "BC");
 
             KeyPair eeKp = kpGen.generateKeyPair();
 
@@ -596,6 +685,31 @@ public class R5ArtifactGenerator
         kemParams.put("EXTERNAL-ML-KEM-768", pkixpair);
         pkixpair = createExternalEEcertificate("ml-kem-1024", NISTObjectIdentifiers.id_alg_ml_kem_1024, "ml-dsa-87", NISTObjectIdentifiers.id_ml_dsa_87, sigParams);
         kemParams.put("EXTERNAL-ML-KEM-1024", pkixpair);
+
+        //
+        // Build FrodoKEM EE certificates
+        //
+        Map<String, PKIXPair> frodoParams = new HashMap<String, PKIXPair>();
+        for (int alg = 0; alg != frodoAlgorithms.length; alg++)
+        {
+            PKIXPair taPair = sigParams.get(frodoSigAlgNames[alg]);
+
+            KeyPairGenerator kpGen = KeyPairGenerator.getInstance("FrodoKEM", "BC");
+            kpGen.initialize(FrodoKEMParameterSpec.fromName(frodoAlgNames[alg]));
+
+            KeyPair eeKp = kpGen.generateKeyPair();
+
+            X509Certificate eeCert = createEECertificate(frodoSigAlgNames[alg], taPair, frodoAlgNames[alg], eeKp);
+
+            derOutput(aDir, frodoAlgNames[alg] + "-" + frodoAlgorithms[alg] + "_ee.der", eeCert);
+
+            derOutput(aDir, frodoAlgNames[alg] + "-" + frodoAlgorithms[alg] + "_priv.der", eeKp.getPrivate());
+
+            frodoKemSampleOutput(aDir, frodoAlgNames[alg] + "-" + frodoAlgorithms[alg], eeKp);
+
+            frodoParams.put(frodoAlgNames[alg], new PKIXPair(eeKp.getPrivate(), eeCert));
+        }
+
         //
         // Build Hybrid certificates
         //
@@ -632,35 +746,86 @@ public class R5ArtifactGenerator
         hybridCert = createChameleonHybridTACertificate("SHA512withECDSA", p521Kp, "ML-DSA-87", sigParams.get("ml-dsa-87"));
         derOutput(aDir, "chameleon_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_87 + "_ta.der", hybridCert);
 
-        aDir = new File("artifacts_cms_r4");
+        //
+        // Build CMS artifacts (artifacts_cms_v3 format).
+        //
+        aDir = new File("artifacts_cms_v3");
 
         aDir.mkdir();
 
-        CMSSignedData s = getCmsSignedData("ML-DSA-44", sigParams.get("ml-dsa-44"));
-        derOutput(aDir, "signed_data_" + NISTObjectIdentifiers.id_ml_dsa_44 + ".der", s.toASN1Structure());
-        s = getCmsSignedData("ML-DSA-65", sigParams.get("ml-dsa-65"));
-        derOutput(aDir, "signed_data_" + NISTObjectIdentifiers.id_ml_dsa_65 + ".der", s.toASN1Structure());
-        s = getCmsSignedData("ML-DSA-87", sigParams.get("ml-dsa-87"));
-        derOutput(aDir, "signed_data_" + NISTObjectIdentifiers.id_ml_dsa_87 + ".der", s.toASN1Structure());
+        // The message enveloped into every KEMRecipientInfo artifact.
+        writeBytes(aDir, "expected_plaintext.txt", CMS_PLAINTEXT);
 
-        CMSEnvelopedData ed = getCmsEnvelopedData(kemParams.get("ML-KEM-512"));
-        derOutput(aDir, "enveloped_data_" + NISTObjectIdentifiers.id_alg_ml_kem_512 + ".der", ed.toASN1Structure());
-        derOutput(aDir, "priv_key_" + NISTObjectIdentifiers.id_alg_ml_kem_512 + ".der", kemParams.get("ML-KEM-512").priv);
-        ed = getCmsEnvelopedData(kemParams.get("ML-KEM-768"));
-        derOutput(aDir, "enveloped_data_" + NISTObjectIdentifiers.id_alg_ml_kem_768 + ".der", ed.toASN1Structure());
-        derOutput(aDir, "priv_key_" + NISTObjectIdentifiers.id_alg_ml_kem_768 + ".der", kemParams.get("ML-KEM-768").priv);
-        ed = getCmsEnvelopedData(kemParams.get("ML-KEM-1024"));
-        derOutput(aDir, "enveloped_data_" + NISTObjectIdentifiers.id_alg_ml_kem_1024 + ".der", ed.toASN1Structure());
-        derOutput(aDir, "priv_key_" + NISTObjectIdentifiers.id_alg_ml_kem_1024 + ".der", kemParams.get("ML-KEM-1024").priv);
-        ed = getCmsEnvelopedData(kemParams.get("ntruhps2048677"));
-        derOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.ntruhps2048677 + ".der", ed.toASN1Structure());
-        derOutput(aDir, "priv_key_" + BCObjectIdentifiers.ntruhps2048677 + ".der", kemParams.get("ntruhps2048677").priv);
-        ed = getCmsEnvelopedData(kemParams.get("ntruhps4096821"));
-        derOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.ntruhps4096821 + ".der", ed.toASN1Structure());
-        derOutput(aDir, "priv_key_" + BCObjectIdentifiers.ntruhps4096821 + ".der", kemParams.get("ntruhps4096821").priv);
-        ed = getCmsEnvelopedData(kemParams.get("ntruhrss701"));
-        derOutput(aDir, "enveloped_data_" + BCObjectIdentifiers.ntruhrss701 + ".der", ed.toASN1Structure());
-        derOutput(aDir, "priv_key_" + BCObjectIdentifiers.ntruhrss701 + ".der", kemParams.get("ntruhrss701").priv);
+        // ML-DSA-44 trust anchor used to sign the CMS end-entity certificates.
+        PKIXPair ta44 = sigParams.get("ml-dsa-44");
+        derOutput(aDir, "ta.der", ta44.cert);
+
+        // SignedData (attached content + signed attributes) for each signature algorithm.
+        for (int alg = 0; alg != sigAlgorithms.length; alg++)
+        {
+            CMSSignedData s = getCmsSignedData(sigAlgNames[alg], sigParams.get(sigAlgNames[alg]));
+            derOutput(aDir, sigAlgNames[alg] + "-" + sigAlgorithms[alg] + "_signed_attrs.der", s.toASN1Structure());
+        }
+
+        // KEMRecipientInfo (RFC 9629) enveloped and auth-enveloped data for each KEM algorithm.
+        for (int alg = 0; alg != kemAlgorithms.length; alg++)
+        {
+            emitKemCmsArtifacts(aDir, kemAlgNames[alg], kemAlgorithms[alg], ta44, CMSAlgorithm.AES256_WRAP);
+        }
+        emitKemCmsArtifacts(aDir, "ntruhps2048677", BCObjectIdentifiers.ntruhps2048677, ta44, CMSAlgorithm.AES256_WRAP);
+        emitKemCmsArtifacts(aDir, "ntruhps4096821", BCObjectIdentifiers.ntruhps4096821, ta44, CMSAlgorithm.AES256_WRAP);
+        emitKemCmsArtifacts(aDir, "ntruhrss701", BCObjectIdentifiers.ntruhrss701, ta44, CMSAlgorithm.AES256_WRAP);
+        for (int alg = 0; alg != frodoAlgorithms.length; alg++)
+        {
+            emitKemCmsArtifacts(aDir, frodoAlgNames[alg], frodoAlgorithms[alg], ta44, frodoWrapAlgorithms[alg]);
+        }
+    }
+
+    // Filename fragment for the sole mandatory-to-implement KDF used by the KEM artifacts.
+    private static final String HKDF_SHA256_NAME = "id-alg-hkdf-with-sha256";
+
+    private static final byte[] CMS_PLAINTEXT = Strings.toByteArray("Hello, World!");
+
+    // Sample user-keying-material for the "_ukm" KEMRecipientInfo artifacts.
+    private static final byte[] CMS_UKM = Hex.decode("0102030405060708090a0b0c0d0e0f1011121314");
+
+    private static KeyPair generateKemKeyPair(String friendlyName, ASN1ObjectIdentifier kemAlg)
+        throws Exception
+    {
+        KeyPairGenerator kpGen;
+
+        if (kemAlg.on(BCObjectIdentifiers.pqc_kem_ntru))
+        {
+            kpGen = KeyPairGenerator.getInstance("NTRU", "BC");
+            kpGen.initialize(NTRUParameterSpec.fromName(friendlyName));
+        }
+        else if (kemAlg.on(ISOIECObjectIdentifiers.id_kem_frodokem))
+        {
+            kpGen = KeyPairGenerator.getInstance("FrodoKEM", "BC");
+            kpGen.initialize(FrodoKEMParameterSpec.fromName(friendlyName));
+        }
+        else
+        {
+            kpGen = KeyPairGenerator.getInstance(kemAlg.getId(), "BC");
+        }
+
+        return kpGen.generateKeyPair();
+    }
+
+    private static void emitKemCmsArtifacts(File parent, String friendlyName, ASN1ObjectIdentifier kemAlg, PKIXPair ta, ASN1ObjectIdentifier wrapAlgorithm)
+        throws Exception
+    {
+        KeyPair eeKp = generateKemKeyPair(friendlyName, kemAlg);
+        X509Certificate eeCert = createEECertificate("ml-dsa-44", ta, friendlyName, eeKp);
+
+        String base = friendlyName + "-" + kemAlg;
+
+        derOutput(parent, base + "_ee.der", eeCert);
+        derOutput(parent, base + "_priv.der", eeKp.getPrivate());
+        derOutput(parent, base + "_kemri_" + HKDF_SHA256_NAME + ".der", getKemEnvelopedData(eeCert, wrapAlgorithm, null).toASN1Structure());
+        derOutput(parent, base + "_kemri_" + HKDF_SHA256_NAME + "_ukm.der", getKemEnvelopedData(eeCert, wrapAlgorithm, CMS_UKM).toASN1Structure());
+        derOutput(parent, base + "_kemri_auth_" + HKDF_SHA256_NAME + ".der", getKemAuthEnvelopedData(eeCert, wrapAlgorithm, null).toASN1Structure());
+        derOutput(parent, base + "_kemri_auth_" + HKDF_SHA256_NAME + "_ukm.der", getKemAuthEnvelopedData(eeCert, wrapAlgorithm, CMS_UKM).toASN1Structure());
     }
 
     private static CMSSignedData getCmsSignedData(String algorithm, PKIXPair sigPair)
@@ -694,21 +859,54 @@ public class R5ArtifactGenerator
         return s;
     }
 
-    private static CMSEnvelopedData getCmsEnvelopedData(PKIXPair kemPair)
+    // Enveloped-data (RFC 9629 KEMRecipientInfo): HKDF-SHA256 KDF, AES key-wrap KEK, AES-256-CBC content encryption.
+    // A non-null ukm populates the KEMRecipientInfo user-keying-material field (also bound into the KDF).
+    private static CMSEnvelopedData getKemEnvelopedData(X509Certificate kemCert, ASN1ObjectIdentifier wrapAlgorithm, byte[] ukm)
         throws CertificateEncodingException, OperatorCreationException, CMSException
     {
-        byte[] msg = Strings.toByteArray("Hello, World!");
-        // Send response with encrypted certificate
         CMSEnvelopedDataGenerator edGen = new CMSEnvelopedDataGenerator();
 
-        // note: use cert req ID as key ID, don't want to use issuer/serial in this case!
-
-        edGen.addRecipientInfoGenerator(new JceKEMRecipientInfoGenerator(kemPair.cert, CMSAlgorithm.AES256_WRAP).setKDF(
-            new AlgorithmIdentifier(NISTObjectIdentifiers.id_shake256)));
+        JceKEMRecipientInfoGenerator recipientGen =
+            new JceKEMRecipientInfoGenerator(kemCert, wrapAlgorithm).setKDF(CMSAlgorithm.SHA256_HKDF).setProvider("BC");
+        if (ukm != null)
+        {
+            recipientGen.setUserKeyingMaterial(ukm);
+        }
+        edGen.addRecipientInfoGenerator(recipientGen);
 
         return edGen.generate(
-            new CMSProcessableByteArray(msg),
-            new JceCMSContentEncryptorBuilder(CMSAlgorithm.AES128_CBC).setProvider("BC").build());
+            new CMSProcessableByteArray(CMS_PLAINTEXT),
+            new JceCMSContentEncryptorBuilder(CMSAlgorithm.AES256_CBC).setProvider("BC").build());
+    }
+
+    // Auth-enveloped-data (RFC 9629 KEMRecipientInfo): HKDF-SHA256 KDF, AES key-wrap KEK, AES-256-GCM AEAD content encryption.
+    private static CMSAuthEnvelopedData getKemAuthEnvelopedData(X509Certificate kemCert, ASN1ObjectIdentifier wrapAlgorithm, byte[] ukm)
+        throws CertificateEncodingException, OperatorCreationException, CMSException
+    {
+        CMSAuthEnvelopedDataGenerator edGen = new CMSAuthEnvelopedDataGenerator();
+
+        JceKEMRecipientInfoGenerator recipientGen =
+            new JceKEMRecipientInfoGenerator(kemCert, wrapAlgorithm).setKDF(CMSAlgorithm.SHA256_HKDF).setProvider("BC");
+        if (ukm != null)
+        {
+            recipientGen.setUserKeyingMaterial(ukm);
+        }
+        edGen.addRecipientInfoGenerator(recipientGen);
+
+        OutputAEADEncryptor aeadEncryptor =
+            (OutputAEADEncryptor)new JceCMSContentEncryptorBuilder(CMSAlgorithm.AES256_GCM).setProvider("BC").build();
+
+        return edGen.generate(new CMSProcessableByteArray(CMS_PLAINTEXT), aeadEncryptor);
+    }
+
+    private static void writeBytes(File parent, String name, byte[] content)
+        throws Exception
+    {
+        FileOutputStream fWrt = new FileOutputStream(new File(parent, name));
+
+        fWrt.write(content);
+
+        fWrt.close();
     }
 
     private static class PKIXPair
