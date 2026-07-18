@@ -1,6 +1,6 @@
 #!/bin/bash
 
-betas=https://www.bouncycastle.org/betas
+betas=https://downloads.bouncycastle.org/betas
 
 (
   cd lib
