@@ -1,0 +1,10 @@
+{
+  "name": "pqc-jose-cose-noble-ref",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@noble/post-quantum": "^0.5.1",
+    "@noble/curves": "^2.1.1",
+    "cbor2": "^2.3.0"
+  }
+}
