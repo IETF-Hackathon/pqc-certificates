@@ -6,11 +6,15 @@ if [ $# -lt 1 ]; then
 fi
 
 verifier=$1
-if [ "$verifier" != "bc" ] && [ "$verifier" != "ssai"] && [ "$verifier" != "openssl"]; then
+case "$verifier" in
+  bc|ssai|openssl|qubip-aurora)
+    echo "Running with verifier $verifier." 
+    ;;
+  *)
     echo "ERROR: verifier \"$verifier\" not supported"
-    exit -1
-fi
-echo "Running with verifier $verifier." 
+    exit 255
+    ;;
+esac
 
 certsdir="artifacts_certs_r5"
 certszip="artifacts_certs_r5.zip"
@@ -25,6 +29,13 @@ printf "Build time: %s\n\n" "$(date)" > $logfile
 
 alreadyTestedOIDs=";"
 
+# Return true (0) if this verifier is an alias for the openssl verifier
+alias_for_openssl() {
+  case "$1" in
+    qubip-aurora|openssl) return 0 ;;
+    *) return 1 ;;
+  esac
+}
 
 # This only tests self-signed TA certs with openssl
 # The outcome depends on openssl version and its configuration: extra providers
@@ -92,7 +103,7 @@ test_ta () {
     if [ "$verifier" = "ssai" ]; then
         output=$(validator ta --ta-certificate $tafile 2>&1)
         status=$?
-    elif [ "$verifier" = "openssl" ]; then
+    elif alias_for_openssl "$verifier"; then
         output=$(openssl_check_ta "$tafile" "$oid" 2>&1)
         status=$?
     else
