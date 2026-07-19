@@ -1,6 +1,6 @@
 #!/bin/bash
 
-betas=https://www.bouncycastle.org/betas
+betas=https://downloads.bouncycastle.org/betas
 
 (
   cd lib
@@ -34,12 +34,30 @@ base=`cat lib/beta.ver`
 
 javac -d classes -cp lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar src/main/java/*.java
 
+cp=classes:lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar
+
 if [ "$1" != "" ]
 then
-    java -cp classes:lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar ArtifactParser $1
-elif [ -d artifacts ]
-then
-    java -cp classes:lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar ArtifactParser artifacts
+    java -cp ${cp} R5ArtifactParser bc $1
 else
-    java -cp classes:lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar ArtifactParser java-artifacts/artifacts.zip
+    #
+    # verify the certificate artifacts
+    #
+    if [ -d artifacts ]
+    then
+        java -cp ${cp} R5ArtifactParser bc artifacts
+    else
+        java -cp ${cp} R5ArtifactParser bc java-artifacts/artifacts.zip
+    fi
+
+    #
+    # verify the CMS artifacts (if present)
+    #
+    if [ -d artifacts_cms_v3 ]
+    then
+        java -cp ${cp} R5ArtifactParser bc-cms artifacts_cms_v3
+    elif [ -f artifacts_cms_v3.zip ]
+    then
+        java -cp ${cp} R5ArtifactParser bc-cms artifacts_cms_v3.zip
+    fi
 fi

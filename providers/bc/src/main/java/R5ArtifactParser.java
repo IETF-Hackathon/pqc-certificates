@@ -29,9 +29,12 @@ import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import javax.crypto.KeyGenerator;
 import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.cms.CMSObjectIdentifiers;
+import org.bouncycastle.asn1.cms.ContentInfo;
 import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
@@ -42,16 +45,31 @@ import org.bouncycastle.cert.CertException;
 import org.bouncycastle.cert.DeltaCertificateTool;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
+import org.bouncycastle.cms.CMSAuthEnvelopedData;
+import org.bouncycastle.cms.CMSEnvelopedData;
+import org.bouncycastle.cms.CMSSignedData;
+import org.bouncycastle.cms.RecipientInformation;
+import org.bouncycastle.cms.SignerInformation;
+import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder;
+import org.bouncycastle.cms.jcajce.JceKEMEnvelopedRecipient;
+import org.bouncycastle.crypto.EncapsulatedSecretExtractor;
+import org.bouncycastle.crypto.kems.FrodoKEMExtractor;
+import org.bouncycastle.crypto.kems.MLKEMExtractor;
+import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
+import org.bouncycastle.crypto.params.FrodoKEMPrivateKeyParameters;
+import org.bouncycastle.crypto.params.MLKEMPrivateKeyParameters;
+import org.bouncycastle.crypto.util.PrivateKeyFactory;
+import org.bouncycastle.jcajce.CompositePrivateKey;
+import org.bouncycastle.jcajce.SecretKeyWithEncapsulation;
+import org.bouncycastle.jcajce.spec.KEMExtractSpec;
 import org.bouncycastle.jcajce.interfaces.MLDSAPrivateKey;
 import org.bouncycastle.jcajce.interfaces.SLHDSAPrivateKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.ContentVerifierProvider;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMExtractor;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMPrivateKeyParameters;
-import org.bouncycastle.pqc.crypto.util.PrivateKeyFactory;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
+import org.bouncycastle.util.Store;
 import org.bouncycastle.util.Strings;
 import org.bouncycastle.util.io.Streams;
 import org.bouncycastle.util.io.pem.PemReader;
@@ -191,7 +209,19 @@ public class R5ArtifactParser
         Map<String, PublicKey> publicKeys = new TreeMap<>();
         Map<String, PrivateKey> privateKeys = new TreeMap<>();
         Map<String, String> cipherTexts = new TreeMap<>();
+        Map<String, Boolean> cmsResults = new TreeMap<>();
         Set<String> ignored = new HashSet<>();
+
+        byte[] expectedPlaintext = null;
+        for (Enumeration<? extends ZipEntry> en = zipFile.entries(); en.hasMoreElements(); )
+        {
+            ZipEntry entry = en.nextElement();
+            if (entry.getName().endsWith("expected_plaintext.txt"))
+            {
+                expectedPlaintext = Streams.readAll(zipFile.getInputStream(entry));
+                break;
+            }
+        }
 
         for (Enumeration<? extends ZipEntry> en = zipFile.entries(); en.hasMoreElements(); )
         {
@@ -256,6 +286,14 @@ public class R5ArtifactParser
                         ignored.add(zipName);
                     }
                 }
+                else if (zipName.endsWith("_signed_attrs.der"))
+                {
+                    cmsResults.put(zipName, verifySignedAttrs(derData));
+                }
+                else if (zipName.contains("_kemri"))
+                {
+                    cmsResults.put(zipName, verifyKemri(derData, readZipEntry(zipFile, kemriBaseName(zipName) + "_priv.der"), expectedPlaintext));
+                }
                 else
                 {
                     X509Certificate cert = null;
@@ -298,7 +336,7 @@ public class R5ArtifactParser
             }
             else
             {
-                if (!entry.isDirectory())
+                if (!entry.isDirectory() && !zipName.endsWith("expected_plaintext.txt"))
                 {
                     System.err.println("non-pem entry " + zipName + " ignored");
                 }
@@ -306,7 +344,7 @@ public class R5ArtifactParser
             }
         }
 
-        checkCertificates(producer, certificates, ignored, privateKeys, cipherTexts);
+        checkCertificates(producer, certificates, ignored, privateKeys, cipherTexts, cmsResults);
     }
 
     public static void doSigCheck(PrivateKey privKey)
@@ -345,6 +383,7 @@ public class R5ArtifactParser
         Map<String, PublicKey> publicKeys = new TreeMap<>();
         Map<String, PrivateKey> privateKeys = new TreeMap<>();
         Map<String, String> cipherTexts = new TreeMap<>();
+        Map<String, Boolean> cmsResults = new TreeMap<>();
         Set<String> ignored = new HashSet<>();
 
         File artDir = new File(dirName);
@@ -353,7 +392,19 @@ public class R5ArtifactParser
             throw new IllegalStateException("artifact argument must point to a directory");
         }
 
-        for (File f : getLeafs(artDir.listFiles()))
+        File[] leafs = getLeafs(artDir.listFiles());
+
+        byte[] expectedPlaintext = null;
+        for (File f : leafs)
+        {
+            if (f.getName().equals("expected_plaintext.txt"))
+            {
+                expectedPlaintext = Streams.readAll(new FileInputStream(f));
+                break;
+            }
+        }
+
+        for (File f : leafs)
         {
             String fileName = f.getName();
 
@@ -409,12 +460,23 @@ public class R5ArtifactParser
                         if (privateKey instanceof SLHDSAPrivateKey || privateKey instanceof MLDSAPrivateKey)
                         {
                             doSigCheck(privateKey);
-                        }
-                    }
+                        }                  
+                    }                      
                     catch (Exception e)
                     {
                         ignored.add(fileName);
                     }
+                }
+                else if (fileName.endsWith("_signed_attrs.der"))
+                {
+                    cmsResults.put(fileName, verifySignedAttrs(Streams.readAll(new FileInputStream(f))));
+                }
+                else if (fileName.contains("_kemri"))
+                {
+                    byte[] derData = Streams.readAll(new FileInputStream(f));
+                    File privFile = new File(f.getParentFile(), kemriBaseName(fileName) + "_priv.der");
+                    byte[] privDer = privFile.exists() ? Streams.readAll(new FileInputStream(privFile)) : null;
+                    cmsResults.put(fileName, verifyKemri(derData, privDer, expectedPlaintext));
                 }
                 else
                 {
@@ -459,12 +521,15 @@ public class R5ArtifactParser
             }
             else
             {
-                System.err.println("non-pem entry " + fileName + " ignored");
+                if (!fileName.equals("expected_plaintext.txt"))
+                {
+                    System.err.println("non-pem entry " + fileName + " ignored");
+                }
                 continue;
             }
         }
 
-        checkCertificates(producer, certificates, ignored, privateKeys, cipherTexts);
+        checkCertificates(producer, certificates, ignored, privateKeys, cipherTexts, cmsResults);
     }
 
     private static void checkKem(ZipFile parent, String baseName)
@@ -481,40 +546,71 @@ public class R5ArtifactParser
         byte[] encSecret = Streams.readAll(inStr);
         inStr.close();
 
-        MLKEMPrivateKeyParameters kemPrivKey = null;
+        byte[] kemPrivKey = null;
 
         if (parent.getEntry(baseName + "_priv.der") != null)
         {
             inStr = parent.getInputStream(new ZipEntry(baseName + "_priv.der"));
-            byte[] privKey = Streams.readAll(inStr);
+            kemPrivKey = Streams.readAll(inStr);
             inStr.close();
-            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
         }
         if (parent.getEntry(baseName + "_both_priv.der") != null)
         {
             inStr = parent.getInputStream(new ZipEntry(baseName + "_both_priv.der"));
-            byte[] privKey = Streams.readAll(inStr);
+            kemPrivKey = Streams.readAll(inStr);
             inStr.close();
-            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
         }
         if (parent.getEntry(baseName + "_expandedkey_priv.der") != null)
         {
             inStr = parent.getInputStream(new ZipEntry(baseName + "_expandedkey_priv.der"));
-            byte[] privKey = Streams.readAll(inStr);
+            kemPrivKey = Streams.readAll(inStr);
             inStr.close();
-            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
         }
-        
+
         // Extract secret from encapsulation
 
-        MLKEMExtractor extractor = new MLKEMExtractor(kemPrivKey);
-
-        byte[] decSecret = extractor.extractSecret(encapsulation);
+        byte[] decSecret = decapsulate(kemPrivKey, encapsulation);
 
         if (!org.bouncycastle.util.Arrays.areEqual(decSecret, encSecret))
         {
             throw new IllegalStateException("mismatch in KEM secrets!!!");
         }
+    }
+
+    // Decapsulate a shared secret from a ciphertext using the encoded private key. Composite ML-KEM
+    // keys go through the JCA KEM API; ML-KEM and FrodoKEM use their low-level extractors.
+    private static byte[] decapsulate(byte[] privDer, byte[] ciphertext)
+        throws Exception
+    {
+        ASN1ObjectIdentifier keyAlg = PrivateKeyInfo.getInstance(privDer).getPrivateKeyAlgorithm().getAlgorithm();
+        PrivateKey privateKey = KeyFactory.getInstance(keyAlg.getId(), "BC").generatePrivate(new PKCS8EncodedKeySpec(privDer));
+
+        if (privateKey instanceof CompositePrivateKey)
+        {
+            KeyGenerator extractor = KeyGenerator.getInstance(keyAlg.getId(), "BC");
+            extractor.init(new KEMExtractSpec.Builder(privateKey, ciphertext, "AES", 256).withKdfAlgorithm(null).build());
+            return ((SecretKeyWithEncapsulation)extractor.generateKey()).getEncoded();
+        }
+
+        return kemExtractor(privDer).extractSecret(ciphertext);
+    }
+
+    // Build the appropriate KEM secret extractor for the encoded private key (ML-KEM or FrodoKEM).
+    private static EncapsulatedSecretExtractor kemExtractor(byte[] privDer)
+        throws IOException
+    {
+        AsymmetricKeyParameter privKey = PrivateKeyFactory.createKey(privDer);
+
+        if (privKey instanceof MLKEMPrivateKeyParameters)
+        {
+            return new MLKEMExtractor((MLKEMPrivateKeyParameters)privKey);
+        }
+        if (privKey instanceof FrodoKEMPrivateKeyParameters)
+        {
+            return new FrodoKEMExtractor((FrodoKEMPrivateKeyParameters)privKey);
+        }
+
+        throw new IllegalStateException("unsupported KEM private key type: " + privKey.getClass().getName());
     }
 
     private static void checkKem(File parent, String baseName)
@@ -531,36 +627,31 @@ public class R5ArtifactParser
         byte[] encSecret = Streams.readAll(inStr);
         inStr.close();
 
-        MLKEMPrivateKeyParameters kemPrivKey = null;
+        byte[] kemPrivKey = null;
         File priv = new File(parent, baseName + "_priv.der");
         if (priv.exists())
         {
-            inStr = new FileInputStream(new File(parent, baseName + "_priv.der"));
-            byte[] privKey = Streams.readAll(inStr);
+            inStr = new FileInputStream(priv);
+            kemPrivKey = Streams.readAll(inStr);
             inStr.close();
-            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
         }
         priv = new File(parent, baseName + "_expandedkey_priv.der");
         if (priv.exists())
         {
             inStr = new FileInputStream(priv);
-            byte[] privKey = Streams.readAll(inStr);
+            kemPrivKey = Streams.readAll(inStr);
             inStr.close();
-            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
         }
         priv = new File(parent, baseName + "_both_priv.der");
         if (priv.exists())
         {
             inStr = new FileInputStream(priv);
-            byte[] privKey = Streams.readAll(inStr);
+            kemPrivKey = Streams.readAll(inStr);
             inStr.close();
-            kemPrivKey = (MLKEMPrivateKeyParameters)PrivateKeyFactory.createKey(privKey);
         }
 
         // Extract secret from encapsulation
-        MLKEMExtractor extractor = new MLKEMExtractor(kemPrivKey);
-
-        byte[] decSecret = extractor.extractSecret(encapsulation);
+        byte[] decSecret = decapsulate(kemPrivKey, encapsulation);
 
         if (!org.bouncycastle.util.Arrays.areEqual(decSecret, encSecret))
         {
@@ -568,8 +659,94 @@ public class R5ArtifactParser
         }
     }
 
+    // Verify a CMS SignedData (_signed_attrs.der): the signature must validate against the embedded
+    // signer certificate and signed attributes must be present.
+    private static boolean verifySignedAttrs(byte[] der)
+    {
+        try
+        {
+            CMSSignedData sd = new CMSSignedData(der);
+            Store<X509CertificateHolder> certs = sd.getCertificates();
+
+            for (SignerInformation si : sd.getSignerInfos())
+            {
+                java.util.Collection<X509CertificateHolder> matches = certs.getMatches(si.getSID());
+                if (matches.isEmpty() || si.getSignedAttributes() == null)
+                {
+                    return false;
+                }
+                if (!si.verify(new JcaSimpleSignerInfoVerifierBuilder().setProvider("BC").build(matches.iterator().next())))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        catch (Exception e)
+        {
+            System.err.println("signed_attrs failed to verify: " + e);
+            return false;
+        }
+    }
+
+    // Verify a KEMRecipientInfo (RFC 9629) enveloped or auth-enveloped artifact (_kemri*.der):
+    // decapsulate with the matching private key and confirm the recovered plaintext.
+    private static boolean verifyKemri(byte[] kemriDer, byte[] privDer, byte[] expectedPlaintext)
+    {
+        try
+        {
+            if (privDer == null)
+            {
+                return false;
+            }
+
+            PrivateKeyInfo privInfo = PrivateKeyInfo.getInstance(privDer);
+            KeyFactory keyFact = KeyFactory.getInstance(privInfo.getPrivateKeyAlgorithm().getAlgorithm().getId());
+            PrivateKey privateKey = keyFact.generatePrivate(new PKCS8EncodedKeySpec(privDer));
+
+            RecipientInformation recip;
+            if (CMSObjectIdentifiers.authEnvelopedData.equals(ContentInfo.getInstance(kemriDer).getContentType()))
+            {
+                recip = (RecipientInformation)new CMSAuthEnvelopedData(kemriDer).getRecipientInfos().getRecipients().iterator().next();
+            }
+            else
+            {
+                recip = (RecipientInformation)new CMSEnvelopedData(kemriDer).getRecipientInfos().getRecipients().iterator().next();
+            }
+
+            byte[] content = recip.getContent(new JceKEMEnvelopedRecipient(privateKey).setProvider("BC"));
+
+            return expectedPlaintext == null || org.bouncycastle.util.Arrays.areEqual(content, expectedPlaintext);
+        }
+        catch (Exception e)
+        {
+            System.err.println("kemri failed to verify: " + e);
+            return false;
+        }
+    }
+
+    private static byte[] readZipEntry(ZipFile zipFile, String name)
+        throws IOException
+    {
+        ZipEntry entry = zipFile.getEntry(name);
+        if (entry == null)
+        {
+            return null;
+        }
+        InputStream inStr = zipFile.getInputStream(entry);
+        byte[] data = Streams.readAll(inStr);
+        inStr.close();
+        return data;
+    }
+
+    private static String kemriBaseName(String name)
+    {
+        return name.substring(0, name.indexOf("_kemri"));
+    }
+
     private static void checkCertificates(String producer, Map<String, X509Certificate> certificates,
-                                          Set<String> ignored, Map<String, PrivateKey> privateKeys, Map<String, String> cipherTexts)
+                                          Set<String> ignored, Map<String, PrivateKey> privateKeys, Map<String, String> cipherTexts,
+                                          Map<String, Boolean> cmsResults)
         throws IOException
     {
         Set<String> passed = new HashSet<>();
@@ -604,6 +781,18 @@ public class R5ArtifactParser
         for (String entry : cipherTexts.keySet())
         {
             passed.add(entry);
+        }
+
+        for (Map.Entry<String, Boolean> cmsResult : cmsResults.entrySet())
+        {
+            if (cmsResult.getValue())
+            {
+                passed.add(cmsResult.getKey());
+            }
+            else
+            {
+                failed.add(cmsResult.getKey());
+            }
         }
 
         System.err.println("passed: " + passed);

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-betas=https://www.bouncycastle.org/betas
+betas=https://downloads.bouncycastle.org/betas
 
 (
   cd lib
@@ -34,4 +34,21 @@ base=`cat lib/beta.ver`
 
 javac -d classes -cp lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar src/main/java/*.java
 
-java -cp classes:lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar ArtifactGenerator
+#
+# regenerate the artifacts, removing any output from a previous run first
+#
+rm -rf artifacts artifacts_certs_r5 artifacts_cms_v3
+
+java -cp classes:lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar R5ArtifactGenerator
+
+#
+# package the artifacts:
+#   - certificates under a top-level "artifacts/" directory (also read by check.sh)
+#   - CMS artifacts under a top-level "artifacts_cms_v3/" directory
+#
+mv artifacts_certs_r5 artifacts
+
+rm -f artifacts_certs_r5.zip artifacts_cms_v3.zip
+
+zip -rqX artifacts_certs_r5.zip artifacts
+zip -rqX artifacts_cms_v3.zip artifacts_cms_v3
