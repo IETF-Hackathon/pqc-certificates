@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.crypto.KeyGenerator;
+
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.DERNull;
 import org.bouncycastle.asn1.bc.BCObjectIdentifiers;
@@ -68,9 +70,12 @@ import org.bouncycastle.crypto.params.FrodoKEMPublicKeyParameters;
 import org.bouncycastle.jcajce.spec.FrodoKEMParameterSpec;
 import org.bouncycastle.jcajce.CompositePrivateKey;
 import org.bouncycastle.jcajce.CompositePublicKey;
+import org.bouncycastle.jcajce.SecretKeyWithEncapsulation;
 import org.bouncycastle.jcajce.interfaces.MLDSAPrivateKey;
 import org.bouncycastle.jcajce.interfaces.MLKEMPrivateKey;
 import org.bouncycastle.jcajce.spec.CompositeAlgorithmSpec;
+import org.bouncycastle.jcajce.spec.KEMExtractSpec;
+import org.bouncycastle.jcajce.spec.KEMGenerateSpec;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.operator.ContentSigner;
@@ -261,6 +266,60 @@ public class R5ArtifactGenerator
             CMSAlgorithm.AES192_WRAP,
             CMSAlgorithm.AES256_WRAP,
             CMSAlgorithm.AES256_WRAP
+        };
+
+    //
+    // Composite ML-KEM (draft-ietf-lamps-pq-composite-kem): the 12 assigned parameter sets.
+    // Certificates and KEM sample data are supported; CMS KEMRecipientInfo is not (no key-wrap
+    // Cipher is registered for the composite OIDs in the current provider).
+    //
+    private static final ASN1ObjectIdentifier[] compositeKemAlgorithms =
+        {
+            IANAObjectIdentifiers.id_MLKEM768_RSA2048_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM768_RSA3072_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM768_RSA4096_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM768_X25519_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM768_ECDH_P256_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM768_ECDH_P384_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM768_ECDH_BP256_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM1024_RSA3072_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM1024_ECDH_P384_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM1024_ECDH_BP384_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM1024_X448_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM1024_ECDH_P521_SHA3_256
+        };
+
+    private static final String[] compositeKemAlgNames =
+        {
+            "MLKEM768-RSA2048-SHA3-256",
+            "MLKEM768-RSA3072-SHA3-256",
+            "MLKEM768-RSA4096-SHA3-256",
+            "MLKEM768-X25519-SHA3-256",
+            "MLKEM768-ECDH-P256-SHA3-256",
+            "MLKEM768-ECDH-P384-SHA3-256",
+            "MLKEM768-ECDH-brainpoolP256r1-SHA3-256",
+            "MLKEM1024-RSA3072-SHA3-256",
+            "MLKEM1024-ECDH-P384-SHA3-256",
+            "MLKEM1024-ECDH-brainpoolP384r1-SHA3-256",
+            "MLKEM1024-X448-SHA3-256",
+            "MLKEM1024-ECDH-P521-SHA3-256"
+        };
+
+    // signing TA for each composite ML-KEM EE certificate, matched by the ML-KEM security level.
+    private static final String[] compositeKemSigAlgNames =
+        {
+            "ml-dsa-65",
+            "ml-dsa-65",
+            "ml-dsa-65",
+            "ml-dsa-65",
+            "ml-dsa-65",
+            "ml-dsa-65",
+            "ml-dsa-65",
+            "ml-dsa-87",
+            "ml-dsa-87",
+            "ml-dsa-87",
+            "ml-dsa-87",
+            "ml-dsa-87"
         };
 
     private static final long BEFORE_DELTA = 60 * 1000L;
@@ -490,6 +549,31 @@ public class R5ArtifactGenerator
         fWrt.close();
     }
 
+    private static void compositeKemSampleOutput(File parent, String name, ASN1ObjectIdentifier kemAlg, KeyPair kemKp)
+        throws Exception
+    {
+        // Generate secret and encapsulation using the JCA KEM API (composite ML-KEM).
+        KeyGenerator generator = KeyGenerator.getInstance(kemAlg.getId(), "BC");
+        generator.init(new KEMGenerateSpec.Builder(kemKp.getPublic(), "AES", 256).withKdfAlgorithm(null).build(), new SecureRandom());
+        SecretKeyWithEncapsulation secEnc = (SecretKeyWithEncapsulation)generator.generateKey();
+
+        byte[] encapsulation = secEnc.getEncapsulation();
+        byte[] encSecret = secEnc.getEncoded();
+
+        // Extract secret from encapsulation
+        KeyGenerator extractor = KeyGenerator.getInstance(kemAlg.getId(), "BC");
+        extractor.init(new KEMExtractSpec.Builder(kemKp.getPrivate(), encapsulation, "AES", 256).withKdfAlgorithm(null).build());
+        byte[] decSecret = ((SecretKeyWithEncapsulation)extractor.generateKey()).getEncoded();
+
+        if (!Arrays.areEqual(decSecret, encSecret))
+        {
+            throw new IllegalStateException("mismatch in KEM secrets!!!");
+        }
+
+        writeBytes(parent, name + "_ciphertext.bin", encapsulation);
+        writeBytes(parent, name + "_ss.bin", encSecret);
+    }
+
     private static void derOutput(File parent, String name, PrivateKey key)
         throws Exception
     {
@@ -711,6 +795,26 @@ public class R5ArtifactGenerator
         }
 
         //
+        // Build composite ML-KEM EE certificates
+        //
+        for (int alg = 0; alg != compositeKemAlgorithms.length; alg++)
+        {
+            PKIXPair taPair = sigParams.get(compositeKemSigAlgNames[alg]);
+
+            KeyPairGenerator kpGen = KeyPairGenerator.getInstance(compositeKemAlgorithms[alg].getId(), "BC");
+
+            KeyPair eeKp = kpGen.generateKeyPair();
+
+            X509Certificate eeCert = createEECertificate(compositeKemSigAlgNames[alg], taPair, compositeKemAlgNames[alg], eeKp);
+
+            derOutput(aDir, compositeKemAlgNames[alg] + "-" + compositeKemAlgorithms[alg] + "_ee.der", eeCert);
+
+            derOutput(aDir, compositeKemAlgNames[alg] + "-" + compositeKemAlgorithms[alg] + "_priv.der", eeKp.getPrivate());
+
+            compositeKemSampleOutput(aDir, compositeKemAlgNames[alg] + "-" + compositeKemAlgorithms[alg], compositeKemAlgorithms[alg], eeKp);
+        }
+
+        //
         // Build Hybrid certificates
         //
         KeyPairGenerator rsaKpg = KeyPairGenerator.getInstance("RSA", "BC");
@@ -778,6 +882,10 @@ public class R5ArtifactGenerator
         for (int alg = 0; alg != frodoAlgorithms.length; alg++)
         {
             emitKemCmsArtifacts(aDir, frodoAlgNames[alg], frodoAlgorithms[alg], ta44, frodoWrapAlgorithms[alg]);
+        }
+        for (int alg = 0; alg != compositeKemAlgorithms.length; alg++)
+        {
+            emitKemCmsArtifacts(aDir, compositeKemAlgNames[alg], compositeKemAlgorithms[alg], ta44, CMSAlgorithm.AES256_WRAP);
         }
     }
 

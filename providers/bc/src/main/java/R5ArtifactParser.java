@@ -29,6 +29,7 @@ import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import javax.crypto.KeyGenerator;
 import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
@@ -58,6 +59,9 @@ import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.params.FrodoKEMPrivateKeyParameters;
 import org.bouncycastle.crypto.params.MLKEMPrivateKeyParameters;
 import org.bouncycastle.crypto.util.PrivateKeyFactory;
+import org.bouncycastle.jcajce.CompositePrivateKey;
+import org.bouncycastle.jcajce.SecretKeyWithEncapsulation;
+import org.bouncycastle.jcajce.spec.KEMExtractSpec;
 import org.bouncycastle.jcajce.interfaces.MLDSAPrivateKey;
 import org.bouncycastle.jcajce.interfaces.SLHDSAPrivateKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -565,14 +569,30 @@ public class R5ArtifactParser
 
         // Extract secret from encapsulation
 
-        EncapsulatedSecretExtractor extractor = kemExtractor(kemPrivKey);
-
-        byte[] decSecret = extractor.extractSecret(encapsulation);
+        byte[] decSecret = decapsulate(kemPrivKey, encapsulation);
 
         if (!org.bouncycastle.util.Arrays.areEqual(decSecret, encSecret))
         {
             throw new IllegalStateException("mismatch in KEM secrets!!!");
         }
+    }
+
+    // Decapsulate a shared secret from a ciphertext using the encoded private key. Composite ML-KEM
+    // keys go through the JCA KEM API; ML-KEM and FrodoKEM use their low-level extractors.
+    private static byte[] decapsulate(byte[] privDer, byte[] ciphertext)
+        throws Exception
+    {
+        ASN1ObjectIdentifier keyAlg = PrivateKeyInfo.getInstance(privDer).getPrivateKeyAlgorithm().getAlgorithm();
+        PrivateKey privateKey = KeyFactory.getInstance(keyAlg.getId(), "BC").generatePrivate(new PKCS8EncodedKeySpec(privDer));
+
+        if (privateKey instanceof CompositePrivateKey)
+        {
+            KeyGenerator extractor = KeyGenerator.getInstance(keyAlg.getId(), "BC");
+            extractor.init(new KEMExtractSpec.Builder(privateKey, ciphertext, "AES", 256).withKdfAlgorithm(null).build());
+            return ((SecretKeyWithEncapsulation)extractor.generateKey()).getEncoded();
+        }
+
+        return kemExtractor(privDer).extractSecret(ciphertext);
     }
 
     // Build the appropriate KEM secret extractor for the encoded private key (ML-KEM or FrodoKEM).
@@ -631,9 +651,7 @@ public class R5ArtifactParser
         }
 
         // Extract secret from encapsulation
-        EncapsulatedSecretExtractor extractor = kemExtractor(kemPrivKey);
-
-        byte[] decSecret = extractor.extractSecret(encapsulation);
+        byte[] decSecret = decapsulate(kemPrivKey, encapsulation);
 
         if (!org.bouncycastle.util.Arrays.areEqual(decSecret, encSecret))
         {
