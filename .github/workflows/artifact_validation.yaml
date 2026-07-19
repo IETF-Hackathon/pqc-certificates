@@ -61,6 +61,21 @@ jobs:
         with:
           name: Compatibility_openssl36_csv
           path: ./output/
+  qubip_aurora_cert_validation:
+    runs-on: ubuntu-latest
+    container: nisectuni/pq-container:f42-aurora-nt-1783613245
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install prereqs
+        run: dnf -y install zip diff
+      - name: Test artifacts with OpenSSL 3.2 with aurora provider
+        run: ./src/test_certs_r5.sh qubip-aurora
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_qubip_aurora_csv
+          path: ./output/
   composite_ref_impl_validation:
     runs-on: ubuntu-latest
     steps:
