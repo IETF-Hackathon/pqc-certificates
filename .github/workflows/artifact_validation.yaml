@@ -124,7 +124,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:latest
     # needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, ssai_validation, composite_ref_impl_validation]
-    needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, composite_ref_impl_validation]
+    needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, composite_ref_impl_validation, qubip_aurora_cert_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -147,6 +147,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Compatibility_openssl_csv
+          path: output/
+      - name: Get QUBIP-aurora results from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: Compatibility_qubip_aurora_csv
           path: output/
       - name: Get OpenSSL 3.6 results from previous job
         uses: actions/download-artifact@v4
