@@ -292,7 +292,7 @@ public class R5ArtifactParser
                 }
                 else if (zipName.contains("_kemri"))
                 {
-                    cmsResults.put(zipName, verifyKemri(derData, readZipEntry(zipFile, kemriBaseName(zipName) + "_priv.der"), expectedPlaintext));
+                    cmsResults.put(zipName, verifyKemri(derData, findKemriPrivDer(zipFile, kemriBaseName(zipName)), expectedPlaintext));
                 }
                 else
                 {
@@ -474,8 +474,7 @@ public class R5ArtifactParser
                 else if (fileName.contains("_kemri"))
                 {
                     byte[] derData = Streams.readAll(new FileInputStream(f));
-                    File privFile = new File(f.getParentFile(), kemriBaseName(fileName) + "_priv.der");
-                    byte[] privDer = privFile.exists() ? Streams.readAll(new FileInputStream(privFile)) : null;
+                    byte[] privDer = findKemriPrivDer(f.getParentFile(), kemriBaseName(fileName));
                     cmsResults.put(fileName, verifyKemri(derData, privDer, expectedPlaintext));
                 }
                 else
@@ -742,6 +741,44 @@ public class R5ArtifactParser
     private static String kemriBaseName(String name)
     {
         return name.substring(0, name.indexOf("_kemri"));
+    }
+
+    // The KEM private key accompanying a _kemri artifact may be published under any of the
+    // supported private-key naming forms (single, expanded, both, seed). Locate the first present.
+    private static final String[] KEMRI_PRIV_SUFFIXES =
+        {
+            "_priv.der",
+            "_expandedkey_priv.der",
+            "_both_priv.der",
+            "_seed_priv.der"
+        };
+
+    private static byte[] findKemriPrivDer(ZipFile zipFile, String baseName)
+        throws IOException
+    {
+        for (String suffix : KEMRI_PRIV_SUFFIXES)
+        {
+            byte[] privDer = readZipEntry(zipFile, baseName + suffix);
+            if (privDer != null)
+            {
+                return privDer;
+            }
+        }
+        return null;
+    }
+
+    private static byte[] findKemriPrivDer(File parent, String baseName)
+        throws IOException
+    {
+        for (String suffix : KEMRI_PRIV_SUFFIXES)
+        {
+            File privFile = new File(parent, baseName + suffix);
+            if (privFile.exists())
+            {
+                return Streams.readAll(new FileInputStream(privFile));
+            }
+        }
+        return null;
     }
 
     private static void checkCertificates(String producer, Map<String, X509Certificate> certificates,

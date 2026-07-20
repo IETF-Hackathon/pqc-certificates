@@ -776,13 +776,7 @@ public class R5ArtifactGenerator
             kemParams.put(kemAlgNames[alg], new PKIXPair(eeKp.getPrivate(), eeCert));
         }
 
-        PKIXPair pkixpair = createKEMEEcertificate("ml-kem-512", NISTObjectIdentifiers.id_alg_ml_kem_512, "ml-dsa-44", NISTObjectIdentifiers.id_ml_dsa_44, sigParams);
-        kemParams.put("ML-KEM-512", pkixpair);
-        pkixpair = createKEMEEcertificate("ml-kem-768", NISTObjectIdentifiers.id_alg_ml_kem_768, "ml-dsa-65", NISTObjectIdentifiers.id_ml_dsa_65, sigParams);
-        kemParams.put("ML-KEM-768", pkixpair);
-        pkixpair = createKEMEEcertificate("ml-kem-1024", NISTObjectIdentifiers.id_alg_ml_kem_1024, "ml-dsa-87", NISTObjectIdentifiers.id_ml_dsa_87, sigParams);
-        kemParams.put("ML-KEM-1024", pkixpair);
-        pkixpair = createKEMEEcertificate("ntruhps2048677", BCObjectIdentifiers.ntruhps2048677, "ml-dsa-44", NISTObjectIdentifiers.id_ml_dsa_44, sigParams);
+        PKIXPair pkixpair = createKEMEEcertificate("ntruhps2048677", BCObjectIdentifiers.ntruhps2048677, "ml-dsa-44", NISTObjectIdentifiers.id_ml_dsa_44, sigParams);
         kemParams.put("ntruhps2048677", pkixpair);
         pkixpair = createKEMEEcertificate("ntruhps4096821", BCObjectIdentifiers.ntruhps4096821, "ml-dsa-65", NISTObjectIdentifiers.id_ml_dsa_65, sigParams);
         kemParams.put("ntruhps4096821", pkixpair);
