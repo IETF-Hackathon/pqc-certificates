@@ -229,17 +229,21 @@ public class R5ArtifactGenerator
         };
 
     //
-    // FrodoKEM: only the level 3 (976) and level 5 (1344) parameter sets are assigned
-    // object identifiers by ISO/IEC 18033-2, so only those can appear in certificates.
-    // draft-chen-lamps-cms-frodokem pairs 976 with AES-Wrap-192 and 1344 with AES-Wrap-256,
-    // both keyed via HKDF-SHA256.
+    // FrodoKEM and eFrodoKEM: only the level 3 (976) and level 5 (1344) parameter sets are
+    // assigned object identifiers by ISO/IEC 18033-2, so only those can appear in certificates.
+    // eFrodoKEM is the ephemeral variant (same parameter sets, distinct OIDs). draft-chen-lamps-cms-frodokem
+    // pairs 976 with AES-Wrap-192 and 1344 with AES-Wrap-256, both keyed via HKDF-SHA256.
     //
     private static final ASN1ObjectIdentifier[] frodoAlgorithms =
         {
             ISOIECObjectIdentifiers.frodokem976_aes,
             ISOIECObjectIdentifiers.frodokem976_shake,
             ISOIECObjectIdentifiers.frodokem1344_aes,
-            ISOIECObjectIdentifiers.frodokem1344_shake
+            ISOIECObjectIdentifiers.frodokem1344_shake,
+            ISOIECObjectIdentifiers.efrodokem976_aes,
+            ISOIECObjectIdentifiers.efrodokem976_shake,
+            ISOIECObjectIdentifiers.efrodokem1344_aes,
+            ISOIECObjectIdentifiers.efrodokem1344_shake
         };
 
     private static final String[] frodoAlgNames =
@@ -247,21 +251,33 @@ public class R5ArtifactGenerator
             "frodokem976aes",
             "frodokem976shake",
             "frodokem1344aes",
-            "frodokem1344shake"
+            "frodokem1344shake",
+            "efrodokem976aes",
+            "efrodokem976shake",
+            "efrodokem1344aes",
+            "efrodokem1344shake"
         };
 
-    // signing TA to use for each FrodoKEM EE certificate, matched by NIST security level.
+    // signing TA to use for each FrodoKEM/eFrodoKEM EE certificate, matched by NIST security level.
     private static final String[] frodoSigAlgNames =
         {
+            "ml-dsa-65",
+            "ml-dsa-65",
+            "ml-dsa-87",
+            "ml-dsa-87",
             "ml-dsa-65",
             "ml-dsa-65",
             "ml-dsa-87",
             "ml-dsa-87"
         };
 
-    // CMS key-wrap algorithm to use for each FrodoKEM parameter set.
+    // CMS key-wrap algorithm to use for each FrodoKEM/eFrodoKEM parameter set.
     private static final ASN1ObjectIdentifier[] frodoWrapAlgorithms =
         {
+            CMSAlgorithm.AES192_WRAP,
+            CMSAlgorithm.AES192_WRAP,
+            CMSAlgorithm.AES256_WRAP,
+            CMSAlgorithm.AES256_WRAP,
             CMSAlgorithm.AES192_WRAP,
             CMSAlgorithm.AES192_WRAP,
             CMSAlgorithm.AES256_WRAP,
