@@ -383,6 +383,32 @@ public class R5ArtifactGenerator
         return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer));
     }
 
+    // EE certificate for a CMS SignedData signer: signed by the ta.der
+    private static X509Certificate createSigningEECertificate(String taAlgName, PKIXPair taPair, String eeAlgName, KeyPair eeKp)
+        throws Exception
+    {
+        X509v3CertificateBuilder crtBld = new X509v3CertificateBuilder(
+            new X500Name("CN=BC " + taAlgName + " Test TA"),
+            generateSerialNumber(),
+            new Date(System.currentTimeMillis() - BEFORE_DELTA),
+            new Date(System.currentTimeMillis() + AFTER_DELTA),
+            new X500Name("CN=BC " + eeAlgName + " Test EE"),
+            SubjectPublicKeyInfo.getInstance(eeKp.getPublic().getEncoded()));
+
+        JcaX509ExtensionUtils extUtils = new JcaX509ExtensionUtils(
+            new JcaDigestCalculatorProviderBuilder().build().get(
+                new AlgorithmIdentifier(OIWObjectIdentifiers.idSHA1, DERNull.INSTANCE)));
+
+        crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(false));
+        crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.digitalSignature));
+        crtBld.addExtension(Extension.subjectKeyIdentifier, false, extUtils.createSubjectKeyIdentifier(eeKp.getPublic()));
+        crtBld.addExtension(Extension.authorityKeyIdentifier, false, extUtils.createAuthorityKeyIdentifier(taPair.cert));
+
+        ContentSigner signer = new JcaContentSignerBuilder(taAlgName).build(taPair.priv);
+
+        return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer));
+    }
+
     private static X509Certificate createCatalystHybridTACertificate(String algName, KeyPair taKp, String altAlgName, PKIXPair altTaKp)
         throws Exception
     {
@@ -865,9 +891,17 @@ public class R5ArtifactGenerator
         derOutput(aDir, "ta.der", ta44.cert);
 
         // SignedData (attached content + signed attributes) for each signature algorithm.
+        // The signer is an EE certificate of the signature algorithm, signed by the ta.der
+        // (ML-DSA-44) trust anchor.
         for (int alg = 0; alg != sigAlgorithms.length; alg++)
         {
-            CMSSignedData s = getCmsSignedData(sigAlgNames[alg], sigParams.get(sigAlgNames[alg]));
+            KeyPairGenerator eeKpGen = KeyPairGenerator.getInstance(sigAlgorithms[alg].getId(), "BC");
+            KeyPair eeKp = eeKpGen.generateKeyPair();
+
+            X509Certificate eeCert = createSigningEECertificate("ml-dsa-44", ta44, sigAlgNames[alg], eeKp);
+            PKIXPair eePair = new PKIXPair(eeKp.getPrivate(), eeCert);
+
+            CMSSignedData s = getCmsSignedData(sigAlgNames[alg], eePair);
             derOutput(aDir, sigAlgNames[alg] + "-" + sigAlgorithms[alg] + "_signed_attrs.der", s.toASN1Structure());
         }
 
