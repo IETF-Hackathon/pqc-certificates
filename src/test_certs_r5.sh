@@ -41,6 +41,7 @@ alias_for_openssl() {
 # The outcome depends on openssl version and its configuration: extra providers
 # can add support for algorithm not supported by the OpenSSL `default`
 # provider.
+# Returns 0 on success, 1 on error, 100 for "skip"
 openssl_check_ta() {
     _tafile="$1"
     _oid="$2"
@@ -48,7 +49,7 @@ openssl_check_ta() {
     openssl list --signature-algorithms --kem-algorithms | grep " $oid,"
     if [ $? != 0 ]; then
         printf "\nSkipping %s, unsupported\n" "$_tafile" | tee -a "$logfile"
-        return 1
+        return 100
     fi
 
     # Baseline test whether TA cert is well formed
@@ -100,6 +101,10 @@ test_ta () {
     printf "\nTesting %s\n" $tafile >> $logfile
 
     # The actual command that is the heart of this script
+    # Expected status values:
+    #   0       SUCCESS
+    #   100     SKIPPED
+    #   *       FAIL
     if [ "$verifier" = "ssai" ]; then
         output=$(validator ta --ta-certificate $tafile 2>&1)
         status=$?
@@ -117,12 +122,18 @@ test_ta () {
 
 
     # test for an error and print a link in the results CSV file
-    if [ $status -ne 0 ]; then
-        echo "Certificate Validation Result: FAIL"
-        echo $oid,cert,N >> $resultsfile
-    else
+    # Expected status values:
+    #   0       SUCCESS
+    #   100     SKIPPED
+    #   *       FAIL
+    if [ $status -eq 0 ]; then
         echo "Certificate Validation Result: SUCCESS"
         echo $oid,cert,Y >> $resultsfile
+    elif [ $status -eq 100 ]; then
+        echo "Certificate Validation Result: SKIP"
+    else
+        echo "Certificate Validation Result: FAIL"
+        echo $oid,cert,N >> $resultsfile
     fi
 }
 
