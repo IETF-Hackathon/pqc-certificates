@@ -32,6 +32,14 @@
 * Company website: https://www.cht.com.tw
 * Implementation: Proprietary wrapper for Bouncy Castle.
 
+# Composite Crypto
+
+* Provider short name: `composite-crypto`
+* Company name: 
+* Company website: 
+* Implementation: Open source
+* Implementation link: https://github.com/CompositeCrypto/composite-provider
+
 # Corey Bonnell - Digicert
 
 * Provider short name: `corey-digicert`
@@ -102,7 +110,6 @@
 * Implementation: Open sourceOpenCA / LibPKI. Internally uses OpenQuantumSafe?
 * Implementation link: https://github.com/openca
 
-
 # OpenJDK
 
 * Provider short name: `openjdk`
@@ -110,6 +117,14 @@
 * Company website: https://openjdk.org/
 * Implementation: Open source
 * Implementation link: https://github.com/openjdk/jdk
+
+# OpenSSL Composite Preliminary Implementation
+
+* Provider short name: `openssl-composite-preliminary-impl`
+* Company name: Entrust
+* Company website: https://www.entrust.com/
+* Implementation: Open source
+* Implementation link: https://github.com/EntrustCorporation/openssl
 
 # Open Quantum Safe
 
@@ -135,19 +150,3 @@
 * Company website: https://seventhsense.ai
 * Implementation: Open source
 * Implementation link: https://github.com/codespree/quantcrypt
-
-# OpenSSL Composite Preliminary Implementation
-
-* Provider short name: `openssl-composite-preliminary-impl`
-* Company name: Entrust
-* Company website: https://www.entrust.com/
-* Implementation: Open source
-* Implementation link: https://github.com/EntrustCorporation/openssl
-
-# Composite Crypto
-
-* Provider short name: `composite-crypto`
-* Company name: 
-* Company website: 
-* Implementation: Open source
-* Implementation link: https://github.com/CompositeCrypto/composite-provider
