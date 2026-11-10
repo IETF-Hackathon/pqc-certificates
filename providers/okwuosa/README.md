@@ -69,11 +69,12 @@ ML-DSA-44/65/87:
 - `seed`, `expandedkey`, `both`: the key loads, signs the CI's test message,
   and the signature verifies under the public key of the TA.
 - `cert`: the TA is self-issued and its self-signature verifies. This row is
-  the self-signature only: the CA flag and keyUsage are not checked. With
-  OpenSSL 3.5.9, `openssl verify -check_ss_sig` rejects a CA certificate whose
-  keyUsage is present without keyCertSign (error 32); this checker would still
-  say Y for it. No trust anchor in the repository at the time of writing is in
-  that case.
+  the self-signature only: the CA flag and keyUsage are not checked. In our
+  test with OpenSSL 3.5.9, `openssl verify -check_ss_sig` rejected a
+  self-signed CA certificate whose keyUsage was digitalSignature only
+  (error 32, key usage does not include certificate signing); this checker
+  would still say Y for it. No trust anchor in the repository at the time of
+  writing is a CA certificate with a keyUsage that lacks keyCertSign.
 - `consistent`: the public key derived from each key file equals the TA's.
   There is one row per OID: `N` if any key file fails, `Y` if at least one
   passes and none fails.
