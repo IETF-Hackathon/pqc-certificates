@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-// The private key is a PKCS#8 OneAsymmetricKey (RFC 5958) whose privateKey
+// The private key is a PKCS#8 OneAsymmetricKey (RFC 5958 section 2; version 0 = v1) whose privateKey
 // OCTET STRING holds a DER CHOICE of three forms:
 //
 //	ML-DSA: RFC 9881 section 6      ML-KEM: RFC 9935 section 6
@@ -99,7 +99,8 @@ func readExact(b []byte, want byte, what string) ([]byte, error) {
 // ParsePKCS8 parses a PKCS#8 file holding exactly one of the three private key
 // forms. Seed-only returns expanded == nil; expanded-only returns seed == nil.
 // It rejects trailing data, a version other than 0, algorithm parameters,
-// attributes, and any other CHOICE. The returned slices are copies.
+// attributes, and any other CHOICE. The returned slices are copies. It does
+// not check the seed or key lengths against the algorithm; the caller must.
 func ParsePKCS8(der []byte) (oid asn1.ObjectIdentifier, seed, expanded []byte, err error) {
 	outer, err := readExact(der, tagSequence, "PKCS#8")
 	if err != nil {

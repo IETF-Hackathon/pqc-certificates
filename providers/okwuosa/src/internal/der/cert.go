@@ -29,7 +29,7 @@ const (
 	tagCtx3Expl    = 0xa3 // [3] EXPLICIT, constructed
 )
 
-// Object identifiers (RFC 5280 section 4.2.1 and appendix A).
+// Object identifiers (RFC 5280: extensions in section 4.2.1.x, attribute types in appendix A).
 var (
 	oidCommonName   = asn1.ObjectIdentifier{2, 5, 4, 3}
 	oidOrganization = asn1.ObjectIdentifier{2, 5, 4, 10}
@@ -39,9 +39,10 @@ var (
 	oidAKI          = asn1.ObjectIdentifier{2, 5, 29, 35}
 )
 
-// utcTimeLastYear is the last year RFC 5280 section 4.1.2.5 allows in a
-// UTCTime; from 2050 on a Time must be a GeneralizedTime. The first year a
-// UTCTime can hold is 1950 (two-digit years 50..99 mean 19xx).
+// utcTimeLastYear is the last year RFC 5280 section 4.1.2.5 encodes as a
+// UTCTime; dates in 2050 or later MUST be GeneralizedTime. The first year a
+// UTCTime can hold is 1950: section 4.1.2.5.1 reads two-digit years 50..99 as
+// 19xx and 00..49 as 20xx.
 const (
 	utcTimeFirstYear = 1950
 	utcTimeLastYear  = 2049
@@ -101,7 +102,7 @@ func oidDER(oid asn1.ObjectIdentifier) ([]byte, error) {
 }
 
 // algID encodes AlgorithmIdentifier ::= SEQUENCE { algorithm OID } with the
-// parameters field absent, as RFC 9881 and RFC 9935 require.
+// parameters field absent, as RFC 9881 section 2 and RFC 9935 section 3 require.
 func algID(oid asn1.ObjectIdentifier) ([]byte, error) {
 	o, err := oidDER(oid)
 	if err != nil {
@@ -113,7 +114,7 @@ func algID(oid asn1.ObjectIdentifier) ([]byte, error) {
 // bitString encodes a BIT STRING in minimal DER form: the unused-bits octet
 // counts only trailing zero bits that were trimmed, so a value with no set
 // bits is 03 01 00. Zero bits at the end of bs are dropped, as DER requires
-// for named-bit lists such as KeyUsage (X.690 section 11.2.2).
+// for named-bit lists such as KeyUsage (ITU-T X.690 (02/2021) clause 11.2.2).
 func bitString(bs asn1.BitString) []byte {
 	last := -1 // index of the last set bit
 	for i := 0; i < bs.BitLength && i/8 < len(bs.Bytes); i++ {
@@ -132,7 +133,7 @@ func bitString(bs asn1.BitString) []byte {
 }
 
 // encodeTime encodes a Time as UTCTime (years 1950..2049) or GeneralizedTime
-// (2050 onwards), always in UTC with whole seconds, per RFC 5280 4.1.2.5.
+// (2050 onwards), always in UTC with whole seconds, per RFC 5280 sections 4.1.2.5 and 4.1.2.5.1.
 func encodeTime(t time.Time) ([]byte, error) {
 	t = t.UTC()
 	switch y := t.Year(); {
@@ -297,7 +298,7 @@ func encodeSerial(n *big.Int) []byte {
 	return appendTLV(nil, tagInteger, b)
 }
 
-// Certificate wraps a TBSCertificate and its signature (RFC 5280 4.1):
+// Certificate wraps a TBSCertificate and its signature (RFC 5280 section 4.1):
 //
 //	SEQUENCE { tbsCertificate, signatureAlgorithm AlgorithmIdentifier,
 //	           signatureValue BIT STRING }
