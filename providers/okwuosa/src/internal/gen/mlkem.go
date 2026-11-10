@@ -10,28 +10,21 @@ import (
 	"time"
 
 	"github.com/cloudflare/circl/kem"
-	"github.com/cloudflare/circl/kem/mlkem/mlkem1024"
-	"github.com/cloudflare/circl/kem/mlkem/mlkem512"
-	"github.com/cloudflare/circl/kem/mlkem/mlkem768"
 
 	"pqccerts/okwuosa/internal/alg"
 	"pqccerts/okwuosa/internal/der"
+	"pqccerts/okwuosa/internal/pqc"
 )
 
 // eeKeyUsage is keyEncipherment (bit 2).
 var eeKeyUsage = asn1.BitString{Bytes: []byte{0x20}, BitLength: 3}
 
-// kemSchemes is keyed by alg.Alg.Level. CIRCL's generic kem.Scheme gives the
-// same calls for all three parameter sets:
+// The generic kem.Scheme (pqc.KEMScheme) gives the same calls for all three
+// parameter sets:
 //   - DeriveKeyPair takes the 64-byte seed d||z (FIPS 203 KeyGen_internal)
 //     and returns keys whose MarshalBinary is the FIPS 203 encapsulation key
 //     and decapsulation key (800/1184/1568 and 1632/2400/3168 bytes);
 //   - EncapsulateDeterministically takes the 32-byte randomness m.
-var kemSchemes = map[int]kem.Scheme{
-	512:  mlkem512.Scheme(),
-	768:  mlkem768.Scheme(),
-	1024: mlkem1024.Scheme(),
-}
 
 // GenerateMLKEM writes the end-entity certificate (signed by issuer, the trust
 // anchor of the matching ML-DSA level), the seed, expanded and both PKCS#8
@@ -40,7 +33,7 @@ var kemSchemes = map[int]kem.Scheme{
 // from now. The certificate signature comes from issuer.Sign, which CIRCL
 // randomizes internally, so it is not reproducible from rand.
 func GenerateMLKEM(dir string, a alg.Alg, issuer *TA, rand io.Reader, now time.Time) error {
-	sc, ok := kemSchemes[a.Level]
+	sc, ok := pqc.KEMScheme(a.Level)
 	if !ok || !a.IsKEM {
 		return fmt.Errorf("%s is not an ML-KEM algorithm", a.Friendly)
 	}

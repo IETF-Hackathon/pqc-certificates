@@ -56,6 +56,17 @@ func PKCS8Both(oid asn1.ObjectIdentifier, seed, sk []byte) []byte {
 // content, and the bytes after it. Lengths must be definite and minimal, as
 // DER requires; anything else is an error. It never panics.
 func readTLV(b []byte) (tag byte, content, rest []byte, err error) {
+	return parseTLV(b, true)
+}
+
+// readTLVLax is readTLV for other people's certificates: a long-form length
+// need not be minimal (as in BER, which OpenSSL accepts). Indefinite lengths
+// and multi-byte tags are still errors.
+func readTLVLax(b []byte) (tag byte, content, rest []byte, err error) {
+	return parseTLV(b, false)
+}
+
+func parseTLV(b []byte, strict bool) (tag byte, content, rest []byte, err error) {
 	if len(b) < 2 {
 		return 0, nil, nil, errors.New("der: truncated header")
 	}
@@ -73,12 +84,12 @@ func readTLV(b []byte) (tag byte, content, rest []byte, err error) {
 		for _, c := range b[2 : 2+nLen] {
 			n = n<<8 | int(c)
 		}
-		if b[2] == 0 || n < 0x80 {
+		if strict && (b[2] == 0 || n < 0x80) {
 			return 0, nil, nil, errors.New("der: non-minimal length")
 		}
 		hdr = 2 + nLen
 	}
-	if n > len(b)-hdr {
+	if n < 0 || n > len(b)-hdr {
 		return 0, nil, nil, errors.New("der: length exceeds data")
 	}
 	return tag, b[hdr : hdr+n], b[hdr+n:], nil

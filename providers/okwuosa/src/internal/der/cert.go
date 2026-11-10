@@ -19,6 +19,7 @@ const (
 	tagInteger     = 0x02
 	tagBitString   = 0x03
 	tagOctetString = 0x04
+	tagOID         = 0x06
 	tagUTF8String  = 0x0c
 	tagUTCTime     = 0x17
 	tagGenTime     = 0x18
