@@ -3,8 +3,12 @@ package check
 import (
 	"archive/zip"
 	"bytes"
+	"crypto/mldsa"
 	"crypto/rand"
+	"crypto/x509"
+	"crypto/x509/pkix"
 	"encoding/json"
+	"math/big"
 	"os"
 	"path/filepath"
 	"strings"
@@ -194,5 +198,43 @@ func TestOssl35Expanded(t *testing.T) {
 	}
 	if n != 2 {
 		t.Errorf("cannot-run findings for .17 = %d, want 2: %+v", n, fs)
+	}
+}
+
+// TestSelfSignedWithoutCAFlags: OpenSSL's `verify -check_ss_sig` accepts a TA
+// whose self-signature is valid even if it is not marked CA or keyCertSign.
+// The cert row asks only whether the self-signature verifies.
+func TestSelfSignedWithoutCAFlags(t *testing.T) {
+	a := alg.MLDSA44
+	key, err := mldsa.GenerateKey(mldsa.MLDSA44())
+	if err != nil {
+		t.Fatal(err)
+	}
+	now := time.Now()
+	tmpl := &x509.Certificate{
+		SerialNumber: big.NewInt(7),
+		Subject:      pkix.Name{CommonName: "no ca flags"},
+		NotBefore:    now,
+		NotAfter:     now.Add(24 * time.Hour),
+	}
+	der, err := x509.CreateCertificate(rand.Reader, tmpl, tmpl, key.PublicKey(), key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	csv, _ := runZip(t, writeZip(t, map[string][]byte{a.FileName("_ta.der"): der}))
+	if csv != header+row(a, "cert", "Y") {
+		t.Errorf("csv = %q, want cert Y", csv)
+	}
+}
+
+func TestCorruptSelfSignatureIsN(t *testing.T) {
+	files, _ := ReadZip(ownZip(t))
+	name := alg.MLDSA87.FileName("_ta.der")
+	der := append([]byte(nil), files[name]...)
+	der[len(der)-1] ^= 0xff
+	files[name] = der
+	csv, _ := runZip(t, writeZip(t, files))
+	if !strings.Contains(csv, row(alg.MLDSA87, "cert", "N")) || !strings.Contains(csv, row(alg.MLDSA44, "cert", "Y")) {
+		t.Errorf("csv:\n%s", csv)
 	}
 }

@@ -43,7 +43,7 @@ func CheckMLDSA(files map[string][]byte, a alg.Alg) ([]Row, []Finding) {
 	ta := loadTA(files, a)
 	rows, fs, parsed := checkKeys(files, a, ta)
 	if ta.present {
-		rows = append(rows, Row{a.OID, "cert", ta.cert != nil && ta.cert.CheckSignatureFrom(ta.cert) == nil})
+		rows = append(rows, Row{a.OID, "cert", selfSigned(ta.cert)})
 		if ta.cert != nil {
 			fs = append(fs, strictFindings(ta)...)
 		}
@@ -153,4 +153,11 @@ func strictFindings(ta taState) []Finding {
 		fs = append(fs, Finding{File: ta.name, Check: "strict", Detail: e.Error()})
 	}
 	return fs
+}
+
+// selfSigned reports whether c's signature verifies under its own public key.
+// Like `openssl verify -check_ss_sig`, it does not look at CA or key-usage
+// flags; those are reported as strict findings instead.
+func selfSigned(c *x509.Certificate) bool {
+	return c != nil && c.CheckSignature(c.SignatureAlgorithm, c.RawTBSCertificate, c.Signature) == nil
 }
