@@ -35,8 +35,8 @@ random keys and serial numbers.
 
 ## How to run
 
-From `providers/okwuosa` (needs Go 1.27 or newer and `which`; `unzip` for the `unzip`
-target):
+From `providers/okwuosa` (needs Go 1.27 or newer and `which`; `unzip` for the
+`unzip` and `all` targets):
 
     make test          # go test ./... in src/
     make generate      # rewrites artifacts_certs_r5.zip (new random keys)
