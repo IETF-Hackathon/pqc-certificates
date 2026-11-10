@@ -44,7 +44,7 @@ From `providers/go-crypto` (needs Go 1.27.3; `unzip` for the `unzip` target):
 
 ## What the checker does
 
-For the six ML-DSA OIDs only, in any zip, whatever folder the files are in:
+For the three ML-DSA OIDs only, in any zip, whatever folder the files are in:
 
 - `seed`, `expandedkey`, `both`: the key parses, signs a test message, and the
   signature verifies under the public key of the TA.
