@@ -28,8 +28,16 @@ func run(out string) error {
 	}
 	defer os.RemoveAll(dir)
 	now := time.Now().UTC().Truncate(time.Second)
+	tas := map[alg.Alg]*gen.TA{}
 	for _, a := range []alg.Alg{alg.MLDSA44, alg.MLDSA65, alg.MLDSA87} {
-		if _, err := gen.GenerateMLDSA(dir, a, rand.Reader, now); err != nil {
+		ta, err := gen.GenerateMLDSA(dir, a, rand.Reader, now)
+		if err != nil {
+			return err
+		}
+		tas[a] = ta
+	}
+	for _, a := range []alg.Alg{alg.MLKEM512, alg.MLKEM768, alg.MLKEM1024} {
+		if err := gen.GenerateMLKEM(dir, a, tas[alg.IssuerFor(a)], rand.Reader, now); err != nil {
 			return err
 		}
 	}

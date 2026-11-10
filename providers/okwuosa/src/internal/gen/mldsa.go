@@ -8,8 +8,6 @@ import (
 	"fmt"
 	"io"
 	"math/big"
-	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -141,16 +139,13 @@ func GenerateMLDSA(dir string, a alg.Alg, rand io.Reader, now time.Time) (*TA, e
 	if err != nil {
 		return nil, fmt.Errorf("%s TA: %w", a.Friendly, err)
 	}
-	files := map[string][]byte{
+	if err := writeFiles(dir, a, map[string][]byte{
 		"_ta.der":               cert,
 		"_seed_priv.der":        der.PKCS8Seed(oid, seed),
 		"_expandedkey_priv.der": der.PKCS8Expanded(oid, sk),
 		"_both_priv.der":        der.PKCS8Both(oid, seed, sk),
-	}
-	for suffix, data := range files {
-		if err := os.WriteFile(filepath.Join(dir, a.FileName(suffix)), data, 0o644); err != nil {
-			return nil, err
-		}
+	}); err != nil {
+		return nil, err
 	}
 	return &TA{Alg: a, Cert: cert, SKI: ski[:], Sign: sign}, nil
 }

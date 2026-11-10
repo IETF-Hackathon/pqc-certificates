@@ -34,7 +34,7 @@ func TestRunTwiceGivesSameListing(t *testing.T) {
 	if err := run(out); err != nil {
 		t.Fatal(err)
 	}
-	if second := listZip(t, out); !reflect.DeepEqual(first, second) || len(first) != 12 {
-		t.Errorf("listings differ or not 12 names: %v vs %v", first, second)
+	if second := listZip(t, out); !reflect.DeepEqual(first, second) || len(first) != 30 {
+		t.Errorf("listings differ or not 30 names: %v vs %v", first, second)
 	}
 }
