@@ -30,8 +30,9 @@ ML-KEM-1024 artifacts from other providers can be checked (see below).
 
 ## How to run
 
-From `providers/go-crypto` (needs Go 1.27.3, and `which`; `unzip` for the
-`unzip` target):
+From `providers/go-crypto` (needs Go 1.27 or newer, as `go.mod` says; built
+and tested with Go 1.27.3; needs `which`, and `unzip` for the `unzip` and
+`all` targets):
 
     make test          # go test ./... in src/
     make generate      # rewrites artifacts_certs_r5.zip (new random keys)
