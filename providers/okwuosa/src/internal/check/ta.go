@@ -76,7 +76,8 @@ func (p dsaPublic) verifies(msg, sig []byte) bool {
 // -check_ss_sig -CAfile TA TA` sees it: the certificate is self-issued, its
 // signature algorithm is the one of its own key and the same in the TBS, and
 // its signature verifies under that key. It does not look at CA or key-usage
-// flags, which the CI accepts for a TA.
+// flags. With OpenSSL 3.5.9, `openssl verify -check_ss_sig` rejects a CA
+// certificate whose keyUsage lacks keyCertSign; this function would not.
 func checkSelfSigned(c *der.ParsedCert) error {
 	pub, err := publicKeyOf(c)
 	if err != nil {

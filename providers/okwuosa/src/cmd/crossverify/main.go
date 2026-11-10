@@ -44,7 +44,8 @@ func run(providers, me, findings string) error {
 }
 
 // crossVerify checks every providers/*/artifacts_certs_r5.zip except our own.
-// A generator with no rows gets no CSV; an unreadable zip is logged and skipped.
+// A generator with no rows gets no CSV; an unreadable zip is logged and
+// skipped. Either way an output file left by an earlier run is removed.
 func crossVerify(providers, me string, findings, log io.Writer) error {
 	entries, err := os.ReadDir(providers)
 	if err != nil {
@@ -74,7 +75,7 @@ func crossVerify(providers, me string, findings, log io.Writer) error {
 func verifyOne(zip, name, out string, findings, log io.Writer) error {
 	if err := check.Run(zip, name, out, findings); err != nil {
 		fmt.Fprintf(log, "%s: skipped: %v\n", name, err)
-		return nil
+		return removeStale(out)
 	}
 	data, err := os.ReadFile(out)
 	if err != nil {
@@ -83,9 +84,17 @@ func verifyOne(zip, name, out string, findings, log io.Writer) error {
 	lines := strings.Split(strings.TrimSpace(string(data)), "\n")[1:]
 	if len(lines) == 0 {
 		fmt.Fprintf(log, "%s: no rows, no CSV\n", name)
-		return os.Remove(out)
+		return removeStale(out)
 	}
 	y := strings.Count(string(data), ",Y\n")
 	fmt.Fprintf(log, "%s: rows=%d Y=%d N=%d\n", name, len(lines), y, len(lines)-y)
+	return nil
+}
+
+// removeStale deletes an output file from an earlier run; a missing file is fine.
+func removeStale(out string) error {
+	if err := os.Remove(out); err != nil && !os.IsNotExist(err) {
+		return err
+	}
 	return nil
 }

@@ -49,6 +49,13 @@ func TestCrossVerifySkipsSelfEmptyAndBadZips(t *testing.T) {
 	// A directory without a zip.
 	os.MkdirAll(filepath.Join(root, "nozip"), 0o755)
 
+	// Output left by an earlier run must not survive a skipped generator.
+	stale := filepath.Join(root, "me", "compatMatrices", "artifacts_certs_r5")
+	os.MkdirAll(stale, 0o755)
+	for _, n := range []string{"foreign_me.csv", "broken_me.csv"} {
+		os.WriteFile(filepath.Join(stale, n), []byte("key_algorithm_oid,type,test_result\nold,cert,Y\n"), 0o644)
+	}
+
 	var fb, lb bytes.Buffer
 	if err := crossVerify(root, "me", &fb, &lb); err != nil {
 		t.Fatal(err)

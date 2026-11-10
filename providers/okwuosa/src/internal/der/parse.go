@@ -46,9 +46,12 @@ func ParseCertificate(der []byte) (*ParsedCert, error) {
 	if c.SigAlg, rest, err = laxAlgorithm(rest, "signatureAlgorithm"); err != nil {
 		return nil, err
 	}
-	// Anything after the signature inside the SEQUENCE is ignored.
-	if c.Signature, _, err = laxBitString(rest, "signatureValue"); err != nil {
+	var sigRest []byte
+	if c.Signature, sigRest, err = laxBitString(rest, "signatureValue"); err != nil {
 		return nil, err
+	}
+	if len(sigRest) != 0 {
+		return nil, fmt.Errorf("%d bytes after signatureValue inside the Certificate SEQUENCE", len(sigRest))
 	}
 	if err := parseTBS(tbs, c); err != nil {
 		return nil, err

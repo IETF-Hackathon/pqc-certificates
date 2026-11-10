@@ -89,6 +89,19 @@ func TestParseCertificateReportsParamsAndTrailing(t *testing.T) {
 	}
 }
 
+func TestParseCertificateRejectsBytesInsideSequenceAfterSignature(t *testing.T) {
+	p := testParams(t, true)
+	tbs, _ := TBS(p)
+	id, _ := algID(p.SigOID)
+	bits := appendTLV(nil, tagBitString, []byte{0, 1, 2, 3})
+	if _, err := ParseCertificate(tlv(tagSequence, tbs, id, bits)); err != nil {
+		t.Fatalf("control without extra byte: %v", err)
+	}
+	if _, err := ParseCertificate(tlv(tagSequence, tbs, id, bits, []byte{0x00})); err == nil {
+		t.Error("a byte after signatureValue inside the Certificate SEQUENCE was accepted")
+	}
+}
+
 func TestParseCertificateRejectsBadInput(t *testing.T) {
 	good := buildCert(t, testParams(t, true))
 	badBits := func() []byte { // signature BIT STRING with 3 unused bits

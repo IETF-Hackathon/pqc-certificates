@@ -2,7 +2,8 @@
 
 CIRCL v1.6.5 for ML-DSA and ML-KEM; X.509 and PKCS#8 built by hand with Go encoding/asn1
 
-The Go module is `pqccerts/okwuosa` in `src/` (Go 1.27). Its only
+The Go module is `pqccerts/okwuosa` in `src/` (`go 1.27` in `go.mod`; built
+and tested with Go 1.27.3). Its only
 dependency is `github.com/cloudflare/circl` v1.6.5 (plus `golang.org/x/sys`,
 which CIRCL needs). The certificates and the private key files are written
 and read byte by byte in `src/internal/der`; there is no `crypto/x509`,
@@ -34,7 +35,7 @@ random keys and serial numbers.
 
 ## How to run
 
-From `providers/okwuosa` (needs Go 1.27 and `which`; `unzip` for the `unzip`
+From `providers/okwuosa` (needs Go 1.27 or newer and `which`; `unzip` for the `unzip`
 target):
 
     make test          # go test ./... in src/
@@ -67,9 +68,12 @@ ML-DSA-44/65/87:
 
 - `seed`, `expandedkey`, `both`: the key loads, signs the CI's test message,
   and the signature verifies under the public key of the TA.
-- `cert`: the TA is self-issued and its self-signature verifies. The CA flag
-  and keyUsage are not looked at, because `openssl verify -check_ss_sig`
-  accepts a TA without them.
+- `cert`: the TA is self-issued and its self-signature verifies. This row is
+  the self-signature only: the CA flag and keyUsage are not checked. With
+  OpenSSL 3.5.9, `openssl verify -check_ss_sig` rejects a CA certificate whose
+  keyUsage is present without keyCertSign (error 32); this checker would still
+  say Y for it. No trust anchor in the repository at the time of writing is in
+  that case.
 - `consistent`: the public key derived from each key file equals the TA's.
   There is one row per OID: `N` if any key file fails, `Y` if at least one
   passes and none fails.
@@ -100,7 +104,12 @@ A present file that is malformed for a check that can run is `N`. A TA that
 does not parse gives `N` for `cert`, for each ML-DSA key and for `consistent`;
 an EE that does not parse gives `N` for `cert` and `consistent`. Private keys
 may be PKCS#8 version 0 or version 1 (with the optional attributes and public
-key), as OpenSSL accepts them. An expanded ML-DSA key is checked by signing with it, so a wrong `t0`
-is caught only if it breaks that signature. A generator with no rows gets no
-CSV. Findings other than `strict` and `cannot-run` (`failed`) say why a row
-is `N`.
+key), as OpenSSL accepts them. An expanded ML-DSA key is checked by signing
+with it, so a wrong `t0` is caught only if it breaks that signature.
+Certificate extensions are not parsed: nothing after the SubjectPublicKeyInfo
+inside the TBSCertificate is interpreted, so malformed or unknown critical
+extensions are not detected. Bytes after signatureValue inside the
+Certificate SEQUENCE make the certificate unparseable, so `N`; bytes after
+the SEQUENCE are a `strict` finding only. A generator with no rows
+gets no CSV. Findings other than `strict` and `cannot-run` (`failed`) say why
+a row is `N`.
