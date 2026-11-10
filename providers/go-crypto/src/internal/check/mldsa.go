@@ -177,8 +177,10 @@ func strictFindings(ta taState) []Finding {
 }
 
 // selfSigned reports whether c's signature verifies under its own public key.
-// Like `openssl verify -check_ss_sig`, it does not look at CA or key-usage
-// flags; those are reported as strict findings instead.
+// It does not look at CA or key-usage flags (strictFindings reports those, with
+// no row). With OpenSSL 3.5.9, `openssl
+// verify -check_ss_sig` rejects a CA certificate whose keyUsage lacks
+// keyCertSign; this function would not.
 func selfSigned(c *x509.Certificate) bool {
 	return c != nil && c.CheckSignature(c.SignatureAlgorithm, c.RawTBSCertificate, c.Signature) == nil
 }

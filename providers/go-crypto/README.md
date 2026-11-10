@@ -57,8 +57,15 @@ ML-DSA-44/65/87:
 
 - `seed`, `expandedkey`, `both`: the key parses, signs a test message, and the
   signature verifies under the public key of the TA.
-- `cert`: the TA's self-signature verifies.
-- `consistent`: a key that parsed has the same public key as the TA.
+- `cert`: the TA's self-signature verifies. This row is the self-signature
+  only: the CA flag and keyUsage are not checked (a missing CA flag or
+  keyCertSign is a `strict` finding, with no row). With OpenSSL 3.5.9,
+  `openssl verify -check_ss_sig` rejects a CA certificate whose keyUsage is
+  present without keyCertSign (error 32); this checker would still say Y for
+  it. No trust anchor in the repository at the time of writing is in that case.
+- `consistent`: a key that parsed has the same public key as the TA. When no
+  private key could be parsed there is no `consistent` row at all, whereas
+  the CI script writes `consistent,N` in that case.
 
 ML-KEM-768 and ML-KEM-1024:
 
@@ -79,6 +86,7 @@ as a `cannot-run` finding, with no row:
 - ML-DSA expanded and both keys: `x509.ParsePKCS8PrivateKey` answers "not
   supported" for these forms. A file that fails to parse for any other reason
   (truncated, not PKCS#8, wrong algorithm) is `N`.
+- An ML-DSA key that parsed when the zip has no trust anchor for that OID.
 - ML-KEM expanded and both keys, and everything for ML-KEM-512 (keys and EE).
 - A KEM seed key with no `_ciphertext.bin` or `_ss.bin`, and `consistent`
   when there is no EE.
