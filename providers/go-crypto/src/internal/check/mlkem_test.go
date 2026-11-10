@@ -245,8 +245,8 @@ func TestRunOssl35IncludesKEMRows(t *testing.T) {
 }
 
 // TestHybridPrefixedFilesAreIgnored: bc ships external_ml-kem-768-<oid>_ee.der
-// next to the plain EE. The CI skips external_, catalyst_ and chameleon_
-// certificates, so the checker must not pick one of them by map order.
+// next to the plain EE. The checker ignores external_, catalyst_ and chameleon_
+// files, so it must not pick one of them by map order.
 func TestHybridPrefixedFilesAreIgnored(t *testing.T) {
 	a := alg.MLKEM768
 	files := ossl35Files(t)

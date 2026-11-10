@@ -49,7 +49,9 @@ From `providers/go-crypto` (needs Go 1.27.3, and `which`; `unzip` for the
 
 In any zip, whatever folder the files are in. Files are found by name suffix;
 files that are not for one of the OIDs below are ignored, and so are
-`external_`, `catalyst_` and `chameleon_` files, as in the CI.
+`external_`, `catalyst_` and `chameleon_` files. The CI's skip for KEM EE files
+does not take effect, so our result can differ from the CI's where a provider
+ships both a plain and a hybrid-prefixed EE for the same OID.
 
 ML-DSA-44/65/87:
 

@@ -20,7 +20,9 @@ var keyTypes = []struct{ typ, suffix string }{
 	{"both", "_both_priv.der"},
 }
 
-// hybridPrefixes mark hybrid certificates, which the CI skips by name.
+// hybridPrefixes mark hybrid certificates. The CI skips them for TAs; its skip
+// for KEM EE files tests the name after the friendly prefix is stripped, so it
+// does not take effect there.
 var hybridPrefixes = []string{"external_", "catalyst_", "chameleon_"}
 
 func isHybrid(name string) bool {
@@ -33,7 +35,7 @@ func isHybrid(name string) bool {
 }
 
 // find returns the name and bytes of the artifact for a with the given suffix.
-// Hybrid-prefixed files are skipped, as the CI skips them; of several
+// Hybrid-prefixed files are skipped; of several
 // remaining candidates the first by name is used, so the result is stable.
 func find(files map[string][]byte, a alg.Alg, suffix string) (string, []byte, bool) {
 	best := ""
