@@ -59,13 +59,17 @@ ML-DSA-44/65/87:
   signature verifies under the public key of the TA.
 - `cert`: the TA's self-signature verifies. This row is the self-signature
   only: the CA flag and keyUsage are not checked (a missing CA flag or
-  keyCertSign is a `strict` finding, with no row). With OpenSSL 3.5.9,
-  `openssl verify -check_ss_sig` rejects a CA certificate whose keyUsage is
-  present without keyCertSign (error 32); this checker would still say Y for
-  it. No trust anchor in the repository at the time of writing is in that case.
+  keyCertSign is a `strict` finding, with no row). In our test with OpenSSL
+  3.5.9, `openssl verify -check_ss_sig` rejected a self-signed CA certificate
+  whose keyUsage was digitalSignature only (error 32, key usage does not
+  include certificate signing); this checker would still say Y for it. No
+  trust anchor in the repository at the time of writing is a CA certificate
+  with a keyUsage that lacks keyCertSign.
 - `consistent`: a key that parsed has the same public key as the TA. When no
-  private key could be parsed there is no `consistent` row at all, whereas
-  the CI script writes `consistent,N` in that case.
+  private key parsed there is no `consistent` row at all. The CI script
+  writes a `consistent` row whenever any of the three key files is present
+  (`N` if OpenSSL fails on any of them), so it has rows here that this
+  checker does not, including `N` rows for malformed key files.
 
 ML-KEM-768 and ML-KEM-1024:
 
