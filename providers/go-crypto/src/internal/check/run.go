@@ -10,10 +10,10 @@ import (
 	"pqccerts/gocrypto/internal/alg"
 )
 
-// checkAlg dispatches on the algorithm family. ML-KEM joins here later.
+// checkAlg dispatches on the algorithm family.
 func checkAlg(files map[string][]byte, a alg.Alg) ([]Row, []Finding) {
 	if a.IsKEM {
-		return nil, nil
+		return CheckMLKEM(files, a)
 	}
 	return CheckMLDSA(files, a)
 }

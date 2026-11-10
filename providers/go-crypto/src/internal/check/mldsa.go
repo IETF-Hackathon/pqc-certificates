@@ -20,14 +20,33 @@ var keyTypes = []struct{ typ, suffix string }{
 	{"both", "_both_priv.der"},
 }
 
-// find returns the name and bytes of the artifact for a with the given suffix.
-func find(files map[string][]byte, a alg.Alg, suffix string) (string, []byte, bool) {
-	for name, data := range files {
-		if oid, s, ok := alg.ParseFileName(name); ok && oid == a.OID && s == suffix {
-			return name, data, true
+// hybridPrefixes mark hybrid certificates, which the CI skips by name.
+var hybridPrefixes = []string{"external_", "catalyst_", "chameleon_"}
+
+func isHybrid(name string) bool {
+	for _, p := range hybridPrefixes {
+		if strings.HasPrefix(name, p) {
+			return true
 		}
 	}
-	return "", nil, false
+	return false
+}
+
+// find returns the name and bytes of the artifact for a with the given suffix.
+// Hybrid-prefixed files are skipped, as the CI skips them; of several
+// remaining candidates the first by name is used, so the result is stable.
+func find(files map[string][]byte, a alg.Alg, suffix string) (string, []byte, bool) {
+	best := ""
+	for name := range files {
+		oid, s, ok := alg.ParseFileName(name)
+		if ok && oid == a.OID && s == suffix && !isHybrid(name) && (best == "" || name < best) {
+			best = name
+		}
+	}
+	if best == "" {
+		return "", nil, false
+	}
+	return best, files[best], true
 }
 
 // taState is the trust anchor as far as it could be read.
