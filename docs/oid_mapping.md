@@ -128,6 +128,21 @@ The draft-smyslov-lamps-frodokem-certificates contains the following ISO registe
 | id-kem-efrodokem976-aes | 1.0.18033.2.2.7.7 | draft-smyslov-lamps-frodokem-certificates |
 | id-kem-efrodokem1344-aes | 1.0.18033.2.2.7.8 | draft-smyslov-lamps-frodokem-certificates |
 
+# FrodoKEM Composite KEM (Prototype)
+The draft-song-lamps-cms-composite-frodokem is proposing the following composite combinations, which
+are not yet standardized.  The OIDs are prototype for now.
+
+| FrodoKEM Composite Algorithm Name | OID | Specification |
+| ----------- | ----------- | ----------- |
+| id-FrodoKEM976-SHAKE-RSA3072-SHA3-256  | 2.25.244012452097848048867364395212826631944.1 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM976-SHAKE-X25519-SHA3-256   | 2.25.244012452097848048867364395212826631944.2 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM1344-SHAKE-RSA4096-SHA3-256 | 2.25.244012452097848048867364395212826631944.3 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM1344-SHAKE-X448-SHA3-256    | 2.25.244012452097848048867364395212826631944.4 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM976-AES-RSA3072-SHA3-256    | 2.25.244012452097848048867364395212826631944.5 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM976-AES-X25519-SHA3-256     | 2.25.244012452097848048867364395212826631944.6 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM1344-AES-RSA4096-SHA3-256   | 2.25.244012452097848048867364395212826631944.7 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM1344-AES-X448-SHA3-256      | 2.25.244012452097848048867364395212826631944.8 | draft-song-lamps-cms-composite-frodokem |
+
 # Classic McEliece Object Identifiers   
 The Classic McEliece Object identifers have been specified by ISO
 
