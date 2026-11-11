@@ -3,6 +3,7 @@ package check
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -12,10 +13,25 @@ import (
 
 // checkAlg dispatches on the algorithm family.
 func checkAlg(files map[string][]byte, a alg.Alg) ([]Row, []Finding) {
-	if a.IsKEM {
-		return CheckMLKEM(files, a)
-	}
-	return CheckMLDSA(files, a)
+	return recovered(a, func() ([]Row, []Finding) {
+		if a.IsKEM {
+			return CheckMLKEM(files, a)
+		}
+		return CheckMLDSA(files, a)
+	})
+}
+
+// recovered runs check. A panic inside it, which no input should cause, is
+// reported as a finding and gives no rows for that algorithm, so one odd zip
+// cannot stop the run.
+func recovered(a alg.Alg, check func() ([]Row, []Finding)) (rows []Row, fs []Finding) {
+	defer func() {
+		if r := recover(); r != nil {
+			rows = nil
+			fs = []Finding{{Check: "internal-error", Detail: fmt.Sprintf("%s: %v", a.Friendly, r)}}
+		}
+	}()
+	return check()
 }
 
 // Run reads zipPath, checks every algorithm in table order, writes the CSV to
