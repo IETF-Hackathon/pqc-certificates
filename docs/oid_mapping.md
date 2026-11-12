@@ -77,24 +77,24 @@ https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-regi
 
 | Composite Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
-| id-MLDSA44-RSA2048-PSS-SHA256 | 1.3.6.1.5.5.7.6.37 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA44-RSA2048-PKCS15-SHA256 | 1.3.6.1.5.5.7.6.38 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA44-Ed25519-SHA512 | 1.3.6.1.5.5.7.6.39 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA44-ECDSA-P256-SHA256 | 1.3.6.1.5.5.7.6.40 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA65-RSA3072-PSS-SHA512 | 1.3.6.1.5.5.7.6.41 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA65-RSA3072-PKCS15-SHA512 | 1.3.6.1.5.5.7.6.42 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA65-RSA4096-PSS-SHA512 | 1.3.6.1.5.5.7.6.43 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA65-RSA4096-PKCS15-SHA512 | 1.3.6.1.5.5.7.6.44 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA65-ECDSA-P256-SHA512 | 1.3.6.1.5.5.7.6.45 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA65-ECDSA-P384-SHA512 | 1.3.6.1.5.5.7.6.46 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA65-ECDSA-brainpoolP256r1-SHA512 | 1.3.6.1.5.5.7.6.47 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA65-Ed25519-SHA512 | 1.3.6.1.5.5.7.6.48 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA87-ECDSA-P384-SHA512 | 1.3.6.1.5.5.7.6.49 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA87-ECDSA-brainpoolP384r1-SHA512 | 1.3.6.1.5.5.7.6.50 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA87-Ed448-SHAKE256 | 1.3.6.1.5.5.7.6.51 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA87-RSA3072-PSS-SHA512 | 1.3.6.1.5.5.7.6.52 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA87-RSA4096-PSS-SHA512 | 1.3.6.1.5.5.7.6.53 | draft-ietf-lamps-pq-composite-sigs-19 |
-| id-MLDSA87-ECDSA-P521-SHA512 | 1.3.6.1.5.5.7.6.54 | draft-ietf-lamps-pq-composite-sigs-19 |
+| id-MLDSA44-RSA2048-PSS-SHA256 | 1.3.6.1.5.5.7.6.37 | RFC 10073 |
+| id-MLDSA44-RSA2048-PKCS15-SHA256 | 1.3.6.1.5.5.7.6.38 | RFC 10073 |
+| id-MLDSA44-Ed25519-SHA512 | 1.3.6.1.5.5.7.6.39 | RFC 10073 |
+| id-MLDSA44-ECDSA-P256-SHA256 | 1.3.6.1.5.5.7.6.40 | RFC 10073 |
+| id-MLDSA65-RSA3072-PSS-SHA512 | 1.3.6.1.5.5.7.6.41 | RFC 10073 |
+| id-MLDSA65-RSA3072-PKCS15-SHA512 | 1.3.6.1.5.5.7.6.42 | RFC 10073 |
+| id-MLDSA65-RSA4096-PSS-SHA512 | 1.3.6.1.5.5.7.6.43 | RFC 10073 |
+| id-MLDSA65-RSA4096-PKCS15-SHA512 | 1.3.6.1.5.5.7.6.44 | RFC 10073 |
+| id-MLDSA65-ECDSA-P256-SHA512 | 1.3.6.1.5.5.7.6.45 | RFC 10073 |
+| id-MLDSA65-ECDSA-P384-SHA512 | 1.3.6.1.5.5.7.6.46 | RFC 10073 |
+| id-MLDSA65-ECDSA-brainpoolP256r1-SHA512 | 1.3.6.1.5.5.7.6.47 | RFC 10073 |
+| id-MLDSA65-Ed25519-SHA512 | 1.3.6.1.5.5.7.6.48 | RFC 10073 |
+| id-MLDSA87-ECDSA-P384-SHA512 | 1.3.6.1.5.5.7.6.49 | RFC 10073 |
+| id-MLDSA87-ECDSA-brainpoolP384r1-SHA512 | 1.3.6.1.5.5.7.6.50 | RFC 10073 |
+| id-MLDSA87-Ed448-SHAKE256 | 1.3.6.1.5.5.7.6.51 | RFC 10073 |
+| id-MLDSA87-RSA3072-PSS-SHA512 | 1.3.6.1.5.5.7.6.52 | RFC 10073 |
+| id-MLDSA87-RSA4096-PSS-SHA512 | 1.3.6.1.5.5.7.6.53 | RFC 10073 |
+| id-MLDSA87-ECDSA-P521-SHA512 | 1.3.6.1.5.5.7.6.54 | RFC 10073 |
 
 # Production OIDs for Composite KEM
 The following OIDs currently serve as placeholders in draft-ietf-lamps-pq-composite-kem. Final OID assignment will be handled by IANA.
@@ -134,14 +134,14 @@ are not yet standardized.  The OIDs are prototype for now.
 
 | FrodoKEM Composite Algorithm Name | OID | Specification |
 | ----------- | ----------- | ----------- |
-| id-FrodoKEM976-SHAKE-RSA3072-SHA3-256  | 2.25.244012452097848048867364395212826631944.1 | draft-song-lamps-cms-composite-frodokem |
-| id-FrodoKEM976-SHAKE-X25519-SHA3-256   | 2.25.244012452097848048867364395212826631944.2 | draft-song-lamps-cms-composite-frodokem |
-| id-FrodoKEM1344-SHAKE-RSA4096-SHA3-256 | 2.25.244012452097848048867364395212826631944.3 | draft-song-lamps-cms-composite-frodokem |
-| id-FrodoKEM1344-SHAKE-X448-SHA3-256    | 2.25.244012452097848048867364395212826631944.4 | draft-song-lamps-cms-composite-frodokem |
-| id-FrodoKEM976-AES-RSA3072-SHA3-256    | 2.25.244012452097848048867364395212826631944.5 | draft-song-lamps-cms-composite-frodokem |
-| id-FrodoKEM976-AES-X25519-SHA3-256     | 2.25.244012452097848048867364395212826631944.6 | draft-song-lamps-cms-composite-frodokem |
-| id-FrodoKEM1344-AES-RSA4096-SHA3-256   | 2.25.244012452097848048867364395212826631944.7 | draft-song-lamps-cms-composite-frodokem |
-| id-FrodoKEM1344-AES-X448-SHA3-256      | 2.25.244012452097848048867364395212826631944.8 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM976-SHAKE-RSA3072-SHA3-256  | 1.3.6.1.4.1.22554.5.12.1 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM976-SHAKE-X25519-SHA3-256   | 1.3.6.1.4.1.22554.5.12.2 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM1344-SHAKE-RSA4096-SHA3-256 | 1.3.6.1.4.1.22554.5.12.3 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM1344-SHAKE-X448-SHA3-256    | 1.3.6.1.4.1.22554.5.12.4 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM976-AES-RSA3072-SHA3-256    | 1.3.6.1.4.1.22554.5.12.5 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM976-AES-X25519-SHA3-256     | 1.3.6.1.4.1.22554.5.12.6 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM1344-AES-RSA4096-SHA3-256   | 1.3.6.1.4.1.22554.5.12.7 | draft-song-lamps-cms-composite-frodokem |
+| id-FrodoKEM1344-AES-X448-SHA3-256      | 1.3.6.1.4.1.22554.5.12.8 | draft-song-lamps-cms-composite-frodokem |
 
 # Classic McEliece Object Identifiers   
 The Classic McEliece Object identifers have been specified by ISO
