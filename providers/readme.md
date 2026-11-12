@@ -78,6 +78,15 @@
 * Company website: https://www.entrust.com/
 * Implementation: Entrust Cloud based PKI-HUB.  Proprietary, but internally uses openSSL for PQ crypto.
 
+# Go crypto (standard library)
+
+* Provider short name: `go-crypto`
+* Company name: paschal533 (GitHub)
+* Company website: https://github.com/paschal533
+* Implementation: Open Source (Go standard library only)
+* Implementation link: https://github.com/IETF-Hackathon/pqc-certificates/tree/master/providers/go-crypto
+
+
 # ISI
 
 * Provider short name: `isi-wolfssl`
