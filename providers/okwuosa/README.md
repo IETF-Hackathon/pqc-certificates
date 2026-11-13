@@ -154,7 +154,9 @@ certificate there is a `cannot-run` finding and no row.
 About the library: `github.com/kuking/go-frodokem` is pure Go, MIT licensed,
 and implements FrodoKEM as submitted to round 3 of the NIST process, which is
 what the ISO OIDs call eFrodoKEM. Its last release, v1.0.2, is from 2021. Its
-README says it passes the reference known-answer tests; we did not run those.
-What we ran: it decapsulates the eight eFrodoKEM ciphertexts of bc and
-cryptonext to their shared secrets (`go test ./...` in `src/`). It makes no
+README says it passes the reference known-answer tests. What we ran: its own
+test suite, which includes `kat_test.go`, passes with Go 1.27.3
+(`go test github.com/kuking/go-frodokem`); and it decapsulates the eight
+eFrodoKEM ciphertexts of bc and cryptonext to their shared secrets
+(`go test ./...` in `src/`). It makes no
 constant-time claim that we rely on; the checker only handles test keys.
