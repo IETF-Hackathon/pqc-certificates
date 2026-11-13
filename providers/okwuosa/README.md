@@ -166,3 +166,11 @@ test suite, which includes `kat_test.go`, passes with Go 1.27.3
 eFrodoKEM ciphertexts of bc and cryptonext to their shared secrets
 (`go test ./...` in `src/`). It makes no
 constant-time claim that we rely on; the checker only handles test keys.
+
+The library has one author and no release since 2021, so nothing here relies
+on it alone. The version is pinned by hash in `go.sum`. The tests in
+`src/internal/check/efrodo_test.go` hold it to the artifacts of two other
+implementations (bc and cryptonext): if it stopped agreeing with them, the
+tests would fail and the committed matrices would change. A `Y` from this
+checker for eFrodoKEM therefore means agreement with this library, and should
+be read next to the rows of the other verifiers.
