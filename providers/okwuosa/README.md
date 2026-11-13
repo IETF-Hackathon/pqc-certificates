@@ -57,7 +57,8 @@ From `providers/okwuosa` (needs Go 1.27 or newer and `which`; `unzip` for the
 
 In any zip, whatever folder the files are in. Files are found by name suffix;
 files that are not for one of the six OIDs or the eight FrodoKEM OIDs are
-ignored, and so are
+ignored (for the FrodoKEM OIDs only the files named under "eFrodoKEM" below
+are read), and so are
 `external_`, `catalyst_` and `chameleon_` files. The CI skips those for trust
 anchors but its skip for KEM end-entity files does not take effect, so our
 result can differ from the CI's where a provider ships both a plain and a
@@ -132,13 +133,17 @@ Rows, from the files `<name>-<oid>_priv.der`, `_ee.der`, `_ciphertext.bin` and
 
 - `priv`: the file is a PKCS#8 structure for that OID whose privateKey holds
   one OCTET STRING of the secret key length (31296 bytes for 976, 43088 for
-  1344), and decapsulating `_ciphertext.bin` with it gives `_ss.bin`.
+  1344), and decapsulating `_ciphertext.bin` with it gives `_ss.bin`. The
+  outer structure is read as for the other algorithms (version 0 or 1, with
+  the optional attributes and public key); a seed or a seed-and-key form is
+  `N`.
 - `cert`: the end-entity certificate parses, its SubjectPublicKeyInfo names
   the OID and holds a public key of the right length (15632 or 21520 bytes),
   and an encapsulation to it succeeds. The EE signature is not part of this
   row.
 - `consistent`: the public key stored inside the secret key equals the
-  certificate's.
+  certificate's. It is also `N` when the key file or the certificate failed
+  its own check, as for ML-KEM, so one fault can give two `N` rows.
 - Separately, if the EE is signed with ML-DSA-44, -65 or -87, its signature is
   checked against that TA in the same zip; a failure or a missing TA is a
   `strict` finding and never a row.
@@ -149,7 +154,8 @@ was not checked against draft-smyslov-lamps-frodokem-certificates.
 
 The four salted FrodoKEM OIDs (`.7.1`, `.7.2`, `.7.5`, `.7.6`) are not
 checked: the library has no salted FrodoKEM. Where a zip holds such a key or
-certificate there is a `cannot-run` finding and no row.
+certificate there is a `cannot-run` finding and no row. Their ciphertext and
+shared secret files are not read.
 
 About the library: `github.com/kuking/go-frodokem` is pure Go, MIT licensed,
 and implements FrodoKEM as submitted to round 3 of the NIST process, which is

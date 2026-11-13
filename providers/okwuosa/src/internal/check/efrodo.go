@@ -2,6 +2,7 @@ package check
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 
 	frodo "github.com/kuking/go-frodokem"
@@ -56,15 +57,20 @@ func loadFrodoKey(data []byte, a alg.Alg) (frodoKey, error) {
 	return frodoKey{scheme: s, sk: sk, pub: sk[start : start+s.PublicKeyLen()]}, nil
 }
 
-// decapsulates decapsulates the ciphertext and compares the result with the
-// shared secret file in full.
-func (k frodoKey) decapsulates(ct, ss []byte) bool {
-	if k.sk == nil || len(ct) != k.scheme.CipherTextLen() {
-		return false
+// decapsulate decapsulates the ciphertext and compares the result with the
+// shared secret file in full. It returns nil when they are equal.
+func (k frodoKey) decapsulate(ct, ss []byte) error {
+	if want := k.scheme.CipherTextLen(); len(ct) != want {
+		return fmt.Errorf("ciphertext is %d bytes, want %d", len(ct), want)
 	}
 	var got []byte
-	err := guard(func() (e error) { got, e = k.scheme.Dencapsulate(k.sk, ct); return })
-	return err == nil && bytes.Equal(got, ss)
+	if err := guard(func() (e error) { got, e = k.scheme.Dencapsulate(k.sk, ct); return }); err != nil {
+		return err
+	}
+	if !bytes.Equal(got, ss) {
+		return errors.New("decapsulating the ciphertext does not give the shared secret")
+	}
+	return nil
 }
 
 // loadFrodoEE parses the EE and requires its SubjectPublicKeyInfo to name a
@@ -112,11 +118,13 @@ func CheckEFrodoKEM(files map[string][]byte, a alg.Alg) ([]Row, []Finding) {
 			fs = append(fs, Finding{File: name, Check: "failed", Detail: kerr.Error()})
 		}
 		if ct, ss, haveSecret := findCiphertext(files, a); haveSecret {
-			ok := kerr == nil && key.decapsulates(ct, ss)
-			rows = append(rows, Row{a.OID, "priv", ok})
-			if kerr == nil && !ok {
-				fs = append(fs, Finding{File: name, Check: "failed", Detail: "decapsulating the ciphertext does not give the shared secret"})
+			derr := kerr
+			if derr == nil {
+				if derr = key.decapsulate(ct, ss); derr != nil {
+					fs = append(fs, Finding{File: name, Check: "failed", Detail: derr.Error()})
+				}
 			}
+			rows = append(rows, Row{a.OID, "priv", derr == nil})
 		} else {
 			fs = append(fs, Finding{File: name, Check: "cannot-run", Detail: "ciphertext or shared secret file is missing"})
 		}

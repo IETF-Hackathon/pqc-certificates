@@ -68,14 +68,11 @@ func ReadZip(zipPath string) (map[string][]byte, error) {
 	return files, nil
 }
 
-// isArtifact reports whether base is named like an artifact of one of the
-// algorithms in the table.
+// isArtifact reports whether base is named like an artifact that one of the
+// checks uses.
 func isArtifact(base string) bool {
-	oid, _, ok := alg.ParseFileName(base)
-	if !ok {
-		return false
-	}
-	return alg.Known(oid)
+	oid, suffix, ok := alg.ParseFileName(base)
+	return ok && alg.Reads(oid, suffix)
 }
 
 // checkZipSize refuses a zip file larger than maxZipBytes without opening it:

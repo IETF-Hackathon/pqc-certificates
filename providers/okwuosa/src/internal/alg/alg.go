@@ -65,10 +65,21 @@ func IsEFrodoKEM(a Alg) bool {
 	return contains(EFrodoKEM(), a.OID)
 }
 
-// Known reports whether oid belongs to any algorithm whose artifacts the
-// checker reads: the six of All and the eight FrodoKEM OIDs.
-func Known(oid string) bool {
-	return contains(All(), oid) || contains(EFrodoKEM(), oid) || contains(SaltedFrodoKEM(), oid)
+// Reads reports whether the checker uses the file with this OID and suffix,
+// so that nothing else is read from a zip. For ML-DSA and ML-KEM that is
+// every recognised suffix except the generic _priv.der; for eFrodoKEM the four
+// files of a set; for salted FrodoKEM only the two files whose presence is
+// reported.
+func Reads(oid, suffix string) bool {
+	switch {
+	case contains(All(), oid):
+		return suffix != "_priv.der"
+	case contains(EFrodoKEM(), oid):
+		return suffix == "_priv.der" || suffix == "_ee.der" || suffix == "_ciphertext.bin" || suffix == "_ss.bin"
+	case contains(SaltedFrodoKEM(), oid):
+		return suffix == "_priv.der" || suffix == "_ee.der"
+	}
+	return false
 }
 
 func contains(algs []Alg, oid string) bool {
