@@ -21,13 +21,17 @@ func checkAlg(files map[string][]byte, a alg.Alg) (rows []Row, fs []Finding) {
 			fs = []Finding{{Check: "internal-error", Detail: fmt.Sprintf("%s: %v", a.Friendly, r)}}
 		}
 	}()
-	if a.IsKEM {
+	switch {
+	case alg.IsEFrodoKEM(a):
+		return CheckEFrodoKEM(files, a)
+	case a.IsKEM:
 		return CheckMLKEM(files, a)
 	}
 	return CheckMLDSA(files, a)
 }
 
-// Run reads zipPath, checks every algorithm in table order, writes the CSV to
+// Run reads zipPath, checks every algorithm in table order (ML-DSA, ML-KEM,
+// then eFrodoKEM), writes the CSV to
 // outCSV and the findings, tagged with generator, to findings as JSON lines.
 func Run(zipPath, generator, outCSV string, findings io.Writer) error {
 	files, err := ReadZip(zipPath)
@@ -36,10 +40,11 @@ func Run(zipPath, generator, outCSV string, findings io.Writer) error {
 	}
 	var rows []Row
 	var all []Finding
-	for _, a := range alg.All() {
+	for _, a := range append(alg.All(), alg.EFrodoKEM()...) {
 		r, f := checkAlg(files, a)
 		rows, all = append(rows, r...), append(all, f...)
 	}
+	all = append(all, saltedFrodoFindings(files)...)
 	var csv bytes.Buffer
 	if err := WriteCSV(&csv, rows); err != nil {
 		return err

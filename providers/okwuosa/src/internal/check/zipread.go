@@ -75,8 +75,7 @@ func isArtifact(base string) bool {
 	if !ok {
 		return false
 	}
-	_, known := alg.ByOID(oid)
-	return known
+	return alg.Known(oid)
 }
 
 // checkZipSize refuses a zip file larger than maxZipBytes without opening it:
