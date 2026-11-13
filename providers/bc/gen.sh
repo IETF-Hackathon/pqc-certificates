@@ -32,6 +32,8 @@ base=`cat lib/beta.ver`
   fi
 )
 
+mkdir -p classes
+
 javac -d classes -cp lib/bcprov-${base}.jar:lib/bcutil-${base}.jar:lib/bcpkix-${base}.jar src/main/java/*.java
 
 #

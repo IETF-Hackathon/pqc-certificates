@@ -874,6 +874,10 @@ public class R5ArtifactParser
         {
             String label = entry;
             int ind = label.lastIndexOf('_');
+            if (ind < 0)
+            {
+                continue;       // e.g. the shared CMS trust anchor "ta.der"
+            }
             label = label.substring(0, ind);
             if (label.contains("_") || label.contains("2.16.840.1.114027.80.8.1"))      // hybrid
             {
