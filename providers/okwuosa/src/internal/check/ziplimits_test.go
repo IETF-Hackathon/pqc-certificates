@@ -84,3 +84,45 @@ func TestReadZipLimits(t *testing.T) {
 		})
 	}
 }
+
+// TestReadZipBoundsTheZipItself: the number of entries and the size of the
+// file are checked before any entry is read, so a zip of very many empty
+// entries, or a very large one, is refused outright.
+func TestReadZipBoundsTheZipItself(t *testing.T) {
+	ta := alg.MLDSA44.FileName("_ta.der")
+	filler := func(n int) []zipEntry {
+		entries := []zipEntry{{ta, []byte{1}}}
+		for i := 1; i < n; i++ {
+			entries = append(entries, zipEntry{fmt.Sprintf("f%d-%s_ta.der", i, alg.MLDSA44.OID), nil})
+		}
+		return entries
+	}
+	t.Run("entries at the cap are read", func(t *testing.T) {
+		files, err := ReadZip(buildZip(t, filler(maxEntries)))
+		if err != nil || len(files) != maxEntries {
+			t.Fatalf("got %d files, err %v", len(files), err)
+		}
+	})
+	t.Run("one entry over the cap is refused", func(t *testing.T) {
+		_, err := ReadZip(buildZip(t, filler(maxEntries+1)))
+		if err == nil || !strings.Contains(err.Error(), "entries") {
+			t.Fatalf("err = %v, want one about the number of entries", err)
+		}
+	})
+	t.Run("a file over the size cap is refused unopened", func(t *testing.T) {
+		p := filepath.Join(t.TempDir(), "big.zip")
+		f, err := os.Create(p)
+		if err != nil {
+			t.Fatal(err)
+		}
+		// Not a zip at all: the size must be what is reported.
+		if err := f.Truncate(maxZipBytes + 1); err != nil {
+			t.Fatal(err)
+		}
+		f.Close()
+		_, err = ReadZip(p)
+		if err == nil || !strings.Contains(err.Error(), "zip file is") {
+			t.Fatalf("err = %v, want one about the size of the zip file", err)
+		}
+	})
+}
