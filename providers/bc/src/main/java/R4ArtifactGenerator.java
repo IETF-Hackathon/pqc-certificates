@@ -21,7 +21,6 @@ import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.DERNull;
 import org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bouncycastle.asn1.cms.ContentInfo;
-import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
 import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
 import org.bouncycastle.asn1.oiw.OIWObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
@@ -53,9 +52,6 @@ import org.bouncycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder;
 import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder;
 import org.bouncycastle.cms.jcajce.JceCMSContentEncryptorBuilder;
 import org.bouncycastle.cms.jcajce.JceKEMRecipientInfoGenerator;
-import org.bouncycastle.jcajce.CompositePrivateKey;
-import org.bouncycastle.jcajce.CompositePublicKey;
-import org.bouncycastle.jcajce.spec.CompositeAlgorithmSpec;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.operator.ContentSigner;
@@ -105,36 +101,8 @@ public class R4ArtifactGenerator
             NISTObjectIdentifiers.id_hash_slh_dsa_shake_192f_with_shake256,
             NISTObjectIdentifiers.id_hash_slh_dsa_shake_192s_with_shake256,
             NISTObjectIdentifiers.id_hash_slh_dsa_shake_256f_with_shake256,
-            NISTObjectIdentifiers.id_hash_slh_dsa_shake_256s_with_shake256,
-            MiscObjectIdentifiers.id_MLDSA44_RSA2048_PSS_SHA256 ,
-            MiscObjectIdentifiers.id_MLDSA44_RSA2048_PKCS15_SHA256 ,
-            MiscObjectIdentifiers.id_MLDSA44_Ed25519_SHA512 ,
-            MiscObjectIdentifiers.id_MLDSA44_ECDSA_P256_SHA256 ,
-            MiscObjectIdentifiers.id_MLDSA65_RSA3072_PSS_SHA256 ,
-            MiscObjectIdentifiers.id_MLDSA65_RSA3072_PKCS15_SHA256 ,
-            MiscObjectIdentifiers.id_MLDSA65_RSA4096_PSS_SHA384 ,
-            MiscObjectIdentifiers.id_MLDSA65_RSA4096_PKCS15_SHA384 ,
-            MiscObjectIdentifiers.id_MLDSA65_ECDSA_P384_SHA384 ,
-            MiscObjectIdentifiers.id_MLDSA65_ECDSA_brainpoolP256r1_SHA256 ,
-            MiscObjectIdentifiers.id_MLDSA65_Ed25519_SHA512 ,
-            MiscObjectIdentifiers.id_MLDSA87_ECDSA_P384_SHA384 ,
-            MiscObjectIdentifiers.id_MLDSA87_ECDSA_brainpoolP384r1_SHA384 ,
-            MiscObjectIdentifiers.id_MLDSA87_Ed448_SHA512 ,
+            NISTObjectIdentifiers.id_hash_slh_dsa_shake_256s_with_shake256
         
-            MiscObjectIdentifiers.id_HashMLDSA44_RSA2048_PSS_SHA256 ,
-            MiscObjectIdentifiers.id_HashMLDSA44_RSA2048_PKCS15_SHA256 ,
-            MiscObjectIdentifiers.id_HashMLDSA44_Ed25519_SHA512 ,
-            MiscObjectIdentifiers.id_HashMLDSA44_ECDSA_P256_SHA256 ,
-            MiscObjectIdentifiers.id_HashMLDSA65_RSA3072_PSS_SHA512 ,
-            MiscObjectIdentifiers.id_HashMLDSA65_RSA3072_PKCS15_SHA512 ,
-            MiscObjectIdentifiers.id_HashMLDSA65_RSA4096_PSS_SHA512 ,
-            MiscObjectIdentifiers.id_HashMLDSA65_RSA4096_PKCS15_SHA512 ,
-            MiscObjectIdentifiers.id_HashMLDSA65_ECDSA_P384_SHA512 ,
-            MiscObjectIdentifiers.id_HashMLDSA65_ECDSA_brainpoolP256r1_SHA512 ,
-            MiscObjectIdentifiers.id_HashMLDSA65_Ed25519_SHA512 ,
-            MiscObjectIdentifiers.id_HashMLDSA87_ECDSA_P384_SHA512 ,
-            MiscObjectIdentifiers.id_HashMLDSA87_ECDSA_brainpoolP384r1_SHA512 ,
-            MiscObjectIdentifiers.id_HashMLDSA87_Ed448_SHA512
         };
 
 
@@ -171,35 +139,7 @@ public class R4ArtifactGenerator
             "slh-dsa-shake-192f-with-shake256",
             "slh-dsa-shake-192s-with-shake256",
             "slh-dsa-shake-256f-with-shake256",
-            "slh-dsa-shake-256s-with-shake256",
-             "MLDSA44-RSA2048-PSS-SHA256",
-             "MLDSA44-RSA2048-PKCS15-SHA256",
-             "MLDSA44-Ed25519-SHA512",
-             "MLDSA44-ECDSA-P256-SHA256",
-             "MLDSA65-RSA3072-PSS-SHA256",
-             "MLDSA65-RSA3072-PKCS15-SHA256",
-             "MLDSA65-RSA4096-PSS-SHA384",
-             "MLDSA65-RSA4096-PKCS15-SHA384",
-             "MLDSA65-ECDSA-P384-SHA384",
-             "MLDSA65-ECDSA-brainpoolP256r1-SHA256",
-             "MLDSA65-Ed25519-SHA512",
-             "MLDSA87-ECDSA-P384-SHA384",
-             "MLDSA87-ECDSA-brainpoolP384r1-SHA384",
-             "MLDSA87-Ed448-SHA512",
-             "HashMLDSA44-RSA2048-PSS-SHA256",
-             "HashMLDSA44-RSA2048-PKCS15-SHA256",
-             "HashMLDSA44-Ed25519-SHA512",
-             "HashMLDSA44-ECDSA-P256-SHA256",
-             "HashMLDSA65-RSA3072-PSS-SHA512",
-             "HashMLDSA65-RSA3072-PKCS15-SHA512",
-             "HashMLDSA65-RSA4096-PSS-SHA512",
-             "HashMLDSA65-RSA4096-PKCS15-SHA512",
-             "HashMLDSA65-ECDSA-P384-SHA512",
-             "HashMLDSA65-ECDSA-brainpoolP256r1-SHA512",
-             "HashMLDSA65-Ed25519-SHA512",
-             "HashMLDSA87-ECDSA-P384-SHA512",
-             "HashMLDSA87-ECDSA-brainpoolP384r1-SHA512",
-             "HashMLDSA87-Ed448-SHA512"
+            "slh-dsa-shake-256s-with-shake256"
         };
     
     private static File aDir = new File("artifacts_certs_r4");
@@ -298,33 +238,6 @@ public class R4ArtifactGenerator
         ContentSigner altSigner = new JcaContentSignerBuilder(altAlgName).build(altTaKp.priv);
 
         return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer, true, altSigner));
-    }
-
-    private static X509Certificate createCompositeHybridTACertificate(String algName, KeyPair taKp, String altAlgName, PKIXPair altTaKp)
-        throws Exception
-    {
-        CompositeAlgorithmSpec compAlgSpec = new CompositeAlgorithmSpec.Builder()
-            .add(algName)
-            .add(altAlgName)
-            .build();
-
-        CompositePublicKey compPub = new CompositePublicKey(taKp.getPublic(), altTaKp.cert.getPublicKey());
-        CompositePrivateKey compPrivKey = new CompositePrivateKey(taKp.getPrivate(), altTaKp.priv);
-
-        ContentSigner signer = new JcaContentSignerBuilder("COMPOSITE", compAlgSpec).build(compPrivKey);
-
-        X509v3CertificateBuilder crtBld = new X509v3CertificateBuilder(
-            new X500Name("CN=BC " + algName + " with " + altAlgName + " Test TA"),
-            generateSerialNumber(),
-            new Date(System.currentTimeMillis() - BEFORE_DELTA),
-            new Date(System.currentTimeMillis() + AFTER_DELTA),
-            new X500Name("CN=BC " + algName + " with " + altAlgName + " Test TA"),
-            SubjectPublicKeyInfo.getInstance(compPub.getEncoded()));
-
-        crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(0));
-        crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyCertSign | KeyUsage.cRLSign));
-
-        return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer));
     }
 
     private static X509Certificate createChameleonHybridTACertificate(String algName, KeyPair taKp, String altAlgName, PKIXPair altTaKp)
@@ -562,12 +475,6 @@ public class R4ArtifactGenerator
         hybridCert = createCatalystHybridTACertificate("SHA512withECDSA", p521Kp, "ML-DSA-87", sigParams.get("ml-dsa-87"));
         derOutput(aDir, "catalyst_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_87 + "_ta.der", hybridCert);
 
-        hybridCert = createCompositeHybridTACertificate("SHA256withRSA", rsaKp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
-        derOutput(aDir, "composite_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.der", hybridCert);
-        hybridCert = createCompositeHybridTACertificate("SHA256withECDSA", p256Kp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
-        derOutput(aDir, "composite_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.der", hybridCert);
-        hybridCert = createCompositeHybridTACertificate("SHA512withECDSA", p521Kp, "ML-DSA-87", sigParams.get("ml-dsa-87"));
-        derOutput(aDir, "composite_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_87 + "_ta.der", hybridCert);
 
         hybridCert = createChameleonHybridTACertificate("SHA256withRSA", rsaKp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
         derOutput(aDir, "chameleon_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.der", hybridCert);

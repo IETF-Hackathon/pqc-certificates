@@ -68,12 +68,9 @@ import org.bouncycastle.crypto.kems.FrodoKEMGenerator;
 import org.bouncycastle.crypto.params.FrodoKEMPrivateKeyParameters;
 import org.bouncycastle.crypto.params.FrodoKEMPublicKeyParameters;
 import org.bouncycastle.jcajce.spec.FrodoKEMParameterSpec;
-import org.bouncycastle.jcajce.CompositePrivateKey;
-import org.bouncycastle.jcajce.CompositePublicKey;
 import org.bouncycastle.jcajce.SecretKeyWithEncapsulation;
 import org.bouncycastle.jcajce.interfaces.MLDSAPrivateKey;
 import org.bouncycastle.jcajce.interfaces.MLKEMPrivateKey;
-import org.bouncycastle.jcajce.spec.CompositeAlgorithmSpec;
 import org.bouncycastle.jcajce.spec.KEMExtractSpec;
 import org.bouncycastle.jcajce.spec.KEMGenerateSpec;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -84,15 +81,12 @@ import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.OutputAEADEncryptor;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMExtractor;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMGenerator;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMKeyGenerationParameters;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMKeyPairGenerator;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMParameters;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMPrivateKeyParameters;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMPublicKeyParameters;
-import org.bouncycastle.pqc.crypto.util.PrivateKeyFactory;
-import org.bouncycastle.pqc.crypto.util.PublicKeyFactory;
+import org.bouncycastle.crypto.kems.MLKEMExtractor;
+import org.bouncycastle.crypto.kems.MLKEMGenerator;
+import org.bouncycastle.crypto.params.MLKEMPrivateKeyParameters;
+import org.bouncycastle.crypto.params.MLKEMPublicKeyParameters;
+import org.bouncycastle.crypto.util.PrivateKeyFactory;
+import org.bouncycastle.crypto.util.PublicKeyFactory;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
 import org.bouncycastle.pqc.jcajce.spec.NTRUParameterSpec;
 import org.bouncycastle.util.Arrays;
@@ -297,10 +291,10 @@ public class R5ArtifactGenerator
             IANAObjectIdentifiers.id_MLKEM768_X25519_SHA3_256,
             IANAObjectIdentifiers.id_MLKEM768_ECDH_P256_SHA3_256,
             IANAObjectIdentifiers.id_MLKEM768_ECDH_P384_SHA3_256,
-            IANAObjectIdentifiers.id_MLKEM768_ECDH_BP256_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM768_ECDH_brainpoolP256r1_SHA3_256,
             IANAObjectIdentifiers.id_MLKEM1024_RSA3072_SHA3_256,
             IANAObjectIdentifiers.id_MLKEM1024_ECDH_P384_SHA3_256,
-            IANAObjectIdentifiers.id_MLKEM1024_ECDH_BP384_SHA3_256,
+            IANAObjectIdentifiers.id_MLKEM1024_ECDH_brainpoolP384r1_SHA3_256,
             IANAObjectIdentifiers.id_MLKEM1024_X448_SHA3_256,
             IANAObjectIdentifiers.id_MLKEM1024_ECDH_P521_SHA3_256
         };
@@ -444,33 +438,6 @@ public class R5ArtifactGenerator
         ContentSigner altSigner = new JcaContentSignerBuilder(altAlgName).build(altTaKp.priv);
 
         return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer, false, altSigner));
-    }
-
-    private static X509Certificate createCompositeHybridTACertificate(String algName, KeyPair taKp, String altAlgName, PKIXPair altTaKp)
-        throws Exception
-    {
-        CompositeAlgorithmSpec compAlgSpec = new CompositeAlgorithmSpec.Builder()
-            .add(algName)
-            .add(altAlgName)
-            .build();
-
-        CompositePublicKey compPub = new CompositePublicKey(taKp.getPublic(), altTaKp.cert.getPublicKey());
-        CompositePrivateKey compPrivKey = new CompositePrivateKey(taKp.getPrivate(), altTaKp.priv);
-
-        ContentSigner signer = new JcaContentSignerBuilder("COMPOSITE", compAlgSpec).build(compPrivKey);
-
-        X509v3CertificateBuilder crtBld = new X509v3CertificateBuilder(
-            new X500Name("CN=BC " + algName + " with " + altAlgName + " Test TA"),
-            generateSerialNumber(),
-            new Date(System.currentTimeMillis() - BEFORE_DELTA),
-            new Date(System.currentTimeMillis() + AFTER_DELTA),
-            new X500Name("CN=BC " + algName + " with " + altAlgName + " Test TA"),
-            SubjectPublicKeyInfo.getInstance(compPub.getEncoded()));
-
-        crtBld.addExtension(Extension.basicConstraints, true, new BasicConstraints(0));
-        crtBld.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.keyCertSign | KeyUsage.cRLSign));
-
-        return new JcaX509CertificateConverter().getCertificate(crtBld.build(signer));
     }
 
     private static X509Certificate createChameleonHybridTACertificate(String algName, KeyPair taKp, String altAlgName, PKIXPair altTaKp)
@@ -871,13 +838,6 @@ public class R5ArtifactGenerator
         derOutput(aDir, "catalyst_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.der", hybridCert);
         hybridCert = createCatalystHybridTACertificate("SHA512withECDSA", p521Kp, "ML-DSA-87", sigParams.get("ml-dsa-87"));
         derOutput(aDir, "catalyst_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_87 + "_ta.der", hybridCert);
-
-        hybridCert = createCompositeHybridTACertificate("SHA256withRSA", rsaKp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
-        derOutput(aDir, "composite_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.der", hybridCert);
-        hybridCert = createCompositeHybridTACertificate("SHA256withECDSA", p256Kp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
-        derOutput(aDir, "composite_" + X9ObjectIdentifiers.ecdsa_with_SHA256 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.der", hybridCert);
-        hybridCert = createCompositeHybridTACertificate("SHA512withECDSA", p521Kp, "ML-DSA-87", sigParams.get("ml-dsa-87"));
-        derOutput(aDir, "composite_" + X9ObjectIdentifiers.ecdsa_with_SHA512 + "_with_" + NISTObjectIdentifiers.id_ml_dsa_87 + "_ta.der", hybridCert);
 
         hybridCert = createChameleonHybridTACertificate("SHA256withRSA", rsaKp, "ML-DSA-44", sigParams.get("ml-dsa-44"));
         derOutput(aDir, "chameleon_" + PKCSObjectIdentifiers.sha256WithRSAEncryption + "_with_" + NISTObjectIdentifiers.id_ml_dsa_44 + "_ta.der", hybridCert);
