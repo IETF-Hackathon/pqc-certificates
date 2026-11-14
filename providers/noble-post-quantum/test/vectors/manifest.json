@@ -1,0 +1,667 @@
+{
+  "sources": [
+    {
+      "rfc": 9881,
+      "url": "https://www.rfc-editor.org/rfc/rfc9881.txt",
+      "file": "rfc9881.txt",
+      "sha256": "20ae3b519bc69e32989fa6e625ab8746453eddf457e20ddbfd79d841a44237a2"
+    },
+    {
+      "rfc": 9909,
+      "url": "https://www.rfc-editor.org/rfc/rfc9909.txt",
+      "file": "rfc9909.txt",
+      "sha256": "2c77519a6eeff691a2931a86643b0c9346ce7018303316d864cad1e585a5a50b"
+    },
+    {
+      "rfc": 9935,
+      "url": "https://www.rfc-editor.org/rfc/rfc9935.txt",
+      "file": "rfc9935.txt",
+      "sha256": "9a369bca93a613d0b89b8f4ed119ba9ded91c00acd97ae5b9a2f9b3f02e49b4f"
+    }
+  ],
+  "files": [
+    {
+      "file": "invalid/rfc9881-c4-ex1/ml-dsa-44-2.16.840.1.101.3.4.3.17_both_priv.der",
+      "bytes": 2626,
+      "sha256": "a2cf7a6f0389b4d1be8c1bd5e46da0eb5cc2bc787c3f9b2ec050f19ee0d42c01",
+      "rfc": 9881,
+      "section": "C.4",
+      "section_title": "Example Inconsistent Seed and Expanded Private Keys",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        3844,
+        3900
+      ],
+      "oid": "2.16.840.1.101.3.4.3.17",
+      "expect": "invalid",
+      "example": 1
+    },
+    {
+      "file": "invalid/rfc9881-c4-ex2/ml-dsa-44-2.16.840.1.101.3.4.3.17_expandedkey_priv.der",
+      "bytes": 2588,
+      "sha256": "9f258d3fed62e43a772ae43e40b76019e73b4032ea08c548410b64d2c68f4278",
+      "rfc": 9881,
+      "section": "C.4",
+      "section_title": "Example Inconsistent Seed and Expanded Private Keys",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        3904,
+        3959
+      ],
+      "oid": "2.16.840.1.101.3.4.3.17",
+      "expect": "invalid",
+      "example": 2
+    },
+    {
+      "file": "invalid/rfc9881-c4-ex3/ml-dsa-44-2.16.840.1.101.3.4.3.17_expandedkey_priv.der",
+      "bytes": 2588,
+      "sha256": "3d6f7b341a6833bce053c0e17a4c8c787cc12e0f4964a87370b26ee8e58dc6d5",
+      "rfc": 9881,
+      "section": "C.4",
+      "section_title": "Example Inconsistent Seed and Expanded Private Keys",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        3963,
+        4018
+      ],
+      "oid": "2.16.840.1.101.3.4.3.17",
+      "expect": "invalid",
+      "example": 3
+    },
+    {
+      "file": "invalid/rfc9935-c4.1-ex1/ml-kem-512-2.16.840.1.101.3.4.4.1_both_priv.der",
+      "bytes": 1730,
+      "sha256": "f73ef6705d273582c71e086f8c5124a54709f7cb38c3df6893635888e06986b7",
+      "rfc": 9935,
+      "section": "C.4.1",
+      "section_title": "ML-KEM Inconsistent Seed and Expanded Private Keys",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        2955,
+        2993
+      ],
+      "oid": "2.16.840.1.101.3.4.4.1",
+      "expect": "invalid",
+      "example": 1
+    },
+    {
+      "file": "invalid/rfc9935-c4.1-ex2/ml-kem-512-2.16.840.1.101.3.4.4.1_expandedkey_priv.der",
+      "bytes": 1660,
+      "sha256": "0a37bb485c9cd02823cb6c9b8563f14f71a1940078d5fdc3ef58590acdaaf717",
+      "rfc": 9935,
+      "section": "C.4.1",
+      "section_title": "ML-KEM Inconsistent Seed and Expanded Private Keys",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        2997,
+        3033
+      ],
+      "oid": "2.16.840.1.101.3.4.4.1",
+      "expect": "invalid",
+      "example": 2
+    },
+    {
+      "file": "invalid/rfc9935-c4.1-ex3/ml-kem-512-2.16.840.1.101.3.4.4.1_expandedkey_priv.der",
+      "bytes": 1660,
+      "sha256": "d46441fb4354c3e4851bb30968ffe1af12497c683978e3fcebc197106e2f44a2",
+      "rfc": 9935,
+      "section": "C.4.1",
+      "section_title": "ML-KEM Inconsistent Seed and Expanded Private Keys",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        3037,
+        3073
+      ],
+      "oid": "2.16.840.1.101.3.4.4.1",
+      "expect": "invalid",
+      "example": 3
+    },
+    {
+      "file": "invalid/rfc9935-c4.1-ex4/ml-kem-512-2.16.840.1.101.3.4.4.1_both_priv.der",
+      "bytes": 1730,
+      "sha256": "c59c17843f613fc921644b09e3bbf1035e4857c5cdd35af38ff536ee991b5793",
+      "rfc": 9935,
+      "section": "C.4.1",
+      "section_title": "ML-KEM Inconsistent Seed and Expanded Private Keys",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        3077,
+        3115
+      ],
+      "oid": "2.16.840.1.101.3.4.4.1",
+      "expect": "invalid",
+      "example": 4
+    },
+    {
+      "file": "rfc9881/ml-dsa-44-2.16.840.1.101.3.4.3.17_both_priv.der",
+      "bytes": 2626,
+      "sha256": "e355e29f28e537fcf3aff28354016415146d7f801a57136c241bb6e9addfaa30",
+      "rfc": 9881,
+      "section": "C.1.1.3",
+      "section_title": "Both Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1098,
+        1154
+      ],
+      "oid": "2.16.840.1.101.3.4.3.17",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-44-2.16.840.1.101.3.4.3.17_expandedkey_priv.der",
+      "bytes": 2588,
+      "sha256": "35cb529103b3a9ed502fecb438a671ff11bb05fb4afa99301d06240883a74106",
+      "rfc": 9881,
+      "section": "C.1.1.2",
+      "section_title": "Expanded Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        949,
+        1004
+      ],
+      "oid": "2.16.840.1.101.3.4.3.17",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-44-2.16.840.1.101.3.4.3.17_seed_priv.der",
+      "bytes": 54,
+      "sha256": "c823cb6a31172daa8af670a22c0f049af972bf1cb39a4a95971aa8c0c659dff4",
+      "rfc": 9881,
+      "section": "C.1.1.1",
+      "section_title": "Seed Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        931,
+        934
+      ],
+      "oid": "2.16.840.1.101.3.4.3.17",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-44-2.16.840.1.101.3.4.3.17_ta.der",
+      "bytes": 3992,
+      "sha256": "9762ddd44288af89bde9213f63212e273815ebbe37f2ce918c496365b1382165",
+      "rfc": 9881,
+      "section": "C.3",
+      "section_title": "Example Certificates",
+      "pem_label": "CERTIFICATE",
+      "rfc_lines": [
+        2668,
+        2753
+      ],
+      "oid": "2.16.840.1.101.3.4.3.17",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-65-2.16.840.1.101.3.4.3.18_both_priv.der",
+      "bytes": 4098,
+      "sha256": "5259463f8ec68e21b8c179a7e49dba184fd24280080bd5bb78af94d7a2a0ac81",
+      "rfc": 9881,
+      "section": "C.1.2.3",
+      "section_title": "Both Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1501,
+        1588
+      ],
+      "oid": "2.16.840.1.101.3.4.3.18",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-65-2.16.840.1.101.3.4.3.18_expandedkey_priv.der",
+      "bytes": 4060,
+      "sha256": "fae10810e47ed4b41851065b40bb60547e816ebf31b0738b4ed4af57337706ec",
+      "rfc": 9881,
+      "section": "C.1.2.2",
+      "section_title": "Expanded Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1275,
+        1361
+      ],
+      "oid": "2.16.840.1.101.3.4.3.18",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-65-2.16.840.1.101.3.4.3.18_seed_priv.der",
+      "bytes": 54,
+      "sha256": "af965903772933b6acc59764f335fcad9b5c61cdab2b368eabf224e7c29e31ac",
+      "rfc": 9881,
+      "section": "C.1.2.1",
+      "section_title": "Seed Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1257,
+        1260
+      ],
+      "oid": "2.16.840.1.101.3.4.3.18",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-65-2.16.840.1.101.3.4.3.18_ta.der",
+      "bytes": 5521,
+      "sha256": "7bf5da6c6ee25c59abb6b3561c27092872fec9052bcb98a5aa94dfa806057bd2",
+      "rfc": 9881,
+      "section": "C.3",
+      "section_title": "Example Certificates",
+      "pem_label": "CERTIFICATE",
+      "rfc_lines": [
+        2964,
+        3081
+      ],
+      "oid": "2.16.840.1.101.3.4.3.18",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-87-2.16.840.1.101.3.4.3.19_both_priv.der",
+      "bytes": 4962,
+      "sha256": "c71913419ea426e99da06330e3b06b2ab47448f1aff520479358e3cb71f5c1d6",
+      "rfc": 9881,
+      "section": "C.1.3.3",
+      "section_title": "Both Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        2026,
+        2131
+      ],
+      "oid": "2.16.840.1.101.3.4.3.19",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-87-2.16.840.1.101.3.4.3.19_expandedkey_priv.der",
+      "bytes": 4924,
+      "sha256": "8e2e40f141d1d6788d074de4124a744ee3106697ae6c01faccf855510079ecb3",
+      "rfc": 9881,
+      "section": "C.1.3.2",
+      "section_title": "Expanded Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1755,
+        1859
+      ],
+      "oid": "2.16.840.1.101.3.4.3.19",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-87-2.16.840.1.101.3.4.3.19_seed_priv.der",
+      "bytes": 54,
+      "sha256": "72cc4260a8d3d7622801ea98636123866d00e236d5f77221039c862325e02754",
+      "rfc": 9881,
+      "section": "C.1.3.1",
+      "section_title": "Seed Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1737,
+        1740
+      ],
+      "oid": "2.16.840.1.101.3.4.3.19",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9881/ml-dsa-87-2.16.840.1.101.3.4.3.19_ta.der",
+      "bytes": 7479,
+      "sha256": "ee6db12f8b68b814a9ff912f6badb8299ea9baebf121fceffa60cf23d3b97e34",
+      "rfc": 9881,
+      "section": "C.3",
+      "section_title": "Example Certificates",
+      "pem_label": "CERTIFICATE",
+      "rfc_lines": [
+        3340,
+        3497
+      ],
+      "oid": "2.16.840.1.101.3.4.3.19",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9909/slh-dsa-sha2-128s-2.16.840.1.101.3.4.3.20_priv.der",
+      "bytes": 84,
+      "sha256": "c36429d25b24f76c57b795eeae6c881f47cb641ec321fd81ce25d00b9750991f",
+      "rfc": 9909,
+      "section": "C.2",
+      "section_title": "Example Private Key",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1302,
+        1305
+      ],
+      "oid": "2.16.840.1.101.3.4.3.20",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9909/slh-dsa-sha2-128s-2.16.840.1.101.3.4.3.20_ta.der",
+      "bytes": 8241,
+      "sha256": "a193f351fb6adda8d2d273fdeac4d01ad17a4774d59de9e1afadcca0544900b0",
+      "rfc": 9909,
+      "section": "C.3",
+      "section_title": "Example Certificate",
+      "pem_label": "CERTIFICATE",
+      "rfc_lines": [
+        1794,
+        1967
+      ],
+      "oid": "2.16.840.1.101.3.4.3.20",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-dsa-44-2.16.840.1.101.3.4.3.17_ta.der",
+      "bytes": 3992,
+      "sha256": "9762ddd44288af89bde9213f63212e273815ebbe37f2ce918c496365b1382165",
+      "rfc": 9881,
+      "section": "C.3",
+      "section_title": "Example Certificates",
+      "pem_label": "CERTIFICATE",
+      "rfc_lines": [
+        2668,
+        2753
+      ],
+      "oid": "2.16.840.1.101.3.4.3.17",
+      "expect": "valid",
+      "copy_of": "rfc9881/ml-dsa-44-2.16.840.1.101.3.4.3.17_ta.der"
+    },
+    {
+      "file": "rfc9935/ml-dsa-65-2.16.840.1.101.3.4.3.18_ta.der",
+      "bytes": 5521,
+      "sha256": "7bf5da6c6ee25c59abb6b3561c27092872fec9052bcb98a5aa94dfa806057bd2",
+      "rfc": 9881,
+      "section": "C.3",
+      "section_title": "Example Certificates",
+      "pem_label": "CERTIFICATE",
+      "rfc_lines": [
+        2964,
+        3081
+      ],
+      "oid": "2.16.840.1.101.3.4.3.18",
+      "expect": "valid",
+      "copy_of": "rfc9881/ml-dsa-65-2.16.840.1.101.3.4.3.18_ta.der"
+    },
+    {
+      "file": "rfc9935/ml-dsa-87-2.16.840.1.101.3.4.3.19_ta.der",
+      "bytes": 7479,
+      "sha256": "ee6db12f8b68b814a9ff912f6badb8299ea9baebf121fceffa60cf23d3b97e34",
+      "rfc": 9881,
+      "section": "C.3",
+      "section_title": "Example Certificates",
+      "pem_label": "CERTIFICATE",
+      "rfc_lines": [
+        3340,
+        3497
+      ],
+      "oid": "2.16.840.1.101.3.4.3.19",
+      "expect": "valid",
+      "copy_of": "rfc9881/ml-dsa-87-2.16.840.1.101.3.4.3.19_ta.der"
+    },
+    {
+      "file": "rfc9935/ml-kem-1024-2.16.840.1.101.3.4.4.3_both_priv.der",
+      "bytes": 3266,
+      "sha256": "91004b1817d798dd3972439b8332a3a1b862f89c4e98b4ca2accd4f21afb9abb",
+      "rfc": 9935,
+      "section": "C.1.3.3",
+      "section_title": "Both Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1466,
+        1536
+      ],
+      "oid": "2.16.840.1.101.3.4.4.3",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-1024-2.16.840.1.101.3.4.4.3_ee.der",
+      "bytes": 6471,
+      "sha256": "32819ad8477f3620619b1e97744aa26aa9617760a8694e1bd8d17de8b49a8e8a",
+      "rfc": 9935,
+      "section": "C.3",
+      "section_title": "Example Certificates",
+      "pem_label": "CERTIFICATE",
+      "rfc_lines": [
+        2500,
+        2636
+      ],
+      "oid": "2.16.840.1.101.3.4.4.3",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-1024-2.16.840.1.101.3.4.4.3_expandedkey_priv.der",
+      "bytes": 3196,
+      "sha256": "9cded660a340a6e7fdb93a4984e1e67764ade8e59be4db48b6921aeee5e6c795",
+      "rfc": 9935,
+      "section": "C.1.3.2",
+      "section_title": "Expanded Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1285,
+        1353
+      ],
+      "oid": "2.16.840.1.101.3.4.4.3",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-1024-2.16.840.1.101.3.4.4.3_seed_priv.der",
+      "bytes": 86,
+      "sha256": "2c19d9d89d8c36ffb9eab0f3bb18dd90a47aaca3653bede67953173514d61234",
+      "rfc": 9935,
+      "section": "C.1.3.1",
+      "section_title": "Seed Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1266,
+        1269
+      ],
+      "oid": "2.16.840.1.101.3.4.4.3",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-512-2.16.840.1.101.3.4.4.1_both_priv.der",
+      "bytes": 1730,
+      "sha256": "8426d7497a2ff1a4854b7d1ece4e8f976c721f314c3f653189f8e4b2a2bc5b0d",
+      "rfc": 9935,
+      "section": "C.1.1.3",
+      "section_title": "Both Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        840,
+        878
+      ],
+      "oid": "2.16.840.1.101.3.4.4.1",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-512-2.16.840.1.101.3.4.4.1_ee.der",
+      "bytes": 3496,
+      "sha256": "877316cb8b7e5c389e99b1094de4f60e3bbfda12d2e4acb8c014d84cfc009e6f",
+      "rfc": 9935,
+      "section": "C.3",
+      "section_title": "Example Certificates",
+      "pem_label": "CERTIFICATE",
+      "rfc_lines": [
+        1895,
+        1969
+      ],
+      "oid": "2.16.840.1.101.3.4.4.1",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-512-2.16.840.1.101.3.4.4.1_expandedkey_priv.der",
+      "bytes": 1660,
+      "sha256": "38be7feecbbe6e6e466a0d7b5bb53e09040c3678e22fb2c0772c701c2372c858",
+      "rfc": 9935,
+      "section": "C.1.1.2",
+      "section_title": "Expanded Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        739,
+        775
+      ],
+      "oid": "2.16.840.1.101.3.4.4.1",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-512-2.16.840.1.101.3.4.4.1_seed_priv.der",
+      "bytes": 86,
+      "sha256": "0fc934e3fb800359c219f4ede9fe4a1ae14018a20db779dcbaf2c8aba4fd6156",
+      "rfc": 9935,
+      "section": "C.1.1.1",
+      "section_title": "Seed Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        720,
+        723
+      ],
+      "oid": "2.16.840.1.101.3.4.4.1",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-768-2.16.840.1.101.3.4.4.2_both_priv.der",
+      "bytes": 2498,
+      "sha256": "95738d2a0b7252a16b1474b9fb4e0c8ddaa6fe70db7903ade4a385909ee0d165",
+      "rfc": 9935,
+      "section": "C.1.2.3",
+      "section_title": "Both Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        1113,
+        1167
+      ],
+      "oid": "2.16.840.1.101.3.4.4.2",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-768-2.16.840.1.101.3.4.4.2_ee.der",
+      "bytes": 4769,
+      "sha256": "0e9dfbedb039156b568d8f59953dd4da6b81e30ec8e071a775df6bc2e77b2dce",
+      "rfc": 9935,
+      "section": "C.3",
+      "section_title": "Example Certificates",
+      "pem_label": "CERTIFICATE",
+      "rfc_lines": [
+        2164,
+        2265
+      ],
+      "oid": "2.16.840.1.101.3.4.4.2",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-768-2.16.840.1.101.3.4.4.2_expandedkey_priv.der",
+      "bytes": 2428,
+      "sha256": "994f7473b34fad03c2b36a500af9002dad15afa50473cef5ea217325c7156f9e",
+      "rfc": 9935,
+      "section": "C.1.2.2",
+      "section_title": "Expanded Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        972,
+        1024
+      ],
+      "oid": "2.16.840.1.101.3.4.4.2",
+      "expect": "valid"
+    },
+    {
+      "file": "rfc9935/ml-kem-768-2.16.840.1.101.3.4.4.2_seed_priv.der",
+      "bytes": 86,
+      "sha256": "67d4dc57d8f9e28816f4a3495abc48dd416b0da9bd1e1de4716ad0883b9ad6b8",
+      "rfc": 9935,
+      "section": "C.1.2.1",
+      "section_title": "Seed Format",
+      "pem_label": "PRIVATE KEY",
+      "rfc_lines": [
+        953,
+        956
+      ],
+      "oid": "2.16.840.1.101.3.4.4.2",
+      "expect": "valid"
+    }
+  ],
+  "not_written": [
+    {
+      "rfc": 9881,
+      "section": "C.2",
+      "section_title": "Example Public Keys",
+      "pem_label": "PUBLIC KEY",
+      "rfc_lines": [
+        2307,
+        2336
+      ],
+      "reason": "public key: no R5 file name",
+      "oid": "2.16.840.1.101.3.4.3.17",
+      "same_as_spki_of": "rfc9881/ml-dsa-44-2.16.840.1.101.3.4.3.17_ta.der"
+    },
+    {
+      "rfc": 9881,
+      "section": "C.2",
+      "section_title": "Example Public Keys",
+      "pem_label": "PUBLIC KEY",
+      "rfc_lines": [
+        2391,
+        2434
+      ],
+      "reason": "public key: no R5 file name",
+      "oid": "2.16.840.1.101.3.4.3.18",
+      "same_as_spki_of": "rfc9881/ml-dsa-65-2.16.840.1.101.3.4.3.18_ta.der"
+    },
+    {
+      "rfc": 9881,
+      "section": "C.2",
+      "section_title": "Example Public Keys",
+      "pem_label": "PUBLIC KEY",
+      "rfc_lines": [
+        2509,
+        2565
+      ],
+      "reason": "public key: no R5 file name",
+      "oid": "2.16.840.1.101.3.4.3.19",
+      "same_as_spki_of": "rfc9881/ml-dsa-87-2.16.840.1.101.3.4.3.19_ta.der"
+    },
+    {
+      "rfc": 9909,
+      "section": "C.1",
+      "section_title": "Example Public Key",
+      "pem_label": "PUBLIC KEY",
+      "rfc_lines": [
+        1283,
+        1286
+      ],
+      "reason": "public key: no R5 file name",
+      "oid": "2.16.840.1.101.3.4.3.20",
+      "same_as_spki_of": "rfc9909/slh-dsa-sha2-128s-2.16.840.1.101.3.4.3.20_ta.der"
+    },
+    {
+      "rfc": 9935,
+      "section": "C.2",
+      "section_title": "Example Public Keys",
+      "pem_label": "PUBLIC KEY",
+      "rfc_lines": [
+        1659,
+        1678
+      ],
+      "reason": "public key: no R5 file name",
+      "oid": "2.16.840.1.101.3.4.4.1",
+      "same_as_spki_of": "rfc9935/ml-kem-512-2.16.840.1.101.3.4.4.1_ee.der"
+    },
+    {
+      "rfc": 9935,
+      "section": "C.2",
+      "section_title": "Example Public Keys",
+      "pem_label": "PUBLIC KEY",
+      "rfc_lines": [
+        1717,
+        1744
+      ],
+      "reason": "public key: no R5 file name",
+      "oid": "2.16.840.1.101.3.4.4.2",
+      "same_as_spki_of": "rfc9935/ml-kem-768-2.16.840.1.101.3.4.4.2_ee.der"
+    },
+    {
+      "rfc": 9935,
+      "section": "C.2",
+      "section_title": "Example Public Keys",
+      "pem_label": "PUBLIC KEY",
+      "rfc_lines": [
+        1795,
+        1830
+      ],
+      "reason": "public key: no R5 file name",
+      "oid": "2.16.840.1.101.3.4.4.3",
+      "same_as_spki_of": "rfc9935/ml-kem-1024-2.16.840.1.101.3.4.4.3_ee.der"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "pqc-certificates-noble-post-quantum-provider",
+  "private": true,
+  "type": "module",
+  "description": "R5 certificate artifacts and verifier for the IETF Hackathon PQC certificates project, based on @noble/post-quantum",
+  "license": "Apache-2.0",
+  "engines": { "node": ">=20.19" },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "generate": "./gen.sh",
+    "verify": "./check.sh ."
+  },
+  "dependencies": {
+    "@noble/hashes": "2.4.0",
+    "@noble/post-quantum": "0.7.1"
+  }
+}

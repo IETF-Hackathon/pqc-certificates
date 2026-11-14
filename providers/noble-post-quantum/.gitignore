@@ -1,0 +1,4 @@
+node_modules/
+logs/
+/artifacts_certs_r5/
+compatMatrices/**/.*.tmp
