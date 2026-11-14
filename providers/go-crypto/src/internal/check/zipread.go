@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"os"
 	"path"
 	"strings"
 
@@ -20,15 +21,28 @@ const (
 	maxTotalBytes = 16 << 20
 )
 
+// Limits on the zip itself, checked before any entry is read. The largest
+// zip in the repository is under 2 MB and has under 250 entries.
+const (
+	maxZipBytes = 64 << 20
+	maxEntries  = 4096
+)
+
 // ReadZip reads a zip and returns the artifact files keyed by base name.
 // Directory prefixes are dropped. Only files named like an artifact of an
 // algorithm in the table are read; everything else is ignored unread.
 func ReadZip(zipPath string) (map[string][]byte, error) {
+	if err := checkZipSize(zipPath); err != nil {
+		return nil, err
+	}
 	zr, err := zip.OpenReader(zipPath)
 	if err != nil {
 		return nil, err
 	}
 	defer zr.Close()
+	if len(zr.File) > maxEntries {
+		return nil, fmt.Errorf("zip has %d entries, more than %d", len(zr.File), maxEntries)
+	}
 	files := map[string][]byte{}
 	total := 0
 	for _, f := range zr.File {
@@ -63,6 +77,20 @@ func isArtifact(base string) bool {
 	}
 	_, known := alg.ByOID(oid)
 	return known
+}
+
+// checkZipSize refuses a zip file larger than maxZipBytes without opening it:
+// the central directory of a zip is read into memory in full when it is
+// opened, however many entries it lists.
+func checkZipSize(zipPath string) error {
+	info, err := os.Stat(zipPath)
+	if err != nil {
+		return err
+	}
+	if info.Size() > maxZipBytes {
+		return fmt.Errorf("zip file is %d bytes, more than %d", info.Size(), maxZipBytes)
+	}
+	return nil
 }
 
 // readEntry returns the contents of f, or an error if they exceed
