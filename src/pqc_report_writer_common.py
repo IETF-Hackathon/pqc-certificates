@@ -14,6 +14,14 @@ import pytz
 _FILENAME_REGEX = re.compile(r'^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
 _OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.*$')
 _HYBRID_FORMAT_NAME_REGEX = re.compile(r'(?P<hybrid_format>[^_]+)_(?P<oid1>[^_]+)_with_(?P<oid2>[^_]+)', re.IGNORECASE)
+_OID_REGEX = re.compile(r'^\d+(\.\d+)+$')
+
+_PAGE_STANDARDIZED = 'standardized'
+_PAGE_PRESTANDARD = 'prestandard'
+_PAGE_TITLES = {
+    _PAGE_STANDARDIZED: 'Standardized Algorithms',
+    _PAGE_PRESTANDARD: 'Pre-standard Algorithms',
+}
 
 
 class SubmittedAlgorithmResult(NamedTuple):
@@ -71,7 +79,7 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
         return (2, passCount, totalCount)
     
 def _parse_csv_file(
-    generator, verifier, f, oid_name_mappings, include_all_oids
+    generator, verifier, f, oid_name_mappings, include_all_oids, is_on_page
 ) -> Sequence[AlgorithmVerificationResult]:
     c = csv.DictReader(f)
 
@@ -81,6 +89,8 @@ def _parse_csv_file(
         try:
             key_algorithm_oid = row['key_algorithm_oid']
             if not include_all_oids and not key_algorithm_oid in oid_name_mappings:
+                continue
+            if not is_on_page(key_algorithm_oid):
                 continue
             friendly = _get_alg_name_by_oid_str(oid_name_mappings, key_algorithm_oid)
             if 'type' in row and row['type'] != None and row['type'] != "":
@@ -156,6 +166,24 @@ def _parse_oid_name_mapping_file(f, stop_at_experimental=False) -> Mapping[str, 
     return mappings
 
 
+def _parse_standardized_oids_file(f) -> set:
+    """Read the list of standardized OIDs: one OID per line, '#' starts a comment."""
+    oids = set()
+
+    for line_number, line in enumerate(f, start=1):
+        oid = line.split('#', 1)[0].strip()
+
+        if not oid:
+            continue
+
+        if _OID_REGEX.match(oid) is None:
+            raise ValueError(f'{f.name}:{line_number}: not a valid OID: "{oid}"')
+
+        oids.add(oid)
+
+    return oids
+
+
 def _get_alg_name_by_oid_str(oid_to_name_mappings, oid_str):
 
     # If the oid_str represents a hybrid cert type,
@@ -179,8 +207,25 @@ def main():
     parser.add_argument('files', nargs='+')
     parser.add_argument("--include-all-oids", action="store_true",
                         help="also include historical and experimental OIDs")
+    parser.add_argument("--standardized-oids", type=argparse.FileType('r'),
+                        help="file listing the OIDs of standardized algorithms (required with --page)")
+    parser.add_argument("--page", choices=list(_PAGE_TITLES),
+                        help="only report standardized or pre-standard algorithms (default: all)")
+    parser.add_argument("--other-page",
+                        help="link to the report page for the other set of algorithms")
 
     args = parser.parse_args()
+
+    if (args.page is None) != (args.standardized_oids is None):
+        parser.error("--page and --standardized-oids must be used together")
+
+    if args.page is None:
+        is_on_page = lambda oid: True
+    else:
+        standardized_oids = _parse_standardized_oids_file(args.standardized_oids)
+        want_standardized = args.page == _PAGE_STANDARDIZED
+        # OIDs not in the list (including hybrid "<format>_<oid>_with_<oid>" keys) are pre-standard.
+        is_on_page = lambda oid: (oid in standardized_oids) == want_standardized
     if args.include_all_oids:
         print("Including historical and experimental OIDs.  Only to this for your own fun times, don't commit the result")
 
@@ -205,7 +250,7 @@ def main():
             verifier = m['verifier']
 
             if m['extension'].casefold() == 'csv'.casefold():
-                algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings, args.include_all_oids))
+                algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings, args.include_all_oids, is_on_page))
             else:
                 algorithmVerificationResults.extend(_parse_json_file(generator, verifier, f))
 
@@ -234,11 +279,19 @@ def main():
     for algorithmVerificationResult in algorithmVerificationResults:
         friendly_by_alg[algorithmVerificationResult.key_algorithm_oid] = algorithmVerificationResult.friendly
 
-    md_file = MdUtils(file_name=args.outfile, title=f'IETF PQC Hackathon {args.interop_type} Interoperability Results')
+    title = f'IETF PQC Hackathon {args.interop_type} Interoperability Results'
+    if args.page is not None:
+        title += f': {_PAGE_TITLES[args.page]}'
+
+    md_file = MdUtils(file_name=args.outfile, title=title)
 
     md_file.new_paragraph(text="<style> table { border-collapse: collapse; width:auto !important; } thead th { position: sticky; top: 0; z-index: 1; background: white; } th, td { border: solid black 1px; padding: 0 1ex; } col { width: auto !important; } </style>")
 
     md_file.new_paragraph(text="Generated: "+str(datetime.now(tz=pytz.utc).strftime('%Y-%m-%d %H:%M %Z')))
+
+    if args.page is not None and args.other_page:
+        other_page = _PAGE_PRESTANDARD if args.page == _PAGE_STANDARDIZED else _PAGE_STANDARDIZED
+        md_file.new_paragraph(text="See also: " + Inline.new_link(args.other_page, _PAGE_TITLES[other_page]))
 
     md_file.new_paragraph()
     md_file.new_header(level=1, title=f'Algorithms Submitted')
