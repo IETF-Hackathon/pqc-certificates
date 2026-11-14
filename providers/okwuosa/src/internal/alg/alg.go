@@ -21,8 +21,8 @@ var (
 )
 
 // FrodoKEM (ISO/IEC 18033-2 OIDs). The checker verifies the four eFrodoKEM
-// parameter sets only; nothing is generated for them. Level is the matrix
-// dimension n.
+// (ephemeral) and the four FrodoKEM (salted) parameter sets; nothing is
+// generated for them. Level is the matrix dimension n.
 var (
 	EFrodoKEM976SHAKE  = Alg{"efrodokem976-shake", "1.0.18033.2.2.7.3", 976, true}
 	EFrodoKEM1344SHAKE = Alg{"efrodokem1344-shake", "1.0.18033.2.2.7.4", 1344, true}
@@ -54,30 +54,32 @@ func EFrodoKEM() []Alg {
 	return []Alg{EFrodoKEM976SHAKE, EFrodoKEM1344SHAKE, EFrodoKEM976AES, EFrodoKEM1344AES}
 }
 
-// SaltedFrodoKEM returns the four salted FrodoKEM parameter sets. They are
-// recognised so that their presence can be reported; they are not checked.
+// SaltedFrodoKEM returns the four salted FrodoKEM parameter sets the checker
+// verifies.
 func SaltedFrodoKEM() []Alg {
 	return []Alg{FrodoKEM976SHAKE, FrodoKEM1344SHAKE, FrodoKEM976AES, FrodoKEM1344AES}
 }
 
-// IsEFrodoKEM reports whether a is one of the eFrodoKEM parameter sets.
-func IsEFrodoKEM(a Alg) bool {
-	return contains(EFrodoKEM(), a.OID)
+// FrodoKEM returns all eight parameter sets: eFrodoKEM, then salted FrodoKEM.
+func FrodoKEM() []Alg {
+	return append(EFrodoKEM(), SaltedFrodoKEM()...)
+}
+
+// IsFrodoKEM reports whether a is one of the eight FrodoKEM parameter sets.
+func IsFrodoKEM(a Alg) bool {
+	return contains(FrodoKEM(), a.OID)
 }
 
 // Reads reports whether the checker uses the file with this OID and suffix,
 // so that nothing else is read from a zip. For ML-DSA and ML-KEM that is
-// every recognised suffix except the generic _priv.der; for eFrodoKEM the four
-// files of a set; for salted FrodoKEM only the two files whose presence is
-// reported.
+// every recognised suffix except the generic _priv.der; for FrodoKEM, salted
+// or not, the four files of a set.
 func Reads(oid, suffix string) bool {
 	switch {
 	case contains(All(), oid):
 		return suffix != "_priv.der"
-	case contains(EFrodoKEM(), oid):
+	case contains(FrodoKEM(), oid):
 		return suffix == "_priv.der" || suffix == "_ee.der" || suffix == "_ciphertext.bin" || suffix == "_ss.bin"
-	case contains(SaltedFrodoKEM(), oid):
-		return suffix == "_priv.der" || suffix == "_ee.der"
 	}
 	return false
 }

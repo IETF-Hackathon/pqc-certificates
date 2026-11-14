@@ -14,6 +14,7 @@ import (
 var (
 	bcZip         = filepath.Join("..", "..", "..", "..", "bc", "artifacts_certs_r5.zip")
 	cryptonextZip = filepath.Join("..", "..", "..", "..", "cryptonext", "artifacts_certs_r5.zip")
+	chtZip        = filepath.Join("..", "..", "..", "..", "cht", "artifacts_certs_r5.zip")
 )
 
 func frodoRows(a alg.Alg, priv, cert, consistent string) string {
@@ -57,11 +58,11 @@ func frodoFiles(t *testing.T, a alg.Alg) (files map[string][]byte, names map[str
 	return files, names
 }
 
-func TestEFrodoKEMReferenceZipsAreAllY(t *testing.T) {
-	for _, zip := range []string{bcZip, cryptonextZip} {
+func TestFrodoKEMReferenceZipsAreAllY(t *testing.T) {
+	for _, zip := range []string{bcZip, cryptonextZip, chtZip} {
 		files := readRepoZip(t, zip)
-		for _, a := range alg.EFrodoKEM() {
-			rows, fs := CheckEFrodoKEM(files, a)
+		for _, a := range alg.FrodoKEM() {
+			rows, fs := CheckFrodoKEM(files, a)
 			if got, want := rowsCSV(rows), frodoRows(a, "Y", "Y", "Y"); got != want {
 				t.Errorf("%s %s:\ngot\n%swant\n%s", zip, a.Friendly, got, want)
 			}
@@ -100,7 +101,7 @@ func TestEFrodoKEMDamagedArtifacts(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			files, names := frodoFiles(t, a)
 			c.damage(files, names)
-			rows, fs := CheckEFrodoKEM(files, a)
+			rows, fs := CheckFrodoKEM(files, a)
 			if got := rowsCSV(rows); got != c.want {
 				t.Errorf("got\n%swant\n%s", got, c.want)
 			}
@@ -118,7 +119,7 @@ func TestEFrodoKEMPublicKeyInKeyDiffersFromCertificate(t *testing.T) {
 	// the 31296-byte secret key, which is the tail of the file.
 	key := files[names["_priv.der"]]
 	key[len(key)-31296+24+100] ^= 1
-	rows, _ := CheckEFrodoKEM(files, a)
+	rows, _ := CheckFrodoKEM(files, a)
 	if got := rowsCSV(rows); !strings.Contains(got, row(a, "consistent", "N")) {
 		t.Errorf("want consistent,N, got\n%s", got)
 	}
@@ -129,7 +130,7 @@ func TestEFrodoKEMKeyOfAnotherParameterSet(t *testing.T) {
 	files, names := frodoFiles(t, a)
 	otherFiles, otherNames := frodoFiles(t, other)
 	files[names["_priv.der"]] = otherFiles[otherNames["_priv.der"]]
-	rows, _ := CheckEFrodoKEM(files, a)
+	rows, _ := CheckFrodoKEM(files, a)
 	if got, want := rowsCSV(rows), frodoRows(a, "N", "Y", "N"); got != want {
 		t.Errorf("got\n%swant\n%s", got, want)
 	}
@@ -140,7 +141,7 @@ func TestEFrodoKEMMissingFilesGiveNoRow(t *testing.T) {
 	t.Run("no ciphertext", func(t *testing.T) {
 		files, names := frodoFiles(t, a)
 		delete(files, names["_ciphertext.bin"])
-		rows, fs := CheckEFrodoKEM(files, a)
+		rows, fs := CheckFrodoKEM(files, a)
 		want := row(a, "cert", "Y") + row(a, "consistent", "Y")
 		if got := rowsCSV(rows); got != want {
 			t.Errorf("got\n%swant\n%s", got, want)
@@ -152,7 +153,7 @@ func TestEFrodoKEMMissingFilesGiveNoRow(t *testing.T) {
 	t.Run("no certificate", func(t *testing.T) {
 		files, names := frodoFiles(t, a)
 		delete(files, names["_ee.der"])
-		rows, fs := CheckEFrodoKEM(files, a)
+		rows, fs := CheckFrodoKEM(files, a)
 		if got, want := rowsCSV(rows), row(a, "priv", "Y"); got != want {
 			t.Errorf("got\n%swant\n%s", got, want)
 		}
@@ -161,33 +162,44 @@ func TestEFrodoKEMMissingFilesGiveNoRow(t *testing.T) {
 		}
 	})
 	t.Run("nothing", func(t *testing.T) {
-		rows, fs := CheckEFrodoKEM(map[string][]byte{}, a)
+		rows, fs := CheckFrodoKEM(map[string][]byte{}, a)
 		if len(rows) != 0 || len(fs) != 0 {
 			t.Errorf("want nothing, got %v %v", rows, fs)
 		}
 	})
 }
 
-func TestRunAddsEFrodoKEMRowsAndReportsSaltedFrodoKEM(t *testing.T) {
+func TestRunAddsRowsForAllEightFrodoKEMSets(t *testing.T) {
 	csv, fs := runZip(t, refZip(t, bcZip))
-	for _, a := range alg.EFrodoKEM() {
+	for _, a := range alg.FrodoKEM() {
 		if !strings.Contains(csv, frodoRows(a, "Y", "Y", "Y")) {
 			t.Errorf("CSV lacks the three Y rows for %s", a.Friendly)
 		}
-	}
-	for _, a := range alg.SaltedFrodoKEM() {
-		if strings.Contains(csv, a.OID+",") {
-			t.Errorf("CSV has a row for salted %s, which is not checked", a.Friendly)
-		}
-		found := false
 		for _, f := range fs {
 			if f.Check == "cannot-run" && strings.Contains(f.File, a.OID) {
-				found = true
+				t.Errorf("%s: unexpected cannot-run finding %+v", a.Friendly, f)
 			}
 		}
-		if !found {
-			t.Errorf("no cannot-run finding for salted %s", a.Friendly)
-		}
+	}
+}
+
+// A salted ciphertext with a changed salt must not decapsulate to the shared
+// secret, and one that lost its salt has the length of an eFrodoKEM
+// ciphertext and is refused for that.
+func TestSaltedFrodoKEMSaltIsChecked(t *testing.T) {
+	a := alg.FrodoKEM976SHAKE
+	for name, damage := range map[string]func([]byte) []byte{
+		"salt changed": func(ct []byte) []byte { ct[len(ct)-1] ^= 1; return ct },
+		"salt removed": func(ct []byte) []byte { return ct[:len(ct)-48] },
+	} {
+		t.Run(name, func(t *testing.T) {
+			files, names := frodoFiles(t, a)
+			files[names["_ciphertext.bin"]] = damage(files[names["_ciphertext.bin"]])
+			rows, _ := CheckFrodoKEM(files, a)
+			if got, want := rowsCSV(rows), frodoRows(a, "N", "Y", "Y"); got != want {
+				t.Errorf("got\n%swant\n%s", got, want)
+			}
+		})
 	}
 }
 
@@ -208,7 +220,7 @@ func BenchmarkEFrodoKEMCheck(b *testing.B) {
 	for _, a := range alg.EFrodoKEM() {
 		b.Run(a.Friendly, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				if rows, _ := CheckEFrodoKEM(files, a); len(rows) != 3 {
+				if rows, _ := CheckFrodoKEM(files, a); len(rows) != 3 {
 					b.Fatalf("got %d rows", len(rows))
 				}
 			}
@@ -221,12 +233,12 @@ func TestEFrodoKEMStrictSignatureCheckNeverMakesARow(t *testing.T) {
 	hasStrict := func(fs []Finding) bool { return countCheck(fs, "strict") > 0 }
 
 	// In bc's zip the EE is signed by the ML-DSA-65 TA of the same zip.
-	if _, fs := CheckEFrodoKEM(readRepoZip(t, bcZip), a); hasStrict(fs) {
+	if _, fs := CheckFrodoKEM(readRepoZip(t, bcZip), a); hasStrict(fs) {
 		t.Errorf("signature verifies under the TA, yet: %+v", fs)
 	}
 	// Without the TA the signature cannot be checked: a finding, same rows.
 	files, _ := frodoFiles(t, a)
-	rows, fs := CheckEFrodoKEM(files, a)
+	rows, fs := CheckFrodoKEM(files, a)
 	if got, want := rowsCSV(rows), frodoRows(a, "Y", "Y", "Y"); got != want {
 		t.Errorf("got\n%swant\n%s", got, want)
 	}
@@ -240,7 +252,7 @@ func TestEFrodoKEMCertificateOfAnotherParameterSet(t *testing.T) {
 	files, names := frodoFiles(t, a)
 	otherFiles, otherNames := frodoFiles(t, other)
 	files[names["_ee.der"]] = otherFiles[otherNames["_ee.der"]]
-	rows, _ := CheckEFrodoKEM(files, a)
+	rows, _ := CheckFrodoKEM(files, a)
 	// A certificate that is not usable for a also makes `consistent` N.
 	if got, want := rowsCSV(rows), frodoRows(a, "Y", "N", "N"); got != want {
 		t.Errorf("got\n%swant\n%s", got, want)
@@ -261,7 +273,7 @@ func TestEFrodoKEMKeyOfAnotherSizeOrForm(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			files, names := frodoFiles(t, a)
 			files[names["_priv.der"]] = key
-			rows, fs := CheckEFrodoKEM(files, a)
+			rows, fs := CheckFrodoKEM(files, a)
 			if got, want := rowsCSV(rows), frodoRows(a, "N", "Y", "N"); got != want {
 				t.Errorf("got\n%swant\n%s", got, want)
 			}
@@ -278,7 +290,7 @@ func TestEFrodoKEM1344PublicKeyOffset(t *testing.T) {
 	// For 1344 the value s before the public key is 32 bytes.
 	key := files[names["_priv.der"]]
 	key[len(key)-43088+32+100] ^= 1
-	rows, _ := CheckEFrodoKEM(files, a)
+	rows, _ := CheckFrodoKEM(files, a)
 	if got := rowsCSV(rows); !strings.Contains(got, row(a, "consistent", "N")) {
 		t.Errorf("want consistent,N, got\n%s", got)
 	}
@@ -288,7 +300,7 @@ func TestEFrodoKEMWrongLengthCiphertextIsExplained(t *testing.T) {
 	a := alg.EFrodoKEM976SHAKE
 	files, names := frodoFiles(t, a)
 	files[names["_ciphertext.bin"]] = files[names["_ciphertext.bin"]][:100]
-	_, fs := CheckEFrodoKEM(files, a)
+	_, fs := CheckFrodoKEM(files, a)
 	for _, f := range fs {
 		if f.Check == "failed" && strings.Contains(f.Detail, "ciphertext is 100 bytes") {
 			return
@@ -311,11 +323,12 @@ func TestIsArtifactAdmitsOnlyFilesThatAreUsed(t *testing.T) {
 		"x-1.0.18033.2.2.7.3_ss.bin":         true,
 		"x-1.0.18033.2.2.7.3_ta.der":         false,
 		"x-1.0.18033.2.2.7.3_seed_priv.der":  false,
-		// Salted FrodoKEM: only what is needed to report its presence.
+		// Salted FrodoKEM: the same four files.
 		"x-1.0.18033.2.2.7.1_priv.der":       true,
 		"x-1.0.18033.2.2.7.1_ee.der":         true,
-		"x-1.0.18033.2.2.7.1_ciphertext.bin": false,
-		"x-1.0.18033.2.2.7.1_ss.bin":         false,
+		"x-1.0.18033.2.2.7.1_ciphertext.bin": true,
+		"x-1.0.18033.2.2.7.1_ss.bin":         true,
+		"x-1.0.18033.2.2.7.1_ta.der":         false,
 		"x-1.2.3_priv.der":                   false,
 	}
 	for name, want := range cases {

@@ -66,18 +66,19 @@ func TestFrodoKEMTables(t *testing.T) {
 	if len(EFrodoKEM()) != 4 || len(SaltedFrodoKEM()) != 4 {
 		t.Fatal("want 4 eFrodoKEM and 4 salted FrodoKEM parameter sets")
 	}
-	for _, a := range EFrodoKEM() {
-		if !IsEFrodoKEM(a) || !Reads(a.OID, "_priv.der") || !Reads(a.OID, "_ss.bin") {
-			t.Errorf("%s: IsEFrodoKEM or Reads is false", a.Friendly)
+	if len(FrodoKEM()) != 8 {
+		t.Fatal("want 8 FrodoKEM parameter sets")
+	}
+	for _, a := range FrodoKEM() {
+		if !IsFrodoKEM(a) || !Reads(a.OID, "_priv.der") || !Reads(a.OID, "_ss.bin") || Reads(a.OID, "_ta.der") {
+			t.Errorf("%s: IsFrodoKEM or Reads is wrong", a.Friendly)
 		}
 		if _, ok := ByOID(a.OID); ok {
 			t.Errorf("%s: ByOID must stay limited to ML-DSA and ML-KEM", a.Friendly)
 		}
 	}
-	for _, a := range SaltedFrodoKEM() {
-		if IsEFrodoKEM(a) || !Reads(a.OID, "_priv.der") || Reads(a.OID, "_ss.bin") {
-			t.Errorf("%s: salted set misclassified", a.Friendly)
-		}
+	if IsFrodoKEM(MLKEM768) {
+		t.Error("ML-KEM-768 is not FrodoKEM")
 	}
 	if !Reads(MLDSA44.OID, "_ta.der") || Reads(MLDSA44.OID, "_priv.der") || Reads("1.2.3", "_ta.der") {
 		t.Error("Reads is wrong for ML-DSA-44 or for an unknown OID")

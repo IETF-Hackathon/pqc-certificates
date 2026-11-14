@@ -16,11 +16,20 @@ import (
 // STRING, which the parser reports as the expanded form.
 const privSuffix = "_priv.der"
 
-// frodoScheme returns the library's parameter set for one of the eFrodoKEM
-// algorithms. The library implements FrodoKEM as submitted to NIST round 3,
-// which is what the ISO OIDs call eFrodoKEM; it has no salted FrodoKEM.
+// frodoScheme returns the library's parameter set for one of the eight
+// FrodoKEM algorithms. The library's Frodo* sets are FrodoKEM as submitted to
+// NIST round 3, which is what the ISO OIDs call eFrodoKEM; its SaltedFrodo*
+// sets are what the ISO OIDs call FrodoKEM.
 func frodoScheme(a alg.Alg) (frodo.FrodoKEM, bool) {
 	switch a {
+	case alg.FrodoKEM976SHAKE:
+		return frodo.SaltedFrodo976SHAKE(), true
+	case alg.FrodoKEM1344SHAKE:
+		return frodo.SaltedFrodo1344SHAKE(), true
+	case alg.FrodoKEM976AES:
+		return frodo.SaltedFrodo976AES(), true
+	case alg.FrodoKEM1344AES:
+		return frodo.SaltedFrodo1344AES(), true
 	case alg.EFrodoKEM976SHAKE:
 		return frodo.Frodo976SHAKE(), true
 	case alg.EFrodoKEM1344SHAKE:
@@ -46,7 +55,7 @@ type frodoKey struct {
 func loadFrodoKey(data []byte, a alg.Alg) (frodoKey, error) {
 	s, ok := frodoScheme(a)
 	if !ok {
-		return frodoKey{}, fmt.Errorf("%s is not an eFrodoKEM algorithm", a.Friendly)
+		return frodoKey{}, fmt.Errorf("%s is not a FrodoKEM algorithm", a.Friendly)
 	}
 	pk, err := splitKey(data, a, formExpanded, 0, s.SecretKeyLen())
 	if err != nil {
@@ -104,10 +113,10 @@ func checkFrodoPublicKey(c *der.ParsedCert, a alg.Alg) error {
 	return err
 }
 
-// CheckEFrodoKEM checks one eFrodoKEM algorithm over the files that are
+// CheckFrodoKEM checks one FrodoKEM algorithm, salted or not, over the files that are
 // present. Rows are in the order priv, cert, consistent; a check that cannot
 // run produces a Finding and no Row.
-func CheckEFrodoKEM(files map[string][]byte, a alg.Alg) ([]Row, []Finding) {
+func CheckFrodoKEM(files map[string][]byte, a alg.Alg) ([]Row, []Finding) {
 	ee := loadFrodoEE(files, a)
 	var rows []Row
 	var fs []Finding
@@ -163,19 +172,4 @@ func frodoEEFindings(files map[string][]byte, ee eeState) []Finding {
 		return append(fs, Finding{File: ee.name, Check: "strict", Detail: detail})
 	}
 	return append(fs, issuerFindings(files, ee, issuer)...)
-}
-
-// saltedFrodoFindings reports each salted FrodoKEM private key or certificate
-// in the zip: those algorithms are recognised but not checked.
-func saltedFrodoFindings(files map[string][]byte) []Finding {
-	var fs []Finding
-	for _, a := range alg.SaltedFrodoKEM() {
-		for _, suffix := range []string{privSuffix, "_ee.der"} {
-			if name, _, ok := find(files, a, suffix); ok {
-				fs = append(fs, Finding{File: name, Check: "cannot-run", Detail: "salted FrodoKEM is not implemented by the library in use; only eFrodoKEM is checked"})
-				break
-			}
-		}
-	}
-	return fs
 }

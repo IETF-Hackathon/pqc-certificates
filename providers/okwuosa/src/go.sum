@@ -1,7 +1,7 @@
 github.com/cloudflare/circl v1.6.5 h1:O64F26HEqNhznd/hrC5KZXVKYuKM2rx4deZDTc4ihQA=
 github.com/cloudflare/circl v1.6.5/go.mod h1:h5LNyxAc5nTue9DS5jT+48en2PSDYt3zdGnz5OstK6c=
-github.com/kuking/go-frodokem v1.0.2 h1:sxdguENCyr6WnLbJ/cjz0AYCW75H1b+E6zXY2ldZnUU=
-github.com/kuking/go-frodokem v1.0.2/go.mod h1:83ZX1kHOd72ouCsvbffCqJIj7Ih83MQTAjH2QbqzLZk=
+github.com/paschal533/go-frodokem v1.0.3-0.20261114195752-b8f20587282f h1:++YlkHQ28MEvp2YZlI9e8apmqywFVL1KCxtNm50lLEY=
+github.com/paschal533/go-frodokem v1.0.3-0.20261114195752-b8f20587282f/go.mod h1:83ZX1kHOd72ouCsvbffCqJIj7Ih83MQTAjH2QbqzLZk=
 github.com/ulikunitz/xz v0.5.8 h1:ERv8V6GKqVi23rgu5cj9pVfVzJbOqAY2Ntl88O6c2nQ=
 github.com/ulikunitz/xz v0.5.8/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=

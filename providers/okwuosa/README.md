@@ -1,14 +1,15 @@
 # okwuosa
 
 CIRCL v1.6.5 for ML-DSA and ML-KEM; X.509 and PKCS#8 built by hand with Go encoding/asn1.
-The checker also verifies eFrodoKEM artifacts of other providers (go-frodokem v1.0.2).
+The checker also verifies FrodoKEM and eFrodoKEM artifacts of other providers (a fork of go-frodokem v1.0.2).
 
 The Go module is `pqccerts/okwuosa` in `src/` (`go 1.27` in `go.mod`; built
 and tested with Go 1.27.3). It depends on
 `github.com/cloudflare/circl` v1.6.5 (plus `golang.org/x/sys`, which CIRCL
-needs) for ML-DSA and ML-KEM, and on `github.com/kuking/go-frodokem` v1.0.2
-(plus `golang.org/x/crypto`, for SHAKE) for the eFrodoKEM checks only. See
-"eFrodoKEM" below for what is known about that library. The certificates and the private key files are written
+needs) for ML-DSA and ML-KEM, and on `github.com/kuking/go-frodokem`, replaced
+in `go.mod` by the fork `github.com/paschal533/go-frodokem` at commit b8f2058
+(plus `golang.org/x/crypto`, for SHAKE), for the FrodoKEM checks only. See
+"FrodoKEM" below for what is known about that library and the fork. The certificates and the private key files are written
 and read byte by byte in `src/internal/der`; there is no `crypto/x509`,
 `crypto/mldsa` or `crypto/mlkem` in the non-test code.
 
@@ -57,7 +58,7 @@ From `providers/okwuosa` (needs Go 1.27 or newer and `which`; `unzip` for the
 
 In any zip, whatever folder the files are in. Files are found by name suffix;
 files that are not for one of the six OIDs or the eight FrodoKEM OIDs are
-ignored (for the FrodoKEM OIDs only the files named under "eFrodoKEM" below
+ignored (for the FrodoKEM OIDs only the files named under "FrodoKEM" below
 are read), and so are
 `external_`, `catalyst_` and `chameleon_` files. The CI skips those for trust
 anchors but its skip for KEM end-entity files does not take effect, so our
@@ -120,13 +121,17 @@ the SEQUENCE are a `strict` finding only. A generator with no rows
 gets no CSV. Findings other than `strict` and `cannot-run` (`failed`) say why
 a row is `N`.
 
-## eFrodoKEM
+## FrodoKEM
 
-The checker verifies the four eFrodoKEM parameter sets with ISO OIDs
-(`docs/oid_mapping.md`): eFrodoKEM-976-SHAKE (`1.0.18033.2.2.7.3`),
-eFrodoKEM-1344-SHAKE (`.7.4`), eFrodoKEM-976-AES (`.7.7`) and
-eFrodoKEM-1344-AES (`.7.8`). This provider generates no FrodoKEM artifacts, so
-our own zip and CSV are unchanged.
+The checker verifies the eight FrodoKEM parameter sets with ISO OIDs
+(`docs/oid_mapping.md`). Four are eFrodoKEM, the ephemeral variant:
+eFrodoKEM-976-SHAKE (`1.0.18033.2.2.7.3`), eFrodoKEM-1344-SHAKE (`.7.4`),
+eFrodoKEM-976-AES (`.7.7`) and eFrodoKEM-1344-AES (`.7.8`). Four are FrodoKEM,
+the salted variant: FrodoKEM-976-SHAKE (`.7.1`), FrodoKEM-1344-SHAKE (`.7.2`),
+FrodoKEM-976-AES (`.7.5`) and FrodoKEM-1344-AES (`.7.6`). The checks are the
+same for both; a salted ciphertext ends with a salt of 48 bytes (976) or 64
+bytes (1344), and keys have the same format and length. This provider
+generates no FrodoKEM artifacts, so our own zip and CSV are unchanged.
 
 Rows, from the files `<name>-<oid>_priv.der`, `_ee.der`, `_ciphertext.bin` and
 `_ss.bin`:
@@ -153,25 +158,29 @@ cryptonext, the two providers that shipped FrodoKEM when the checker was
 written. The artifacts cht added later pass the same checks unchanged. The
 layout was not checked against draft-smyslov-lamps-frodokem-certificates.
 
-The four salted FrodoKEM OIDs (`.7.1`, `.7.2`, `.7.5`, `.7.6`) are not
-checked: the library has no salted FrodoKEM. Where a zip holds such a key or
-certificate there is a `cannot-run` finding and no row. Their ciphertext and
-shared secret files are not read.
-
 About the library: `github.com/kuking/go-frodokem` is pure Go, MIT licensed,
 and implements FrodoKEM as submitted to round 3 of the NIST process, which is
-what the ISO OIDs call eFrodoKEM. Its last release, v1.0.2, is from 2021. Its
-README says it passes the reference known-answer tests. What we ran: its own
-test suite, which includes `kat_test.go`, passes with Go 1.27.3
-(`go test github.com/kuking/go-frodokem`); and it decapsulates the eight
-eFrodoKEM ciphertexts of bc and cryptonext to their shared secrets
-(`go test ./...` in `src/`). It makes no
-constant-time claim that we rely on; the checker only handles test keys.
+what the ISO OIDs call eFrodoKEM. Its last release, v1.0.2, is from 2021 and
+has no salted FrodoKEM. The checker therefore uses a fork,
+`github.com/paschal533/go-frodokem`, branch `salted-frodokem`, which adds the
+salted variant in two commits by the author of this provider (d03fa4f and
+b8f2058) and changes nothing in the ephemeral one. The fork has not been
+merged upstream and has had no review outside this provider.
 
-The library has one author and no release since 2021, so nothing here relies
-on it alone. The version is pinned by hash in `go.sum`. The tests in
-`src/internal/check/efrodo_test.go` hold it to the artifacts of two other
-implementations (bc and cryptonext): if it stopped agreeing with them, the
-tests would fail and the committed matrices would change. A `Y` from this
-checker for eFrodoKEM therefore means agreement with this library, and should
-be read next to the rows of the other verifiers.
+What we ran on the fork: its test suite passes with Go 1.27.3. That includes
+the library's original known-answer tests and, for the salted variant, the
+known-answer files of the reference implementation
+(`microsoft/PQCrypto-LWEKE`, `FrodoKEM/KAT`, commit e1edeb3a), 100 entries for
+each of the six parameter sets. In `src/`, `go test ./...` decapsulates the
+ciphertexts of bc, cryptonext and cht for all eight OIDs to their shared
+secrets. Neither the library nor the fork makes a constant-time claim that we
+rely on; the checker only handles test keys.
+
+The library has one author and no release since 2021, and the fork has one
+author too, so nothing here relies on either alone. The version is pinned by
+hash in `go.sum`. The tests in `src/internal/check/efrodo_test.go` hold it to
+the artifacts of three other implementations (bc, cryptonext and cht): if it
+stopped agreeing with them, the tests would fail and the committed matrices
+would change. A `Y` from this checker for FrodoKEM therefore means agreement
+with this library, and should be read next to the rows of the other
+verifiers.
