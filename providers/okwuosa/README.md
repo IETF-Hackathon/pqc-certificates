@@ -148,9 +148,10 @@ Rows, from the files `<name>-<oid>_priv.der`, `_ee.der`, `_ciphertext.bin` and
   checked against that TA in the same zip; a failure or a missing TA is a
   `strict` finding and never a row.
 
-The key and certificate layout is the one found in the artifacts of the two
-providers that ship FrodoKEM at the time of writing (bc and cryptonext). It
-was not checked against draft-smyslov-lamps-frodokem-certificates.
+The key and certificate layout is the one found in the artifacts of bc and
+cryptonext, the two providers that shipped FrodoKEM when the checker was
+written. The artifacts cht added later pass the same checks unchanged. The
+layout was not checked against draft-smyslov-lamps-frodokem-certificates.
 
 The four salted FrodoKEM OIDs (`.7.1`, `.7.2`, `.7.5`, `.7.6`) are not
 checked: the library has no salted FrodoKEM. Where a zip holds such a key or
