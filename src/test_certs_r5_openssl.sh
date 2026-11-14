@@ -327,13 +327,13 @@ test_kem_ee () {
     output=""
     eefileBasename=$(basename $eefile)
 
-    # strip off the friendly name
-    eefileBasename=$(echo $eefileBasename | egrep -o '[^-]*_ee.der$')
-
     if [[ $eefileBasename == external_* ]] || [[ $eefileBasename == catalyst_* ]] || [[ $eefileBasename == chameleon_* ]]; then
         printf "\nSkipping %s, hybrid cert\n" $eefileBasename | tee -a $logfile
         return
     fi
+
+    # strip off the friendly name
+    eefileBasename=$(echo $eefileBasename | egrep -o '[^-]*_ee.der$')
 
     # strip off the file suffix to get the OID name
     if [ $(expr match "$eefileBasename" ".*_ee\.der$") != 0 ]; then
