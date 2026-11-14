@@ -59,8 +59,12 @@ https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-regi
 
 | Signature Algorithm Name | Signature OID | Specification |
 | ----------- | ----------- | ----------- |
-| Falcon-512 | 1.3.9999* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
-| Falcon-1024 | 1.3.9999.3.9* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| Falcon-512 | 1.3.9999.3.11* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| Falcon-1024 | 1.3.9999.3.14* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| Falcon-padded-512 | 1.3.9999.3.16* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+| Falcon-padded-1024 | 1.3.9999.3.19* | NIST Round 3 -- [OQS](https://github.com/open-quantum-safe/oqs-provider/blob/main/oqs-template/generate.yml) |
+
+Note: earlier rounds used the older OQS OIDs 1.3.9999.3.6 (Falcon-512) and 1.3.9999.3.9 (Falcon-1024).
 
 ## NTRU (Prototype - NIST Round 3)
 
@@ -164,3 +168,242 @@ The Classic McEliece Object identifers have been specified by ISO
 | id-kem-mceliece8192128f | 1.0.18033.2.2.6.14 | https://www.iso.org/standard/86890.html |
 | id-kem-mceliece8192128pc | 1.0.18033.2.2.6.15 | https://www.iso.org/standard/86890.html |
 | id-kem-mceliece8192128pcf | 1.0.18033.2.2.6.16 | https://www.iso.org/standard/86890.html |
+
+# Bouncy Castle Prototype OIDs
+
+The following algorithms do not yet have officially assigned OIDs. These are the OIDs used by [Bouncy Castle](https://github.com/bcgit/bc-java/blob/main/core/src/main/java/org/bouncycastle/asn1/bc/BCObjectIdentifiers.java) (BC arc `1.3.6.1.4.1.22554`; MAYO uses the OQS arc `1.3.9999.8`). They are prototype OIDs and are likely to change once official OIDs are assigned. The BC identifier is the constant name in `BCObjectIdentifiers`.
+
+The NIST additional signature entries correspond to the Round 2 submissions as implemented on the bc-java main branch. NIST announced the Round 3 candidates in May 2026 (NIST IR 8610); the Round 3 versions are not yet on bc-java main, and their parameter sets and OIDs may differ.
+
+## MAYO (Prototype - NIST PQC Additional Signatures Round 2, OQS arc)
+
+| Signature Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| MAYO-1 | 1.3.9999.8.1.3* | `mayo_1` |
+| MAYO-2 | 1.3.9999.8.2.3* | `mayo_2` |
+| MAYO-3 | 1.3.9999.8.3.3* | `mayo_3` |
+| MAYO-5 | 1.3.9999.8.5.3* | `mayo_5` |
+
+## SNOVA (Prototype - NIST PQC Additional Signatures Round 2)
+
+| Signature Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| SNOVA_24_5_4-SSK | 1.3.6.1.4.1.22554.2.11.1* | `snova_24_5_4_ssk` |
+| SNOVA_24_5_4-ESK | 1.3.6.1.4.1.22554.2.11.2* | `snova_24_5_4_esk` |
+| SNOVA_24_5_4_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.3* | `snova_24_5_4_shake_ssk` |
+| SNOVA_24_5_4_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.4* | `snova_24_5_4_shake_esk` |
+| SNOVA_24_5_5-SSK | 1.3.6.1.4.1.22554.2.11.5* | `snova_24_5_5_ssk` |
+| SNOVA_24_5_5-ESK | 1.3.6.1.4.1.22554.2.11.6* | `snova_24_5_5_esk` |
+| SNOVA_24_5_5_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.7* | `snova_24_5_5_shake_ssk` |
+| SNOVA_24_5_5_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.8* | `snova_24_5_5_shake_esk` |
+| SNOVA_25_8_3-SSK | 1.3.6.1.4.1.22554.2.11.9* | `snova_25_8_3_ssk` |
+| SNOVA_25_8_3-ESK | 1.3.6.1.4.1.22554.2.11.10* | `snova_25_8_3_esk` |
+| SNOVA_25_8_3_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.11* | `snova_25_8_3_shake_ssk` |
+| SNOVA_25_8_3_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.12* | `snova_25_8_3_shake_esk` |
+| SNOVA_29_6_5-SSK | 1.3.6.1.4.1.22554.2.11.13* | `snova_29_6_5_ssk` |
+| SNOVA_29_6_5-ESK | 1.3.6.1.4.1.22554.2.11.14* | `snova_29_6_5_esk` |
+| SNOVA_29_6_5_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.15* | `snova_29_6_5_shake_ssk` |
+| SNOVA_29_6_5_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.16* | `snova_29_6_5_shake_esk` |
+| SNOVA_37_8_4-SSK | 1.3.6.1.4.1.22554.2.11.17* | `snova_37_8_4_ssk` |
+| SNOVA_37_8_4-ESK | 1.3.6.1.4.1.22554.2.11.18* | `snova_37_8_4_esk` |
+| SNOVA_37_8_4_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.19* | `snova_37_8_4_shake_ssk` |
+| SNOVA_37_8_4_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.20* | `snova_37_8_4_shake_esk` |
+| SNOVA_37_17_2-SSK | 1.3.6.1.4.1.22554.2.11.21* | `snova_37_17_2_ssk` |
+| SNOVA_37_17_2-ESK | 1.3.6.1.4.1.22554.2.11.22* | `snova_37_17_2_esk` |
+| SNOVA_37_17_2_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.23* | `snova_37_17_2_shake_ssk` |
+| SNOVA_37_17_2_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.24* | `snova_37_17_2_shake_esk` |
+| SNOVA_49_11_3-SSK | 1.3.6.1.4.1.22554.2.11.25* | `snova_49_11_3_ssk` |
+| SNOVA_49_11_3-ESK | 1.3.6.1.4.1.22554.2.11.26* | `snova_49_11_3_esk` |
+| SNOVA_49_11_3_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.27* | `snova_49_11_3_shake_ssk` |
+| SNOVA_49_11_3_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.28* | `snova_49_11_3_shake_esk` |
+| SNOVA_56_25_2-SSK | 1.3.6.1.4.1.22554.2.11.29* | `snova_56_25_2_ssk` |
+| SNOVA_56_25_2-ESK | 1.3.6.1.4.1.22554.2.11.30* | `snova_56_25_2_esk` |
+| SNOVA_56_25_2_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.31* | `snova_56_25_2_shake_ssk` |
+| SNOVA_56_25_2_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.32* | `snova_56_25_2_shake_esk` |
+| SNOVA_60_10_4-SSK | 1.3.6.1.4.1.22554.2.11.33* | `snova_60_10_4_ssk` |
+| SNOVA_60_10_4-ESK | 1.3.6.1.4.1.22554.2.11.34* | `snova_60_10_4_esk` |
+| SNOVA_60_10_4_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.35* | `snova_60_10_4_shake_ssk` |
+| SNOVA_60_10_4_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.36* | `snova_60_10_4_shake_esk` |
+| SNOVA_66_15_3-SSK | 1.3.6.1.4.1.22554.2.11.37* | `snova_66_15_3_ssk` |
+| SNOVA_66_15_3-ESK | 1.3.6.1.4.1.22554.2.11.38* | `snova_66_15_3_esk` |
+| SNOVA_66_15_3_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.39* | `snova_66_15_3_shake_ssk` |
+| SNOVA_66_15_3_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.40* | `snova_66_15_3_shake_esk` |
+| SNOVA_75_33_2-SSK | 1.3.6.1.4.1.22554.2.11.41* | `snova_75_33_2_ssk` |
+| SNOVA_75_33_2-ESK | 1.3.6.1.4.1.22554.2.11.42* | `snova_75_33_2_esk` |
+| SNOVA_75_33_2_SHAKE-SSK | 1.3.6.1.4.1.22554.2.11.43* | `snova_75_33_2_shake_ssk` |
+| SNOVA_75_33_2_SHAKE-ESK | 1.3.6.1.4.1.22554.2.11.44* | `snova_75_33_2_shake_esk` |
+
+## FAEST (Prototype - NIST PQC Additional Signatures Round 2)
+
+| Signature Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| FAEST-128s | 1.3.6.1.4.1.22554.2.12.1* | `faest_128s` |
+| FAEST-128f | 1.3.6.1.4.1.22554.2.12.2* | `faest_128f` |
+| FAEST-192s | 1.3.6.1.4.1.22554.2.12.3* | `faest_192s` |
+| FAEST-192f | 1.3.6.1.4.1.22554.2.12.4* | `faest_192f` |
+| FAEST-256s | 1.3.6.1.4.1.22554.2.12.5* | `faest_256s` |
+| FAEST-256f | 1.3.6.1.4.1.22554.2.12.6* | `faest_256f` |
+| FAEST-EM-128s | 1.3.6.1.4.1.22554.2.12.7* | `faest_em_128s` |
+| FAEST-EM-128f | 1.3.6.1.4.1.22554.2.12.8* | `faest_em_128f` |
+| FAEST-EM-192s | 1.3.6.1.4.1.22554.2.12.9* | `faest_em_192s` |
+| FAEST-EM-192f | 1.3.6.1.4.1.22554.2.12.10* | `faest_em_192f` |
+| FAEST-EM-256s | 1.3.6.1.4.1.22554.2.12.11* | `faest_em_256s` |
+| FAEST-EM-256f | 1.3.6.1.4.1.22554.2.12.12* | `faest_em_256f` |
+
+## MQOM (Prototype - NIST PQC Additional Signatures Round 2, MQOM v2.1)
+
+| Signature Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| MQOM2-L1-gf2-fast-r3 | 1.3.6.1.4.1.22554.2.13.1* | `mqom2_cat1_gf2_fast_r3` |
+| MQOM2-L1-gf2-fast-r5 | 1.3.6.1.4.1.22554.2.13.2* | `mqom2_cat1_gf2_fast_r5` |
+| MQOM2-L1-gf2-short-r3 | 1.3.6.1.4.1.22554.2.13.3* | `mqom2_cat1_gf2_short_r3` |
+| MQOM2-L1-gf2-short-r5 | 1.3.6.1.4.1.22554.2.13.4* | `mqom2_cat1_gf2_short_r5` |
+| MQOM2-L1-gf16-fast-r3 | 1.3.6.1.4.1.22554.2.13.5* | `mqom2_cat1_gf16_fast_r3` |
+| MQOM2-L1-gf16-fast-r5 | 1.3.6.1.4.1.22554.2.13.6* | `mqom2_cat1_gf16_fast_r5` |
+| MQOM2-L1-gf16-short-r3 | 1.3.6.1.4.1.22554.2.13.7* | `mqom2_cat1_gf16_short_r3` |
+| MQOM2-L1-gf16-short-r5 | 1.3.6.1.4.1.22554.2.13.8* | `mqom2_cat1_gf16_short_r5` |
+| MQOM2-L1-gf256-fast-r3 | 1.3.6.1.4.1.22554.2.13.9* | `mqom2_cat1_gf256_fast_r3` |
+| MQOM2-L1-gf256-fast-r5 | 1.3.6.1.4.1.22554.2.13.10* | `mqom2_cat1_gf256_fast_r5` |
+| MQOM2-L1-gf256-short-r3 | 1.3.6.1.4.1.22554.2.13.11* | `mqom2_cat1_gf256_short_r3` |
+| MQOM2-L1-gf256-short-r5 | 1.3.6.1.4.1.22554.2.13.12* | `mqom2_cat1_gf256_short_r5` |
+| MQOM2-L3-gf2-fast-r3 | 1.3.6.1.4.1.22554.2.13.13* | `mqom2_cat3_gf2_fast_r3` |
+| MQOM2-L3-gf2-fast-r5 | 1.3.6.1.4.1.22554.2.13.14* | `mqom2_cat3_gf2_fast_r5` |
+| MQOM2-L3-gf2-short-r3 | 1.3.6.1.4.1.22554.2.13.15* | `mqom2_cat3_gf2_short_r3` |
+| MQOM2-L3-gf2-short-r5 | 1.3.6.1.4.1.22554.2.13.16* | `mqom2_cat3_gf2_short_r5` |
+| MQOM2-L3-gf16-fast-r3 | 1.3.6.1.4.1.22554.2.13.17* | `mqom2_cat3_gf16_fast_r3` |
+| MQOM2-L3-gf16-fast-r5 | 1.3.6.1.4.1.22554.2.13.18* | `mqom2_cat3_gf16_fast_r5` |
+| MQOM2-L3-gf16-short-r3 | 1.3.6.1.4.1.22554.2.13.19* | `mqom2_cat3_gf16_short_r3` |
+| MQOM2-L3-gf16-short-r5 | 1.3.6.1.4.1.22554.2.13.20* | `mqom2_cat3_gf16_short_r5` |
+| MQOM2-L3-gf256-fast-r3 | 1.3.6.1.4.1.22554.2.13.21* | `mqom2_cat3_gf256_fast_r3` |
+| MQOM2-L3-gf256-fast-r5 | 1.3.6.1.4.1.22554.2.13.22* | `mqom2_cat3_gf256_fast_r5` |
+| MQOM2-L3-gf256-short-r3 | 1.3.6.1.4.1.22554.2.13.23* | `mqom2_cat3_gf256_short_r3` |
+| MQOM2-L3-gf256-short-r5 | 1.3.6.1.4.1.22554.2.13.24* | `mqom2_cat3_gf256_short_r5` |
+| MQOM2-L5-gf2-fast-r3 | 1.3.6.1.4.1.22554.2.13.25* | `mqom2_cat5_gf2_fast_r3` |
+| MQOM2-L5-gf2-fast-r5 | 1.3.6.1.4.1.22554.2.13.26* | `mqom2_cat5_gf2_fast_r5` |
+| MQOM2-L5-gf2-short-r3 | 1.3.6.1.4.1.22554.2.13.27* | `mqom2_cat5_gf2_short_r3` |
+| MQOM2-L5-gf2-short-r5 | 1.3.6.1.4.1.22554.2.13.28* | `mqom2_cat5_gf2_short_r5` |
+| MQOM2-L5-gf16-fast-r3 | 1.3.6.1.4.1.22554.2.13.29* | `mqom2_cat5_gf16_fast_r3` |
+| MQOM2-L5-gf16-fast-r5 | 1.3.6.1.4.1.22554.2.13.30* | `mqom2_cat5_gf16_fast_r5` |
+| MQOM2-L5-gf16-short-r3 | 1.3.6.1.4.1.22554.2.13.31* | `mqom2_cat5_gf16_short_r3` |
+| MQOM2-L5-gf16-short-r5 | 1.3.6.1.4.1.22554.2.13.32* | `mqom2_cat5_gf16_short_r5` |
+| MQOM2-L5-gf256-fast-r3 | 1.3.6.1.4.1.22554.2.13.33* | `mqom2_cat5_gf256_fast_r3` |
+| MQOM2-L5-gf256-fast-r5 | 1.3.6.1.4.1.22554.2.13.34* | `mqom2_cat5_gf256_fast_r5` |
+| MQOM2-L5-gf256-short-r3 | 1.3.6.1.4.1.22554.2.13.35* | `mqom2_cat5_gf256_short_r3` |
+| MQOM2-L5-gf256-short-r5 | 1.3.6.1.4.1.22554.2.13.36* | `mqom2_cat5_gf256_short_r5` |
+
+## UOV (Prototype - NIST PQC Additional Signatures Round 2)
+
+| Signature Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| OV-Is | 1.3.6.1.4.1.22554.2.14.1* | `uov_Is_classic` |
+| OV-Is-pkc | 1.3.6.1.4.1.22554.2.14.2* | `uov_Is_pkc` |
+| OV-Is-pkc-skc | 1.3.6.1.4.1.22554.2.14.3* | `uov_Is_pkc_skc` |
+| OV-Ip | 1.3.6.1.4.1.22554.2.14.4* | `uov_Ip_classic` |
+| OV-Ip-pkc | 1.3.6.1.4.1.22554.2.14.5* | `uov_Ip_pkc` |
+| OV-Ip-pkc-skc | 1.3.6.1.4.1.22554.2.14.6* | `uov_Ip_pkc_skc` |
+| OV-III | 1.3.6.1.4.1.22554.2.14.7* | `uov_III_classic` |
+| OV-III-pkc | 1.3.6.1.4.1.22554.2.14.8* | `uov_III_pkc` |
+| OV-III-pkc-skc | 1.3.6.1.4.1.22554.2.14.9* | `uov_III_pkc_skc` |
+| OV-V | 1.3.6.1.4.1.22554.2.14.10* | `uov_V_classic` |
+| OV-V-pkc | 1.3.6.1.4.1.22554.2.14.11* | `uov_V_pkc` |
+| OV-V-pkc-skc | 1.3.6.1.4.1.22554.2.14.12* | `uov_V_pkc_skc` |
+
+## QR-UOV (Prototype - NIST PQC Additional Signatures Round 2)
+
+| Signature Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| QR-UOV-1q127L3v156m54 | 1.3.6.1.4.1.22554.2.17.1* | `qruov1q127L3v156m54` |
+| QR-UOV-1q31L3v165m60 | 1.3.6.1.4.1.22554.2.17.2* | `qruov1q31L3v165m60` |
+| QR-UOV-1q31L10v600m70 | 1.3.6.1.4.1.22554.2.17.3* | `qruov1q31L10v600m70` |
+| QR-UOV-1q7L10v740m100 | 1.3.6.1.4.1.22554.2.17.4* | `qruov1q7L10v740m100` |
+| QR-UOV-3q127L3v228m78 | 1.3.6.1.4.1.22554.2.17.5* | `qruov3q127L3v228m78` |
+| QR-UOV-3q31L3v246m87 | 1.3.6.1.4.1.22554.2.17.6* | `qruov3q31L3v246m87` |
+| QR-UOV-3q31L10v890m100 | 1.3.6.1.4.1.22554.2.17.7* | `qruov3q31L10v890m100` |
+| QR-UOV-3q7L10v1100m140 | 1.3.6.1.4.1.22554.2.17.8* | `qruov3q7L10v1100m140` |
+| QR-UOV-5q127L3v306m105 | 1.3.6.1.4.1.22554.2.17.9* | `qruov5q127L3v306m105` |
+| QR-UOV-5q31L3v324m114 | 1.3.6.1.4.1.22554.2.17.10* | `qruov5q31L3v324m114` |
+| QR-UOV-5q31L10v1120m120 | 1.3.6.1.4.1.22554.2.17.11* | `qruov5q31L10v1120m120` |
+| QR-UOV-5q7L10v1490m190 | 1.3.6.1.4.1.22554.2.17.12* | `qruov5q7L10v1490m190` |
+
+## SDitH (Prototype - NIST PQC Additional Signatures Round 2)
+
+| Signature Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| SDitH-hypercube-cat1-gf256 | 1.3.6.1.4.1.22554.2.16.1* | `sdith_hypercube_cat1_gf256` |
+| SDitH-hypercube-cat3-gf256 | 1.3.6.1.4.1.22554.2.16.2* | `sdith_hypercube_cat3_gf256` |
+| SDitH-hypercube-cat5-gf256 | 1.3.6.1.4.1.22554.2.16.3* | `sdith_hypercube_cat5_gf256` |
+| SDitH-hypercube-cat1-p251 | 1.3.6.1.4.1.22554.2.16.4* | `sdith_hypercube_cat1_p251` |
+| SDitH-hypercube-cat3-p251 | 1.3.6.1.4.1.22554.2.16.5* | `sdith_hypercube_cat3_p251` |
+| SDitH-hypercube-cat5-p251 | 1.3.6.1.4.1.22554.2.16.6* | `sdith_hypercube_cat5_p251` |
+| SDitH-threshold-cat1-gf256 | 1.3.6.1.4.1.22554.2.16.7* | `sdith_threshold_cat1_gf256` |
+| SDitH-threshold-cat3-gf256 | 1.3.6.1.4.1.22554.2.16.8* | `sdith_threshold_cat3_gf256` |
+| SDitH-threshold-cat5-gf256 | 1.3.6.1.4.1.22554.2.16.9* | `sdith_threshold_cat5_gf256` |
+| SDitH-threshold-cat1-p251 | 1.3.6.1.4.1.22554.2.16.10* | `sdith_threshold_cat1_p251` |
+| SDitH-threshold-cat3-p251 | 1.3.6.1.4.1.22554.2.16.11* | `sdith_threshold_cat3_p251` |
+| SDitH-threshold-cat5-p251 | 1.3.6.1.4.1.22554.2.16.12* | `sdith_threshold_cat5_p251` |
+
+## SQIsign (Prototype - NIST PQC Additional Signatures Round 2)
+
+| Signature Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| SQIsign-lvl1 | 1.3.6.1.4.1.22554.2.19.1* | `sqisign_lvl1` |
+| SQIsign-lvl3 | 1.3.6.1.4.1.22554.2.19.2* | `sqisign_lvl3` |
+| SQIsign-lvl5 | 1.3.6.1.4.1.22554.2.19.3* | `sqisign_lvl5` |
+
+## AIMer (Prototype - KpqC)
+
+| Signature Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| AIMer-128f | 1.3.6.1.4.1.22554.2.20.1* | `aimer_128f` |
+| AIMer-128s | 1.3.6.1.4.1.22554.2.20.2* | `aimer_128s` |
+| AIMer-192f | 1.3.6.1.4.1.22554.2.20.3* | `aimer_192f` |
+| AIMer-192s | 1.3.6.1.4.1.22554.2.20.4* | `aimer_192s` |
+| AIMer-256f | 1.3.6.1.4.1.22554.2.20.5* | `aimer_256f` |
+| AIMer-256s | 1.3.6.1.4.1.22554.2.20.6* | `aimer_256s` |
+
+## HAETAE (Prototype - KpqC)
+
+| Signature Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| HAETAE-2 | 1.3.6.1.4.1.22554.2.18.1* | `haetae2` |
+| HAETAE-3 | 1.3.6.1.4.1.22554.2.18.2* | `haetae3` |
+| HAETAE-5 | 1.3.6.1.4.1.22554.2.18.3* | `haetae5` |
+
+## NTRU LPRime (Prototype - NIST PQC Round 3 Alternate)
+
+| KEM Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| ntrulpr653 | 1.3.6.1.4.1.22554.5.7.1.1* | `ntrulpr653` |
+| ntrulpr761 | 1.3.6.1.4.1.22554.5.7.1.2* | `ntrulpr761` |
+| ntrulpr857 | 1.3.6.1.4.1.22554.5.7.1.3* | `ntrulpr857` |
+| ntrulpr953 | 1.3.6.1.4.1.22554.5.7.1.4* | `ntrulpr953` |
+| ntrulpr1013 | 1.3.6.1.4.1.22554.5.7.1.5* | `ntrulpr1013` |
+| ntrulpr1277 | 1.3.6.1.4.1.22554.5.7.1.6* | `ntrulpr1277` |
+
+## Streamlined NTRU Prime (Prototype - NIST PQC Round 3 Alternate)
+
+| KEM Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| sntrup653 | 1.3.6.1.4.1.22554.5.7.2.1* | `sntrup653` |
+| sntrup761 | 1.3.6.1.4.1.22554.5.7.2.2* | `sntrup761` |
+| sntrup857 | 1.3.6.1.4.1.22554.5.7.2.3* | `sntrup857` |
+| sntrup953 | 1.3.6.1.4.1.22554.5.7.2.4* | `sntrup953` |
+| sntrup1013 | 1.3.6.1.4.1.22554.5.7.2.5* | `sntrup1013` |
+| sntrup1277 | 1.3.6.1.4.1.22554.5.7.2.6* | `sntrup1277` |
+
+## NTRU+ (Prototype - KpqC)
+
+| KEM Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| NTRU+KEM768 | 1.3.6.1.4.1.22554.5.10.1* | `ntruplus768` |
+| NTRU+KEM864 | 1.3.6.1.4.1.22554.5.10.2* | `ntruplus864` |
+| NTRU+KEM1152 | 1.3.6.1.4.1.22554.5.10.3* | `ntruplus1152` |
+
+## SMAUG-T (Prototype - KpqC)
+
+| KEM Algorithm Name | OID | BC Identifier |
+| ----------- | ----------- | ----------- |
+| SMAUG-T-1 | 1.3.6.1.4.1.22554.5.11.1* | `smaugt_mode1` |
+| SMAUG-T-3 | 1.3.6.1.4.1.22554.5.11.2* | `smaugt_mode3` |
+| SMAUG-T-5 | 1.3.6.1.4.1.22554.5.11.3* | `smaugt_mode5` |
+| SMAUG-T-TiMER | 1.3.6.1.4.1.22554.5.11.4* | `smaugt_modet` |
