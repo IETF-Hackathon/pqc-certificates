@@ -103,6 +103,14 @@
 * Implementation: Open source certification path builder/validation library.
 * Implementation link: https://github.com/smuellerDD/leancrypto
 
+# noble-post-quantum (JavaScript)
+
+* Provider short name: `noble-post-quantum`
+* Company name: Quantum Daemons
+* Company website: https://quantum.daemons.jp/
+* Implementation: Open Source (JavaScript, built on the @noble/post-quantum library by Paul Miller, MIT; the provider's own code is Apache-2.0)
+* Implementation link: https://github.com/IETF-Hackathon/pqc-certificates/tree/master/providers/noble-post-quantum
+
 # PQShield
 
 * Provider short name: `kris`
