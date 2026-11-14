@@ -4,7 +4,7 @@ JOSE/COSE artifacts for ML-DSA, SLH-DSA and Composite ML-DSA+(ECDSA|Ed25519|Ed44
 
 Use dilithium-py (ML-DSA), slhdsa (SLH-DSA) and pyca/cryptography
 (ECDSA, Ed25519, Ed448). Implements RFC 9964, draft-ietf-cose-sphincs-plus
-and draft-ietf-jose-pq-composite-sigs.
+and draft-ietf-jose-pq-composite-sigs-06.
 """
 
 import base64
@@ -24,7 +24,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey,
 from cryptography.hazmat.primitives.asymmetric.ed448 import Ed448PrivateKey, Ed448PublicKey
 from cryptography.hazmat.primitives import hashes, serialization
 
-PROVIDER = "pqc-jose-cose-py-ref"
+PROVIDER = "huawei"
 ARTIFACT_DIR = "artifacts_jose_cose_v1"
 PAYLOAD = b"This is a test of signature data"
 
@@ -47,23 +47,23 @@ EC_CURVES = {"P256": ec.SECP256R1(), "P384": ec.SECP384R1()}
 EC_HASHES = {"sha256": hashes.SHA256(), "sha384": hashes.SHA384(), "sha512": hashes.SHA512()}
 EC_SCALAR_LEN = {"P256": 32, "P384": 48}
 
-EC_ORDER = {
-    "P256": 0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551,
-    "P384": 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC7634D81F4372DDF581A0DB248B0A77AECEC196ACCC52973,
-}
+EC_PRIV_PREFIX = {"P256": bytes.fromhex("30310201010420"), "P384": bytes.fromhex("303e0201010430")}
+EC_PRIV_SUFFIX = {"P256": bytes.fromhex("a00a06082a8648ce3d030107"), "P384": bytes.fromhex("a00706052b81040022")}
 
 COMPOSITE_ALGS = {
-    "ML-DSA-44-ES256": {"mldsa_level": 44, "label": b"COMPSIG-MLDSA44-ECDSA-P256-SHA256", "cose_alg": -51,
+    "ML-DSA-44-ES256": {"mldsa_level": 44, "label": b"COMPSIG-MLDSA44-ECDSA-P256-SHA256", "cose_alg": -54,
                          "trad": "ecdsa", "curve": "P256", "trad_hash": "sha256", "prehash": "sha256"},
-    "ML-DSA-65-ES256": {"mldsa_level": 65, "label": b"COMPSIG-MLDSA65-ECDSA-P256-SHA512", "cose_alg": -52,
+    "ML-DSA-65-ES256": {"mldsa_level": 65, "label": b"COMPSIG-MLDSA65-ECDSA-P256-SHA512", "cose_alg": -55,
                          "trad": "ecdsa", "curve": "P256", "trad_hash": "sha256", "prehash": "sha512"},
-    "ML-DSA-87-ES384": {"mldsa_level": 87, "label": b"COMPSIG-MLDSA87-ECDSA-P384-SHA512", "cose_alg": -53,
+    "ML-DSA-65-ES384": {"mldsa_level": 65, "label": b"COMPSIG-MLDSA65-ECDSA-P384-SHA512", "cose_alg": -56,
                          "trad": "ecdsa", "curve": "P384", "trad_hash": "sha384", "prehash": "sha512"},
-    "ML-DSA-44-Ed25519": {"mldsa_level": 44, "label": b"COMPSIG-MLDSA44-Ed25519-SHA512", "cose_alg": -54,
+    "ML-DSA-87-ES384": {"mldsa_level": 87, "label": b"COMPSIG-MLDSA87-ECDSA-P384-SHA512", "cose_alg": -57,
+                         "trad": "ecdsa", "curve": "P384", "trad_hash": "sha384", "prehash": "sha512"},
+    "ML-DSA-44-Ed25519": {"mldsa_level": 44, "label": b"COMPSIG-MLDSA44-Ed25519-SHA512", "cose_alg": -58,
                            "trad": "ed25519", "prehash": "sha512"},
-    "ML-DSA-65-Ed25519": {"mldsa_level": 65, "label": b"COMPSIG-MLDSA65-Ed25519-SHA512", "cose_alg": -55,
+    "ML-DSA-65-Ed25519": {"mldsa_level": 65, "label": b"COMPSIG-MLDSA65-Ed25519-SHA512", "cose_alg": -59,
                            "trad": "ed25519", "prehash": "sha512"},
-    "ML-DSA-87-Ed448": {"mldsa_level": 87, "label": b"COMPSIG-MLDSA87-Ed448-SHAKE256", "cose_alg": -56,
+    "ML-DSA-87-Ed448": {"mldsa_level": 87, "label": b"COMPSIG-MLDSA87-Ed448-SHAKE256", "cose_alg": -60,
                          "trad": "ed448", "prehash": "shake256"},
 }
 
@@ -132,13 +132,36 @@ def _prehash(name, data):
     raise ValueError(name)
 
 
+def _ec_priv_encode(curve, d):
+    return EC_PRIV_PREFIX[curve] + d.to_bytes(EC_SCALAR_LEN[curve], "big") + EC_PRIV_SUFFIX[curve]
+
+
+def _ec_priv_decode(curve, data):
+    prefix, suffix = EC_PRIV_PREFIX[curve], EC_PRIV_SUFFIX[curve]
+    if (len(data) != len(prefix) + EC_SCALAR_LEN[curve] + len(suffix)
+            or not data.startswith(prefix) or not data.endswith(suffix)):
+        raise ValueError("invalid ECPrivateKey")
+    return int.from_bytes(data[len(prefix):-len(suffix)], "big")
+
+
+def _ec_pub_decode(curve, data):
+    if len(data) != 1 + 2 * EC_SCALAR_LEN[curve] or data[0] != 0x04:
+        raise ValueError("invalid uncompressed point")
+    return ec.EllipticCurvePublicKey.from_encoded_point(EC_CURVES[curve], data)
+
+
+def _ec_sig_check_der(sig):
+    r, s = decode_dss_signature(sig)
+    if encode_dss_signature(r, s) != sig:
+        raise ValueError("non-DER Ecdsa-Sig-Value")
+
+
 def _trad_keygen(info):
     kind = info["trad"]
     if kind == "ecdsa":
         priv = ec.generate_private_key(EC_CURVES[info["curve"]])
-        sec1 = priv.public_key().public_bytes(serialization.Encoding.X962, serialization.PublicFormat.UncompressedPoint)
-        scalar_len = EC_SCALAR_LEN[info["curve"]]
-        return sec1[1:], priv.private_numbers().private_value.to_bytes(scalar_len, "big")
+        pub = priv.public_key().public_bytes(serialization.Encoding.X962, serialization.PublicFormat.UncompressedPoint)
+        return pub, _ec_priv_encode(info["curve"], priv.private_numbers().private_value)
     cls = Ed25519PrivateKey if kind == "ed25519" else Ed448PrivateKey
     priv = cls.generate()
     pub = priv.public_key().public_bytes(serialization.Encoding.Raw, serialization.PublicFormat.Raw)
@@ -149,15 +172,9 @@ def _trad_keygen(info):
 def _trad_sign(info, priv, data):
     kind = info["trad"]
     if kind == "ecdsa":
-        scalar = int.from_bytes(priv, "big")
-        ec_priv = ec.derive_private_key(scalar, EC_CURVES[info["curve"]])
-        der_sig = ec_priv.sign(data, ec.ECDSA(EC_HASHES[info["trad_hash"]]))
-        r, s = decode_dss_signature(der_sig)
-        n = EC_ORDER[info["curve"]]
-        if s > n // 2:
-            s = n - s
-        scalar_len = EC_SCALAR_LEN[info["curve"]]
-        return r.to_bytes(scalar_len, "big") + s.to_bytes(scalar_len, "big")
+        d = _ec_priv_decode(info["curve"], priv)
+        ec_priv = ec.derive_private_key(d, EC_CURVES[info["curve"]])
+        return ec_priv.sign(data, ec.ECDSA(EC_HASHES[info["trad_hash"]]))
     cls = Ed25519PrivateKey if kind == "ed25519" else Ed448PrivateKey
     return cls.from_private_bytes(priv).sign(data)
 
@@ -166,12 +183,9 @@ def _trad_verify(info, pub, data, sig):
     kind = info["trad"]
     try:
         if kind == "ecdsa":
-            scalar_len = EC_SCALAR_LEN[info["curve"]]
-            r = int.from_bytes(sig[:scalar_len], "big")
-            s = int.from_bytes(sig[scalar_len:], "big")
-            der_sig = encode_dss_signature(r, s)
-            ec_pub = ec.EllipticCurvePublicKey.from_encoded_point(EC_CURVES[info["curve"]], b"\x04" + pub)
-            ec_pub.verify(der_sig, data, ec.ECDSA(EC_HASHES[info["trad_hash"]]))
+            _ec_sig_check_der(sig)
+            ec_pub = _ec_pub_decode(info["curve"], pub)
+            ec_pub.verify(sig, data, ec.ECDSA(EC_HASHES[info["trad_hash"]]))
         else:
             cls = Ed25519PublicKey if kind == "ed25519" else Ed448PublicKey
             cls.from_public_bytes(pub).verify(sig, data)
@@ -197,6 +211,8 @@ def _composite_message_repr(algid, msg_to_sign):
 def sign_composite(algid, priv, msg_to_sign):
     info = COMPOSITE_ALGS[algid]
     mldsa_seed, trad_priv = priv[:32], priv[32:]
+    if len(mldsa_seed) != 32:
+        raise ValueError("invalid composite private key")
     m_prime = _composite_message_repr(algid, msg_to_sign)
 
     _, mldsa_sk = MLDSA_IMPL[info["mldsa_level"]].key_derive(mldsa_seed)
@@ -212,6 +228,8 @@ def verify_composite(algid, pub, msg_to_sign, sig):
     sig_split = MLDSA_SIG_LEN[info["mldsa_level"]]
     mldsa_pub, trad_pub = pub[:pub_split], pub[pub_split:]
     mldsa_sig, trad_sig = sig[:sig_split], sig[sig_split:]
+    if len(mldsa_pub) != pub_split or len(mldsa_sig) != sig_split:
+        return False
 
     m_prime = _composite_message_repr(algid, msg_to_sign)
 
