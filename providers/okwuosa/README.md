@@ -60,10 +60,8 @@ In any zip, whatever folder the files are in. Files are found by name suffix;
 files that are not for one of the six OIDs or the eight FrodoKEM OIDs are
 ignored (for the FrodoKEM OIDs only the files named under "FrodoKEM" below
 are read), and so are
-`external_`, `catalyst_` and `chameleon_` files. The CI skips those for trust
-anchors but its skip for KEM end-entity files does not take effect, so our
-result can differ from the CI's where a provider ships both a plain and a
-hybrid-prefixed EE for the same OID.
+`external_`, `catalyst_` and `chameleon_` files, which the CI skips too (for
+KEM end-entity files since #340).
 
 The private key forms follow what the CI forces with
 `-provparam ...input_formats=`: `seed` must be exactly the seed-only form,

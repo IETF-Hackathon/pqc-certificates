@@ -187,19 +187,35 @@ func TestRunAddsRowsForAllEightFrodoKEMSets(t *testing.T) {
 // secret, and one that lost its salt has the length of an eFrodoKEM
 // ciphertext and is refused for that.
 func TestSaltedFrodoKEMSaltIsChecked(t *testing.T) {
-	a := alg.FrodoKEM976SHAKE
-	for name, damage := range map[string]func([]byte) []byte{
-		"salt changed": func(ct []byte) []byte { ct[len(ct)-1] ^= 1; return ct },
-		"salt removed": func(ct []byte) []byte { return ct[:len(ct)-48] },
-	} {
-		t.Run(name, func(t *testing.T) {
-			files, names := frodoFiles(t, a)
-			files[names["_ciphertext.bin"]] = damage(files[names["_ciphertext.bin"]])
-			rows, _ := CheckFrodoKEM(files, a)
-			if got, want := rowsCSV(rows), frodoRows(a, "N", "Y", "Y"); got != want {
-				t.Errorf("got\n%swant\n%s", got, want)
-			}
-		})
+	for _, c := range []struct {
+		a       alg.Alg
+		saltLen int
+	}{{alg.FrodoKEM976SHAKE, 48}, {alg.FrodoKEM1344AES, 64}} {
+		a := c.a
+		for _, d := range []struct {
+			name   string
+			damage func([]byte) []byte
+			detail string
+		}{
+			{"salt changed", func(ct []byte) []byte { ct[len(ct)-1] ^= 1; return ct }, "does not give the shared secret"},
+			{"first byte of the salt changed", func(ct []byte) []byte { ct[len(ct)-c.saltLen] ^= 1; return ct }, "does not give the shared secret"},
+			{"salt removed", func(ct []byte) []byte { return ct[:len(ct)-c.saltLen] }, "ciphertext is "},
+		} {
+			t.Run(a.Friendly+"/"+d.name, func(t *testing.T) {
+				files, names := frodoFiles(t, a)
+				files[names["_ciphertext.bin"]] = d.damage(files[names["_ciphertext.bin"]])
+				rows, fs := CheckFrodoKEM(files, a)
+				if got, want := rowsCSV(rows), frodoRows(a, "N", "Y", "Y"); got != want {
+					t.Errorf("got\n%swant\n%s", got, want)
+				}
+				for _, f := range fs {
+					if f.Check == "failed" && strings.Contains(f.Detail, d.detail) {
+						return
+					}
+				}
+				t.Errorf("no failed finding says %q: %+v", d.detail, fs)
+			})
+		}
 	}
 }
 
