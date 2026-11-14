@@ -127,6 +127,15 @@
 * Implementation: Open source
 * Implementation link: https://github.com/openjdk/jdk
 
+# Okwuosa (Cloudflare CIRCL)
+
+* Provider short name: `okwuosa`
+* Company name: paschal533 (GitHub)
+* Company website: https://github.com/paschal533
+* Implementation: Open Source (CIRCL for ML-DSA and ML-KEM; X.509 and PKCS#8 built by hand)
+* Implementation link: https://github.com/IETF-Hackathon/pqc-certificates/tree/master/providers/okwuosa
+
+
 # OpenSSL Composite Preliminary Implementation
 
 * Provider short name: `openssl-composite-preliminary-impl`
