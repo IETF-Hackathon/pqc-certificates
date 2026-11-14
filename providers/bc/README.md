@@ -14,9 +14,23 @@ You need the bcprov-jdk18on, bcpkix-jdk18on and bcutil-jdk18on jars on the class
 | `check.sh [artifacts]` | Builds the tools and runs `R5ArtifactParser` over the certificate artifacts and, if present, the CMS artifacts. |
 | `gen_r3.sh` | Runs `R3ArtifactGenerator` (expects the tools to have been compiled into `classes` already). |
 | `check_r3.sh [producer] [artifacts]` | Runs `R3ArtifactParser`, e.g. `./check_r3.sh bc ./artifacts_certs_r3`. |
-| `verify_r3.sh <certfile>` | Runs `Verify self-signed` against a single self-signed certificate. |
+| `verify_r3.sh <certfile\|artifacts.zip>` | Runs `Verify self-signed` against a single self-signed certificate, or against every artifact in an R5 certificate zip. This is the automated BC verifier; see below. |
 
 The top-level `Makefile` uses `gen.sh` and `check.sh`.
+
+## Verify (automated verifier)
+
+The `bc_validation` CI job runs `src/test_certs_r5.sh bc`, which calls `verify_r3.sh` on every provider's `artifacts_certs_r5.zip`. It runs inside the `bcdocker2000/bc_hackathon_pqc` Docker image, which contains a copy of this directory compiled against the BC beta. A change to `Verify.java` therefore only reaches CI once that image has been rebuilt.
+
+`Verify` prints one `<oid>,<type>,<Y|N>` row per check (the R5 results format in `docs/compat_matrix_instructions.md`) and writes diagnostics to stderr. For a zip it checks:
+
+- `cert` for each self-signed trust anchor (`*_ta.der`/`*_ta.pem`).
+- For each KEM end-entity certificate (`*_ee.der`):
+  - `cert`: the certificate is signed by its trust anchor in the same zip, matched by subject or by authority key identifier. If the zip has no such trust anchor, the check is skipped.
+  - `priv`, `seed`, `expandedkey`, `both`: each private key form that is present loads and, if `_ciphertext.bin` and `_ss.bin` are present, decapsulates the ciphertext to the shared secret.
+  - `consistent`: every private key form decapsulates a fresh encapsulation to the certificate's public key.
+
+  The key checks cover ML-KEM, composite ML-KEM, FrodoKEM, NTRU and Classic McEliece. For other KEMs only `cert` is reported. `external_*` certificates are skipped.
 
 ## R5ArtifactGenerator / R5ArtifactParser (current)
 
@@ -24,7 +38,7 @@ The top-level `Makefile` uses `gen.sh` and `check.sh`.
 
 - ML-DSA and hash-ML-DSA, SLH-DSA and hash-SLH-DSA, Falcon.
 - Composite ML-DSA signatures and composite ML-KEM, using the IANA (`1.3.6.1.5.5.7.6.*`) OIDs.
-- ML-KEM, FrodoKEM/eFrodoKEM and NTRU, with sample ciphertexts and shared secrets.
+- ML-KEM, FrodoKEM/eFrodoKEM and NTRU, with private keys, sample ciphertexts and shared secrets.
 - Catalyst and chameleon hybrid trust anchors.
 - CMS signed-data and KEMRecipientInfo enveloped-data artifacts.
 

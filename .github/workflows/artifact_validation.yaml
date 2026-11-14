@@ -42,18 +42,16 @@ jobs:
           path: ./output/
   openssl_cms_validation:
     runs-on: ubuntu-latest
-    container: ubuntu:24.04
+    container: debian:sid
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install OpenSSL 3.6
         run: |
-            apt update
-            apt install -y zip gnupg
-            apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6ED0E7B82643E131
-            echo "deb http://deb.debian.org/debian experimental main" > /etc/apt/sources.list
-            apt update
-            apt install -y openssl
+            apt-get update
+            apt-get install -y zip unzip openssl
+            openssl version
+            openssl version | grep -q '^OpenSSL 3\.6\.' || { echo "Expected OpenSSL 3.6"; exit 1; }
       - name: Test CMS artifacts with OpenSSL 3.6
         run: ./src/test_cms_v3_openssl.sh
       - name: Save artifacts
@@ -168,13 +166,13 @@ jobs:
       - name: Build compat matrix (cms_v3)
         run: ./src/rebuild_results_cms_v3.sh
       - name: Copy output files (automated certs_r5)
-        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./output/certs/qubip-aurora_certs.log ./docs/gh-pages
+        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./docs/pqc_hackathon_results_certs_r5_automated_tests_standardized.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./output/certs/qubip-aurora_certs.log ./docs/gh-pages
       - name: Copy output files (automated cms_v3)
-        run: cp ./docs/pqc_hackathon_results_cms_v3_automated_tests.html ./output/cms/openssl_cms.log ./docs/gh-pages
+        run: cp ./docs/pqc_hackathon_results_cms_v3_automated_tests.html ./docs/pqc_hackathon_results_cms_v3_automated_tests_standardized.html ./output/cms/openssl_cms.log ./docs/gh-pages
       - name: Copy output files (manual r5/v1)
         run: cp ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/gh-pages
       - name: Copy output files (manual r5/v3)
-        run: cp ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_cms_v3.html ./docs/gh-pages
+        run: cp ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_certs_r5_standardized.html ./docs/pqc_hackathon_results_cms_v3.html ./docs/pqc_hackathon_results_cms_v3_standardized.html ./docs/gh-pages
       - name: Copy output files (manual jose_cose_v1)
         run: cp ./docs/pqc_hackathon_results_jose_cose_v1.html ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download
