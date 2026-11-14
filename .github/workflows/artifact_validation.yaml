@@ -175,6 +175,8 @@ jobs:
         run: cp ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/gh-pages
       - name: Copy output files (manual r5/v3)
         run: cp ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_cms_v3.html ./docs/gh-pages
+      - name: Copy output files (manual jose_cose_v1)
+        run: cp ./docs/pqc_hackathon_results_jose_cose_v1.html ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download
         uses:  actions/upload-pages-artifact@v3
         with:
