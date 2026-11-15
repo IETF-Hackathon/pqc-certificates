@@ -407,3 +407,14 @@ The NIST additional signature entries correspond to the Round 2 submissions as i
 | SMAUG-T-3 | 1.3.6.1.4.1.22554.5.11.2* | `smaugt_mode3` |
 | SMAUG-T-5 | 1.3.6.1.4.1.22554.5.11.3* | `smaugt_mode5` |
 | SMAUG-T-TiMER | 1.3.6.1.4.1.22554.5.11.4* | `smaugt_modet` |
+
+# Other object Identifiers needed for interoperability Testing
+
+## Certificate Discovery prototype OIDS 
+Required for testing https://datatracker.ietf.org/doc/draft-ietf-lamps-certdiscovery/06/ 
+
+| Object ID Type | OID | Reference
+| ----------- | ----------- | ----------- |
+| certDiscovery | 1.3.6.1.5.5.7.48.99 | draft-ietf-lamps-certdiscovery |
+| certDiscoverySelfLocation | 1.3.6.1.5.5.7.48.98 | draft-ietf-lamps-certdiscovery |
+| relatedCertificateDescriptor | 1.3.6.1.5.5.7.8.99 | draft-ietf-lamps-certdiscovery |
