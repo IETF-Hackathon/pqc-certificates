@@ -16,6 +16,16 @@ _OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid
 _HYBRID_FORMAT_NAME_REGEX = re.compile(r'(?P<hybrid_format>[^_]+)_(?P<oid1>[^_]+)_with_(?P<oid2>[^_]+)', re.IGNORECASE)
 _OID_REGEX = re.compile(r'^\d+(\.\d+)+$')
 
+# Columns that hold lint results rather than verification results, with the page that lists
+# their findings. A 'W' result there is shown as a warning sign linking to the provider's section
+# of that page, and these columns are not counted in the summary table.
+_LINT_VERIFIERS = {'pkilint': 'pkilint_certs.html'}
+
+
+def _anchor(name):
+    """Section id of a provider on a lint page (same rule as src/test_certs_r5_pkilint.py)."""
+    return re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')
+
 _PAGE_STANDARDIZED = 'standardized'
 _PAGE_PRESTANDARD = 'prestandard'
 _PAGE_TITLES = {
@@ -60,6 +70,8 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
     
     for algorithmVerificationResult in relevant_avrs:
         if algorithmVerificationResult.test_result == None or algorithmVerificationResult.test_result == '':
+            continue
+        if algorithmVerificationResult.verifier in _LINT_VERIFIERS:
             continue
 
         totalCount += 1
@@ -134,6 +146,12 @@ def _format_result_cell(algorithmVerificationResult) -> str:
         display_result = '?'
     elif r == 'Y' or r == 'y':
         display_result = '✅'
+    elif r == 'W' or r == 'w':
+        page = _LINT_VERIFIERS.get(algorithmVerificationResult.verifier)
+        if page:
+            display_result = Inline.new_link(f'{page}#{_anchor(algorithmVerificationResult.generator)}', '⚠️')
+        else:
+            display_result = '⚠️'
     else:
         display_result = '❌'
 
@@ -302,6 +320,8 @@ def main():
         return
 
     md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers<br>Columns represent producers who submitted artifacts. Verifiers are not listed in this table, but are listed in the broken-out tables below.<br>")
+    if any(avr.verifier in _LINT_VERIFIERS for avr in algorithmVerificationResults):
+        md_file.new_paragraph(text="⚠️ in a lint column (" + ", ".join(sorted(_LINT_VERIFIERS)) + ") = the certificate has lint findings; the sign links to them. Lint columns are not counted in this table.")
     md_file.new_paragraph()
     _submittedAlgsList.sort()
 
