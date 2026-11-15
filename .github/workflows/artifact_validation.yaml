@@ -74,6 +74,46 @@ jobs:
         with:
           name: Compatibility_qubip_aurora_csv
           path: ./output/
+  oqs_cert_validation:
+    runs-on: ubuntu-latest
+    # OpenSSL 3.6.0 + oqs-provider 0.11.0 + liboqs 0.15.0 ("latest" as of 2026-10-26)
+    container: openquantumsafe/oqs-ossl3:latest@sha256:fbb6e06842a2ba2bce0721ebb5ffe62c909ce8443382fd9a102c8381b2d1b3f7
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Test artifacts with OpenSSL and oqsprovider
+        run: |
+          openssl version
+          ./src/test_certs_r5.sh oqs
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_oqs_csv
+          path: ./output/
+
+  pittv3_cert_validation:
+    runs-on: ubuntu-latest
+    env:
+      PITTV3_VERSION: 0.2.0-rc.2
+      PITTV3_SHA256: 9dbd7939e50b704b5712086a7e53df5fc5adc1bc74f3e359c78bbdc3c6f0d194
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install pittv3
+        run: |
+          name=pittv3-${PITTV3_VERSION}-x86_64-unknown-linux-gnu
+          curl -sSfL -o "$name.tar.gz" \
+            "https://github.com/carl-wallace/rust-pki/releases/download/pittv3-v${PITTV3_VERSION}/$name.tar.gz"
+          echo "${PITTV3_SHA256}  $name.tar.gz" | sha256sum -c
+          tar xzf "$name.tar.gz"
+          echo "PITTV3=$PWD/$name/pittv3" >> "$GITHUB_ENV"
+      - name: Test artifacts with pittv3
+        run: ./src/test_certs_r5_pittv3.sh
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_pittv3_csv
+          path: ./output/
   pkilint_cert_validation:
     runs-on: ubuntu-latest
     steps:
@@ -140,7 +180,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:latest
     # needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, ssai_validation, composite_ref_impl_validation]
-    needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, composite_ref_impl_validation, qubip_aurora_cert_validation, pkilint_cert_validation]
+    needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, composite_ref_impl_validation, qubip_aurora_cert_validation, oqs_cert_validation, pittv3_cert_validation, pkilint_cert_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -169,6 +209,16 @@ jobs:
         with:
           name: Compatibility_qubip_aurora_csv
           path: output/
+      - name: Get OQS results from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: Compatibility_oqs_csv
+          path: output/
+      - name: Get pittv3 results from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: Compatibility_pittv3_csv
+          path: output/
       - name: Get OpenSSL 3.6 results from previous job
         uses: actions/download-artifact@v4
         with:
@@ -191,13 +241,15 @@ jobs:
       - name: Build compat matrix (cms_v3)
         run: ./src/rebuild_results_cms_v3.sh
       - name: Copy output files (automated certs_r5)
-        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./docs/pqc_hackathon_results_certs_r5_automated_tests_standardized.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./output/certs/qubip-aurora_certs.log ./output/certs/pkilint_certs.log ./docs/gh-pages
+        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./docs/pqc_hackathon_results_certs_r5_automated_tests_standardized.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./output/certs/qubip-aurora_certs.log ./output/certs/oqs_certs.log ./output/certs/pittv3_certs.log ./output/certs/pkilint_certs.log ./docs/gh-pages
       - name: Copy output files (automated cms_v3)
         run: cp ./docs/pqc_hackathon_results_cms_v3_automated_tests.html ./docs/pqc_hackathon_results_cms_v3_automated_tests_standardized.html ./output/cms/openssl_cms.log ./docs/gh-pages
       - name: Copy output files (manual r5/v1)
         run: cp ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/gh-pages
       - name: Copy output files (manual r5/v3)
         run: cp ./docs/pqc_hackathon_results_certs_r5.html ./docs/pqc_hackathon_results_certs_r5_standardized.html ./docs/pqc_hackathon_results_cms_v3.html ./docs/pqc_hackathon_results_cms_v3_standardized.html ./docs/gh-pages
+      - name: Copy output files (manual jose_cose_v1)
+        run: cp ./docs/pqc_hackathon_results_jose_cose_v1.html ./docs/gh-pages
       - name: Archive Compatibility Matrix For Download
         uses:  actions/upload-pages-artifact@v3
         with:

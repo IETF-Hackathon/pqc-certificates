@@ -138,20 +138,42 @@ func TestMLKEMBadEEIsN(t *testing.T) {
 	files := ossl35Files(t)
 	ee := a.FileName("_ee.der")
 	files[ee] = files[ee][:len(files[ee])-40]
-	rows, _ := CheckMLKEM(files, a)
+	rows, fs := CheckMLKEM(files, a)
 	want := wantRows(a, "seed", "Y", "cert", "N", "consistent", "N")
 	if got := rowString(rows); got != want {
 		t.Errorf("rows:\n%s\nwant\n%s", got, want)
+	}
+	if !hasFinding(fs, ee, "failed", "") {
+		t.Errorf("no finding explains the N: %+v", fs)
 	}
 }
 
 func TestMLKEMEEOfOtherParameterSetIsN(t *testing.T) {
 	files := ossl35Files(t)
 	files[alg.MLKEM1024.FileName("_ee.der")] = files[alg.MLKEM768.FileName("_ee.der")]
-	rows, _ := CheckMLKEM(files, alg.MLKEM1024)
+	rows, fs := CheckMLKEM(files, alg.MLKEM1024)
 	want := wantRows(alg.MLKEM1024, "seed", "Y", "cert", "N", "consistent", "N")
 	if got := rowString(rows); got != want {
 		t.Errorf("rows:\n%s\nwant\n%s", got, want)
+	}
+	if !hasFinding(fs, alg.MLKEM1024.FileName("_ee.der"), "failed", "SPKI algorithm") {
+		t.Errorf("no finding explains the N: %+v", fs)
+	}
+}
+
+// An unusable EE key is N whether or not the zip has the TA, and a finding
+// names the key, not only the missing TA.
+func TestMLKEMUnusableEEKeyWithoutTAIsN(t *testing.T) {
+	a := alg.MLKEM1024
+	files := ossl35Files(t)
+	files[a.FileName("_ee.der")] = files[alg.MLKEM768.FileName("_ee.der")]
+	delete(files, alg.MLDSA87.FileName("_ta.der"))
+	rows, fs := CheckMLKEM(files, a)
+	if got, want := rowString(rows), wantRows(a, "seed", "Y", "cert", "N", "consistent", "N"); got != want {
+		t.Errorf("rows:\n%s\nwant\n%s", got, want)
+	}
+	if !hasFinding(fs, a.FileName("_ee.der"), "failed", "SPKI algorithm") {
+		t.Errorf("no finding explains the N: %+v", fs)
 	}
 }
 
@@ -184,30 +206,76 @@ func TestMLKEMMissingPieces(t *testing.T) {
 			t.Errorf("rows:\n%s", got)
 		}
 	})
-	t.Run("no TA is a strict finding only", func(t *testing.T) {
+	t.Run("no TA: the cert check cannot run, so no row", func(t *testing.T) {
 		files := ossl35Files(t)
 		delete(files, alg.MLDSA65.FileName("_ta.der"))
 		rows, fs := CheckMLKEM(files, a)
-		if got, want := rowString(rows), wantRows(a, "seed", "Y", "cert", "Y", "consistent", "Y"); got != want {
+		if got, want := rowString(rows), wantRows(a, "seed", "Y", "consistent", "Y"); got != want {
 			t.Errorf("rows:\n%s", got)
 		}
-		if countFindings(fs, "strict") != 1 {
+		if !hasFinding(fs, a.FileName("_ee.der"), "cannot-run", "TA to verify the EE signature against") {
 			t.Errorf("findings: %+v", fs)
 		}
 	})
 }
 
-func TestMLKEMWrongTAIsStrictFindingOnly(t *testing.T) {
+// The `cert` row of an ML-KEM EE is the one docs/compat_matrix_instructions.md
+// defines: a valid signature by the ML-DSA TA of the same level in the zip.
+func TestMLKEMCertNeedsTheSignatureOfItsTA(t *testing.T) {
 	a := alg.MLKEM768
-	files := ossl35Files(t)
-	files[alg.MLDSA65.FileName("_ta.der")] = files[alg.MLDSA87.FileName("_ta.der")]
-	rows, fs := CheckMLKEM(files, a)
-	if got, want := rowString(rows), wantRows(a, "seed", "Y", "cert", "Y", "consistent", "Y"); got != want {
-		t.Errorf("rows:\n%s", got)
+	ee, ta := a.FileName("_ee.der"), alg.MLDSA65.FileName("_ta.der")
+	cases := []struct {
+		name   string
+		damage func(f map[string][]byte)
+		detail string
+	}{
+		{"TA of another level", func(f map[string][]byte) { f[ta] = f[alg.MLDSA87.FileName("_ta.der")] }, "does not verify under " + ta},
+		{"EE signature changed", func(f map[string][]byte) {
+			b := append([]byte{}, f[ee]...)
+			b[len(b)-1] ^= 1
+			f[ee] = b
+		}, "does not verify under " + ta},
+		{"TA does not parse", func(f map[string][]byte) { f[ta] = f[ta][:100] }, "does not parse"},
 	}
-	if countFindings(fs, "strict") != 1 {
-		t.Errorf("findings: %+v", fs)
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			files := ossl35Files(t)
+			c.damage(files)
+			rows, fs := CheckMLKEM(files, a)
+			if got, want := rowString(rows), wantRows(a, "seed", "Y", "cert", "N", "consistent", "Y"); got != want {
+				t.Errorf("rows:\n%s", got)
+			}
+			if !hasFinding(fs, ee, "failed", c.detail) {
+				t.Errorf("no finding explains the N: %+v", fs)
+			}
+		})
 	}
+}
+
+// seventhsense.ai's ML-KEM EEs are signed by keys that are not in its zip.
+func TestSeventhsenseKEMCertsAreN(t *testing.T) {
+	files, err := ReadZip(filepath.Join("..", "..", "..", "..", "seventhsense.ai", "artifacts_certs_r5.zip"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, a := range kemAlgs {
+		rows, fs := CheckMLKEM(files, a)
+		if !strings.Contains(rowString(rows), a.OID+" cert N\n") {
+			t.Errorf("%s rows:\n%s", a.Friendly, rowString(rows))
+		}
+		if !hasFinding(fs, a.OID+"_ee.der", "failed", "does not verify under") {
+			t.Errorf("%s: no finding explains the N: %+v", a.Friendly, fs)
+		}
+	}
+}
+
+func hasFinding(fs []Finding, file, check, detail string) bool {
+	for _, f := range fs {
+		if strings.HasSuffix(f.File, file) && f.Check == check && strings.Contains(f.Detail, detail) {
+			return true
+		}
+	}
+	return false
 }
 
 // TestMLKEMTruncationsNeverPanic cuts every artifact at every length.

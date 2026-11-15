@@ -50,9 +50,7 @@ and tested with Go 1.27.3; needs `which`, and `unzip` for the `unzip` and
 
 In any zip, whatever folder the files are in. Files are found by name suffix;
 files that are not for one of the OIDs below are ignored, and so are
-`external_`, `catalyst_` and `chameleon_` files. The CI's skip for KEM EE files
-does not take effect, so our result can differ from the CI's where a provider
-ships both a plain and a hybrid-prefixed EE for the same OID.
+`external_`, `catalyst_` and `chameleon_` files, which the CI also skips.
 
 ML-DSA-44/65/87:
 
@@ -79,11 +77,17 @@ ML-KEM-768 and ML-KEM-1024:
   `_ciphertext.bin` with it and the result must equal `_ss.bin`.
 - `cert`: the end-entity certificate parses, its SubjectPublicKeyInfo has the
   right OID without parameters, and `crypto/mlkem` accepts the key and
-  encapsulates to it. The EE signature is not part of this row.
+  encapsulates to it, and the EE's signature verifies under the same
+  generator's ML-DSA TA of the same level (768 with ML-DSA-65, 1024 with
+  ML-DSA-87), as `docs/compat_matrix_instructions.md` defines the row. The
+  signature is checked with `CheckSignatureFrom`, which also refuses a TA
+  that is not a version 3 CA or whose keyUsage lacks keyCertSign; it does
+  not compare the EE's issuer name with the TA's subject. A zip with a usable
+  EE key and no such TA gets no `cert` row and a `cannot-run` finding. The
+  CI's OpenSSL job does not check the EE's signature, so this row can be `N`
+  where the CI's is `Y`.
 - `consistent`: the seed key's encapsulation key equals the EE's public key.
-- Separately, the EE signature is checked against the same generator's TA at
-  the same level (768 with ML-DSA-65, 1024 with ML-DSA-87). That never makes a
-  row; a failure, or a missing TA, is a `strict` finding.
+  It does not depend on the EE's signature.
 
 A row is written only for a check that ran; what Go cannot check is recorded
 as a `cannot-run` finding, with no row:
