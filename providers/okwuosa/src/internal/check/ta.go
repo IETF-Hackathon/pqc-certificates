@@ -108,8 +108,9 @@ func sigAlgMatches(c *der.ParsedCert, signerOID string) error {
 	return nil
 }
 
-// checkIssuedBy verifies the signature of c under the public key of ta. It is
-// a strict check only: the CI does not verify EE signatures.
+// checkIssuedBy verifies the signature of c under the public key of ta. It
+// decides the `cert` row of an ML-KEM EE. It does not compare the issuer name
+// of c with the subject of ta and does not look at the extensions of ta.
 func checkIssuedBy(c *der.ParsedCert, ta *der.ParsedCert) error {
 	pub, err := publicKeyOf(ta)
 	if err != nil {

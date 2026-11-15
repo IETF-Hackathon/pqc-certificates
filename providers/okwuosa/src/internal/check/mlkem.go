@@ -142,8 +142,9 @@ func checkEncapsulationKey(c *der.ParsedCert, a alg.Alg) error {
 	return err
 }
 
-// CheckMLKEM runs the CI-equivalent checks for one ML-KEM algorithm over the
-// files that are present. A check we cannot run produces a Finding, no Row.
+// CheckMLKEM runs the checks for one ML-KEM algorithm over the files that are
+// present: the CI's checks, and for the `cert` row also the EE signature (see
+// eeCert). A check we cannot run produces a Finding, no Row.
 // Rows are in the order seed, expandedkey, both, cert, consistent.
 func CheckMLKEM(files map[string][]byte, a alg.Alg) ([]Row, []Finding) {
 	ee := loadEE(files, a)
@@ -173,8 +174,11 @@ func CheckMLKEM(files map[string][]byte, a alg.Alg) ([]Row, []Finding) {
 		cons.add(kerr == nil && ee.err == nil && bytes.Equal(key.pub, ee.pub))
 	}
 	if ee.present {
-		rows = append(rows, Row{a.OID, "cert", ee.err == nil})
-		fs = append(fs, eeFindings(files, a, ee)...)
+		ok, ran, eeFs := eeCert(files, a, ee)
+		if ran {
+			rows = append(rows, Row{a.OID, "cert", ok})
+		}
+		fs = append(fs, eeFs...)
 	}
 	if r, ok := cons.row(a); ok {
 		rows = append(rows, r)
@@ -188,32 +192,39 @@ func findCiphertext(files map[string][]byte, a alg.Alg) (ct, ss []byte, ok bool)
 	return ct, ss, okCT && okSS
 }
 
-// eeFindings explains a failed `cert` row and adds the strict check of the EE
-// signature against the same generator's TA at the same level, which never
-// makes a row because the CI does not run it.
-func eeFindings(files map[string][]byte, a alg.Alg, ee eeState) []Finding {
+// eeCert is the `cert` row of the EE as docs/compat_matrix_instructions.md
+// defines it: the certificate has a valid signature by the ML-DSA TA of the
+// same level in the same zip. The row also needs a usable encapsulation key.
+// ran is false when the key is usable and the zip has no such TA: the
+// signature check cannot run, so there is no row.
+func eeCert(files map[string][]byte, a alg.Alg, ee eeState) (ok, ran bool, fs []Finding) {
 	if ee.cert == nil {
-		return []Finding{{File: ee.name, Check: "failed", Detail: ee.err.Error()}}
+		return false, true, []Finding{{File: ee.name, Check: "failed", Detail: ee.err.Error()}}
 	}
-	var fs []Finding
 	if ee.err != nil {
 		fs = append(fs, Finding{File: ee.name, Check: "failed", Detail: ee.err.Error()})
 	}
 	fs = append(fs, strictCert(ee.name, ee.cert)...)
 	issuer := alg.IssuerFor(a)
 	ta := loadTA(files, issuer)
-	var detail string
-	switch {
-	case !ta.present:
-		detail = "no " + issuer.Friendly + " TA to verify the EE signature against"
-	case ta.cert == nil:
-		detail = "TA " + ta.name + " does not parse"
-	default:
-		err := checkIssuedBy(ee.cert, ta.cert)
-		if err == nil {
-			return fs
-		}
-		detail = "EE signature does not verify under " + ta.name + ": " + err.Error()
+	if !ta.present {
+		detail := "no " + issuer.Friendly + " TA to verify the EE signature against"
+		return false, ee.err != nil, append(fs, Finding{File: ee.name, Check: "cannot-run", Detail: detail})
 	}
-	return append(fs, Finding{File: ee.name, Check: "strict", Detail: detail})
+	if detail := issuerFault(ee, ta); detail != "" {
+		return false, true, append(fs, Finding{File: ee.name, Check: "failed", Detail: detail})
+	}
+	return ee.err == nil, true, fs
+}
+
+// issuerFault says why the EE signature is not a valid signature by ta, or
+// returns "" when it verifies.
+func issuerFault(ee eeState, ta taState) string {
+	if ta.cert == nil {
+		return "TA " + ta.name + " does not parse"
+	}
+	if err := checkIssuedBy(ee.cert, ta.cert); err != nil {
+		return "EE signature does not verify under " + ta.name + ": " + err.Error()
+	}
+	return ""
 }
