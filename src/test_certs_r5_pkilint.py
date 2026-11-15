@@ -7,9 +7,11 @@ catalyst_ and chameleon_ files are skipped) is linted with pkilint's lint_pkix_c
 files are read from the zips; nothing is extracted.
 
 Writes into output/certs/:
-  <provider>_pkilint.csv  one `cert` row per OID: Y when the certificate has no finding at the
-                          threshold or above, W when it has (shown as a warning sign that links
-                          to pkilint_certs.html)
+  <provider>_pkilint.csv  one `cert` row per OID, shown in the pkilint column of the automated
+                          results: Y (no finding at the threshold or above), W (a WARNING or ERROR
+                          finding at the threshold or above, shown as a warning sign) or N (a FATAL
+                          finding: pkilint could not decode the certificate, shown as a cross).
+                          The warning sign and the cross link to pkilint_certs.html.
   pkilint_certs.md        every finding at WARNING and above, per provider and certificate
                           (published as pkilint_certs.html)
   pkilint_certs.log       the same findings as plain text
@@ -18,7 +20,7 @@ Usage:
   python3 src/test_certs_r5_pkilint.py              # every providers/*/artifacts_certs_r5.zip
   python3 src/test_certs_r5_pkilint.py <zip> ...    # some zips (the provider is the folder name)
 Needs pkilint (pip install pkilint). PKILINT_MIN_SEVERITY (WARNING, ERROR or FATAL, default
-ERROR) sets the threshold for W.
+WARNING) is the lowest severity that gives W; a FATAL finding always gives N.
 """
 import csv
 import glob
@@ -37,6 +39,7 @@ LINT_PAGE = "pkilint_certs"
 CERT_NAME = re.compile(r"-(2\.16\.840\.1\.101\.3\.4\.(?:3\.(?:1[7-9]|2[0-9]|3[01])|4\.[1-3]))_(ta|ee)\.der$")
 HYBRID_PREFIXES = ("external_", "catalyst_", "chameleon_")
 SEVERITY_ORDER = ["DEBUG", "INFO", "NOTICE", "WARNING", "ERROR", "FATAL"]
+RESULT_ORDER = ["Y", "W", "N"]
 
 
 def anchor(provider):
@@ -61,7 +64,7 @@ def md_cell(text):
 
 
 def main():
-    threshold = os.environ.get("PKILINT_MIN_SEVERITY", "ERROR").upper()
+    threshold = os.environ.get("PKILINT_MIN_SEVERITY", "WARNING").upper()
     if threshold not in ("WARNING", "ERROR", "FATAL"):
         sys.exit(f"PKILINT_MIN_SEVERITY must be WARNING, ERROR or FATAL, not {threshold}")
     zips = sys.argv[1:] or sorted(glob.glob("providers/*/artifacts_certs_r5.zip"))
@@ -71,7 +74,7 @@ def main():
     certs = {}     # provider -> number of certificates linted
     for zip_path in zips:
         provider = os.path.basename(os.path.dirname(os.path.abspath(zip_path)))
-        results = {}  # oid -> 'Y' or 'W'
+        results = {}  # oid -> 'Y', 'W' or 'N'
         found = []
         with zipfile.ZipFile(zip_path) as zf:
             for name in sorted(zf.namelist()):
@@ -84,8 +87,14 @@ def main():
                 certs[provider] = certs.get(provider, 0) + 1
                 found += [(base,) + r for r in rows]
                 worst = max((SEVERITY_ORDER.index(r[2]) for r in rows if r[2] in SEVERITY_ORDER), default=-1)
-                result = "W" if worst >= SEVERITY_ORDER.index(threshold) else "Y"
-                if results.get(oid) != "W":  # several files for one OID: W wins
+                if worst == SEVERITY_ORDER.index("FATAL"):
+                    result = "N"
+                elif worst >= SEVERITY_ORDER.index(threshold):
+                    result = "W"
+                else:
+                    result = "Y"
+                prev = results.get(oid)  # several files for one OID: the worst result wins
+                if prev is None or RESULT_ORDER.index(result) > RESULT_ORDER.index(prev):
                     results[oid] = result
         if not results:
             continue
@@ -106,13 +115,16 @@ def main():
         md.write("<style> table { border-collapse: collapse; width:auto !important; } th, td { border: solid black 1px; "
                  "padding: 0 1ex; } </style>\n\n")
         md.write(f"Generated: {when}. pkilint {pkilint_version} (`lint_pkix_cert`) on {total} pure ML-DSA, "
-                 f"SLH-DSA and ML-KEM certificates from {len(findings)} providers; findings at WARNING and above. "
-                 f"A certificate with a finding at {threshold} or above shows a warning sign in the pkilint "
-                 "column of the automated results.\n\n")
+                 f"SLH-DSA and ML-KEM certificates from {len(findings)} providers; findings at WARNING and above.\n\n")
+        warn = {"WARNING": "⚠️ = a WARNING or ERROR finding; ", "ERROR": "⚠️ = an ERROR finding; ", "FATAL": ""}[threshold]
+        md.write("In the pkilint column of the automated results, which is separate from the verifiers' columns "
+                 f"and not counted in the summary: ✅ = no finding at {threshold} or above; {warn}❌ = a FATAL "
+                 "finding (pkilint could not decode the certificate, for example because it is not DER). "
+                 "⚠️ and ❌ link to the provider's section below.\n\n")
         md.write("To check a zip before pushing it: `pip install pkilint`, then "
                  "`python3 src/test_certs_r5_pkilint.py providers/<name>/artifacts_certs_r5.zip`, or "
                  "`unzip -p <zip> <entry> | lint_pkix_cert lint --document-format DER -` for one certificate.\n\n")
-        log.write(f"pkilint {pkilint_version}, {when}, threshold for W: {threshold}\n")
+        log.write(f"pkilint {pkilint_version}, {when}, W from {threshold}, N for FATAL\n")
         for provider in sorted(findings, key=str.lower):
             md.write(f"## {provider} {{#{anchor(provider)}}}\n\n")
             rows = findings[provider]

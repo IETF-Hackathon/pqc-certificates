@@ -17,8 +17,9 @@ _HYBRID_FORMAT_NAME_REGEX = re.compile(r'(?P<hybrid_format>[^_]+)_(?P<oid1>[^_]+
 _OID_REGEX = re.compile(r'^\d+(\.\d+)+$')
 
 # Columns that hold lint results rather than verification results, with the page that lists
-# their findings. A 'W' result there is shown as a warning sign linking to the provider's section
-# of that page, and these columns are not counted in the summary table.
+# their findings. They come after the verifiers' columns and are not counted in the summary table.
+# A 'W' result there is shown as a warning sign and an 'N' (a FATAL finding) as a cross, both
+# linking to the provider's section of that page.
 _LINT_VERIFIERS = {'pkilint': 'pkilint_certs.html'}
 
 
@@ -146,14 +147,11 @@ def _format_result_cell(algorithmVerificationResult) -> str:
         display_result = '?'
     elif r == 'Y' or r == 'y':
         display_result = '✅'
-    elif r == 'W' or r == 'w':
+    else:
+        display_result = '⚠️' if r == 'W' or r == 'w' else '❌'
         page = _LINT_VERIFIERS.get(algorithmVerificationResult.verifier)
         if page:
-            display_result = Inline.new_link(f'{page}#{_anchor(algorithmVerificationResult.generator)}', '⚠️')
-        else:
-            display_result = '⚠️'
-    else:
-        display_result = '❌'
+            display_result = Inline.new_link(f'{page}#{_anchor(algorithmVerificationResult.generator)}', display_result)
 
     # if the result is '?', then do not print the line
     if (display_result != '?'):
@@ -281,7 +279,7 @@ def main():
     generators = list(generators)
     generators.sort()
     verifiers = list (verifiers)
-    verifiers.sort()
+    verifiers.sort(key=lambda v: (v in _LINT_VERIFIERS, v))  # lint columns last
 
     algorithms = list({algorithmVerificationResult.key_algorithm_oid for algorithmVerificationResult in algorithmVerificationResults})
     algorithms.sort()
@@ -320,8 +318,9 @@ def main():
         return
 
     md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers<br>Columns represent producers who submitted artifacts. Verifiers are not listed in this table, but are listed in the broken-out tables below.<br>")
-    if any(avr.verifier in _LINT_VERIFIERS for avr in algorithmVerificationResults):
-        md_file.new_paragraph(text="⚠️ in a lint column (" + ", ".join(sorted(_LINT_VERIFIERS)) + ") = the certificate has lint findings; the sign links to them. Lint columns are not counted in this table.")
+    lint_columns = sorted({avr.verifier for avr in algorithmVerificationResults if avr.verifier in _LINT_VERIFIERS})
+    if lint_columns:
+        md_file.new_paragraph(text="Lint (" + ", ".join(lint_columns) + ", the last column of the broken-out tables): ✅ = no lint findings; ⚠️ = WARNING or ERROR findings; ❌ = a FATAL finding (the certificate could not be decoded, for example because it is not DER). ⚠️ and ❌ link to the findings. Lint columns are not counted in this table, and the verifiers' ✅ / ❌ do not depend on them.")
     md_file.new_paragraph()
     _submittedAlgsList.sort()
 
@@ -360,13 +359,17 @@ def main():
         friendly = friendly_by_alg[alg_oid]
 
         md_file.new_header(level=1, title=f'{friendly} ({alg_oid})', header_id=friendly)
-        md_file.new_paragraph(text='Rows are producers. Columns are parsers.\n')
+        table_lint = sorted({avr.verifier for avr in algorithmVerificationResults if avr.verifier in _LINT_VERIFIERS})
+        lint_note = f' The last column, {", ".join(table_lint)}, is a lint, not a parser: ⚠️ and ❌ link to its findings.' if table_lint else ''
+        md_file.new_paragraph(text='Rows are producers. Columns are parsers.' + lint_note + '\n')
 
-        cells = ['-'] + verifiers
+        # a lint column only in the tables it has results for (the key tables have none)
+        table_verifiers = [v for v in verifiers if v not in _LINT_VERIFIERS or v in table_lint]
+        cells = ['-'] + table_verifiers
         for generator in generators:
             cells.append(generator)
 
-            for verifier in verifiers:
+            for verifier in table_verifiers:
                 relevant_avrs = [algorithmVerificationResult for algorithmVerificationResult in algorithmVerificationResults if algorithmVerificationResult.generator == generator and algorithmVerificationResult.verifier == verifier]
 
                 if len(relevant_avrs) > 1:
@@ -381,7 +384,7 @@ def main():
 
                 cells.append(_format_result_cell(relevant_avr))
 
-        md_file.new_table(columns=len(verifiers) + 1, rows=len(generators) + 1, text=cells, text_align='left')
+        md_file.new_table(columns=len(table_verifiers) + 1, rows=len(generators) + 1, text=cells, text_align='left')
 
     md_file.create_md_file()
 
