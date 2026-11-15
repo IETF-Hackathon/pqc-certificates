@@ -114,25 +114,25 @@ from the RFC text, and `test/openssl_kat_check.sh` checks the same vectors with 
 Where this differs from the OpenSSL job in CI (`src/test_certs_r5_openssl.sh`): for an ML-KEM EE the
 job parses the certificate and encapsulates to its key, and does not check the EE's signature; here
 `cert` is the signature by the same-level ML-DSA TA, as `docs/compat_matrix_instructions.md` defines it.
+bc's verifier (#348) and the two Go checkers (#355) also check the EE's signature by a TA in the same
+zip.
 
-## Results at master `cb0f187` (2026-11-14)
+## Results at master `5faa15b` (2026-11-15)
 
-`make cross_verify` over the 22 zips: 19 of them hold rows for the OIDs above; 752 rows, 735 `Y`
-and 17 `N`. Compared row by row with the CSVs the other verifiers committed, 748 rows agree with
-the majority, 2 differ and 2 are ties:
+`make cross_verify` over the 24 zips: 20 of them hold rows for the OIDs above; 753 rows, 736 `Y`
+and 17 `N`. Compared row by row with the CSVs the other verifiers committed, all 752 rows that
+another verifier also reports agree with the majority. The one row no other verifier reports yet is
+the `cert` row of the ML-DSA-65 TA in composite-frodokem-ref-impl's zip (`Y`); its other
+certificates are composite, which this verifier does not handle, and oqs-provider's zip holds only
+Falcon, so it has no rows here.
 
-| Producer | Rows | Here | Others | Reason (from `logs/`) |
-|---|---|---|---|---|
-| sanctum-secops-llc | ML-KEM-768 EE `cert` | N | Y (cryptonext, go-crypto, okwuosa) | the EE's signature does not verify under the set's ML-DSA-65 TA |
-| sanctum-secops-llc | ML-KEM-1024 EE `cert` | N | Y (cryptonext, go-crypto, okwuosa) | the EE is signed with ML-DSA-65, not with the ML-DSA-87 TA of its level |
-| seventhsense.ai | ML-KEM-768 EE `cert` | N | tie: Y (cryptonext, go-crypto, okwuosa), N (entrust, openjdk, safelogic) | the EE's signature does not verify under the TA of its level |
-| seventhsense.ai | ML-KEM-1024 EE `cert` | N | tie, as for ML-KEM-768 | the EE's signature does not verify under the TA of its level |
-
-The other `N` rows agree with the majority: botan's ML-DSA `seed` keys (3) do not parse as the
-RFC 9881 CHOICE, seventhsense.ai's ML-DSA key files (9) do not parse as single DER objects of that
-form, and its ML-KEM-512 EE signature does not verify under the TA of its level. The 30 rows for
-okwuosa's zip, new since `4cd2d1e`, are all `Y`; the rows for every other zip are the same as at
-`4cd2d1e`.
+The `N` rows: botan's ML-DSA `seed` keys (3) do not parse as the RFC 9881 CHOICE, seventhsense.ai's
+ML-DSA key files (9) do not parse as single DER objects of that form, and the signatures of
+seventhsense.ai's three ML-KEM EEs and of sanctum-secops-llc's ML-KEM-768 and ML-KEM-1024 EEs do not
+verify under the TA of their level. At `cb0f187` the sanctum-secops-llc rows differed from the
+majority and the seventhsense.ai ML-KEM-768 and ML-KEM-1024 rows were ties; since #355 the two Go
+checkers also check the EE's signature, and these rows agree with the majority. Every row for the
+zips that were there at `cb0f187` is the same as then.
 
 ## Licence
 
