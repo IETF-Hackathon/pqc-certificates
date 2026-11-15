@@ -115,20 +115,24 @@ Where this differs from the OpenSSL job in CI (`src/test_certs_r5_openssl.sh`): 
 job parses the certificate and encapsulates to its key, and does not check the EE's signature; here
 `cert` is the signature by the same-level ML-DSA TA, as `docs/compat_matrix_instructions.md` defines it.
 
-## Results at master `4cd2d1e` (2026-11-14)
+## Results at master `cb0f187` (2026-11-14)
 
-`make cross_verify` over the 21 zips: 18 of them hold rows for the OIDs above; 722 rows, 705 `Y`
-and 17 `N`. Compared row by row with the CSVs the other verifiers committed, 720 rows agree with
-the majority and 2 differ:
+`make cross_verify` over the 22 zips: 19 of them hold rows for the OIDs above; 752 rows, 735 `Y`
+and 17 `N`. Compared row by row with the CSVs the other verifiers committed, 748 rows agree with
+the majority, 2 differ and 2 are ties:
 
 | Producer | Rows | Here | Others | Reason (from `logs/`) |
 |---|---|---|---|---|
-| sanctum-secops-llc | ML-KEM-768 EE `cert` | N | Y (cryptonext, go-crypto) | the EE's signature does not verify under the set's ML-DSA-65 TA |
-| sanctum-secops-llc | ML-KEM-1024 EE `cert` | N | Y (cryptonext, go-crypto) | the EE is signed with ML-DSA-65, not with the ML-DSA-87 TA of its level |
+| sanctum-secops-llc | ML-KEM-768 EE `cert` | N | Y (cryptonext, go-crypto, okwuosa) | the EE's signature does not verify under the set's ML-DSA-65 TA |
+| sanctum-secops-llc | ML-KEM-1024 EE `cert` | N | Y (cryptonext, go-crypto, okwuosa) | the EE is signed with ML-DSA-65, not with the ML-DSA-87 TA of its level |
+| seventhsense.ai | ML-KEM-768 EE `cert` | N | tie: Y (cryptonext, go-crypto, okwuosa), N (entrust, openjdk, safelogic) | the EE's signature does not verify under the TA of its level |
+| seventhsense.ai | ML-KEM-1024 EE `cert` | N | tie, as for ML-KEM-768 | the EE's signature does not verify under the TA of its level |
 
 The other `N` rows agree with the majority: botan's ML-DSA `seed` keys (3) do not parse as the
-RFC 9881 CHOICE, and seventhsense.ai's ML-DSA key files (9) do not parse as single DER objects of
-that form, and its ML-KEM EE signatures (3) do not verify under the TAs of the same level.
+RFC 9881 CHOICE, seventhsense.ai's ML-DSA key files (9) do not parse as single DER objects of that
+form, and its ML-KEM-512 EE signature does not verify under the TA of its level. The 30 rows for
+okwuosa's zip, new since `4cd2d1e`, are all `Y`; the rows for every other zip are the same as at
+`4cd2d1e`.
 
 ## Licence
 
