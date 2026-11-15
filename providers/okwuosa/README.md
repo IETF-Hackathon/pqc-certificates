@@ -90,12 +90,18 @@ ML-KEM-512/768/1024:
   pass an encapsulate/decapsulate round trip with the key it contains.
 - `cert`: the end-entity certificate parses and its SubjectPublicKeyInfo is a
   well-formed encapsulation key of the right parameter set to which an
-  encapsulation succeeds. The EE signature is not part of this row.
+  encapsulation succeeds, and the EE's signature verifies under the same
+  generator's ML-DSA TA of the same level (512, 768 and 1024 with ML-DSA-44,
+  -65 and -87), as `docs/compat_matrix_instructions.md` defines the row.
+  Only the signature is checked: the EE's issuer name is not compared with
+  the TA's subject, and the TA's basicConstraints and keyUsage are not read.
+  A zip with a usable EE key and no such TA gets no `cert` row and a
+  `cannot-run` finding; an EE whose key is not usable is `N` with or without
+  a TA. The CI's OpenSSL job does not check the EE's
+  signature, so this row can be `N` where the CI's is `Y`.
 - `consistent`: the public key derived from each key file equals the EE's
-  public key (one row per OID, folded as for ML-DSA).
-- Separately, the EE signature is checked against the same generator's TA at
-  the same level. That never makes a row; a failure, or a missing TA, is a
-  `strict` finding.
+  public key (one row per OID, folded as for ML-DSA). It does not depend on
+  the EE's signature.
 
 A row is written only for a check that ran. What it cannot run is recorded as
 a `cannot-run` finding, with no row:

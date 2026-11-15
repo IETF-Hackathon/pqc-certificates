@@ -11,7 +11,8 @@ type Row struct {
 	OK        bool
 }
 
-// Finding is a strict-check failure or a "cannot run" note.
+// Finding is the reason for an N row (failed), a strict-check failure that
+// made no row (strict), or a "cannot run" note.
 type Finding struct {
 	Generator string `json:"generator"`
 	File      string `json:"file"`
