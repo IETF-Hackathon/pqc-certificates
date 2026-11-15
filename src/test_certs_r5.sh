@@ -7,8 +7,8 @@ fi
 
 verifier=$1
 case "$verifier" in
-  bc|ssai|openssl|qubip-aurora)
-    echo "Running with verifier $verifier." 
+  bc|ssai|openssl|qubip-aurora|oqs)
+    echo "Running with verifier $verifier."
     ;;
   *)
     echo "ERROR: verifier \"$verifier\" not supported"
@@ -32,9 +32,27 @@ alreadyTestedOIDs=";"
 # Return true (0) if this verifier is an alias for the openssl verifier
 alias_for_openssl() {
   case "$1" in
-    qubip-aurora|openssl) return 0 ;;
+    qubip-aurora|openssl|oqs) return 0 ;;
     *) return 1 ;;
   esac
+}
+
+# The oqs verifier only tests algorithms that oqsprovider itself implements.
+if [ "$verifier" = "oqs" ]; then
+    oqs_algorithms=$(openssl list --signature-algorithms --kem-algorithms | grep '@ oqsprovider')
+fi
+
+# Return 0 if oqsprovider implements the TA's key algorithm.
+oqs_serves_ta() {
+    # To map OID to alg name use OpenSSL's printed algorithm name.
+    # The cert prints a line like "Public Key Algorithm: falcon512"
+    _alg=$(openssl x509 -in "$1" -noout -text | awk -F': ' '/Public Key Algorithm/ {print $2}')
+
+    if [ -z "$_alg" ]; then
+        return 1 
+    fi
+
+    echo "$oqs_algorithms" | grep -q -w -F "$_alg"
 }
 
 # This only tests self-signed TA certs with openssl
@@ -46,10 +64,22 @@ openssl_check_ta() {
     _tafile="$1"
     _oid="$2"
 
-    openssl list --signature-algorithms --kem-algorithms | grep " $oid,"
-    if [ $? != 0 ]; then
-        printf "\nSkipping %s, unsupported\n" "$_tafile" | tee -a "$logfile"
-        return 100
+    if [ "$verifier" = "oqs" ]; then
+        # oqs_serves_ta reads the cert, so first make sure it can be read
+        if ! openssl x509 -in "$_tafile" -noout; then
+            echo "ERROR: malformed cert" | tee -a "$logfile"
+            return 1
+        fi
+        if ! oqs_serves_ta "$_tafile"; then
+            printf "\nSkipping %s, not implemented by oqsprovider\n" "$_tafile" | tee -a "$logfile"
+            return 100
+        fi
+    else
+        openssl list --signature-algorithms --kem-algorithms | grep -F " $_oid,"
+        if [ $? != 0 ]; then
+            printf "\nSkipping %s, unsupported\n" "$_tafile" | tee -a "$logfile"
+            return 100
+        fi
     fi
 
     # Baseline test whether TA cert is well formed

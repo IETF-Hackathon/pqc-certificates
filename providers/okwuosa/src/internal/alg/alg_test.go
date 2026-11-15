@@ -50,3 +50,37 @@ func TestAllAndByOID(t *testing.T) {
 		t.Error("unknown OID found")
 	}
 }
+
+func TestParseFileNamePlainPriv(t *testing.T) {
+	oid, suffix, ok := ParseFileName("artifacts/efrodokem976shake-1.0.18033.2.2.7.3_priv.der")
+	if !ok || oid != "1.0.18033.2.2.7.3" || suffix != "_priv.der" {
+		t.Errorf("got (%q,%q,%v)", oid, suffix, ok)
+	}
+	// The more specific suffixes still win.
+	if _, suffix, _ := ParseFileName("ml-kem-768-2.16.840.1.101.3.4.4.2_both_priv.der"); suffix != "_both_priv.der" {
+		t.Errorf("suffix = %q", suffix)
+	}
+}
+
+func TestFrodoKEMTables(t *testing.T) {
+	if len(EFrodoKEM()) != 4 || len(SaltedFrodoKEM()) != 4 {
+		t.Fatal("want 4 eFrodoKEM and 4 salted FrodoKEM parameter sets")
+	}
+	if len(FrodoKEM()) != 8 {
+		t.Fatal("want 8 FrodoKEM parameter sets")
+	}
+	for _, a := range FrodoKEM() {
+		if !IsFrodoKEM(a) || !Reads(a.OID, "_priv.der") || !Reads(a.OID, "_ss.bin") || Reads(a.OID, "_ta.der") {
+			t.Errorf("%s: IsFrodoKEM or Reads is wrong", a.Friendly)
+		}
+		if _, ok := ByOID(a.OID); ok {
+			t.Errorf("%s: ByOID must stay limited to ML-DSA and ML-KEM", a.Friendly)
+		}
+	}
+	if IsFrodoKEM(MLKEM768) {
+		t.Error("ML-KEM-768 is not FrodoKEM")
+	}
+	if !Reads(MLDSA44.OID, "_ta.der") || Reads(MLDSA44.OID, "_priv.der") || Reads("1.2.3", "_ta.der") {
+		t.Error("Reads is wrong for ML-DSA-44 or for an unknown OID")
+	}
+}

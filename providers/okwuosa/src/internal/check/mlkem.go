@@ -208,13 +208,31 @@ func eeCert(files map[string][]byte, a alg.Alg, ee eeState) (ok, ran bool, fs []
 	issuer := alg.IssuerFor(a)
 	ta := loadTA(files, issuer)
 	if !ta.present {
-		detail := "no " + issuer.Friendly + " TA to verify the EE signature against"
-		return false, ee.err != nil, append(fs, Finding{File: ee.name, Check: "cannot-run", Detail: detail})
+		return false, ee.err != nil, append(fs, Finding{File: ee.name, Check: "cannot-run", Detail: noTA(issuer)})
 	}
 	if detail := issuerFault(ee, ta); detail != "" {
 		return false, true, append(fs, Finding{File: ee.name, Check: "failed", Detail: detail})
 	}
 	return ee.err == nil, true, fs
+}
+
+// issuerFindings is the strict check of the EE signature against the TA of
+// issuer in the same zip, for the algorithms whose `cert` row does not depend
+// on it. It returns nothing when the signature verifies.
+func issuerFindings(files map[string][]byte, ee eeState, issuer alg.Alg) []Finding {
+	ta := loadTA(files, issuer)
+	detail := noTA(issuer)
+	if ta.present {
+		detail = issuerFault(ee, ta)
+	}
+	if detail == "" {
+		return nil
+	}
+	return []Finding{{File: ee.name, Check: "strict", Detail: detail}}
+}
+
+func noTA(issuer alg.Alg) string {
+	return "no " + issuer.Friendly + " TA to verify the EE signature against"
 }
 
 // issuerFault says why the EE signature is not a valid signature by ta, or
