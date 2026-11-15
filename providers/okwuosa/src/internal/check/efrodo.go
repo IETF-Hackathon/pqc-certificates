@@ -1,0 +1,175 @@
+package check
+
+import (
+	"bytes"
+	"errors"
+	"fmt"
+
+	frodo "github.com/kuking/go-frodokem"
+
+	"pqccerts/okwuosa/internal/alg"
+	"pqccerts/okwuosa/internal/der"
+)
+
+// privSuffix is the single private key file of a FrodoKEM artifact set. There
+// is no seed form: the PKCS#8 privateKey holds the secret key in an OCTET
+// STRING, which the parser reports as the expanded form.
+const privSuffix = "_priv.der"
+
+// frodoScheme returns the library's parameter set for one of the eight
+// FrodoKEM algorithms. The library's Frodo* sets are FrodoKEM as submitted to
+// NIST round 3, which is what the ISO OIDs call eFrodoKEM; its SaltedFrodo*
+// sets are what the ISO OIDs call FrodoKEM.
+func frodoScheme(a alg.Alg) (frodo.FrodoKEM, bool) {
+	switch a {
+	case alg.FrodoKEM976SHAKE:
+		return frodo.SaltedFrodo976SHAKE(), true
+	case alg.FrodoKEM1344SHAKE:
+		return frodo.SaltedFrodo1344SHAKE(), true
+	case alg.FrodoKEM976AES:
+		return frodo.SaltedFrodo976AES(), true
+	case alg.FrodoKEM1344AES:
+		return frodo.SaltedFrodo1344AES(), true
+	case alg.EFrodoKEM976SHAKE:
+		return frodo.Frodo976SHAKE(), true
+	case alg.EFrodoKEM1344SHAKE:
+		return frodo.Frodo1344SHAKE(), true
+	case alg.EFrodoKEM976AES:
+		return frodo.Frodo976AES(), true
+	case alg.EFrodoKEM1344AES:
+		return frodo.Frodo1344AES(), true
+	}
+	return frodo.FrodoKEM{}, false
+}
+
+// frodoKey is a secret key of the right length, with the public key it holds.
+type frodoKey struct {
+	scheme frodo.FrodoKEM
+	sk     []byte
+	pub    []byte
+}
+
+// loadFrodoKey reads the private key file. The secret key is
+// s || seedA || b || S^T || pkh, where s is as long as the shared secret, so
+// the public key seedA || b is read out of it rather than derived.
+func loadFrodoKey(data []byte, a alg.Alg) (frodoKey, error) {
+	s, ok := frodoScheme(a)
+	if !ok {
+		return frodoKey{}, fmt.Errorf("%s is not a FrodoKEM algorithm", a.Friendly)
+	}
+	pk, err := splitKey(data, a, formExpanded, 0, s.SecretKeyLen())
+	if err != nil {
+		return frodoKey{}, err
+	}
+	sk := pk.Expanded
+	start := s.SharedSecretLen()
+	return frodoKey{scheme: s, sk: sk, pub: sk[start : start+s.PublicKeyLen()]}, nil
+}
+
+// decapsulate decapsulates the ciphertext and compares the result with the
+// shared secret file in full. It returns nil when they are equal.
+func (k frodoKey) decapsulate(ct, ss []byte) error {
+	if want := k.scheme.CipherTextLen(); len(ct) != want {
+		return fmt.Errorf("ciphertext is %d bytes, want %d", len(ct), want)
+	}
+	var got []byte
+	if err := guard(func() (e error) { got, e = k.scheme.Dencapsulate(k.sk, ct); return }); err != nil {
+		return err
+	}
+	if !bytes.Equal(got, ss) {
+		return errors.New("decapsulating the ciphertext does not give the shared secret")
+	}
+	return nil
+}
+
+// loadFrodoEE parses the EE and requires its SubjectPublicKeyInfo to name a
+// and to hold a public key of the right length to which an encapsulation
+// succeeds.
+func loadFrodoEE(files map[string][]byte, a alg.Alg) eeState {
+	name, data, ok := find(files, a, "_ee.der")
+	if !ok {
+		return eeState{}
+	}
+	ee := eeState{name: name, present: true}
+	if ee.cert, ee.err = der.ParseCertificate(data); ee.err != nil {
+		return ee
+	}
+	ee.err = guard(func() error { return checkFrodoPublicKey(ee.cert, a) })
+	if ee.err == nil {
+		ee.pub = ee.cert.PublicKey
+	}
+	return ee
+}
+
+func checkFrodoPublicKey(c *der.ParsedCert, a alg.Alg) error {
+	if got := c.PubAlg.OID.String(); got != a.OID {
+		return fmt.Errorf("SubjectPublicKeyInfo algorithm is %s, want %s", got, a.OID)
+	}
+	s, _ := frodoScheme(a)
+	if len(c.PublicKey) != s.PublicKeyLen() {
+		return fmt.Errorf("public key is %d bytes, want %d", len(c.PublicKey), s.PublicKeyLen())
+	}
+	_, _, err := s.Encapsulate(c.PublicKey)
+	return err
+}
+
+// CheckFrodoKEM checks one FrodoKEM algorithm, salted or not, over the files that are
+// present. Rows are in the order priv, cert, consistent; a check that cannot
+// run produces a Finding and no Row.
+func CheckFrodoKEM(files map[string][]byte, a alg.Alg) ([]Row, []Finding) {
+	ee := loadFrodoEE(files, a)
+	var rows []Row
+	var fs []Finding
+	cons := consistency{}
+	if name, data, ok := find(files, a, privSuffix); ok {
+		key, kerr := loadFrodoKey(data, a)
+		if kerr != nil {
+			fs = append(fs, Finding{File: name, Check: "failed", Detail: kerr.Error()})
+		}
+		if ct, ss, haveSecret := findCiphertext(files, a); haveSecret {
+			derr := kerr
+			if derr == nil {
+				if derr = key.decapsulate(ct, ss); derr != nil {
+					fs = append(fs, Finding{File: name, Check: "failed", Detail: derr.Error()})
+				}
+			}
+			rows = append(rows, Row{a.OID, "priv", derr == nil})
+		} else {
+			fs = append(fs, Finding{File: name, Check: "cannot-run", Detail: "ciphertext or shared secret file is missing"})
+		}
+		if ee.present {
+			cons.add(kerr == nil && ee.err == nil && bytes.Equal(key.pub, ee.pub))
+		} else {
+			fs = append(fs, Finding{File: name, Check: "cannot-run", Detail: "no EE certificate to compare the public key with"})
+		}
+	}
+	if ee.present {
+		rows = append(rows, Row{a.OID, "cert", ee.err == nil})
+		fs = append(fs, frodoEEFindings(files, ee)...)
+	}
+	if r, ok := cons.row(a); ok {
+		rows = append(rows, r)
+	}
+	return rows, fs
+}
+
+// frodoEEFindings explains a failed `cert` row and adds the strict check of
+// the EE signature. The issuer is taken from the certificate's signature
+// algorithm, since no ML-DSA level is tied to a FrodoKEM parameter set.
+func frodoEEFindings(files map[string][]byte, ee eeState) []Finding {
+	if ee.cert == nil {
+		return []Finding{{File: ee.name, Check: "failed", Detail: ee.err.Error()}}
+	}
+	var fs []Finding
+	if ee.err != nil {
+		fs = append(fs, Finding{File: ee.name, Check: "failed", Detail: ee.err.Error()})
+	}
+	fs = append(fs, strictCert(ee.name, ee.cert)...)
+	sigOID := ee.cert.SigAlg.OID.String()
+	issuer, ok := alg.ByOID(sigOID)
+	if !ok || issuer.IsKEM {
+		detail := "the EE is signed with " + sigOID + "; its signature was not checked"
+		return append(fs, Finding{File: ee.name, Check: "strict", Detail: detail})
+	}
+	return append(fs, issuerFindings(files, ee, issuer)...)
+}

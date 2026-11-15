@@ -74,6 +74,23 @@ jobs:
         with:
           name: Compatibility_qubip_aurora_csv
           path: ./output/
+  oqs_cert_validation:
+    runs-on: ubuntu-latest
+    # OpenSSL 3.6.0 + oqs-provider 0.11.0 + liboqs 0.15.0 ("latest" as of 2026-10-26)
+    container: openquantumsafe/oqs-ossl3:latest@sha256:fbb6e06842a2ba2bce0721ebb5ffe62c909ce8443382fd9a102c8381b2d1b3f7
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Test artifacts with OpenSSL and oqsprovider
+        run: |
+          openssl version
+          ./src/test_certs_r5.sh oqs
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_oqs_csv
+          path: ./output/
+
   pittv3_cert_validation:
     runs-on: ubuntu-latest
     env:
@@ -145,7 +162,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:latest
     # needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, ssai_validation, composite_ref_impl_validation]
-    needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, composite_ref_impl_validation, qubip_aurora_cert_validation, pittv3_cert_validation]
+    needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, composite_ref_impl_validation, qubip_aurora_cert_validation, oqs_cert_validation, pittv3_cert_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -174,6 +191,11 @@ jobs:
         with:
           name: Compatibility_qubip_aurora_csv
           path: output/
+      - name: Get OQS results from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: Compatibility_oqs_csv
+          path: output/
       - name: Get pittv3 results from previous job
         uses: actions/download-artifact@v4
         with:
@@ -194,7 +216,7 @@ jobs:
       - name: Build compat matrix (cms_v3)
         run: ./src/rebuild_results_cms_v3.sh
       - name: Copy output files (automated certs_r5)
-        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./docs/pqc_hackathon_results_certs_r5_automated_tests_standardized.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./output/certs/qubip-aurora_certs.log ./output/certs/pittv3_certs.log ./docs/gh-pages
+        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./docs/pqc_hackathon_results_certs_r5_automated_tests_standardized.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./output/certs/qubip-aurora_certs.log ./output/certs/oqs_certs.log ./output/certs/pittv3_certs.log ./docs/gh-pages
       - name: Copy output files (automated cms_v3)
         run: cp ./docs/pqc_hackathon_results_cms_v3_automated_tests.html ./docs/pqc_hackathon_results_cms_v3_automated_tests_standardized.html ./output/cms/openssl_cms.log ./docs/gh-pages
       - name: Copy output files (manual r5/v1)

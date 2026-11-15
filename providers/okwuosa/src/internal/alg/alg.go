@@ -20,11 +20,28 @@ var (
 	MLKEM1024 = Alg{"ml-kem-1024", "2.16.840.1.101.3.4.4.3", 1024, true}
 )
 
+// FrodoKEM (ISO/IEC 18033-2 OIDs). The checker verifies the four eFrodoKEM
+// (ephemeral) and the four FrodoKEM (salted) parameter sets; nothing is
+// generated for them. Level is the matrix dimension n.
+var (
+	EFrodoKEM976SHAKE  = Alg{"efrodokem976-shake", "1.0.18033.2.2.7.3", 976, true}
+	EFrodoKEM1344SHAKE = Alg{"efrodokem1344-shake", "1.0.18033.2.2.7.4", 1344, true}
+	EFrodoKEM976AES    = Alg{"efrodokem976-aes", "1.0.18033.2.2.7.7", 976, true}
+	EFrodoKEM1344AES   = Alg{"efrodokem1344-aes", "1.0.18033.2.2.7.8", 1344, true}
+
+	FrodoKEM976SHAKE  = Alg{"frodokem976-shake", "1.0.18033.2.2.7.1", 976, true}
+	FrodoKEM1344SHAKE = Alg{"frodokem1344-shake", "1.0.18033.2.2.7.2", 1344, true}
+	FrodoKEM976AES    = Alg{"frodokem976-aes", "1.0.18033.2.2.7.5", 976, true}
+	FrodoKEM1344AES   = Alg{"frodokem1344-aes", "1.0.18033.2.2.7.6", 1344, true}
+)
+
 // Suffixes recognised in artifact names. _ta.pem and _ee.pem are recognised
 // only so callers can skip them.
 var suffixes = []string{
 	"_ta.der", "_seed_priv.der", "_expandedkey_priv.der", "_both_priv.der",
 	"_ee.der", "_ciphertext.bin", "_ss.bin", "_ta.pem", "_ee.pem",
+	// Last, so that the three more specific private key suffixes match first.
+	"_priv.der",
 }
 
 // All returns the six algorithms in table order.
@@ -32,7 +49,51 @@ func All() []Alg {
 	return []Alg{MLDSA44, MLDSA65, MLDSA87, MLKEM512, MLKEM768, MLKEM1024}
 }
 
-// ByOID looks an algorithm up by dotted OID.
+// EFrodoKEM returns the four eFrodoKEM parameter sets the checker verifies.
+func EFrodoKEM() []Alg {
+	return []Alg{EFrodoKEM976SHAKE, EFrodoKEM1344SHAKE, EFrodoKEM976AES, EFrodoKEM1344AES}
+}
+
+// SaltedFrodoKEM returns the four salted FrodoKEM parameter sets the checker
+// verifies.
+func SaltedFrodoKEM() []Alg {
+	return []Alg{FrodoKEM976SHAKE, FrodoKEM1344SHAKE, FrodoKEM976AES, FrodoKEM1344AES}
+}
+
+// FrodoKEM returns all eight parameter sets: eFrodoKEM, then salted FrodoKEM.
+func FrodoKEM() []Alg {
+	return append(EFrodoKEM(), SaltedFrodoKEM()...)
+}
+
+// IsFrodoKEM reports whether a is one of the eight FrodoKEM parameter sets.
+func IsFrodoKEM(a Alg) bool {
+	return contains(FrodoKEM(), a.OID)
+}
+
+// Reads reports whether the checker uses the file with this OID and suffix,
+// so that nothing else is read from a zip. For ML-DSA and ML-KEM that is
+// every recognised suffix except the generic _priv.der; for FrodoKEM, salted
+// or not, the four files of a set.
+func Reads(oid, suffix string) bool {
+	switch {
+	case contains(All(), oid):
+		return suffix != "_priv.der"
+	case contains(FrodoKEM(), oid):
+		return suffix == "_priv.der" || suffix == "_ee.der" || suffix == "_ciphertext.bin" || suffix == "_ss.bin"
+	}
+	return false
+}
+
+func contains(algs []Alg, oid string) bool {
+	for _, a := range algs {
+		if a.OID == oid {
+			return true
+		}
+	}
+	return false
+}
+
+// ByOID looks one of the six ML-DSA / ML-KEM algorithms up by dotted OID.
 func ByOID(oid string) (Alg, bool) {
 	for _, a := range All() {
 		if a.OID == oid {
