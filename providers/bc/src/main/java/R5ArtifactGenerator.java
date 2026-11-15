@@ -87,6 +87,10 @@ import org.bouncycastle.crypto.params.MLKEMPrivateKeyParameters;
 import org.bouncycastle.crypto.params.MLKEMPublicKeyParameters;
 import org.bouncycastle.crypto.util.PrivateKeyFactory;
 import org.bouncycastle.crypto.util.PublicKeyFactory;
+import org.bouncycastle.pqc.crypto.ntru.NTRUKEMExtractor;
+import org.bouncycastle.pqc.crypto.ntru.NTRUKEMGenerator;
+import org.bouncycastle.pqc.crypto.ntru.NTRUPrivateKeyParameters;
+import org.bouncycastle.pqc.crypto.ntru.NTRUPublicKeyParameters;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
 import org.bouncycastle.pqc.jcajce.spec.NTRUParameterSpec;
 import org.bouncycastle.util.Arrays;
@@ -658,7 +662,44 @@ public class R5ArtifactGenerator
         derOutput(aDir, kemAlgName + "-" + kemAlg + "_ee.der", eeCert);
 //        pemOutput(aDir, kemAlg + "_ee.pem", eeCert);
 
+        if (kemAlg.on(BCObjectIdentifiers.pqc_kem_ntru))
+        {
+            derOutput(aDir, kemAlgName + "-" + kemAlg + "_priv.der", eeKp.getPrivate());
+
+            ntruKemSampleOutput(aDir, kemAlgName + "-" + kemAlg, eeKp);
+        }
+
         return new PKIXPair(eeKp.getPrivate(), eeCert);
+    }
+
+    private static void ntruKemSampleOutput(File parent, String name, KeyPair kemKp)
+        throws Exception
+    {
+        // Generate secret and encapsulation
+        NTRUPublicKeyParameters kemPubKey = (NTRUPublicKeyParameters)
+            org.bouncycastle.pqc.crypto.util.PublicKeyFactory.createKey(kemKp.getPublic().getEncoded());
+
+        NTRUKEMGenerator generator = new NTRUKEMGenerator(new SecureRandom());
+        SecretWithEncapsulation secWenc = generator.generateEncapsulated(kemPubKey);
+
+        byte[] encapsulation = secWenc.getEncapsulation();
+        byte[] encSecret = secWenc.getSecret();
+
+        // Extract secret from encapsulation
+        NTRUPrivateKeyParameters kemPrivKey = (NTRUPrivateKeyParameters)
+            org.bouncycastle.pqc.crypto.util.PrivateKeyFactory.createKey(kemKp.getPrivate().getEncoded());
+
+        NTRUKEMExtractor extractor = new NTRUKEMExtractor(kemPrivKey);
+
+        byte[] decSecret = extractor.extractSecret(encapsulation);
+
+        if (!Arrays.areEqual(decSecret, encSecret))
+        {
+            throw new IllegalStateException("mismatch in KEM secrets!!!");
+        }
+
+        writeBytes(parent, name + "_ciphertext.bin", encapsulation);
+        writeBytes(parent, name + "_ss.bin", encSecret);
     }
 
     private static PKIXPair createExternalEEcertificate(String kemAlgName, ASN1ObjectIdentifier kemAlg, String sigAlgName, ASN1ObjectIdentifier sigAlg, Map<String, PKIXPair> sigParams)
