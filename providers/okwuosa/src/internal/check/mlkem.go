@@ -200,7 +200,12 @@ func eeFindings(files map[string][]byte, a alg.Alg, ee eeState) []Finding {
 		fs = append(fs, Finding{File: ee.name, Check: "failed", Detail: ee.err.Error()})
 	}
 	fs = append(fs, strictCert(ee.name, ee.cert)...)
-	issuer := alg.IssuerFor(a)
+	return append(fs, issuerFindings(files, ee, alg.IssuerFor(a))...)
+}
+
+// issuerFindings is the strict check of the EE signature against the TA of
+// issuer in the same zip. It returns nothing when the signature verifies.
+func issuerFindings(files map[string][]byte, ee eeState, issuer alg.Alg) []Finding {
 	ta := loadTA(files, issuer)
 	var detail string
 	switch {
@@ -211,9 +216,9 @@ func eeFindings(files map[string][]byte, a alg.Alg, ee eeState) []Finding {
 	default:
 		err := checkIssuedBy(ee.cert, ta.cert)
 		if err == nil {
-			return fs
+			return nil
 		}
 		detail = "EE signature does not verify under " + ta.name + ": " + err.Error()
 	}
-	return append(fs, Finding{File: ee.name, Check: "strict", Detail: detail})
+	return []Finding{{File: ee.name, Check: "strict", Detail: detail}}
 }
