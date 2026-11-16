@@ -114,6 +114,24 @@ jobs:
         with:
           name: Compatibility_pittv3_csv
           path: ./output/
+  pkilint_cert_validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install pkilint
+        run: python -m pip install pkilint==0.13.4
+      - name: Lint certificates with pkilint
+        run: python3 src/test_certs_r5_pkilint.py
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_pkilint_csv
+          path: ./output/
   composite_ref_impl_validation:
     runs-on: ubuntu-latest
     steps:
@@ -162,7 +180,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:latest
     # needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, ssai_validation, composite_ref_impl_validation]
-    needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, composite_ref_impl_validation, qubip_aurora_cert_validation, oqs_cert_validation, pittv3_cert_validation]
+    needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, composite_ref_impl_validation, qubip_aurora_cert_validation, oqs_cert_validation, pittv3_cert_validation, pkilint_cert_validation]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -211,12 +229,19 @@ jobs:
         with:
           name: Compatibility_composite-refl-impl_csv
           path: output/
+      - name: Get pkilint results from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: Compatibility_pkilint_csv
+          path: output/
       - name: Build compat matrix (certs_r5)
         run: ./src/rebuild_results_certs_r5.sh
+      - name: Build pkilint findings page
+        run: pandoc -f markdown output/certs/pkilint_certs.md > docs/gh-pages/pkilint_certs.html
       - name: Build compat matrix (cms_v3)
         run: ./src/rebuild_results_cms_v3.sh
       - name: Copy output files (automated certs_r5)
-        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./docs/pqc_hackathon_results_certs_r5_automated_tests_standardized.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./output/certs/qubip-aurora_certs.log ./output/certs/oqs_certs.log ./output/certs/pittv3_certs.log ./docs/gh-pages
+        run: cp ./docs/pqc_hackathon_results_certs_r5_automated_tests.html ./docs/pqc_hackathon_results_certs_r5_automated_tests_standardized.html ./output/certs/bc_certs.log ./output/certs/openssl_certs.log ./output/certs/composite-sigs-ref-impl.log ./output/certs/composite-kem-ref-impl.log ./output/cms/openssl_cms.log ./output/certs/qubip-aurora_certs.log ./output/certs/oqs_certs.log ./output/certs/pittv3_certs.log ./output/certs/pkilint_certs.log ./docs/gh-pages
       - name: Copy output files (automated cms_v3)
         run: cp ./docs/pqc_hackathon_results_cms_v3_automated_tests.html ./docs/pqc_hackathon_results_cms_v3_automated_tests_standardized.html ./output/cms/openssl_cms.log ./docs/gh-pages
       - name: Copy output files (manual r5/v1)
