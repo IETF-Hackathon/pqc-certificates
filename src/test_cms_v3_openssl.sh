@@ -78,30 +78,61 @@ test_signed_attrs () {
     echo "$output" | tee -a $logfile
 }
 
+# The format restriction for a private key file: the R5 CHOICE names (_seed_priv, _expandedkey_priv,
+# _both_priv) are accepted and each must hold the format its name says; _priv.der may hold any.
+get_prov_param() {
+    type=$1
+    if [ $type == "seed" ]; then
+        echo "-provparam ml-kem.input_formats=seed-only"
+    elif [ $type == "expandedkey" ]; then
+        echo "-provparam ml-kem.input_formats=priv-only"
+    elif [ $type == "both" ]; then
+        echo "-provparam ml-kem.input_formats=seed-priv"
+    fi
+}
+
+# Decrypts every KEMRI artifact of the OID with every private key file of the OID.
 check_kemri() {
     eefile=$1
     oid=$2
 
-    priv_key=$( find $(dirname $eefile) -name "*${oid}*_priv.der" -print -quit )
-    kemri_base=${eefile%_ee.der}
-    for kemri_file in ${kemri_base}_kemri*.der; do
-        if [[ "$kemri_file" == *"kmac"* ]]; then
-            printf "\nSkipping KMAC %s\n" $kemri_file | tee -a $logfile
+    found_key=0
+    for type in priv seed expandedkey both; do
+        if [ $type == "priv" ]; then
+            priv_key=$( find $(dirname $eefile) -name "*-${oid}_priv.der" -print -quit )
+        else
+            priv_key=$( find $(dirname $eefile) -name "*-${oid}_${type}_priv.der" -print -quit )
+        fi
+        if [ -z "$priv_key" ]; then
             continue
         fi
-        OUTFILE=$(mktemp)
-        rm -f $OUTFILE
+        found_key=1
+        local prov_param=$(get_prov_param $type)
+        kemri_base=${eefile%_ee.der}
+        for kemri_file in ${kemri_base}_kemri*.der; do
+            if [[ "$kemri_file" == *"kmac"* ]]; then
+                printf "\nSkipping KMAC %s\n" $kemri_file | tee -a $logfile
+                continue
+            fi
+            OUTFILE=$(mktemp)
+            rm -f $OUTFILE
 
-        printf "\nTesting KEMRI %s\n" $kemri_file | tee -a $logfile
+            printf "\nTesting KEMRI %s with %s\n" $kemri_file $priv_key | tee -a $logfile
 
-        openssl cms -decrypt -inform DER -in ${kemri_file} -recip ${eefile} \
-            -inkey ${priv_key} -keyform DER -out $OUTFILE
-        if [ $? -ne 0 ]; then
-            echo "ERROR: Decrypting KEMRI" | tee -a $logfile
-            return 1
-        fi
-        rm -f $OUTFILE
+            openssl cms $prov_param -decrypt -inform DER -in ${kemri_file} -recip ${eefile} \
+                -inkey ${priv_key} -keyform DER -out $OUTFILE
+            if [ $? -ne 0 ]; then
+                echo "ERROR: Decrypting KEMRI" | tee -a $logfile
+                return 1
+            fi
+            rm -f $OUTFILE
+        done
     done
+
+    if [ $found_key == 0 ]; then
+        echo "ERROR: no private key for ${oid}" | tee -a $logfile
+        return 1
+    fi
 
     return 0
 }
