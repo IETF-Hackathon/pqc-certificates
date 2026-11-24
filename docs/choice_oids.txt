@@ -1,0 +1,21 @@
+# Algorithms whose private keys use the CHOICE of seed, expandedKey or both (RFC 9881, RFC 9935).
+# Their keys are submitted as _seed_priv.der, _expandedkey_priv.der and _both_priv.der, and only those
+# are tested; for every other algorithm only _priv.der is tested.
+# Read by src/test_certs_r5_openssl.sh and src/test_artifacts_conformance.py.
+#
+# Format: one OID per line; anything after '#' is a comment.
+
+# FIPS 204 - ML-DSA
+2.16.840.1.101.3.4.3.17  # ML-DSA-44
+2.16.840.1.101.3.4.3.18  # ML-DSA-65
+2.16.840.1.101.3.4.3.19  # ML-DSA-87
+
+# FIPS 204 - HashML-DSA
+2.16.840.1.101.3.4.3.32  # HASH-ML-DSA-44
+2.16.840.1.101.3.4.3.33  # HASH-ML-DSA-65
+2.16.840.1.101.3.4.3.34  # HASH-ML-DSA-87
+
+# FIPS 203 - ML-KEM
+2.16.840.1.101.3.4.4.1  # ML-KEM-512
+2.16.840.1.101.3.4.4.2  # ML-KEM-768
+2.16.840.1.101.3.4.4.3  # ML-KEM-1024
