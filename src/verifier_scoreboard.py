@@ -119,6 +119,7 @@ class Scoreboard(NamedTuple):
     page_oids: set              # the algorithms with tests on this page
     zip_unreported: dict        # producer -> OIDs on this page in its zip that no verifier has reported on
     zips: dict                  # producer -> path of its zip
+    automated: bool             # built from the CI verifiers' results (build_automated), not the manual ones
 
     @property
     def current_paths(self):
@@ -230,15 +231,7 @@ def build(paths, in_scope=lambda oid: True):
     zip_name = f'{format_dir}.zip'
     dirty = _dirty_paths(providers_dir)
 
-    # Producer names go on the page: a zip in a directory whose name is not a valid producer name is not used
-    zips, invalid_producers = {}, []
-    for producer in sorted(os.listdir(providers_dir)):
-        path = os.path.normpath(os.path.join(providers_dir, producer, zip_name))
-        if os.path.isfile(path):
-            if valid_producer(producer):
-                zips[producer] = path
-            else:
-                invalid_producers.append(_printable(producer))
+    zips, invalid_producers = _producer_zips(providers_dir, zip_name)
     zip_commits = {p: (None, None) if path in dirty else _last_commit(path) for p, path in zips.items()}
 
     files, tests, results, duplicates, invalid_types, malformed = [], {}, {}, {}, {}, {}
@@ -270,7 +263,29 @@ def build(paths, in_scope=lambda oid: True):
         results[path] = {t: r for t, r in rows.items() if in_scope(t[0])}
         duplicates[path] = {t for t in dups if in_scope(t[0])}
         invalid_types[path] = {t for t in invalid if in_scope(t[0])}
-        tests[path] = set(results[path])
+
+    return _assemble(format_dir, files, results, duplicates, invalid_types, malformed, invalid_names, zips,
+                     invalid_producers, zip_commits, in_scope, automated=False)
+
+
+def _producer_zips(providers_dir, zip_name):
+    """({producer: path of its zip}, the directories with a zip whose names are not valid producer names). Producer
+    names go on the page, so a zip in a directory whose name is not a valid producer name is not used."""
+    zips, invalid_producers = {}, []
+    for producer in sorted(os.listdir(providers_dir)):
+        path = os.path.normpath(os.path.join(providers_dir, producer, zip_name))
+        if os.path.isfile(path):
+            if valid_producer(producer):
+                zips[producer] = path
+            else:
+                invalid_producers.append(_printable(producer))
+    return zips, invalid_producers
+
+
+def _assemble(format_dir, files, results, duplicates, invalid_types, malformed, invalid_names, zips,
+              invalid_producers, zip_commits, in_scope, automated):
+    """The scoreboard from the result files read by build() or build_automated()."""
+    tests = {path: set(r) for path, r in results.items()}
 
     # the tests of each producer: the rows any verifier has reported for an OID in its current zip
     expected = defaultdict(set)
@@ -343,7 +358,42 @@ def build(paths, in_scope=lambda oid: True):
         page_oids=page_oids,
         zip_unreported={p: sorted(o for o in (oids or ()) if in_scope(o) and o not in reported_oids[p])
                         for p, oids in zip_oids.items()},
-        zips=zips)
+        zips=zips,
+        automated=automated)
+
+
+# The CI verifiers write their results for each zip format to a folder of output/
+_AUTOMATED = re.compile(r'(?:.*/)?output/(?P<folder>[^/]+)/(?:.*/)?[^/]+\.csv')
+_AUTOMATED_FORMATS = {'certs': 'artifacts_certs_r5', 'cms': 'artifacts_cms_v3'}
+
+
+def automated_format(paths):
+    """The zip format of a list of the CI verifiers' result files (output/certs/..., output/cms/...), or None."""
+    folders = {m['folder'] if m else None
+               for m in (_AUTOMATED.fullmatch(os.path.normpath(p).replace(os.sep, '/')) for p in paths)}
+    return _AUTOMATED_FORMATS.get(folders.pop()) if len(folders) == 1 else None
+
+
+def build_automated(paths, format_dir, in_scope=lambda oid: True, excluded=(), providers_dir='providers'):
+    """The board of the CI verifiers' results for every producer's current zip: only its producer parts are shown,
+    since the same verifiers run on every zip on each build, so their results are never stale and there is nothing
+    to rank them by. The verifiers in excluded (lint and conformance columns) are not counted."""
+    zips, invalid_producers = _producer_zips(providers_dir, f'{format_dir}.zip')
+    zip_commits = {p: _last_commit(path) for p, path in zips.items()}
+    files, results, duplicates, invalid_types, malformed = [], {}, {}, {}, {}
+    for path in sorted(paths):
+        names = parse_name(os.path.basename(path))
+        if names is None or names[1] in excluded:
+            continue
+        rows = read_results(path)
+        files.append(ResultFile(path, names[0], names[1], True, '', None))
+        if rows.malformed:
+            malformed[path] = rows.malformed
+        results[path] = {t: r for t, r in rows.results.items() if in_scope(t[0])}
+        duplicates[path] = {t for t in rows.duplicates if in_scope(t[0])}
+        invalid_types[path] = {t for t in rows.invalid if in_scope(t[0])}
+    return _assemble(format_dir, files, results, duplicates, invalid_types, malformed, [], zips, invalid_producers,
+                     zip_commits, in_scope, automated=True)
 
 
 # Blue for good and warm colours for what needs attention, apart for colour-blind readers too
@@ -500,7 +550,8 @@ def producer_markdown(board, conformance=None, automated_page=None):
         exp = board.expected[p]
         current_by, stale_by = defaultdict(dict), set()
         for f in board.files:
-            if f.generator != p or f.verifier == p:
+            # results for your own zip do not count, except a CI verifier's, which runs on every zip
+            if f.generator != p or (f.verifier == p and not board.automated):
                 continue
             mine = {t: r for t, r in board.results[f.path].items() if t in exp}
             if not mine:
@@ -515,6 +566,8 @@ def producer_markdown(board, conformance=None, automated_page=None):
         passed = {t for results in current_by.values() for t, r in results.items() if r == 'Y'}
         rows.append((p, len(current_by), sorted(stale_by), passes, fails, len(passed & exp), len(exp)))
     rows.sort(key=lambda r: r[0].lower())
+    if board.automated:
+        return _automated_producer_table(board, rows, conformance)
 
     lines += [
         'How widely and how well the other implementations verify each producer\'s current '
@@ -542,6 +595,29 @@ def producer_markdown(board, conformance=None, automated_page=None):
     if automated_page:
         lines += [f'The CI verifiers test every producer\'s current zip on each build; their results are on the '
                   f'[automated results page]({automated_page}).', '']
+    return '\n'.join(lines)
+
+
+def _automated_producer_table(board, rows, conformance):
+    """The producer table of the automated results: as on the manual results' page, but with no stale results."""
+    lines = ['# Producers {#producers}', '',
+             'How the CI verifiers fare with each producer\'s current '
+             f'`{board.format}.zip`, for the algorithms on this page. CI runs them on every zip on each build, so their '
+             'results are always current. The lint and conformance columns are not counted here.', '',
+             ' '.join(_swatch(k, _RESULT_COLORS) for k in _RESULT_COLORS), '',
+             '| Producer | Tested by | Results | Tests passed by at least one | Zip |' + (' Conformance |' if conformance else ''),
+             '|---|---|---|---|---|' + ('---|' if conformance else '')]
+    for p, n_current, _, passes, fails, passed, total in rows:
+        lines.append(f'| {_nowrap(f"[{p}](#{_producer_anchor(p)})")} | {_nowrap(_plural(n_current, "verifier"))} | '
+                     f'{_pass_bar(passes, fails)} | {passed} of {total} | '
+                     f'{_nowrap(board.zip_dates.get(p) or "uncommitted")} |'
+                     + (f' {_conformance_cell(conformance, p)} |' if conformance else ''))
+    if conformance:
+        lines += ['', f'*Conformance:* the artifacts that fail the conformance checks of the zip format and the '
+                      f'algorithm identifier rules, which a signature can pass even when an artifact is wrong; it '
+                      f'links to the [findings]({conformance.page}).']
+    lines += ['', 'Click a producer for its summary, at the bottom of the page: which of its tests fail and for '
+              'which CI verifiers, the algorithms in its zip that no CI verifier tests, and problems with its zip.', '']
     return '\n'.join(lines)
 
 
@@ -747,29 +823,33 @@ def file_problems(board, f, alg_name):
 
 def _producer_summary(board, p, current_results, alg_name, conformance=None, automated_page=None):
     """The producer part of an implementation's summary, as markdown lines: how the other verifiers fare with
-    its current zip. Its own results for its zip are left out, as in the producer table."""
-    lines = [f'### As a producer {{#{_producer_anchor(p)}}}', '']
+    its current zip. Its own results for its zip are left out, as in the producer table; on the automated
+    results, where the verifiers are the CI's, nothing is left out and the summary is the producer's whole card."""
+    ci = board.automated
+    lines = [] if ci else [f'### As a producer {{#{_producer_anchor(p)}}}', '']
     exp = board.expected.get(p, set())
-    others = {t: {v: r for v, r in current_results.get((p, t), {}).items() if v != p} for t in exp}
+    others = {t: {v: r for v, r in current_results.get((p, t), {}).items() if ci or v != p} for t in exp}
     passes = sum(1 for rs in others.values() for r in rs.values() if r == 'Y')
     fails = sum(1 for rs in others.values() for r in rs.values() if r != 'Y')
     passed = sum(1 for rs in others.values() if 'Y' in rs.values())
 
     current_by, stale_by = set(), set()
     for f in board.files:
-        if f.generator == p and f.verifier != p and set(board.results[f.path]) & exp:
+        if f.generator == p and (ci or f.verifier != p) and set(board.results[f.path]) & exp:
             (current_by if f.current else stale_by).add(f.verifier)
     stale_by -= current_by
     active = {s.verifier for s in board.scores if s.all.current or s.all.stale}
-    not_by = sorted(active - current_by - stale_by - {p})
+    not_by = sorted(active - current_by - stale_by - (set() if ci else {p}))
+    whose = 'the CI verifiers' if ci else 'other verifiers'
 
     zip_date = board.zip_dates.get(p) or 'uncommitted'
     if passes + fails:
-        lines += [f'**Results from other verifiers:** {_pass_bar(passes, fails)} &nbsp; {passes} pass, {fails} fail; '
+        lines += [f'**Results from {whose}:** {_pass_bar(passes, fails)} &nbsp; {passes} pass, {fails} fail; '
                   f'{passed} of {len(exp)} tests passed by at least one. Zip: {zip_date}.', '']
     else:
-        lines += [f'**Results from other verifiers:** none yet. Zip: {zip_date}.', '']
-    who = ('**Verified by:** ' + (', '.join(sorted(current_by)) if current_by else 'no other verifier yet') + '.')
+        lines += [f'**Results from {whose}:** none yet. Zip: {zip_date}.', '']
+    who = ('**Verified by:** ' + (', '.join(sorted(current_by)) if current_by else
+                                  'no CI verifier' if ci else 'no other verifier yet') + '.')
     if stale_by:
         who += (f' ⏳ **Awaiting re-verification** (they verified an earlier zip): {", ".join(sorted(stale_by))}.')
     if not_by:
@@ -777,7 +857,7 @@ def _producer_summary(board, p, current_results, alg_name, conformance=None, aut
     lines += [who, '']
     if automated_page:
         lines += [f'The CI verifiers\' results for your current zip are on the [automated results page]'
-                  f'({automated_page}).', '']
+                  f'({automated_page}#{_producer_anchor(p)}).', '']
     nonconforming = set()
     if conformance is not None and p in conformance.failures:
         nonconforming = conformance.failures[p]
@@ -842,7 +922,8 @@ def _producer_summary(board, p, current_results, alg_name, conformance=None, aut
                           f'{_plural(len(untested), "algorithm")})', body)
     unreported = board.zip_unreported.get(p) or []
     if unreported:
-        lines += [f'**In your zip, but no verifier has reported on them** ({_plural(len(unreported), "algorithm")}): '
+        lines += [f'**In your zip, but no {"CI " if ci else ""}verifier has reported on them** '
+                  f'({_plural(len(unreported), "algorithm")}): '
                   + ', '.join(alg_name(o) for o in unreported) + '.', '']
 
     # problems with the zip
@@ -876,17 +957,14 @@ def summaries(board, alg_name, conformance=None, automated_page=None):
     automated results to link each producer to."""
     if not board.producers:
         return ''
+    if board.automated:
+        return _automated_summaries(board, alg_name, conformance)
     lines = ['# Implementation Summaries {#implementation-summaries}', '',
              'For each implementation, the algorithms on this page only. *As a verifier:* what it has left to '
              'test, its failures, and problems with its result files. *As a producer:* which of its tests fail and '
              'for whom, what no other verifier has tested yet, and problems with its zip.', '']
 
-    current_results = defaultdict(dict)     # (producer, test) -> {verifier: result}, current files only
-    for f in board.files:
-        if f.current:
-            for test, result in board.results[f.path].items():
-                current_results[(f.generator, test)][f.verifier] = result
-
+    current_results = _current_results(board)
     scores = {s.verifier: s for s in board.scores}
     producers = (set(board.producers) | {p for p, oids in board.zip_unreported.items() if oids}
                  | set(board.zip_errors))
@@ -897,5 +975,30 @@ def summaries(board, alg_name, conformance=None, automated_page=None):
         if name in producers:
             lines += _producer_summary(board, name, current_results, alg_name, conformance=conformance,
                                        automated_page=automated_page)
+        lines += ['', '</div>', '']
+    return '\n'.join(lines)
+
+
+def _current_results(board):
+    """(producer, test) -> {verifier: result}, from the current result files only."""
+    current_results = defaultdict(dict)
+    for f in board.files:
+        if f.current:
+            for test, result in board.results[f.path].items():
+                current_results[(f.generator, test)][f.verifier] = result
+    return current_results
+
+
+def _automated_summaries(board, alg_name, conformance):
+    """The automated results' summaries: one card per producer, since the verifiers are the CI's."""
+    lines = ['# Producer Summaries {#producer-summaries}', '',
+             'For each producer, the algorithms on this page only: which of its tests fail and for which CI '
+             'verifiers, the algorithms in its zip that no CI verifier tests, and problems with its zip.', '']
+    current_results = _current_results(board)
+    producers = (set(board.producers) | {p for p, oids in board.zip_unreported.items() if oids}
+                 | set(board.zip_errors))
+    for p in sorted(producers, key=str.lower):
+        lines += ['<div class="implementation">', '', f'## {p} {{#{_producer_anchor(p)}}}', '']
+        lines += _producer_summary(board, p, current_results, alg_name, conformance=conformance)
         lines += ['', '</div>', '']
     return '\n'.join(lines)

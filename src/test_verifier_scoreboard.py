@@ -557,8 +557,57 @@ def test_producers_link_to_the_automated_results(repo):
     board = vs.build(_files())
     page = 'pqc_hackathon_results_certs_r5_automated_tests_standardized.html'
     assert f'[automated results page]({page})' in vs.producer_markdown(board, automated_page=page)
-    assert f'[automated results page]({page})' in vs.summaries(board, _alg_name, automated_page=page)
+    assert f'[automated results page]({page}#producer-p)' in vs.summaries(board, _alg_name, automated_page=page)
     assert 'automated results page' not in vs.producer_markdown(board) + vs.summaries(board, _alg_name)
+
+
+
+# The automated results: the CI verifiers' results for every producer's current zip
+
+def _automated(producer, verifier, rows, folder='certs'):
+    path = f'output/{folder}/{producer}_{verifier}.csv'
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w') as f:
+        f.write('key_algorithm_oid,type,test_result\n' + ''.join(','.join(r) + '\n' for r in rows))
+    return path
+
+
+def test_the_automated_results_have_a_producer_board(repo):
+    """Every file is current; lint and conformance columns are not verifiers; a CI verifier's results for the zip
+    of the producer with the same name count."""
+    repo.zip('bc', [A])
+    repo.zip('p', [A, B])
+    repo.commit()
+    paths = [_automated('bc', 'bc', [(A, 'cert', 'Y')]), _automated('p', 'bc', [(A, 'cert', 'N')]),
+             _automated('p', 'openssl', [(A, 'cert', 'N'), (B, 'cert', 'Y')]),
+             _automated('p', 'pkilint', [(A, 'cert', 'W')]), _automated('p', 'r5-conformance', [(A, 'cert', 'N')])]
+    assert vs.automated_format(paths) == R5
+    board = vs.build_automated(paths, R5, excluded={'pkilint', 'r5-conformance'})
+    assert board.automated
+    assert {f.verifier for f in board.files} == {'bc', 'openssl'}
+    assert all(f.current for f in board.files)
+    table = vs.producer_markdown(board)
+    assert '# Producers {#producers}' in table and 'Rank' not in table and 'Awaiting' not in table
+    assert '[bc](#producer-bc)' in table
+    page = vs.summaries(board, _alg_name)
+    assert '# Producer Summaries' in page and 'As a verifier' not in page and 'Implementation' not in page
+    assert '## p {#producer-p}' in page and '## bc {#producer-bc}' in page
+    assert '- ML-DSA-44 `cert`: ❌ all 2: bc, openssl' in page
+    assert '**Verified by:** bc.' in page            # bc's own zip, tested by the bc verifier
+
+
+def test_the_automated_page_keeps_every_column_and_adds_the_producers(repo):
+    repo.zip('p', [A])
+    repo.commit()
+    _mapping()
+    paths = [_automated('p', 'bc', [(A, 'cert', 'Y')]), _automated('p', 'pkilint', [(A, 'cert', 'W')])]
+    out = subprocess.run([sys.executable, WRITER, 'docs/oid_mapping.md', 'auto.md', 'Certificate Automated Verification',
+                          *paths], capture_output=True, text=True)
+    assert out.returncode == 0, out.stderr
+    page = open('auto.md').read()
+    assert '# Producers {#producers}' in page and '# Producer Summaries' in page
+    assert '# Verifier Scoreboard' not in page
+    assert '|bc|pkilint|' in page                    # the lint column is still in the algorithm's table
 
 
 def test_producers_are_listed_by_name_not_ranked(repo):

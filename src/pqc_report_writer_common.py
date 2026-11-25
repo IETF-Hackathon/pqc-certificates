@@ -261,6 +261,12 @@ def main():
     try:
         if verifier_scoreboard.manual_format(files) is not None:
             board = verifier_scoreboard.build(files, in_scope=in_scope)
+        elif verifier_scoreboard.automated_format(files) is not None:
+            # the CI verifiers' results: the producer table and summaries only; the lint and conformance columns
+            # are not verifiers
+            board = verifier_scoreboard.build_automated(files, verifier_scoreboard.automated_format(files),
+                                                        in_scope=in_scope, excluded=set(_FINDINGS_PAGES))
+        if board is not None:
             # the conformance checker's failures, from the CI job that runs before the pages are built
             conformance_failures = verifier_scoreboard.load_conformance(board.format, in_scope=in_scope)
     except verifier_scoreboard.FreshnessError as e:
@@ -271,14 +277,14 @@ def main():
         return verifier_scoreboard.summaries(board, lambda oid: _get_alg_name_by_oid_str(oid_name_mappings, oid),
                                              conformance=conformance_failures, automated_page=args.automated_page)
 
-    if board is not None:
+    if board is not None and not board.automated:
         current = {os.path.normpath(p) for p in board.current_paths}
         files = [f for f in files if os.path.normpath(f) in current]
 
     algorithmVerificationResults = []
 
     # the columns the manual results of this format must have; the automated results need only the default ones
-    required = result_files.columns(board.format if board is not None else None)
+    required = result_files.columns(board.format if board is not None and not board.automated else None)
     for file in files:
         # the one name rule for result files, as everywhere that reads them
         names = result_files.parse_name(os.path.basename(file))
@@ -328,7 +334,8 @@ def main():
         md_file.new_paragraph(text="See also: " + Inline.new_link(args.other_page, _PAGE_TITLES[other_page]))
 
     if board is not None:
-        md_file.write('\n\n' + verifier_scoreboard.markdown(board))
+        if not board.automated:
+            md_file.write('\n\n' + verifier_scoreboard.markdown(board))
         md_file.write('\n\n' + verifier_scoreboard.producer_markdown(board, conformance=conformance_failures,
                                                                     automated_page=args.automated_page))
 
