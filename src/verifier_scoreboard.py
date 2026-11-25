@@ -94,6 +94,7 @@ class Scoreboard(NamedTuple):
     unknown_on_page: list       # the ResultFiles for producers with no zip, with results on this page
     invalid_names: list         # result files with characters not allowed in their names, made printable
     invalid_types: dict         # path -> {(OID, printable type)} of rows left out for an invalid type
+    malformed: dict             # path -> why the file was not read: its columns do not match the format
     unverified: list            # producers no verifier has current results for
     not_verifying: list         # producers that submit no results
     expected: dict              # producer -> its tests on this page
@@ -102,6 +103,7 @@ class Scoreboard(NamedTuple):
     zip_oids: dict              # producer -> OIDs in its zip, or None
     zip_duplicates: dict        # producer -> OIDs its zip has more than one file of an artifact for
     zip_dates: dict             # producer -> date of its zip's last commit
+    zip_errors: dict            # producer -> why its zip cannot be read (its algorithms are then not checked)
     invalid_producers: list     # directories with a zip whose names are not valid producer names, made printable
     scope: dict                 # verifier -> its algorithms on this page: its zip's, and any it has results for
     page_oids: set              # the algorithms with tests on this page
@@ -110,7 +112,7 @@ class Scoreboard(NamedTuple):
 
     @property
     def current_paths(self):
-        return [f.path for f in self.files if f.current]
+        return [f.path for f in self.files if f.current and f.path not in self.malformed]
 
 
 def _match(path):
@@ -212,7 +214,7 @@ def build(paths, in_scope=lambda oid: True):
                 invalid_producers.append(_printable(producer))
     zip_commits = {p: (None, None) if path in dirty else _last_commit(path) for p, path in zips.items()}
 
-    files, tests, results, duplicates, invalid_types = [], {}, {}, {}, {}
+    files, tests, results, duplicates, invalid_types, malformed = [], {}, {}, {}, {}, {}
     required = columns(format_dir)
     for path in sorted(paths):
         generator, verifier = parse_name(_match(path)['name'])
@@ -228,8 +230,16 @@ def build(paths, in_scope=lambda oid: True):
         else:
             current, reason = False, f'zip {zip_commits[generator][1]}, results {date}'
         files.append(ResultFile(path, generator, verifier, current, reason, date))
-        # a file that cannot be read has no rows
-        rows, dups, invalid, _ = read_results(path, required)
+        owner = _match(path)['owner']
+        if owner != verifier:
+            # credited to the verifier its name gives, a copy in another directory would count as its results
+            rows, dups, invalid, why = {}, set(), set(), (
+                f'it is in providers/{_printable(owner)}/, but its name says the verifier is {verifier}; a result '
+                f'file goes in the directory of its verifier')
+        else:
+            rows, dups, invalid, why = read_results(path, required)
+        if why:
+            malformed[path] = why
         results[path] = {t: r for t, r in rows.items() if in_scope(t[0])}
         duplicates[path] = {t for t in dups if in_scope(t[0])}
         invalid_types[path] = {t for t in invalid if in_scope(t[0])}
@@ -291,6 +301,7 @@ def build(paths, in_scope=lambda oid: True):
         unknown_on_page=[f for f in files if f.generator not in zips and tests[f.path]],
         invalid_names=invalid_names,
         invalid_types=invalid_types,
+        malformed=malformed,
         unverified=[p for p in producers if p not in verified],
         not_verifying=[p for p in producers if p not in by_verifier],
         expected=dict(expected),
@@ -298,6 +309,7 @@ def build(paths, in_scope=lambda oid: True):
         duplicates=duplicates,
         zip_oids=zip_oids,
         zip_duplicates={p: {o for o in c[1] if in_scope(o)} for p, c in contents.items()},
+        zip_errors={p: c[2] for p, c in contents.items() if c[2]},
         invalid_producers=invalid_producers,
         zip_dates={p: c[1] for p, c in zip_commits.items()},
         scope=scope,
@@ -394,12 +406,20 @@ def markdown(board):
         lines += [f'⚠️ **Results for producers with no `{board.format}.zip`, not shown:** {items}. The producer in '
                   f'a result file\'s name must be its directory name under `providers/`; the verifier\'s summary '
                   f'suggests the likely name.', '']
+    if board.malformed:
+        items = ', '.join(f'`{os.path.basename(p)}`' for p in sorted(board.malformed))
+        lines += [f'⚠️ **Result files that could not be read, not used:** {items}. Their columns do not match the '
+                  f'format; the verifier\'s summary says why.', '']
     if board.invalid_names:
         items = ', '.join(f'`{n}`' for n in board.invalid_names)
         lines += [f'⚠️ **Result files with invalid names, not used:** {items}. Name them '
                   f'`<producer>_<verifier>.csv`, with a lower-case `.csv` and only letters, digits, `.`, `-` and (in the '
                   f'verifier) `_`.', '']
 
+    if board.zip_errors:
+        items = ', '.join(f'[{p}](#{_producer_anchor(p)})' for p in sorted(board.zip_errors))
+        lines += [f'⚠️ **Zips that cannot be read:** {items}. Their algorithms are not checked, and verifiers cannot '
+                  'test them.', '']
     if board.invalid_producers:
         items = ', '.join(f'`{n}`' for n in board.invalid_producers)
         lines += [f'⚠️ **Zips in directories whose names are not valid producer names, not used:** {items}. A '
@@ -644,6 +664,9 @@ ERROR, WARNING = 'error', 'warning'
 def file_problems(board, f, alg_name):
     """The problems with a result file, as (severity, markdown text). An ERROR keeps all of the file's results
     off the page; a WARNING means some rows are left out, or points at a likely mistake."""
+    if f.path in board.malformed:
+        return [(ERROR, f'not read, because {board.malformed[f.path]}. Its results are not shown or counted '
+                        'until it is fixed.')]
     if f.generator not in board.zips:
         if not board.results[f.path]:
             return []
@@ -655,6 +678,9 @@ def file_problems(board, f, alg_name):
             hint = ' Did you mean one of ' + ', '.join(f'*{m}*' for m in matches) + '?'
         return [(ERROR, f'there is no producer named *{f.generator}*; these results are not shown.{hint}')]
     problems = []
+    if f.generator in board.zip_errors:
+        problems.append((WARNING, f'{f.generator}\'s zip cannot be read, so these results cannot be checked against '
+                                  f'its artifacts ({board.zip_errors[f.generator]}).'))
     oids = board.zip_oids.get(f.generator)
     if f.current and oids is not None:
         gone = sorted({t[0] for t in board.results[f.path] if t[0] not in oids}, key=alg_name)
@@ -763,6 +789,9 @@ def _producer_summary(board, p, current_results, alg_name, automated_page=None):
 
     # problems with the zip
     problems = []
+    if p in board.zip_errors:
+        problems.append(f'- Your zip cannot be read: {board.zip_errors[p]}. Its algorithms are not checked, and '
+                        'verifiers cannot test it.')
     if board.zip_duplicates.get(p):
         problems.append('- More than one file for the same artifact: '
                         + ', '.join(alg_name(o) for o in sorted(board.zip_duplicates[p], key=alg_name))
@@ -800,7 +829,8 @@ def summaries(board, alg_name, automated_page=None):
                 current_results[(f.generator, test)][f.verifier] = result
 
     scores = {s.verifier: s for s in board.scores}
-    producers = set(board.producers) | {p for p, oids in board.zip_unreported.items() if oids}
+    producers = (set(board.producers) | {p for p, oids in board.zip_unreported.items() if oids}
+                 | set(board.zip_errors))
     for name in sorted(set(scores) | producers, key=str.lower):
         lines += ['<div class="implementation">', '', f'## {name} {{#implementation-{_slug(name)}}}', '']
         if name in scores:

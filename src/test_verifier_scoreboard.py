@@ -203,12 +203,29 @@ def test_invalid_file_names_are_listed_and_not_used(repo):
     assert not rf.valid_name(bad)
 
 
+@pytest.mark.parametrize('header, rows, reason', [
+    ('key_algorithm_oid,test_result', [f'{A},cert,Y'], 'the header has no `type` column'),
+    ('key_algorithm_oid,type,test_result', [f'{A},cert,Y,extra'], '1 row (the first on line 2) has a different'),
+    ('key_algorithm_oid,type,test_result', [f'{A},cert,Y', f'{A},Y'], '1 row (the first on line 3) has a different'),
+])
+def test_a_file_whose_rows_do_not_match_the_format_is_not_read(repo, header, rows, reason):
+    repo.zip('p', [A])
+    path = repo.csv('p', 'v', rows, header=header)
+    repo.commit()
+    board = vs.build(_files())
+    assert reason in board.malformed[path]
+    assert board.results[path] == {}
+    assert board.current_paths == []
+    [(severity, _)] = vs.file_problems(board, _file(board, path), _alg_name)
+    assert severity == vs.ERROR
+
 
 def test_blank_lines_are_ignored(repo):
     repo.zip('p', [A])
     path = repo.csv('p', 'v', [(A, 'cert', 'Y'), '', (A, 'priv', 'N'), ''])
     repo.commit()
     board = vs.build(_files())
+    assert path not in board.malformed
     assert board.results[path] == {(A, 'cert'): 'Y', (A, 'priv'): 'N'}
 
 
@@ -217,6 +234,7 @@ def test_a_cms_file_needs_no_type_column(repo):
     path = repo.csv('p', 'v', [(A, 'Y')], fmt=CMS)
     repo.commit()
     board = vs.build(_files(CMS))
+    assert path not in board.malformed
     assert board.results[path] == {(A, ''): 'Y'}
 
 
@@ -376,6 +394,20 @@ def _mapping():
 
 
 
+def test_a_byte_order_mark_is_allowed_and_other_encodings_are_not(repo):
+    repo.zip('p', [A])
+    bom = repo.csv('p', 'v', [(A, 'cert', 'Y')])
+    with open(bom, 'rb') as f:
+        data = f.read()
+    with open(bom, 'wb') as f:
+        f.write(b'\xef\xbb\xbf' + data)
+    latin1 = repo.csv('p', 'w', [(A, 'cert', 'Y')])
+    with open(latin1, 'ab') as f:
+        f.write(b'1.2.3,caf\xe9,Y\n')
+    repo.commit()
+    board = vs.build(_files())
+    assert board.results[bom] == {(A, 'cert'): 'Y'}
+    assert board.malformed[latin1] == 'it is not UTF-8 text'
 
 
 def test_rows_with_characters_not_allowed_in_the_algorithm_are_left_out(repo):
@@ -385,6 +417,18 @@ def test_rows_with_characters_not_allowed_in_the_algorithm_are_left_out(repo):
     board = vs.build(_files())
     assert board.results[path] == {(A, 'cert'): 'Y'}
     assert board.invalid_types[path] == {('?b?x?/b?', 'cert')}
+
+
+def test_a_result_file_must_be_in_its_verifiers_directory(repo):
+    repo.zip('p', [A])
+    os.makedirs('providers/other/compatMatrices/artifacts_certs_r5')
+    path = 'providers/other/compatMatrices/artifacts_certs_r5/p_v.csv'
+    with open(path, 'w') as f:
+        f.write(f'key_algorithm_oid,type,test_result\n{A},cert,Y\n')
+    repo.commit()
+    board = vs.build(_files())
+    assert 'it is in providers/other/, but its name says the verifier is v' in board.malformed[path]
+    assert board.current_paths == []
 
 
 
@@ -401,13 +445,28 @@ def test_a_zip_in_a_directory_with_an_invalid_name_is_not_used(repo):
     assert '<img' not in page
 
 
+def test_an_unreadable_zip_is_reported(repo):
+    repo.zip('p', [A])
+    with open('providers/p/artifacts_certs_r5.zip', 'wb') as f:
+        f.write(b'not a zip')
+    path = repo.csv('p', 'v', [(A, 'cert', 'Y')])
+    repo.commit()
+    board = vs.build(_files())
+    assert 'cannot be read as a zip' in board.zip_errors['p']
+    assert '**Zips that cannot be read:** [p](#producer-p)' in vs.markdown(board)
+    assert '- Your zip cannot be read: it cannot be read as a zip' in vs.summaries(board, _alg_name)
+    assert any("p's zip cannot be read" in t for _, t in vs.file_problems(board, _file(board, path), _alg_name))
+
+
+
+
 
 
 # The result pages
 
 def test_the_result_tables_agree_with_the_scoreboard(repo):
-    """Run the page writer: stale results are left out of the tables, and every other file is read as the
-    scoreboard reads it."""
+    """Run the page writer: stale and unreadable results are left out of the tables, and every other file is
+    read as the scoreboard reads it."""
     repo.zip('p', [A])
     repo.commit()
     repo.csv('p', 'stale', [(A, 'cert', 'N')])
@@ -418,13 +477,14 @@ def test_the_result_tables_agree_with_the_scoreboard(repo):
     repo.csv('p', 'my.v', [(A, 'cert', 'Y')])
     repo.csv('p', 'spaces', [f'{A}, cert, y'], header='key_algorithm_oid, type, test_result')
     repo.csv('p', 'dup', [(A, 'cert', 'Y'), (A, 'cert', 'N')])
+    repo.csv('p', 'bad', [f'{A},cert,N'], header='key_algorithm_oid,test_result')
     repo.commit()
     _mapping()
     out = subprocess.run([sys.executable, WRITER, 'docs/oid_mapping.md', 'page.md', 'Certificate', *_files()],
                          capture_output=True, text=True)
     assert out.returncode == 0, out.stderr
     page = open('page.md').read()
-    # v, my.v and spaces pass; dup's worst result fails; stale is not counted
+    # v, my.v and spaces pass; dup's worst result fails; stale and bad are not counted
     assert '⚠️ 3/4' in page
     assert '/5' not in page and '/6' not in page
     assert 'p_dup.csv: 1 tests reported more than once; the worst result of each is used' in out.stderr

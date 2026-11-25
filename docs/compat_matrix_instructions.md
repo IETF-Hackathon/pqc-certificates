@@ -34,6 +34,10 @@ a test is reported more than once, the worst result is used (a failure over a wa
 not UTF-8, or whose header does not have the columns of its format, or with a row that has a different number of
 values than the header has columns, is not read.
 
+A result file goes in its verifier's directory, `providers/<verifier>/compatMatrices/<format>/`. A file in another
+verifier's directory, or that is not read, is left out of the page, and the verifier's summary says why; a zip
+that cannot be read is listed at the top of the page, and its producer's summary says so.
+
 To preview the pages locally, run `src/rebuild_results_certs_r5.sh --local` or
 `src/rebuild_results_cms_v3.sh --local` from the repository root, in a clone with the full git history.
 They write to `docs/`, where git ignores them. Uncommitted CSVs count as current.
