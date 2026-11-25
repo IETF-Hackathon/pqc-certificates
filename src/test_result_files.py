@@ -103,5 +103,5 @@ def test_the_tables_count_each_verifier_once_per_test(tmp_path, monkeypatch):
     assert result.returncode == 0, result.stderr
     page = (tmp_path / 'page.md').read_text()
     assert '✅ 2/2' in page            # cert: v once, and w
-    assert '◒ 1/2' in page             # priv: v's worst result fails, w passes
+    assert '⚠️ 1/2' in page            # priv: v's worst result fails, w passes
     assert 'p_v.csv: 2 tests reported more than once; the worst result of each is used' in result.stderr

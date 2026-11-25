@@ -297,14 +297,14 @@ def main():
         md_file.new_paragraph(text="See also: " + Inline.new_link(args.other_page, _PAGE_TITLES[other_page]))
 
     md_file.new_paragraph()
-    md_file.new_header(level=1, title=f'Algorithms Submitted')
+    md_file.new_header(level=1, title='Results by Algorithm')
 
     if not _submittedAlgsList:
         md_file.new_paragraph(text="No test results have been submitted for the algorithms on this page.")
         md_file.create_md_file()
         return
 
-    md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers<br>Columns represent producers who submitted artifacts. Verifiers are not listed in this table, but are listed in the broken-out tables below.<br>")
+    md_file.new_paragraph(text="Each cell is the number of verifiers that pass the producer's artifacts for the algorithm, of those that tested them: ✅ = passing all verifiers; ⚠️ = failing some verifiers; ❌ = failing every verifier.<br>Columns represent producers who submitted artifacts. Verifiers are not listed in this table, but are listed in the broken-out tables below.<br>")
     for conformance in sorted({avr.verifier for avr in algorithmVerificationResults if avr.verifier in _CONFORMANCE_VERIFIERS}):
         md_file.new_paragraph(text=f"{conformance} checks the artifacts against their zip format and the rules on algorithm identifiers, which a signature can still verify without (for example, a key identified by its algorithm's own OID). It reports failures only, as ❌ that link to the reason: a compliant artifact has no {conformance} result.")
     lint_columns = sorted({avr.verifier for avr in algorithmVerificationResults if avr.verifier in _LINT_VERIFIERS})
@@ -334,9 +334,9 @@ def main():
             if (no == -1):
                 submittedAlgsCells.append('')
             elif (no == 0):
-                submittedAlgsCells.append(f'⚪︎ {passCount}/{totalCount}')
+                submittedAlgsCells.append(f'❌ {passCount}/{totalCount}')
             elif (no == 1):
-                submittedAlgsCells.append(f'◒ {passCount}/{totalCount}')
+                submittedAlgsCells.append(f'⚠️ {passCount}/{totalCount}')
             else:
                 submittedAlgsCells.append(f'✅ {passCount}/{totalCount}')
 
@@ -347,7 +347,7 @@ def main():
     for alg_oid, algorithmVerificationResults in avrs_by_alg.items():
         friendly = friendly_by_alg[alg_oid]
 
-        md_file.new_header(level=1, title=f'{friendly} ({alg_oid})', header_id=friendly)
+        md_file.new_header(level=2, title=f'{friendly} ({alg_oid})', header_id=friendly)
         table_lint = sorted({avr.verifier for avr in algorithmVerificationResults if avr.verifier in _LINT_VERIFIERS})
         lint_note = f' The last column, {", ".join(table_lint)}, is a lint, not a parser: ⚠️ and ❌ link to its findings.' if table_lint else ''
         md_file.new_paragraph(text='Rows are producers. Columns are parsers.' + lint_note + '\n')
