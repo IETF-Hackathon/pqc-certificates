@@ -18,17 +18,12 @@ printf "Build time: %s\n\n" "$(date)" | tee -a $logfile
 alreadyTestedSigOIDs=";"
 alreadyTestedKEMOIDs=";"
 
-# OIDs of algorithms that use the private key CHOICE format
+# OIDs of algorithms that use the private key CHOICE format (shared with src/test_artifacts_conformance.py)
 declare -A ChoiceOIDs
-ChoiceOIDs["2.16.840.1.101.3.4.3.17"]=1 # ML-DSA-44
-ChoiceOIDs["2.16.840.1.101.3.4.3.18"]=1 # ML-DSA-65
-ChoiceOIDs["2.16.840.1.101.3.4.3.19"]=1 # ML-DSA-87
-ChoiceOIDs["2.16.840.1.101.3.4.3.32"]=1 # HASH-ML-DSA-44
-ChoiceOIDs["2.16.840.1.101.3.4.3.33"]=1 # HASH-ML-DSA-65
-ChoiceOIDs["2.16.840.1.101.3.4.3.34"]=1 # HASH-ML-DSA-87
-ChoiceOIDs["2.16.840.1.101.3.4.4.1"]=1 # ML-KEM-512
-ChoiceOIDs["2.16.840.1.101.3.4.4.2"]=1 # ML-KEM-768
-ChoiceOIDs["2.16.840.1.101.3.4.4.3"]=1 # ML-KEM-1024
+while IFS= read -r line; do
+    choice_oid=$(echo "${line%%#*}" | tr -d '[:space:]')
+    [ -n "$choice_oid" ] && ChoiceOIDs["$choice_oid"]=1
+done < docs/choice_oids.txt
 
 check_ta() {
     TA=$1

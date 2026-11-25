@@ -22,6 +22,12 @@ _OID_REGEX = re.compile(r'^\d+(\.\d+)+$')
 # linking to the provider's section of that page.
 _LINT_VERIFIERS = {'pkilint': 'pkilint_certs.html'}
 
+# Verifiers whose crosses link to a page that explains them (the provider's section of that page).
+# Unlike the lint columns, they are counted in the summary table like any other verifier.
+# The conformance columns (src/test_artifacts_conformance.py) report failures only.
+_CONFORMANCE_VERIFIERS = {'r5-conformance': 'r5_conformance_certs.html', 'cms-v3-conformance': 'cms_v3_conformance.html'}
+_FINDINGS_PAGES = {**_LINT_VERIFIERS, **_CONFORMANCE_VERIFIERS}
+
 
 def _anchor(name):
     """Section id of a provider on a lint page (same rule as src/test_certs_r5_pkilint.py)."""
@@ -149,7 +155,7 @@ def _format_result_cell(algorithmVerificationResult) -> str:
         display_result = '✅'
     else:
         display_result = '⚠️' if r == 'W' or r == 'w' else '❌'
-        page = _LINT_VERIFIERS.get(algorithmVerificationResult.verifier)
+        page = _FINDINGS_PAGES.get(algorithmVerificationResult.verifier)
         if page:
             display_result = Inline.new_link(f'{page}#{_anchor(algorithmVerificationResult.generator)}', display_result)
 
@@ -318,6 +324,8 @@ def main():
         return
 
     md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers<br>Columns represent producers who submitted artifacts. Verifiers are not listed in this table, but are listed in the broken-out tables below.<br>")
+    for conformance in sorted({avr.verifier for avr in algorithmVerificationResults if avr.verifier in _CONFORMANCE_VERIFIERS}):
+        md_file.new_paragraph(text=f"{conformance} checks the artifacts against their zip format and the rules on algorithm identifiers, which a signature can still verify without (for example, a key identified by its algorithm's own OID). It reports failures only, as ❌ that link to the reason: a compliant artifact has no {conformance} result.")
     lint_columns = sorted({avr.verifier for avr in algorithmVerificationResults if avr.verifier in _LINT_VERIFIERS})
     if lint_columns:
         md_file.new_paragraph(text="Lint (" + ", ".join(lint_columns) + ", the last column of the broken-out tables): ✅ = no lint findings; ⚠️ = WARNING or ERROR findings; ❌ = a FATAL finding (the certificate could not be decoded, for example because it is not DER). ⚠️ and ❌ link to the findings. Lint columns are not counted in this table, and the verifiers' ✅ / ❌ do not depend on them.")
