@@ -3,6 +3,13 @@
 This tool parses interoperability results files and creates Markdown-based
 tables.
 
+A result file is named `<producer>_<verifier>.csv`, with a lower-case `.csv`, where the producer is the name of
+its directory under `providers/`; names may use only letters, digits, `.` and `-` (and `_` in the verifier). It
+must be UTF-8 text. Spaces around the column names and values are ignored, results may be in either case, and if
+a test is reported more than once, the worst result is used (a failure over a warning over a pass). A file that is
+not UTF-8, or whose header does not have the columns of its format, or with a row that has a different number of
+values than the header has columns, is not read.
+
 The `rebuild_results.sh` script will compile the interop test results from all providers.
 If you have updated your test results, then please re-run `rebuild_reselts.sh` before committing.
 https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html displays the /docs folder of the `master` branch.

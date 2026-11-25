@@ -1,17 +1,18 @@
-import csv
 import json
 import operator
 from os import SEEK_SET
 import os.path
 import re
 import argparse
+import sys
 from typing import NamedTuple, Optional, Sequence, Mapping
 from mdutils.mdutils import MdUtils
 from mdutils.tools.Link import Inline
 from datetime import datetime
 import pytz
 
-_FILENAME_REGEX = re.compile(r'^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
+import result_files
+
 _OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.*$')
 _HYBRID_FORMAT_NAME_REGEX = re.compile(r'(?P<hybrid_format>[^_]+)_(?P<oid1>[^_]+)_with_(?P<oid2>[^_]+)', re.IGNORECASE)
 _OID_REGEX = re.compile(r'^\d+(\.\d+)+$')
@@ -57,10 +58,6 @@ class AlgorithmVerificationResult(NamedTuple):
     friendly: str
     test_result: Optional[bool]
 
-def _parse_json_file(generator, verifier, f) -> Sequence[AlgorithmVerificationResult]:
-    pass
-
-
 def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
     """
     -1: no verifiers
@@ -98,49 +95,39 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
         return (2, passCount, totalCount)
     
 def _parse_csv_file(
-    generator, verifier, f, oid_name_mappings, include_all_oids, is_on_page
+    generator, verifier, path, required, oid_name_mappings, include_all_oids, is_on_page
 ) -> Sequence[AlgorithmVerificationResult]:
-    c = csv.DictReader(f)
+    # The one way of reading result files, so that the tables and the scoreboard agree on every row
+    rows = result_files.read_results(path, required)
+    if rows.malformed:
+        print(f'{path}: not read, because {rows.malformed}', file=sys.stderr)
+        return []
+    if rows.duplicates:
+        print(f'{path}: {len(rows.duplicates)} tests reported more than once; the worst result of each is used',
+              file=sys.stderr)
+    for oid, kind in sorted(rows.invalid):
+        print(f'{path}: skipping a row of {oid} with characters that are not allowed in its algorithm or type '
+              f'"{kind}"', file=sys.stderr)
 
     algorithmVerificationResults = []
+    for (key_algorithm_oid, kind), test_result in rows.results.items():
+        if not include_all_oids and not key_algorithm_oid in oid_name_mappings:
+            continue
+        if not is_on_page(key_algorithm_oid):
+            continue
+        friendly = _get_alg_name_by_oid_str(oid_name_mappings, key_algorithm_oid)
+        if kind:
+            friendly += "-" + kind
+            key_algorithm_oid += "-" + kind
+        algorithmVerificationResults.append(AlgorithmVerificationResult(generator, verifier, key_algorithm_oid,
+                                                                        friendly, test_result))
 
-    for row in c:
-        try:
-            key_algorithm_oid = row['key_algorithm_oid']
-            if not include_all_oids and not key_algorithm_oid in oid_name_mappings:
-                continue
-            if not is_on_page(key_algorithm_oid):
-                continue
-            friendly = _get_alg_name_by_oid_str(oid_name_mappings, key_algorithm_oid)
-            if 'type' in row and row['type'] != None and row['type'] != "":
-                friendly += "-" + row['type']
-                key_algorithm_oid += "-" + row['type']
-            d = {
-                'generator': generator,
-                'verifier': verifier,
-                'key_algorithm_oid': key_algorithm_oid,
-                'friendly': friendly,
-                'test_result': row['test_result']
-            }
-
-            algorithmVerificationResults.append(AlgorithmVerificationResult(**d))
-
-            if row['test_result'] != None and row['test_result'] != "":
-                e = {
-                    'generator': generator,
-                    'key_algorithm_oid': key_algorithm_oid,
-                    'friendly': friendly
-                }
-
-                # The algorithms Tested table should only contain tests with a pass or fail result
-                if SubmittedAlgorithmResult(**e) not in _submittedAlgorithmResults:
-                    _submittedAlgorithmResults.append(SubmittedAlgorithmResult(**e))
-
-                if key_algorithm_oid not in _submittedAlgsList:
-                    _submittedAlgsList.append( key_algorithm_oid )
-        except Exception as e:
-            print("Error reading "+ str(f.name))
-            raise e
+        # The algorithms Tested table should only contain tests with a pass or fail result
+        submitted = SubmittedAlgorithmResult(generator, key_algorithm_oid, friendly)
+        if submitted not in _submittedAlgorithmResults:
+            _submittedAlgorithmResults.append(submitted)
+        if key_algorithm_oid not in _submittedAlgsList:
+            _submittedAlgsList.append(key_algorithm_oid)
 
     return algorithmVerificationResults
 
@@ -262,19 +249,13 @@ def main():
     algorithmVerificationResults = []
 
     for file in args.files:
-        m = _FILENAME_REGEX.match(os.path.basename(file))
-
-        if m is None:
+        # the one name rule for result files, as everywhere that reads them
+        names = result_files.parse_name(os.path.basename(file))
+        if names is None:
             raise ValueError(f'File name does not match naming convention: "{os.path.basename(file)}"')
-
-        with open(file, 'r') as f:
-            generator = m['generator']
-            verifier = m['verifier']
-
-            if m['extension'].casefold() == 'csv'.casefold():
-                algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings, args.include_all_oids, is_on_page))
-            else:
-                algorithmVerificationResults.extend(_parse_json_file(generator, verifier, f))
+        generator, verifier = names
+        algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, file, result_files.columns(None),
+                                                            oid_name_mappings, args.include_all_oids, is_on_page))
 
     generators = set()
     verifiers = set()
