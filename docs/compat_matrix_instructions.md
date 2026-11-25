@@ -42,6 +42,14 @@ A result file goes in its verifier's directory, `providers/<verifier>/compatMatr
 verifier's directory, or that is not read, is left out of the page, and the verifier's summary says why; a zip
 that cannot be read is listed at the top of the page, and its producer's summary says so.
 
+CI checks the result files and zips a pull request adds or changes for these problems: errors (a file that is not
+read, a producer with no zip by that name, a file name that is not `<producer>_<verifier>.csv`, a zip that cannot
+be read or is in a directory whose name is not a valid producer name) fail the check, and warnings (rows with
+characters not allowed in their algorithm or type, rows reported twice, algorithms that are not in the producer's
+zip or not in `docs/oid_mapping.md`) are shown on the files. To check your files before you submit them, run
+`src/check_result_files.py <files>` from the repository root, or `src/check_result_files.py --all` for every
+result file and zip.
+
 To preview the pages locally, run `src/rebuild_results_certs_r5.sh --local` or
 `src/rebuild_results_cms_v3.sh --local` from the repository root, in a clone with the full git history.
 They write to `docs/`, where git ignores them. Uncommitted CSVs count as current.

@@ -1,4 +1,4 @@
-"""Tests for verifier_scoreboard.py (result_files.py has its own).
+"""Tests for verifier_scoreboard.py and check_result_files.py (result_files.py has its own).
 
 Run from the repository root: python3 -m pytest src/test_verifier_scoreboard.py
 
@@ -23,6 +23,7 @@ CMS = 'artifacts_cms_v3'
 A, B, C = '2.16.840.1.101.3.4.3.17', '2.16.840.1.101.3.4.3.18', '2.16.840.1.101.3.4.4.1'
 NAMES = {A: 'ML-DSA-44', B: 'ML-DSA-65', C: 'ML-KEM-512'}
 SRC = os.path.dirname(os.path.abspath(__file__))
+CHECKER = os.path.join(SRC, 'check_result_files.py')
 WRITER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pqc_report_writer_common.py')
 
 
@@ -380,6 +381,7 @@ def test_the_page_is_the_same_on_every_run(repo):
     assert len(pages) == 1
 
 
+# check_result_files.py
 
 def _mapping():
     os.makedirs('docs', exist_ok=True)
@@ -387,6 +389,54 @@ def _mapping():
         f.write('| Name | OID |\n|---|---|\n' + ''.join(f'| {n} | {o} |\n' for o, n in NAMES.items()))
 
 
+def _check(*args):
+    _mapping()
+    env = {k: v for k, v in os.environ.items() if k != 'GITHUB_ACTIONS'}
+    return subprocess.run([sys.executable, CHECKER, *args], capture_output=True, text=True, env=env)
+
+
+def test_the_check_fails_on_errors(repo):
+    repo.zip('p', [A])
+    repo.csv('p', 'v', [f'{A},cert,Y'], header='key_algorithm_oid,test_result')
+    repo.commit()
+    out = _check('--all')
+    assert out.returncode == 1
+    assert 'p_v.csv: error: not read, because the header has no type column' in out.stdout
+
+
+def test_the_check_passes_with_warnings(repo):
+    repo.zip('p', [A])
+    repo.csv('p', 'v', [(A, 'cert', 'Y'), (B, 'cert', 'Y'), ('1.2.3', 'cert', 'Y')])
+    repo.commit()
+    out = _check('--all')
+    assert out.returncode == 0, out.stdout + out.stderr
+    assert f"results for algorithms that are not in p's zip: 1.2.3, ML-DSA-65 ({B})." in out.stdout
+    assert 'not in docs/oid_mapping.md, so not shown on any page: 1.2.3.' in out.stdout
+    assert '0 errors, 2 warnings' in out.stdout
+
+
+def test_the_check_covers_only_files_changed_since_the_base(repo):
+    repo.zip('p', [A])
+    repo.csv('old', 'v', [(A, 'cert', 'Y')])
+    repo.commit()
+    _git('tag', 'base')
+    repo.csv('p', 'v', [(A, 'cert', 'Y')])
+    repo.commit()
+    out = _check('--base', 'base')
+    assert out.returncode == 0, out.stdout + out.stderr
+    assert 'Checked 1 result file and 0 zips: 0 errors, 0 warnings.' in out.stdout
+    assert _check('--all').returncode == 1
+
+
+def test_the_check_writes_annotations_in_github_actions(repo):
+    repo.zip('p', [A])
+    repo.csv('redhound', 'v', [(A, 'cert', 'Y')])
+    repo.commit()
+    _mapping()
+    out = subprocess.run([sys.executable, CHECKER, '--all'], capture_output=True, text=True,
+                         env={**os.environ, 'GITHUB_ACTIONS': 'true'})
+    assert out.stdout.startswith('::error file=providers/v/compatMatrices/artifacts_certs_r5/redhound_v.csv::'
+                                 'there is no producer named redhound')
 
 
 # Conformance
@@ -479,6 +529,9 @@ def test_a_zip_in_a_directory_with_an_invalid_name_is_not_used(repo):
     assert board.invalid_producers == ['bad?img src?x?']
     page = '\n'.join([vs.markdown(board), vs.producer_markdown(board), vs.summaries(board, _alg_name)])
     assert '<img' not in page
+    out = _check('--all')
+    assert out.returncode == 1
+    assert 'bad<img src=x>/artifacts_certs_r5.zip: error: the directory name is not a valid producer name' in out.stdout
 
 
 def test_an_unreadable_zip_is_reported(repo):
@@ -492,10 +545,34 @@ def test_an_unreadable_zip_is_reported(repo):
     assert '**Zips that cannot be read:** [p](#producer-p)' in vs.markdown(board)
     assert '- Your zip cannot be read: it cannot be read as a zip' in vs.summaries(board, _alg_name)
     assert any("p's zip cannot be read" in t for _, t in vs.file_problems(board, _file(board, path), _alg_name))
+    out = _check('--all')
+    assert out.returncode == 1
+    assert 'providers/p/artifacts_certs_r5.zip: error: it cannot be read as a zip' in out.stdout
 
 
+def test_the_check_reports_upper_case_and_hidden_result_files(repo):
+    repo.zip('p', [A])
+    repo.csv('p', 'v', [(A, 'cert', 'Y')])
+    repo.commit()
+    _git('tag', 'base')
+    os.rename(repo.csv('p', 'w', [(A, 'cert', 'Y')]), 'providers/w/compatMatrices/artifacts_certs_r5/p_w.CSV')
+    repo.csv('.p', 'x', [(A, 'cert', 'Y')])
+    repo.commit()
+    out = _check('--base', 'base')
+    assert 'p_w.CSV: error: the name must be <producer>_<verifier>.csv, with a lower-case .csv' in out.stdout
+    assert 'Traceback' not in out.stderr
+    assert '.p_x.csv: error: there is no producer named .p' in out.stdout
 
 
+def test_the_check_reads_names_that_git_would_quote(repo):
+    repo.zip('p', [A])
+    repo.commit()
+    _git('tag', 'base')
+    repo.csv('p', 'vé', [(A, 'cert', 'Y')])
+    repo.commit()
+    out = _check('--base', 'base')
+    assert out.returncode == 1
+    assert 'p_vé.csv: error: the name must be' in out.stdout
 
 
 # The result pages
@@ -530,6 +607,20 @@ def test_the_result_tables_agree_with_the_scoreboard(repo):
                        'dup': {(A, 'cert'): 'N'}}
 
 
+def test_the_check_reads_the_mapping_as_the_pages_do(repo):
+    """An algorithm listed after the experimental heading of docs/oid_mapping.md is not on the pages."""
+    repo.zip('p', [A, C])
+    repo.csv('p', 'v', [(A, 'cert', 'Y'), (C, 'cert', 'Y')])
+    repo.commit()
+    _mapping()
+    with open('docs/oid_mapping.md') as f:
+        lines = [line for line in f if C not in line]
+    with open('docs/oid_mapping.md', 'w') as f:
+        f.write(''.join(lines) + f'\n# Experimental and Historical OIDs\n\n| Name | OID |\n|---|---|\n'
+                f'| {NAMES[C]} | {C} |\n')
+    env = {k: v for k, v in os.environ.items() if k != 'GITHUB_ACTIONS'}
+    out = subprocess.run([sys.executable, CHECKER, '--all'], capture_output=True, text=True, env=env)
+    assert f'not in docs/oid_mapping.md, so not shown on any page: {C}.' in out.stdout
 
 
 def test_a_git_error_in_the_ancestry_check_is_not_taken_for_a_stale_result(repo):
