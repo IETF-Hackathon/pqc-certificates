@@ -24,7 +24,9 @@ of the page. As a verifier:
 its results by producer, the tests it has not run yet (by algorithm), its failures and where it disagrees with
 the other verifiers, and problems with its result files. As a producer: which of its tests fail and for which
 verifiers, the tests no other verifier has a current result for, the algorithms in its zip that no one has
-reported on, and problems with its zip. In CI, each producer's summary also links to the
+reported on, and problems with its zip. Where the conformance checker (`src/test_artifacts_conformance.py`)
+has run, as it does in CI, the producer table and summaries also show which of a producer's artifacts fail
+its checks, and mark the failing tests whose artifact does. In CI, each producer's summary also links to the
 automated results page, where the CI verifiers test every producer's current zip.
 
 A result file is named `<producer>_<verifier>.csv`, with a lower-case `.csv`, where the producer is the name of

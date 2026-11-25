@@ -251,7 +251,7 @@ def main():
     
     # Manual results (providers/<verifier>/compatMatrices/<format>/*.csv): leave out the stale ones, and add the
     # verifier scoreboard, the producer table and the implementation summaries, for the algorithms on this page
-    board = None
+    board = conformance_failures = None
     files = args.files
 
     def in_scope(oid):
@@ -261,13 +261,15 @@ def main():
     try:
         if verifier_scoreboard.manual_format(files) is not None:
             board = verifier_scoreboard.build(files, in_scope=in_scope)
+            # the conformance checker's failures, from the CI job that runs before the pages are built
+            conformance_failures = verifier_scoreboard.load_conformance(board.format, in_scope=in_scope)
     except verifier_scoreboard.FreshnessError as e:
         parser.error(str(e))
 
     def summaries():
         """The implementation summaries, at the end of the page."""
         return verifier_scoreboard.summaries(board, lambda oid: _get_alg_name_by_oid_str(oid_name_mappings, oid),
-                                             automated_page=args.automated_page)
+                                             conformance=conformance_failures, automated_page=args.automated_page)
 
     if board is not None:
         current = {os.path.normpath(p) for p in board.current_paths}
@@ -327,7 +329,8 @@ def main():
 
     if board is not None:
         md_file.write('\n\n' + verifier_scoreboard.markdown(board))
-        md_file.write('\n\n' + verifier_scoreboard.producer_markdown(board, automated_page=args.automated_page))
+        md_file.write('\n\n' + verifier_scoreboard.producer_markdown(board, conformance=conformance_failures,
+                                                                    automated_page=args.automated_page))
 
     md_file.new_paragraph()
     md_file.new_header(level=1, title='Results by Algorithm')

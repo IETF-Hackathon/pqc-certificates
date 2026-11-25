@@ -13,6 +13,7 @@ is either current, stale (it has only stale results for it) or untested.
 """
 import csv
 import difflib
+import glob
 import os
 import re
 import subprocess
@@ -25,6 +26,10 @@ from result_files import columns, parse_name, printable as _printable, read_resu
 # Locates a manual result file; whether its name is valid is result_files.parse_name's to say
 _MANUAL_RESULT = re.compile(r'(?P<providers>(?:.*/)?providers)/(?P<owner>[^/]+)/compatMatrices/(?P<format>[^/]+)/'
                             r'(?P<name>[^/]+\.csv)', re.IGNORECASE)
+# The conformance checker's results (src/test_artifacts_conformance.py), by format: the folder of output/ and the
+# column it writes them to, and its findings page, which is published next to the result pages
+_CONFORMANCE = {'artifacts_certs_r5': ('certs', 'r5-conformance', 'r5_conformance_certs.html'),
+                'artifacts_cms_v3': ('cms', 'cms-v3-conformance', 'cms_v3_conformance.html')}
 _ARTIFACT_OID = re.compile(r'-(?P<oid>\d+(?:\.\d+)+)_[^/]*$')
 _ARTIFACT = re.compile(r'-(?P<oid>\d+(?:\.\d+)+)_(?P<role>[A-Za-z0-9_-]+?)\.(?P<ext>der|pem|bin)$')
 _MEDALS = ['🥇', '🥈', '🥉']
@@ -83,6 +88,11 @@ class VerifierScore(NamedTuple):
     all: Counts             # every test on the page
     algorithms: int         # the number of its algorithms on the page
     last: Optional[str]
+
+
+class Conformance(NamedTuple):
+    page: str                   # the findings page, with a section per producer
+    failures: dict              # producer -> {test} whose artifact fails; every producer checked has an entry
 
 
 class Scoreboard(NamedTuple):
@@ -185,6 +195,23 @@ def zip_contents(path):
             copies[(m['oid'], m['role'], m['ext'])] += 1
     return ({m['oid'] for m in map(_ARTIFACT_OID.search, names) if m},
             {oid for (oid, _, _), n in copies.items() if n > 1}, '')
+
+
+def load_conformance(format_dir, output_dir='output', in_scope=lambda oid: True):
+    """The conformance checker's failures for a format, from the CSVs it writes to output_dir, or None if there are
+    none (it runs in CI, before the pages are built). in_scope(oid) says whether an algorithm is on the page."""
+    if format_dir not in _CONFORMANCE:
+        return None
+    folder, column, page = _CONFORMANCE[format_dir]
+    suffix = f'_{column}.csv'
+    paths = glob.glob(os.path.join(output_dir, folder, '*' + suffix))
+    if not paths:
+        return None
+    failures = {}
+    for path in paths:
+        rows = read_results(path, columns(format_dir)).results
+        failures[os.path.basename(path)[:-len(suffix)]] = {t for t, r in rows.items() if r != 'Y' and in_scope(t[0])}
+    return Conformance(page, failures)
 
 
 def build(paths, in_scope=lambda oid: True):
@@ -452,7 +479,15 @@ def _nowrap(text):
     return f'<span style="white-space:nowrap">{text}</span>'
 
 
-def producer_markdown(board, automated_page=None):
+def _conformance_cell(conformance, p):
+    """A producer's conformance result, linked to its section of the findings page; '-' if it was not checked."""
+    if conformance is None or p not in conformance.failures:
+        return '-'
+    n = len(conformance.failures[p])
+    return f'[{f"❌ {n}" if n else "✅"}]({conformance.page}#{_slug(p)})'
+
+
+def producer_markdown(board, conformance=None, automated_page=None):
     """The producer table, as markdown: how widely, and how well, other verifiers verify each producer's current
     zip. It is not a ranking: how many verifiers test a zip is not up to its producer, and correctness hardly
     separates them; what a producer can act on is in its summary."""
@@ -488,14 +523,20 @@ def producer_markdown(board, automated_page=None):
         'zip, earlier results for it become stale, and the verifiers that have yet to verify the new zip are '
         'listed as *awaiting*: they are behind, not the producer.', '',
         ' '.join(_swatch(k, _RESULT_COLORS) for k in _RESULT_COLORS), '',
-        '| Producer | Verified by | Results | Tests passed by someone | Awaiting re-verification | Zip |',
-        '|---|---|---|---|---|---|',
+        '| Producer | Verified by | Results | Tests passed by someone | Awaiting re-verification | Zip |'
+        + (' Conformance |' if conformance else ''),
+        '|---|---|---|---|---|---|' + ('---|' if conformance else ''),
     ]
     for p, n_current, stale_by, passes, fails, passed, total in rows:
         awaiting = (f'⏳ {len(stale_by)}: ' + ', '.join(stale_by)) if stale_by else '0'
         lines.append(f'| {_nowrap(f"[{p}](#{_producer_anchor(p)})")} | '
                      f'{_nowrap(_plural(n_current, "verifier"))} | {_pass_bar(passes, fails)} | {passed} of {total} | '
-                     f'{awaiting} | {_nowrap(board.zip_dates.get(p) or "uncommitted")} |')
+                     f'{awaiting} | {_nowrap(board.zip_dates.get(p) or "uncommitted")} |'
+                     + (f' {_conformance_cell(conformance, p)} |' if conformance else ''))
+    if conformance:
+        lines += ['', f'*Conformance:* the artifacts that fail the conformance checks of the zip format and the '
+                      f'algorithm identifier rules, which a signature can pass even when an artifact is wrong; it '
+                      f'links to the [findings]({conformance.page}).']
     lines += ['', 'Click a producer for its summary, at the bottom of the page: which of its tests fail and for '
               'whom, what no other verifier has tested yet, and problems with its zip.', '']
     if automated_page:
@@ -704,7 +745,7 @@ def file_problems(board, f, alg_name):
     return problems
 
 
-def _producer_summary(board, p, current_results, alg_name, automated_page=None):
+def _producer_summary(board, p, current_results, alg_name, conformance=None, automated_page=None):
     """The producer part of an implementation's summary, as markdown lines: how the other verifiers fare with
     its current zip. Its own results for its zip are left out, as in the producer table."""
     lines = [f'### As a producer {{#{_producer_anchor(p)}}}', '']
@@ -737,6 +778,15 @@ def _producer_summary(board, p, current_results, alg_name, automated_page=None):
     if automated_page:
         lines += [f'The CI verifiers\' results for your current zip are on the [automated results page]'
                   f'({automated_page}).', '']
+    nonconforming = set()
+    if conformance is not None and p in conformance.failures:
+        nonconforming = conformance.failures[p]
+        link = f'[findings]({conformance.page}#{_slug(p)})'
+        if nonconforming:
+            lines += [f'**Conformance:** ❌ {_plural(len(nonconforming), "test")} of artifacts that fail the '
+                      f'conformance checks ({link}); marked 📋 below.', '']
+        else:
+            lines += [f'**Conformance:** ✅ no artifact fails the conformance checks ({link}).', '']
     lines += ['[Back to the producers](#producers)', '']
 
     def key(t):
@@ -750,7 +800,7 @@ def _producer_summary(board, p, current_results, alg_name, automated_page=None):
         if not bad:
             continue
         good = len(rs) - len(bad)
-        name = _test_name(alg_name, t)
+        name = _test_name(alg_name, t) + (' 📋' if t in nonconforming else '')
         if len(rs) == 1:
             groups['single'].append(f'- {name}: ❌ {bad[0]}')
         elif not good:
@@ -769,6 +819,14 @@ def _producer_summary(board, p, current_results, alg_name, automated_page=None):
             if groups[k]:
                 body += _details(f'{titles[k]} ({len(groups[k])})', groups[k])
         lines += _details(f'Failing tests ({n_fail} of {len(exp)})', body)
+    if nonconforming:
+        by_oid = defaultdict(list)
+        for oid, kind in nonconforming:
+            by_oid[oid].append(kind)
+        body = ['| Algorithm | Tests |', '|---|---|'] + [f'| {alg_name(oid)} | {_kinds(by_oid[oid])} |'
+                                                     for oid in sorted(by_oid, key=alg_name)]
+        lines += _details(f'Artifacts that fail the conformance checks ({_plural(len(nonconforming), "test")})', body)
+
     # tests no other verifier has a current result for
     untested = defaultdict(list)
     for t in exp:
@@ -812,9 +870,10 @@ def _producer_summary(board, p, current_results, alg_name, automated_page=None):
     return lines
 
 
-def summaries(board, alg_name, automated_page=None):
+def summaries(board, alg_name, conformance=None, automated_page=None):
     """One section per implementation, as markdown: as a verifier, and as a producer. alg_name(oid) gives an
-    algorithm's name; automated_page, the page of the automated results to link each producer to."""
+    algorithm's name; conformance, the conformance checker's failures, if it ran; automated_page, the page of the
+    automated results to link each producer to."""
     if not board.producers:
         return ''
     lines = ['# Implementation Summaries {#implementation-summaries}', '',
@@ -836,6 +895,7 @@ def summaries(board, alg_name, automated_page=None):
         if name in scores:
             lines += _verifier_summary(board, scores[name], current_results, alg_name)
         if name in producers:
-            lines += _producer_summary(board, name, current_results, alg_name, automated_page=automated_page)
+            lines += _producer_summary(board, name, current_results, alg_name, conformance=conformance,
+                                       automated_page=automated_page)
         lines += ['', '</div>', '']
     return '\n'.join(lines)

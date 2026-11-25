@@ -389,6 +389,42 @@ def _mapping():
 
 
 
+# Conformance
+
+def _conformance(producer, rows, fmt=R5):
+    folder, column, _ = vs._CONFORMANCE[fmt]
+    os.makedirs(f'output/{folder}', exist_ok=True)
+    header = 'key_algorithm_oid,type,test_result' if fmt == R5 else 'key_algorithm_oid,test_result'
+    with open(f'output/{folder}/{producer}_{column}.csv', 'w') as f:
+        f.write(header + '\n' + ''.join(','.join(r) + '\n' for r in rows))
+
+
+def test_conformance_is_read_from_the_checkers_output(repo):
+    _conformance('p', [(A, 'both', 'N'), (B, 'cert', 'N')])
+    _conformance('q', [])
+    conformance = vs.load_conformance(R5, in_scope=lambda oid: oid == A)
+    assert conformance.page == 'r5_conformance_certs.html'
+    assert conformance.failures == {'p': {(A, 'both')}, 'q': set()}
+    assert vs.load_conformance(CMS) is None
+
+
+def test_conformance_is_shown_for_producers_and_their_failing_tests(repo):
+    repo.zip('p', [A])
+    repo.zip('q', [A])
+    repo.csv('p', 'v', [(A, 'both', 'N'), (A, 'cert', 'Y')])
+    repo.csv('q', 'v', [(A, 'cert', 'Y')])
+    repo.commit()
+    _conformance('p', [(A, 'both', 'N')])
+    _conformance('q', [])
+    board = vs.build(_files())
+    conformance = vs.load_conformance(R5)
+    table = vs.producer_markdown(board, conformance)
+    assert '[❌ 1](r5_conformance_certs.html#p)' in table and '[✅](r5_conformance_certs.html#q)' in table
+    page = vs.summaries(board, _alg_name, conformance)
+    assert '- ML-DSA-44 `both` 📋: ❌ v' in page
+    assert '**Conformance:** ✅ no artifact fails the conformance checks' in page
+    assert 'Conformance' not in vs.producer_markdown(board)
+
 
 # One reading of result files, shared by the scoreboard and the result tables
 
