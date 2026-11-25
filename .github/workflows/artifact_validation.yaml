@@ -221,12 +221,20 @@ jobs:
     # needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, ssai_validation, composite_ref_impl_validation]
     needs: [bc_validation, openssl_cert_validation, openssl_cms_validation, composite_ref_impl_validation, qubip_aurora_cert_validation, oqs_cert_validation, pittv3_cert_validation, pkilint_cert_validation, conformance_validation]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      # The container has no git, without which actions/checkout downloads the files rather than cloning, so git is
+      # installed first. The manual result pages need the full commit history (fetch-depth 0; the old versions of
+      # the files are not needed, so blob:none): results older than the zip they verify are left out.
       - name: Install packages
         run: |
           apt-get update && \
-          apt-get install -y pandoc lsb-release
+          apt-get install -y pandoc lsb-release git
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+      - name: Trust the checkout
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Install Python
         uses: actions/setup-python@v5
         with:

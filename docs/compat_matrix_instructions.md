@@ -3,6 +3,30 @@
 This tool parses interoperability results files and creates Markdown-based
 tables.
 
+For the R5 certificate and CMS v3 formats, CI builds the result pages from the committed CSVs and
+publishes them on https://ietf-hackathon.github.io/pqc-certificates/; the pages are not committed. Just
+commit your CSVs.
+
+Results count only while they are current: the CSV must be committed with or after the current version of the
+zip it verifies, your own zip included. When a producer updates its zip, earlier results for it are stale and
+are left out of the Results by Algorithm section until the verifier commits new ones. To fix a result file,
+verify the producer's current zip again and commit the new results; do not edit the file in place (to correct
+its header or its name, say), since any commit to it makes its results count as current. The verifier
+scoreboard at the top of each page ranks each verifier by the share of current tests of its *implemented
+algorithms* (those in its own zip and any others it has reported results for), counting every test of those
+algorithms from every producer, and shows how many algorithms that is and its share of all tests on the page.
+It also lists the stale result files. The producer table below it shows, for each producer, how many other
+verifiers have current results for its zip and how many of those results pass. It is not a ranking: how many
+verifiers test a zip is not up to its producer.
+
+Each name in the verifier scoreboard or the producer table links to that implementation's summary at the bottom
+of the page. As a verifier:
+its results by producer, the tests it has not run yet (by algorithm), its failures and where it disagrees with
+the other verifiers, and problems with its result files. As a producer: which of its tests fail and for which
+verifiers, the tests no other verifier has a current result for, the algorithms in its zip that no one has
+reported on, and problems with its zip. In CI, each producer's summary also links to the
+automated results page, where the CI verifiers test every producer's current zip.
+
 A result file is named `<producer>_<verifier>.csv`, with a lower-case `.csv`, where the producer is the name of
 its directory under `providers/`; names may use only letters, digits, `.` and `-` (and `_` in the verifier). It
 must be UTF-8 text. Spaces around the column names and values are ignored, results may be in either case, and if
@@ -10,9 +34,11 @@ a test is reported more than once, the worst result is used (a failure over a wa
 not UTF-8, or whose header does not have the columns of its format, or with a row that has a different number of
 values than the header has columns, is not read.
 
-The `rebuild_results.sh` script will compile the interop test results from all providers.
-If you have updated your test results, then please re-run `rebuild_reselts.sh` before committing.
-https://ietf-hackathon.github.io/pqc-certificates/pqc_hackathon_results.html displays the /docs folder of the `master` branch.
+To preview the pages locally, run `src/rebuild_results_certs_r5.sh --local` or
+`src/rebuild_results_cms_v3.sh --local` from the repository root, in a clone with the full git history.
+They write to `docs/`, where git ignores them. Uncommitted CSVs count as current.
+
+The `rebuild_results.sh` script compiles the results of the earlier formats.
 
 ## The interoperability results format R5
 
@@ -34,7 +60,8 @@ key_algorithm_oid,type,test_result
 2.16.840.1.101.3.4.3.20,cert,Y
 ```
 
-The `type` column takes the following values:
+The `type` column takes the following values (a type may use only letters, digits, `_` and `-`; rows with
+other characters are left out of the results):
 
 - cert
     - The TA certificate (ML-DSA or SLH-DSA) had a valid self-signature, or

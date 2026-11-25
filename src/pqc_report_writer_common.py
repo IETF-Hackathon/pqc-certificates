@@ -12,6 +12,7 @@ from datetime import datetime
 import pytz
 
 import result_files
+import verifier_scoreboard
 
 _OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.*$')
 _HYBRID_FORMAT_NAME_REGEX = re.compile(r'(?P<hybrid_format>[^_]+)_(?P<oid1>[^_]+)_with_(?P<oid2>[^_]+)', re.IGNORECASE)
@@ -222,6 +223,8 @@ def main():
                         help="only report standardized or pre-standard algorithms (default: all)")
     parser.add_argument("--other-page",
                         help="link to the report page for the other set of algorithms")
+    parser.add_argument("--automated-page",
+                        help="link each producer of the manual results to this page of the automated results")
 
     args = parser.parse_args()
 
@@ -246,16 +249,42 @@ def main():
         json.dump(oids_json, f)
 
     
+    # Manual results (providers/<verifier>/compatMatrices/<format>/*.csv): leave out the stale ones, and add the
+    # verifier scoreboard, the producer table and the implementation summaries, for the algorithms on this page
+    board = None
+    files = args.files
+
+    def in_scope(oid):
+        """Whether an algorithm is on this page."""
+        return (args.include_all_oids or oid in oid_name_mappings) and is_on_page(oid)
+
+    try:
+        if verifier_scoreboard.manual_format(files) is not None:
+            board = verifier_scoreboard.build(files, in_scope=in_scope)
+    except verifier_scoreboard.FreshnessError as e:
+        parser.error(str(e))
+
+    def summaries():
+        """The implementation summaries, at the end of the page."""
+        return verifier_scoreboard.summaries(board, lambda oid: _get_alg_name_by_oid_str(oid_name_mappings, oid),
+                                             automated_page=args.automated_page)
+
+    if board is not None:
+        current = {os.path.normpath(p) for p in board.current_paths}
+        files = [f for f in files if os.path.normpath(f) in current]
+
     algorithmVerificationResults = []
 
-    for file in args.files:
+    # the columns the manual results of this format must have; the automated results need only the default ones
+    required = result_files.columns(board.format if board is not None else None)
+    for file in files:
         # the one name rule for result files, as everywhere that reads them
         names = result_files.parse_name(os.path.basename(file))
         if names is None:
             raise ValueError(f'File name does not match naming convention: "{os.path.basename(file)}"')
         generator, verifier = names
-        algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, file, result_files.columns(None),
-                                                            oid_name_mappings, args.include_all_oids, is_on_page))
+        algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, file, required, oid_name_mappings,
+                                                            args.include_all_oids, is_on_page))
 
     generators = set()
     verifiers = set()
@@ -296,11 +325,17 @@ def main():
         other_page = _PAGE_PRESTANDARD if args.page == _PAGE_STANDARDIZED else _PAGE_STANDARDIZED
         md_file.new_paragraph(text="See also: " + Inline.new_link(args.other_page, _PAGE_TITLES[other_page]))
 
+    if board is not None:
+        md_file.write('\n\n' + verifier_scoreboard.markdown(board))
+        md_file.write('\n\n' + verifier_scoreboard.producer_markdown(board, automated_page=args.automated_page))
+
     md_file.new_paragraph()
     md_file.new_header(level=1, title='Results by Algorithm')
 
     if not _submittedAlgsList:
         md_file.new_paragraph(text="No test results have been submitted for the algorithms on this page.")
+        if board is not None:
+            md_file.write('\n\n' + summaries())
         md_file.create_md_file()
         return
 
@@ -374,6 +409,9 @@ def main():
                 cells.append(_format_result_cell(relevant_avr))
 
         md_file.new_table(columns=len(table_verifiers) + 1, rows=len(generators) + 1, text=cells, text_align='left')
+
+    if board is not None:
+        md_file.write('\n\n' + summaries())
 
     md_file.create_md_file()
 
