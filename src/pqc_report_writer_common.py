@@ -1,17 +1,19 @@
-import csv
 import json
 import operator
 from os import SEEK_SET
 import os.path
 import re
 import argparse
+import sys
 from typing import NamedTuple, Optional, Sequence, Mapping
 from mdutils.mdutils import MdUtils
 from mdutils.tools.Link import Inline
 from datetime import datetime
 import pytz
 
-_FILENAME_REGEX = re.compile(r'^(?P<generator>[^_]+)_(?P<verifier>[^.]+)\.(?P<extension>(csv|json))$', re.IGNORECASE)
+import result_files
+import verifier_scoreboard
+
 _OID_MAPPING_LINE_REGEX = re.compile(r'^\|\s*(?P<name>[^|]+)\s*\|\s*(~~)?(?P<oid>\d+(\.\d+)+)\*?(~~)?\s*\|.*$')
 _HYBRID_FORMAT_NAME_REGEX = re.compile(r'(?P<hybrid_format>[^_]+)_(?P<oid1>[^_]+)_with_(?P<oid2>[^_]+)', re.IGNORECASE)
 _OID_REGEX = re.compile(r'^\d+(\.\d+)+$')
@@ -57,10 +59,6 @@ class AlgorithmVerificationResult(NamedTuple):
     friendly: str
     test_result: Optional[bool]
 
-def _parse_json_file(generator, verifier, f) -> Sequence[AlgorithmVerificationResult]:
-    pass
-
-
 def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
     """
     -1: no verifiers
@@ -98,49 +96,39 @@ def passedAllVerifiers(generator, oid, algorithmVerificationResults) -> int:
         return (2, passCount, totalCount)
     
 def _parse_csv_file(
-    generator, verifier, f, oid_name_mappings, include_all_oids, is_on_page
+    generator, verifier, path, required, oid_name_mappings, include_all_oids, is_on_page
 ) -> Sequence[AlgorithmVerificationResult]:
-    c = csv.DictReader(f)
+    # The one way of reading result files, so that the tables and the scoreboard agree on every row
+    rows = result_files.read_results(path, required)
+    if rows.malformed:
+        print(f'{path}: not read, because {rows.malformed}', file=sys.stderr)
+        return []
+    if rows.duplicates:
+        print(f'{path}: {len(rows.duplicates)} tests reported more than once; the worst result of each is used',
+              file=sys.stderr)
+    for oid, kind in sorted(rows.invalid):
+        print(f'{path}: skipping a row of {oid} with characters that are not allowed in its algorithm or type '
+              f'"{kind}"', file=sys.stderr)
 
     algorithmVerificationResults = []
+    for (key_algorithm_oid, kind), test_result in rows.results.items():
+        if not include_all_oids and not key_algorithm_oid in oid_name_mappings:
+            continue
+        if not is_on_page(key_algorithm_oid):
+            continue
+        friendly = _get_alg_name_by_oid_str(oid_name_mappings, key_algorithm_oid)
+        if kind:
+            friendly += "-" + kind
+            key_algorithm_oid += "-" + kind
+        algorithmVerificationResults.append(AlgorithmVerificationResult(generator, verifier, key_algorithm_oid,
+                                                                        friendly, test_result))
 
-    for row in c:
-        try:
-            key_algorithm_oid = row['key_algorithm_oid']
-            if not include_all_oids and not key_algorithm_oid in oid_name_mappings:
-                continue
-            if not is_on_page(key_algorithm_oid):
-                continue
-            friendly = _get_alg_name_by_oid_str(oid_name_mappings, key_algorithm_oid)
-            if 'type' in row and row['type'] != None and row['type'] != "":
-                friendly += "-" + row['type']
-                key_algorithm_oid += "-" + row['type']
-            d = {
-                'generator': generator,
-                'verifier': verifier,
-                'key_algorithm_oid': key_algorithm_oid,
-                'friendly': friendly,
-                'test_result': row['test_result']
-            }
-
-            algorithmVerificationResults.append(AlgorithmVerificationResult(**d))
-
-            if row['test_result'] != None and row['test_result'] != "":
-                e = {
-                    'generator': generator,
-                    'key_algorithm_oid': key_algorithm_oid,
-                    'friendly': friendly
-                }
-
-                # The algorithms Tested table should only contain tests with a pass or fail result
-                if SubmittedAlgorithmResult(**e) not in _submittedAlgorithmResults:
-                    _submittedAlgorithmResults.append(SubmittedAlgorithmResult(**e))
-
-                if key_algorithm_oid not in _submittedAlgsList:
-                    _submittedAlgsList.append( key_algorithm_oid )
-        except Exception as e:
-            print("Error reading "+ str(f.name))
-            raise e
+        # The algorithms Tested table should only contain tests with a pass or fail result
+        submitted = SubmittedAlgorithmResult(generator, key_algorithm_oid, friendly)
+        if submitted not in _submittedAlgorithmResults:
+            _submittedAlgorithmResults.append(submitted)
+        if key_algorithm_oid not in _submittedAlgsList:
+            _submittedAlgsList.append(key_algorithm_oid)
 
     return algorithmVerificationResults
 
@@ -235,6 +223,8 @@ def main():
                         help="only report standardized or pre-standard algorithms (default: all)")
     parser.add_argument("--other-page",
                         help="link to the report page for the other set of algorithms")
+    parser.add_argument("--automated-page",
+                        help="link each producer of the manual results to this page of the automated results")
 
     args = parser.parse_args()
 
@@ -259,22 +249,50 @@ def main():
         json.dump(oids_json, f)
 
     
+    # Manual results (providers/<verifier>/compatMatrices/<format>/*.csv): leave out the stale ones, and add the
+    # verifier scoreboard, the producer table and the implementation summaries, for the algorithms on this page
+    board = conformance_failures = None
+    files = args.files
+
+    def in_scope(oid):
+        """Whether an algorithm is on this page."""
+        return (args.include_all_oids or oid in oid_name_mappings) and is_on_page(oid)
+
+    try:
+        if verifier_scoreboard.manual_format(files) is not None:
+            board = verifier_scoreboard.build(files, in_scope=in_scope)
+        elif verifier_scoreboard.automated_format(files) is not None:
+            # the CI verifiers' results: the producer table and summaries only; the lint and conformance columns
+            # are not verifiers
+            board = verifier_scoreboard.build_automated(files, verifier_scoreboard.automated_format(files),
+                                                        in_scope=in_scope, excluded=set(_FINDINGS_PAGES))
+        if board is not None:
+            # the conformance checker's failures, from the CI job that runs before the pages are built
+            conformance_failures = verifier_scoreboard.load_conformance(board.format, in_scope=in_scope)
+    except verifier_scoreboard.FreshnessError as e:
+        parser.error(str(e))
+
+    def summaries():
+        """The implementation summaries, at the end of the page."""
+        return verifier_scoreboard.summaries(board, lambda oid: _get_alg_name_by_oid_str(oid_name_mappings, oid),
+                                             conformance=conformance_failures, automated_page=args.automated_page)
+
+    if board is not None and not board.automated:
+        current = {os.path.normpath(p) for p in board.current_paths}
+        files = [f for f in files if os.path.normpath(f) in current]
+
     algorithmVerificationResults = []
 
-    for file in args.files:
-        m = _FILENAME_REGEX.match(os.path.basename(file))
-
-        if m is None:
+    # the columns the manual results of this format must have; the automated results need only the default ones
+    required = result_files.columns(board.format if board is not None and not board.automated else None)
+    for file in files:
+        # the one name rule for result files, as everywhere that reads them
+        names = result_files.parse_name(os.path.basename(file))
+        if names is None:
             raise ValueError(f'File name does not match naming convention: "{os.path.basename(file)}"')
-
-        with open(file, 'r') as f:
-            generator = m['generator']
-            verifier = m['verifier']
-
-            if m['extension'].casefold() == 'csv'.casefold():
-                algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, f, oid_name_mappings, args.include_all_oids, is_on_page))
-            else:
-                algorithmVerificationResults.extend(_parse_json_file(generator, verifier, f))
+        generator, verifier = names
+        algorithmVerificationResults.extend(_parse_csv_file(generator, verifier, file, required, oid_name_mappings,
+                                                            args.include_all_oids, is_on_page))
 
     generators = set()
     verifiers = set()
@@ -315,15 +333,23 @@ def main():
         other_page = _PAGE_PRESTANDARD if args.page == _PAGE_STANDARDIZED else _PAGE_STANDARDIZED
         md_file.new_paragraph(text="See also: " + Inline.new_link(args.other_page, _PAGE_TITLES[other_page]))
 
+    if board is not None:
+        if not board.automated:
+            md_file.write('\n\n' + verifier_scoreboard.markdown(board))
+        md_file.write('\n\n' + verifier_scoreboard.producer_markdown(board, conformance=conformance_failures,
+                                                                    automated_page=args.automated_page))
+
     md_file.new_paragraph()
-    md_file.new_header(level=1, title=f'Algorithms Submitted')
+    md_file.new_header(level=1, title='Results by Algorithm')
 
     if not _submittedAlgsList:
         md_file.new_paragraph(text="No test results have been submitted for the algorithms on this page.")
+        if board is not None:
+            md_file.write('\n\n' + summaries())
         md_file.create_md_file()
         return
 
-    md_file.new_paragraph(text="✅ = passing all verifiers<br>◒ = passing some verifiers<br>⚪︎ = not passing any verifiers<br>Columns represent producers who submitted artifacts. Verifiers are not listed in this table, but are listed in the broken-out tables below.<br>")
+    md_file.new_paragraph(text="Each cell is the number of verifiers that pass the producer's artifacts for the algorithm, of those that tested them: ✅ = passing all verifiers; ⚠️ = failing some verifiers; ❌ = failing every verifier.<br>Columns represent producers who submitted artifacts. Verifiers are not listed in this table, but are listed in the broken-out tables below.<br>")
     for conformance in sorted({avr.verifier for avr in algorithmVerificationResults if avr.verifier in _CONFORMANCE_VERIFIERS}):
         md_file.new_paragraph(text=f"{conformance} checks the artifacts against their zip format and the rules on algorithm identifiers, which a signature can still verify without (for example, a key identified by its algorithm's own OID). It reports failures only, as ❌ that link to the reason: a compliant artifact has no {conformance} result.")
     lint_columns = sorted({avr.verifier for avr in algorithmVerificationResults if avr.verifier in _LINT_VERIFIERS})
@@ -353,9 +379,9 @@ def main():
             if (no == -1):
                 submittedAlgsCells.append('')
             elif (no == 0):
-                submittedAlgsCells.append(f'⚪︎ {passCount}/{totalCount}')
+                submittedAlgsCells.append(f'❌ {passCount}/{totalCount}')
             elif (no == 1):
-                submittedAlgsCells.append(f'◒ {passCount}/{totalCount}')
+                submittedAlgsCells.append(f'⚠️ {passCount}/{totalCount}')
             else:
                 submittedAlgsCells.append(f'✅ {passCount}/{totalCount}')
 
@@ -366,7 +392,7 @@ def main():
     for alg_oid, algorithmVerificationResults in avrs_by_alg.items():
         friendly = friendly_by_alg[alg_oid]
 
-        md_file.new_header(level=1, title=f'{friendly} ({alg_oid})', header_id=friendly)
+        md_file.new_header(level=2, title=f'{friendly} ({alg_oid})', header_id=friendly)
         table_lint = sorted({avr.verifier for avr in algorithmVerificationResults if avr.verifier in _LINT_VERIFIERS})
         lint_note = f' The last column, {", ".join(table_lint)}, is a lint, not a parser: ⚠️ and ❌ link to its findings.' if table_lint else ''
         md_file.new_paragraph(text='Rows are producers. Columns are parsers.' + lint_note + '\n')
@@ -393,6 +419,9 @@ def main():
                 cells.append(_format_result_cell(relevant_avr))
 
         md_file.new_table(columns=len(table_verifiers) + 1, rows=len(generators) + 1, text=cells, text_align='left')
+
+    if board is not None:
+        md_file.write('\n\n' + summaries())
 
     md_file.create_md_file()
 

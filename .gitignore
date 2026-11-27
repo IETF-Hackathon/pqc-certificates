@@ -8,3 +8,10 @@ docs/oids.json
 output/
 .project
 /bin/
+
+# built by CI (src/rebuild_results_certs_r5.sh, src/rebuild_results_cms_v3.sh), not committed
+docs/pqc_hackathon_results_certs_r5.*
+docs/pqc_hackathon_results_certs_r5_standardized.*
+docs/pqc_hackathon_results_cms_v3.*
+docs/pqc_hackathon_results_cms_v3_standardized.*
+docs/pqc_hackathon_results_*_automated_tests*
