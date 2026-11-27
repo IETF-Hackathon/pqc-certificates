@@ -20,6 +20,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.spec.NamedParameterSpec;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -80,12 +81,12 @@ public class Test {
                 var ze = zis.getNextEntry();
                 if (ze == null) break;
                 var zname = ze.getName();
-                var pos = zname.indexOf("2.16.");
+                var pos = zname.indexOf("-2.16.");
                 if (pos < 0) {
                     System.out.println("unknown alg: " + zname);
                     continue;
                 }
-                var name = zname.substring(pos);
+                var name = zname.substring(pos + 1);
                 var oid = name.substring(0, name.indexOf('_'));
                 var type = name.substring(name.indexOf('_') + 1);
                 KeyFactory kf;
@@ -176,18 +177,24 @@ public class Test {
             }
         }
         var dir = Files.createDirectories(Path.of("compatMatrices", "artifacts_certs_r5"));
-        try (var w = Files.newBufferedWriter(dir.resolve(provider + "_openjdk.csv"))) {
-            w.write("key_algorithm_oid,test_result\n");
-            for (var key : passed) {
-                if (failed.contains(key)) {
-                    w.write(key + ",N\n");
-                    failed.remove(key);
-                } else {
-                    w.write(key + ",Y\n");
-                }
+        var output = new ArrayList<String>();
+        for (var key : passed) {
+            if (failed.contains(key)) {
+                output.add(key + ",N");
+                failed.remove(key);
+            } else {
+                output.add(key + ",Y");
             }
-            for (var oid : failed) {
-                w.write(oid + ",N\n");
+        }
+        for (var oid : failed) {
+            output.add(oid + ",N");
+        }
+        if (!output.isEmpty()) {
+            try (var w = Files.newBufferedWriter(dir.resolve(provider + "_openjdk.csv"))) {
+                w.write("key_algorithm_oid,type,test_result\n");
+                for (var line : output) {
+                    w.write(line + "\n");
+                }
             }
         }
     }
@@ -237,7 +244,7 @@ public class Test {
                 var doid = nn.getValue();
                 var dname = OID_2_NAME.get(doid);
                 var g1 = new CertAndKeyGen(dname, dname);
-                g1.generate(dname, kps.get(dname));
+                g1.generate(-1);
                 var exts = new CertificateExtensions();
                 exts.setExtension("bc", new BasicConstraintsExtension(true, -1));
                 var ku = new KeyUsageExtension();
@@ -245,7 +252,7 @@ public class Test {
                 exts.setExtension("ku", ku);
                 var c1 = g1.getSelfCertificate(new X500Name("CN=" + dname), new Date(), 100 * 365 * 86400L, exts);
                 var g2 = new CertAndKeyGen(kname, dname, null, g1.getPrivateKey(), new X500Name("CN=" + dname));
-                g2.generate(kname, kps.get(kname));
+                g2.generate(-1);
                 // The getSelfCertificate name could be misleading. It can also generate certs signed by others.
                 var c2 = g2.getSelfCertificate(new X500Name("CN=" + kname), new Date(), 100 * 365 * 86400L);
                 byte[] bytes1 = c1.getEncoded();
