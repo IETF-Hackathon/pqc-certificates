@@ -21,6 +21,7 @@ import verifier_scoreboard as vs  # noqa: E402
 R5 = 'artifacts_certs_r5'
 CMS = 'artifacts_cms_v3'
 A, B, C = '2.16.840.1.101.3.4.3.17', '2.16.840.1.101.3.4.3.18', '2.16.840.1.101.3.4.4.1'
+S = '2.16.840.1.101.3.4.3.20'  # SLH-DSA-SHA2-128s, whose keys are not a CHOICE
 NAMES = {A: 'ML-DSA-44', B: 'ML-DSA-65', C: 'ML-KEM-512'}
 SRC = os.path.dirname(os.path.abspath(__file__))
 CHECKER = os.path.join(SRC, 'check_result_files.py')
@@ -48,16 +49,21 @@ class Repo:
                 z.writestr(f'{fmt}/{name}', b'copy')
         return path
 
-    def csv(self, producer, verifier, rows, fmt=R5, header=None):
-        """A result file; rows are (OID, type, result) for R5 and (OID, result) for CMS, or raw lines."""
+    def csv(self, producer, verifier, rows, fmt=R5, header=None, sha=None):
+        """A result file; rows are (OID, type, result) for R5 and (OID, result) for CMS, or raw lines. With sha, the
+        rows that are not raw lines get a zip_sha256 column: sha, or the SHA-256 of the producer's zip if True."""
         if header is None:
             header = 'key_algorithm_oid,type,test_result' if fmt == R5 else 'key_algorithm_oid,test_result'
+            if sha:
+                header += ',zip_sha256'
+        if sha is True:
+            sha = vs.sha256_file(f'providers/{producer}/{fmt}.zip')
         path = f'providers/{verifier}/compatMatrices/{fmt}/{producer}_{verifier}.csv'
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w') as f:
             f.write(header + '\n')
             for row in rows:
-                f.write((row if isinstance(row, str) else ','.join(row)) + '\n')
+                f.write((row if isinstance(row, str) else ','.join(row + ((sha,) if sha else ()))) + '\n')
         return path
 
     def commit(self, message='commit'):
@@ -160,6 +166,66 @@ def test_an_uncommitted_zip_makes_committed_results_stale(repo):
     f = _file(vs.build(_files()), path)
     assert not f.current
     assert f.reason == 'the zip has uncommitted changes'
+
+
+def test_results_for_the_current_zip_by_its_sha256_are_current_whenever_committed(repo):
+    """With zip_sha256, the zip's hash decides, not git: results made before the zip was committed, or while it is
+    uncommitted, are current if they give its hash."""
+    repo.zip('p', [A])
+    path = repo.csv('p', 'v', [(A, 'cert', 'Y')], sha=True)
+    repo.commit()
+    repo.zip('p', [A, B])
+    repo.commit()
+    _git('checkout', '-q', 'HEAD~1', '--', 'providers/p')   # the zip as it was: uncommitted
+    f = _file(vs.build(_files()), path)
+    assert f.current
+    assert f.zip_sha256 == vs.sha256_file('providers/p/artifacts_certs_r5.zip')
+
+
+def test_results_for_another_zip_by_its_sha256_are_stale_whenever_committed(repo):
+    repo.zip('p', [A])
+    repo.commit()
+    old = vs.sha256_file('providers/p/artifacts_certs_r5.zip')
+    repo.zip('p', [A, B])
+    zip_date = repo.commit()
+    path = repo.csv('p', 'v', [(A, 'cert', 'Y')], sha=old)
+    repo.commit()
+    f = _file(vs.build(_files()), path)
+    assert not f.current
+    assert f.reason == f'results for another version of the zip (zip {zip_date})'
+
+
+def test_without_sha256_unchanged_results_count_when_the_directory_is_committed_after_the_zip(repo):
+    """The fallback for files without zip_sha256: a verifier re-runs everything, and a file that comes out the same
+    has nothing to commit, so a later commit to any result file in its directory counts for it."""
+    repo.zip('p', [A])
+    repo.zip('q', [A])
+    repo.commit()
+    path = repo.csv('p', 'v', [(A, 'cert', 'Y')])
+    repo.csv('q', 'v', [(A, 'cert', 'Y')])
+    repo.commit()
+    repo.zip('p', [A, B])
+    repo.commit()
+    assert not _file(vs.build(_files()), path).current
+    repo.csv('q', 'v', [(A, 'cert', 'N')])
+    assert _file(vs.build(_files()), path).current       # uncommitted changes in the directory
+    date = repo.commit()
+    f = _file(vs.build(_files()), path)
+    assert f.current
+    assert f.date == date
+
+
+def test_with_sha256_the_directory_does_not_count(repo):
+    repo.zip('p', [A])
+    repo.commit()
+    old = vs.sha256_file('providers/p/artifacts_certs_r5.zip')
+    path = repo.csv('p', 'v', [(A, 'cert', 'Y')], sha=old)
+    repo.commit()
+    repo.zip('p', [A, B])
+    repo.commit()
+    repo.csv('q', 'v', [(A, 'cert', 'Y')])
+    repo.commit()
+    assert not _file(vs.build(_files()), path).current
 
 
 def test_a_shallow_clone_is_refused(repo, tmp_path, monkeypatch):
@@ -281,6 +347,47 @@ def test_results_for_algorithms_not_in_the_zip_are_not_expected_and_are_reported
     assert text == "results for algorithms that are not in p's zip: ML-DSA-65."
 
 
+def test_results_for_artifacts_not_in_the_zip_are_not_expected_and_are_reported(repo):
+    # the zip has a certificate and a seed key; other verifiers report tests of key forms it does not have
+    repo.zip('p', [A], extra=[f'ML-DSA-44-{A}_seed_priv.der'])
+    path = repo.csv('p', 'v', [(A, 'cert', 'Y'), (A, 'seed', 'Y'), (A, 'consistent', 'Y'), (A, 'priv', 'Y'),
+                               (A, 'Expandedkey', 'N')])
+    repo.csv('p', 'stale', [(A, 'both', 'Y')], sha='00' * 32)
+    repo.csv('p', 'w', [(A, 'cert', 'Y')])
+    repo.commit()
+    board = vs.build(_files())
+    assert board.expected['p'] == {(A, 'cert'), (A, 'seed'), (A, 'consistent')}
+    assert {s.verifier: s.all.untested for s in board.scores} == {'v': 0, 'stale': 3, 'w': 2}
+    [(severity, text)] = vs.file_problems(board, _file(board, path), _alg_name)
+    assert severity == vs.WARNING
+    assert text == ("results for tests whose artifact is not in p's zip, so not counted: ML-DSA-44 `Expandedkey` "
+                    "(needs _expandedkey_priv.der), ML-DSA-44 `priv` (not a key form of ML-DSA-44, which takes "
+                    "_seed_priv.der, _expandedkey_priv.der or _both_priv.der; see docs/choice_oids.txt).")
+
+
+@pytest.mark.parametrize('roles, test, has', [
+    ({A: {'ta'}}, (A, 'cert'), True),
+    ({A: {'ee'}}, (A, 'cert'), True),
+    ({A: {'seed_priv'}}, (A, 'cert'), False),
+    ({A: {'ta'}}, (B, 'cert'), False),
+    ({A: {'priv'}}, (A, 'seed'), False),
+    ({S: {'ta', 'priv'}}, (S, 'consistent'), True),
+    ({S: {'priv'}}, (S, 'priv'), True),
+    # a key named for the other kind of algorithm (docs/choice_oids.txt) is not a test
+    ({A: {'ta', 'priv'}}, (A, 'priv'), False),
+    ({A: {'ta', 'priv'}}, (A, 'consistent'), False),
+    ({S: {'ta', 'seed_priv'}}, (S, 'seed'), False),
+    ({A: {'seed_priv', 'both_priv'}}, (A, 'consistent'), True),
+    ({A: {'seed_priv'}}, (A, 'consistent'), False),
+    ({A: {'ta'}}, (A, 'consistent'), False),
+    ({A: {'ta'}}, (A, ''), True),
+    ({A: {'ta'}}, (A, 'other'), True),
+    (None, (B, 'seed'), True),
+])
+def test_a_test_needs_the_artifacts_of_its_type(roles, test, has):
+    assert vs.has_artifacts(roles, test) == has
+
+
 def test_in_scope_limits_the_algorithms_on_the_page(repo):
     repo.zip('p', [A, B])
     path = repo.csv('p', 'v', [(A, 'cert', 'Y'), (B, 'cert', 'Y')])
@@ -296,7 +403,7 @@ def test_a_verifier_is_scored_on_every_test_of_its_implemented_algorithms(repo):
     """Leaving out a type of test costs, as does a producer it has not tested; algorithms it does not implement
     count only towards all algorithms."""
     repo.zip('v', [A])
-    repo.zip('p', [A, B])
+    repo.zip('p', [A, B], extra=[f'ML-DSA-44-{A}_seed_priv.der'])
     repo.zip('q', [A])
     repo.csv('p', 'w', [(A, 'cert', 'Y'), (A, 'consistent', 'Y'), (B, 'cert', 'Y')])
     repo.csv('q', 'w', [(A, 'cert', 'Y')])
@@ -333,9 +440,9 @@ def test_stale_tests_are_counted_as_stale(repo):
 
 
 def test_verifiers_are_ranked_by_their_share_of_implemented_algorithms(repo):
-    repo.zip('p', [A, B])
+    repo.zip('p', [A, B], extra=[f'ML-DSA-65-{B}_seed_priv.der'])
     repo.csv('p', 'small', [(A, 'cert', 'Y')])
-    repo.csv('p', 'big', [(A, 'cert', 'Y'), (B, 'cert', 'Y'), (B, 'priv', 'Y')])
+    repo.csv('p', 'big', [(A, 'cert', 'Y'), (B, 'cert', 'Y'), (B, 'seed', 'Y')])
     repo.csv('p', 'half', [(A, 'cert', 'Y'), (B, 'cert', 'Y')])
     repo.commit()
     assert [s.verifier for s in vs.build(_files()).scores] == ['big', 'small', 'half']
@@ -420,7 +527,7 @@ def test_the_check_covers_only_files_changed_since_the_base(repo):
     repo.csv('old', 'v', [(A, 'cert', 'Y')])
     repo.commit()
     _git('tag', 'base')
-    repo.csv('p', 'v', [(A, 'cert', 'Y')])
+    repo.csv('p', 'v', [(A, 'cert', 'Y')], sha=True)
     repo.commit()
     out = _check('--base', 'base')
     assert out.returncode == 0, out.stdout + out.stderr
@@ -437,6 +544,88 @@ def test_the_check_writes_annotations_in_github_actions(repo):
                          env={**os.environ, 'GITHUB_ACTIONS': 'true'})
     assert out.stdout.startswith('::error file=providers/v/compatMatrices/artifacts_certs_r5/redhound_v.csv::'
                                  'there is no producer named redhound')
+
+
+def test_a_new_result_file_needs_the_full_header(repo):
+    repo.zip('p', [A])
+    repo.commit()
+    _git('tag', 'base')
+    path = repo.csv('p', 'v', [(A, 'cert', 'Y')])
+    repo.commit()
+    error = ('error: the header must be key_algorithm_oid,type,test_result,zip_sha256: a new or changed result file '
+             'ends with zip_sha256')
+    for args in (('--base', 'base'), (path,)):
+        out = _check(*args)
+        assert out.returncode == 1
+        assert error in out.stdout
+    # files submitted before the column was added are not held to it until they change
+    assert _check('--all').returncode == 0
+    repo.csv('p', 'v', ['2.16.840.1.101.3.4.3.17,cert,Y,abc'], header='key_algorithm_oid,type,zip_sha256,test_result')
+    out = _check(path)
+    assert 'is not a SHA-256 (64 hex digits)' in out.stdout
+    assert 'the header must be' not in out.stdout
+
+
+def test_the_check_takes_the_sha256_in_either_case(repo):
+    repo.zip('p', [A])
+    path = repo.csv('p', 'v', [(A, 'cert', 'Y')], sha=vs.sha256_file(f'providers/p/{R5}.zip').upper())
+    repo.commit()
+    out = _check(path)
+    assert out.returncode == 0, out.stdout
+    assert '0 errors, 0 warnings' in out.stdout
+
+
+@pytest.mark.parametrize('hashes, error', [
+    (('ab' * 32, 'g' * 64), 'the zip_sha256 on line 3 is not a SHA-256 (64 hex digits)'),
+    (('ab' * 32, 'ab' * 31), 'the zip_sha256 on line 3 is not a SHA-256 (64 hex digits)'),
+    (('ab' * 32, 'cd' * 32), 'its rows give 2 different zip_sha256 values'),
+])
+def test_the_check_fails_without_one_sha256(repo, hashes, error):
+    repo.zip('p', [A])
+    path = repo.csv('p', 'v', [f'{A},{t},Y,{h}' for t, h in zip(('cert', 'priv'), hashes)],
+                    header='key_algorithm_oid,type,test_result,zip_sha256')
+    repo.commit()
+    for args in ((path,), ('--all',)):
+        out = _check(*args)
+        assert out.returncode == 1
+        assert f'p_v.csv: error: not read, because {error}' in out.stdout
+
+
+def test_the_check_fails_on_a_producer_that_does_not_exist(repo):
+    repo.zip('p', [A])
+    path = repo.csv('q', 'v', [], sha='ab' * 32)
+    repo.commit()
+    out = _check(path)
+    assert out.returncode == 1
+    assert 'q_v.csv: error: there is no producer named q' in out.stdout
+
+
+def test_the_check_warns_of_results_for_another_zip(repo):
+    repo.zip('p', [A])
+    path = repo.csv('p', 'v', [(A, 'cert', 'Y')], sha='00' * 32)
+    repo.commit()
+    out = _check(path)
+    assert out.returncode == 0, out.stdout
+    assert "warning: its zip_sha256 is not that of p's current zip, so these results are stale" in out.stdout
+
+
+def test_the_check_reports_the_names_and_layout_of_a_changed_zip(repo):
+    repo.zip('p', [A])
+    repo.commit()
+    _git('tag', 'base')
+    repo.zip('p', [A, C], extra=[f'ML-DSA-44-{A}_priv.der', f'ML-DSA-44-{A}_seed.der', '.DS_Store',
+                                 f'ML-KEM-512-{C}_ta.pem'])
+    repo.commit()
+    out = _check('--base', 'base')
+    assert out.returncode == 1
+    zip_path = 'providers/p/artifacts_certs_r5.zip: '
+    assert (f'{zip_path}error: artifacts_certs_r5/ML-DSA-44-{A}_priv.der: {A} has CHOICE private keys '
+            f'(docs/choice_oids.txt): name them _seed_priv.der') in out.stdout
+    assert (f'{zip_path}error: artifacts_certs_r5/ML-DSA-44-{A}_seed.der: not an artifact of the R5 certificates '
+            f'format; did you mean ML-DSA-44-{A}_seed_priv.der?') in out.stdout
+    assert f'{zip_path}error: artifacts_certs_r5/ML-KEM-512-{C}_ta.pem: a .pem file; artifacts are .der' in out.stdout
+    assert f'{zip_path}warning: artifacts_certs_r5/.DS_Store: not an artifact' in out.stdout
+    assert f'{zip_path}warning: artifacts_certs_r5/ML-DSA-44-{A}_priv.der: incomplete' not in out.stdout
 
 
 # Conformance
@@ -459,7 +648,7 @@ def test_conformance_is_read_from_the_checkers_output(repo):
 
 
 def test_conformance_is_shown_for_producers_and_their_failing_tests(repo):
-    repo.zip('p', [A])
+    repo.zip('p', [A], extra=[f'ML-DSA-44-{A}_both_priv.der'])
     repo.zip('q', [A])
     repo.csv('p', 'v', [(A, 'both', 'N'), (A, 'cert', 'Y')])
     repo.csv('q', 'v', [(A, 'cert', 'Y')])

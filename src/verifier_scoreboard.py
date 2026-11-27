@@ -1,19 +1,26 @@
 """Freshness of the manual results, and a scoreboard of the verifiers who submit them.
 
 A manual result file, providers/<verifier>/compatMatrices/<format>/<producer>_<verifier>.csv, is current
-if the commit that last changed it already contains the producer's zip as it is now: the commit that last
-changed the zip is the CSV's commit or one of its ancestors. Otherwise the producer has updated its zip since
-the results were made (or the CSV was made on a branch that did not have the update yet), and the results
-are stale. Results for a producer's own zip are treated like any other. Locally, a CSV with uncommitted
-changes is current, and a committed one is stale if the zip has uncommitted changes.
+if its zip_sha256 column gives the SHA-256 of the producer's zip as it is now. Otherwise the producer has updated
+its zip since the results were made, and the results are stale. Results for a producer's own zip are treated like
+any other.
+
+Result files submitted before the zip_sha256 column was added go by git instead (the fallback, to be removed when
+every result file has the column): such a file is current if the commit that last changed it, or the commit that
+last changed any result file in its directory, already contains the producer's zip as it is now (the commit that
+last changed the zip is that commit or one of its ancestors). The directory counts because a verifier re-runs all
+its tests at once, and a result file that comes out the same as before has nothing to commit. Locally, a file
+without zip_sha256 is current if its directory has uncommitted changes, and stale if the zip has.
 
 A test is an (OID, type) row with a result. The tests of a producer are the rows that any verifier has
-reported, current or stale, for an OID in its current zip. Each verifier's share of every producer's tests
+reported, current or stale, whose artifacts are in its current zip (a `seed` test needs a _seed_priv.der of the OID,
+say; see has_artifacts). Each verifier's share of every producer's tests
 is either current, stale (it has only stale results for it) or untested.
 """
 import csv
 import difflib
 import glob
+import hashlib
 import os
 import re
 import subprocess
@@ -21,7 +28,8 @@ import zipfile
 from collections import defaultdict
 from typing import NamedTuple, Optional
 
-from result_files import columns, parse_name, printable as _printable, read_results, valid_producer
+from artifact_names import CHOICE_OIDS, CHOICE_OIDS_FILE
+from result_files import ResultRows, columns, parse_name, printable as _printable, read_results, valid_producer
 
 # Locates a manual result file; whether its name is valid is result_files.parse_name's to say
 _MANUAL_RESULT = re.compile(r'(?P<providers>(?:.*/)?providers)/(?P<owner>[^/]+)/compatMatrices/(?P<format>[^/]+)/'
@@ -65,7 +73,8 @@ class ResultFile(NamedTuple):
     verifier: str
     current: bool
     reason: str            # why it is stale, '' if current
-    date: Optional[str]    # date of the commit that last changed it, None if uncommitted
+    date: Optional[str]    # date of the commit its results are from, None if uncommitted
+    zip_sha256: Optional[str] = None    # the SHA-256 of the zip it gives, None if it has no zip_sha256 column
 
 
 class Counts(NamedTuple):
@@ -111,6 +120,7 @@ class Scoreboard(NamedTuple):
     results: dict               # path -> {test: result} on this page
     duplicates: dict            # path -> tests reported more than once
     zip_oids: dict              # producer -> OIDs in its zip, or None
+    zip_roles: dict             # producer -> {OID: roles of its artifacts} in its zip, or None
     zip_duplicates: dict        # producer -> OIDs its zip has more than one file of an artifact for
     zip_dates: dict             # producer -> date of its zip's last commit
     zip_errors: dict            # producer -> why its zip cannot be read (its algorithms are then not checked)
@@ -182,20 +192,82 @@ def _is_ancestor(older, newer):
     return out.returncode == 0
 
 
+def sha256_file(path):
+    """The SHA-256 of a file, in lower-case hex."""
+    h = hashlib.sha256()
+    with open(path, 'rb') as f:
+        for block in iter(lambda: f.read(1 << 20), b''):
+            h.update(block)
+    return h.hexdigest()
+
+
 def zip_contents(path):
-    """(the OIDs a zip has artifacts for, the OIDs it has more than one file of an artifact for, ''), or
-    (None, set(), why) if it cannot be read."""
+    """({OID: the roles of its artifacts (ta, ee, priv, seed_priv, ...)} for every OID a zip has artifacts for, the
+    OIDs it has more than one file of an artifact for, ''), or (None, set(), why) if it cannot be read."""
     try:
         with zipfile.ZipFile(path) as zf:
             names = zf.namelist()
     except (zipfile.BadZipFile, zipfile.LargeZipFile, OSError) as e:
         return None, set(), f'it cannot be read as a zip ({_printable(str(e))})'
     copies = defaultdict(int)
+    roles = {m['oid']: set() for m in map(_ARTIFACT_OID.search, names) if m}
     for m in map(_ARTIFACT.search, names):
         if m:
             copies[(m['oid'], m['role'], m['ext'])] += 1
-    return ({m['oid'] for m in map(_ARTIFACT_OID.search, names) if m},
-            {oid for (oid, _, _), n in copies.items() if n > 1}, '')
+            if m['ext'] in ('der', 'pem'):
+                roles[m['oid']].add(m['role'])
+    return roles, {oid for (oid, _, _), n in copies.items() if n > 1}, ''
+
+
+# The R5 test types, and the artifacts each tests; "consistent" needs a key and a certificate or a second key.
+# Other types, and the tests of formats without types, need only an artifact of their algorithm. Only the key
+# forms an algorithm takes count: _seed_priv, _expandedkey_priv and _both_priv for the CHOICE algorithms
+# (docs/choice_oids.txt), _priv for the others; a key named for the other kind is misnamed, not a test.
+_TYPE_ROLES = {'cert': {'ta', 'ee'}, 'priv': {'priv'}, 'seed': {'seed_priv'}, 'expandedkey': {'expandedkey_priv'},
+               'both': {'both_priv'}}
+_KEY_ROLES = {'priv', 'seed_priv', 'expandedkey_priv', 'both_priv'}
+_CHOICE_KEY_ROLES = {'seed_priv', 'expandedkey_priv', 'both_priv'}
+# The artifact a test type needs, as the zip names it
+TYPE_FILES = {'cert': '_ta.der or _ee.der', 'priv': '_priv.der', 'seed': '_seed_priv.der',
+              'expandedkey': '_expandedkey_priv.der', 'both': '_both_priv.der',
+              'consistent': 'a private key, and a certificate or another private key'}
+
+
+def key_roles(oid):
+    """The private key artifacts an algorithm takes."""
+    return _CHOICE_KEY_ROLES if oid in CHOICE_OIDS else {'priv'}
+
+
+def _missing(alg_name, test):
+    """A test whose artifacts are not in the zip, and what it needs."""
+    kind = test[1].lower()
+    if kind in _TYPE_ROLES and not _TYPE_ROLES[kind] & ({'ta', 'ee'} | key_roles(test[0])):
+        need = (f'not a key form of {alg_name(test[0])}, which takes '
+                + ('_seed_priv.der, _expandedkey_priv.der or _both_priv.der' if test[0] in CHOICE_OIDS
+                   else '_priv.der') + f'; see {CHOICE_OIDS_FILE}')
+    elif kind in TYPE_FILES:
+        need = f'needs {TYPE_FILES[kind]}'
+    else:
+        return _test_name(alg_name, test)
+    return f'{_test_name(alg_name, test)} ({need})'
+
+
+def has_artifacts(roles, test):
+    """Whether a zip ({OID: roles}, as zip_contents gives it; None if it cannot be read, when nothing can be ruled
+    out) has the artifacts a test (OID, type) needs."""
+    if roles is None:
+        return True
+    have = roles.get(test[0])
+    if have is None:
+        return False
+    have = (have - _KEY_ROLES) | (have & key_roles(test[0]))
+    kind = test[1].lower()
+    if kind in _TYPE_ROLES:
+        return bool(have & _TYPE_ROLES[kind])
+    if kind == 'consistent':
+        keys = have & _KEY_ROLES
+        return bool(keys) and (len(keys) > 1 or bool(have & _TYPE_ROLES['cert']))
+    return True
 
 
 def load_conformance(format_dir, output_dir='output', in_scope=lambda oid: True):
@@ -234,35 +306,60 @@ def build(paths, in_scope=lambda oid: True):
     zips, invalid_producers = _producer_zips(providers_dir, zip_name)
     zip_commits = {p: (None, None) if path in dirty else _last_commit(path) for p, path in zips.items()}
 
-    files, tests, results, duplicates, invalid_types, malformed = [], {}, {}, {}, {}, {}
+    zip_hashes = {}
+    dir_commits = {}    # the fallback's directory -> (hash, date) of the commit that last changed it
+
+    def zip_hash(producer):
+        if producer not in zip_hashes:
+            zip_hashes[producer] = sha256_file(zips[producer])
+        return zip_hashes[producer]
+
+    def dir_commit(directory):
+        if directory not in dir_commits:
+            dir_commits[directory] = ((None, None) if any(d.startswith(directory + os.sep) for d in dirty)
+                                      else _last_commit(directory))
+        return dir_commits[directory]
+
+    files, results, duplicates, invalid_types, malformed = [], {}, {}, {}, {}
     required = columns(format_dir)
     for path in sorted(paths):
         generator, verifier = parse_name(_match(path)['name'])
-        commit, date = (None, None) if os.path.normpath(path) in dirty else _last_commit(path)
-        if generator not in zips:
-            current, reason = False, 'no zip by that name'
-        elif commit is None:
-            current, reason = True, ''
-        elif zip_commits[generator][0] is None:
-            current, reason = False, 'the zip has uncommitted changes'
-        elif _is_ancestor(zip_commits[generator][0], commit):
-            current, reason = True, ''
-        else:
-            current, reason = False, f'zip {zip_commits[generator][1]}, results {date}'
-        files.append(ResultFile(path, generator, verifier, current, reason, date))
         owner = _match(path)['owner']
         if owner != verifier:
             # credited to the verifier its name gives, a copy in another directory would count as its results
-            rows, dups, invalid, why = {}, set(), set(), (
+            rows = ResultRows({}, set(), set(), (
                 f'it is in providers/{_printable(owner)}/, but its name says the verifier is {verifier}; a result '
-                f'file goes in the directory of its verifier')
+                f'file goes in the directory of its verifier'))
         else:
-            rows, dups, invalid, why = read_results(path, required)
-        if why:
-            malformed[path] = why
-        results[path] = {t: r for t, r in rows.items() if in_scope(t[0])}
-        duplicates[path] = {t for t in dups if in_scope(t[0])}
-        invalid_types[path] = {t for t in invalid if in_scope(t[0])}
+            rows = read_results(path, required)
+        commit, date = (None, None) if os.path.normpath(path) in dirty else _last_commit(path)
+        if generator not in zips:
+            current, reason = False, 'no zip by that name'
+        elif rows.zip_sha256 is not None:
+            current = rows.zip_sha256 == zip_hash(generator)
+            zip_date = zip_commits[generator][1] or 'uncommitted'
+            reason = '' if current else f'results for another version of the zip (zip {zip_date})'
+        else:
+            # The fallback for result files without zip_sha256: remove it when every result file has the column
+            directory = os.path.dirname(os.path.normpath(path))
+            dcommit, ddate = dir_commit(directory)
+            if commit is None or dcommit is None:
+                current, reason, date = True, '', None
+            elif zip_commits[generator][0] is None:
+                current, reason = False, 'the zip has uncommitted changes'
+            elif _is_ancestor(zip_commits[generator][0], commit):
+                current, reason = True, ''
+            elif _is_ancestor(zip_commits[generator][0], dcommit):
+                # results that came out the same when the verifier re-ran everything
+                current, reason, date = True, '', ddate
+            else:
+                current, reason = False, f'zip {zip_commits[generator][1]}, results {ddate}'
+        files.append(ResultFile(path, generator, verifier, current, reason, date, rows.zip_sha256))
+        if rows.malformed:
+            malformed[path] = rows.malformed
+        results[path] = {t: r for t, r in rows.results.items() if in_scope(t[0])}
+        duplicates[path] = {t for t in rows.duplicates if in_scope(t[0])}
+        invalid_types[path] = {t for t in rows.invalid if in_scope(t[0])}
 
     return _assemble(format_dir, files, results, duplicates, invalid_types, malformed, invalid_names, zips,
                      invalid_producers, zip_commits, in_scope, automated=False)
@@ -287,17 +384,17 @@ def _assemble(format_dir, files, results, duplicates, invalid_types, malformed, 
     """The scoreboard from the result files read by build() or build_automated()."""
     tests = {path: set(r) for path, r in results.items()}
 
-    # the tests of each producer: the rows any verifier has reported for an OID in its current zip
+    # the tests of each producer: the rows any verifier has reported whose artifacts are in its current zip, so a
+    # verifier is not marked down for a test of a file that is not there (or, in a stale result, no longer is)
     expected = defaultdict(set)
     for f in files:
         if f.generator in zips:
             expected[f.generator] |= tests[f.path]
     contents = {p: zip_contents(path) for p, path in zips.items()}
-    zip_oids = {p: c[0] for p, c in contents.items()}
+    zip_roles = {p: c[0] for p, c in contents.items()}
+    zip_oids = {p: None if r is None else set(r) for p, r in zip_roles.items()}
     for producer in list(expected):
-        oids = zip_oids[producer]
-        if oids is not None:
-            expected[producer] = {t for t in expected[producer] if t[0] in oids}
+        expected[producer] = {t for t in expected[producer] if has_artifacts(zip_roles[producer], t)}
     producers = sorted(p for p in expected if expected[p])
 
     by_verifier = defaultdict(list)
@@ -350,6 +447,7 @@ def _assemble(format_dir, files, results, duplicates, invalid_types, malformed, 
         results=results,
         duplicates=duplicates,
         zip_oids=zip_oids,
+        zip_roles=zip_roles,
         zip_duplicates={p: {o for o in c[1] if in_scope(o)} for p, c in contents.items()},
         zip_errors={p: c[2] for p, c in contents.items() if c[2]},
         invalid_producers=invalid_producers,
@@ -441,8 +539,9 @@ def markdown(board):
         headline, '',
         f'There are {total} tests of the algorithms on this page, across {len(board.producers)} producers: '
         f'the rows that any verifier has reported for an algorithm in a producer\'s current `{board.format}.zip`. '
-        f'A test is *current* if the verifier\'s results were committed with or after that zip, and *stale* '
-        f'if the producer has updated its zip since. Stale results count here, but are left out of the '
+        f'A test is *current* if the verifier\'s results give the SHA-256 of that zip in their `zip_sha256` column '
+        f'(or, for a result file without one, were committed with or after that zip), and *stale* if the producer '
+        f'has updated its zip since. Stale results count here, but are left out of the '
         f'[results by algorithm](#results-by-algorithm).', '',
         'Each verifier is scored on its *implemented algorithms*: the ones in its own zip, and any others it has '
         'reported results for. Every test of those algorithms counts, from every producer, so a verifier that checks '
@@ -450,8 +549,8 @@ def markdown(board):
         'show how broad each verifier is: a verifier of a few algorithms can top the ranking, but covers less of the '
         'page. *All algorithms* has the same bar over all tests on the page.',
         '',
-        f'To move up, verify the current zips, your own included, and commit the results to '
-        f'`providers/<you>/compatMatrices/{board.format}/<producer>_<you>.csv`.', '',
+        f'To move up, verify the current zips, your own included, and commit the results, with each zip\'s SHA-256 '
+        f'in the last column, to `providers/<you>/compatMatrices/{board.format}/<producer>_<you>.csv`.', '',
         ' '.join(_swatch(k) for k in _COLORS), '',
         '| Rank | Verifier | Implemented algorithms | Algorithms | Current tests | Stale tests | Untested | '
         f'All algorithms ({total} tests) | Last results |',
@@ -804,6 +903,12 @@ def file_problems(board, f, alg_name):
         if gone:
             problems.append((WARNING, f'results for algorithms that are not in {f.generator}\'s zip: '
                                       + ', '.join(alg_name(o) for o in gone) + '.'))
+        roles = board.zip_roles[f.generator]
+        absent = sorted((t for t in board.results[f.path] if t[0] in oids and not has_artifacts(roles, t)),
+                        key=lambda t: (alg_name(t[0]), t[1]))
+        if absent:
+            problems.append((WARNING, f'results for tests whose artifact is not in {f.generator}\'s zip, so not '
+                                      'counted: ' + ', '.join(_missing(alg_name, t) for t in absent) + '.'))
     if board.invalid_types.get(f.path):
         problems.append((WARNING, 'rows left out because their algorithm has characters other than letters, digits, '
                                   '`.`, `_` and `-`, or their type other than letters, digits, `_` and `-` '

@@ -3,6 +3,11 @@
 producers' zips (providers/<producer>/<format>.zip) for the problems the result pages report, so they are caught
 when the files are submitted.
 
+New and changed result files (the ones given, or changed since --base) must have the full header of their format,
+ending with zip_sha256, the SHA-256 of the producer's zip they verified; with --all, the files submitted before
+that column was added are not held to it. A zip is checked for the names and layout of its artifacts
+(src/artifact_names.py), not their contents, which the conformance checker covers.
+
 Run from the repository root, in a clone with the full git history:
 
     src/check_result_files.py FILE...          check the given files
@@ -18,7 +23,9 @@ import os
 import re
 import subprocess
 import sys
+import zipfile
 
+import artifact_names
 import result_files
 import verifier_scoreboard
 from pqc_report_writer_common import _parse_oid_name_mapping_file
@@ -44,14 +51,25 @@ def _result_files(fmt):
     return [p for pattern in ('*.csv', '.*.csv') for p in glob.glob(f'providers/*/compatMatrices/{fmt}/{pattern}')]
 
 
-def _zip_problems(path, producer):
-    """The problems with a producer's zip: a directory name that cannot be a producer, or a zip that cannot be
-    read."""
+# The naming and layout findings that keep an artifact from being tested, or tested as what it is, are errors
+_NAME_ERRORS = {artifact_names.MISNAMED, artifact_names.EXTENSION, artifact_names.DUPLICATE, artifact_names.FOLDER,
+                artifact_names.KEY_NAME}
+
+
+def _zip_problems(path, producer, fmt, mapping):
+    """The problems with a producer's zip: a directory name that cannot be a producer, a zip that cannot be read,
+    and the names and layout of its artifacts."""
     if not result_files.valid_producer(producer):
         return [(verifier_scoreboard.ERROR, 'the directory name is not a valid producer name (only letters, digits, '
                                             '`.` and `-`), so the zip is not used.')]
     why = verifier_scoreboard.zip_contents(path)[2]
-    return [(verifier_scoreboard.ERROR, f'{why}; its algorithms cannot be checked or tested.')] if why else []
+    if why:
+        return [(verifier_scoreboard.ERROR, f'{why}; its algorithms cannot be checked or tested.')]
+    with zipfile.ZipFile(path) as zf:
+        names = zf.namelist()
+    _, findings, _ = artifact_names.check_names(names, artifact_names.BY_ZIP_NAME[f'{fmt}.zip'], mapping)
+    return [(verifier_scoreboard.ERROR if kind in _NAME_ERRORS else verifier_scoreboard.WARNING, f'{name}: {message}')
+            for name, _, _, _, message, kind in findings]
 
 
 def _plain(text):
@@ -77,6 +95,8 @@ def main():
     parser.add_argument('--oid-mapping', default='docs/oid_mapping.md')
     args = parser.parse_args()
 
+    # files submitted before zip_sha256 was added are held to the full header only when they change
+    strict = not args.all
     if args.all:
         paths = ([p for fmt in FORMATS for p in _result_files(fmt)]
                  + [p for fmt in FORMATS for p in glob.glob(f'providers/*/{fmt}.zip')])
@@ -93,7 +113,7 @@ def main():
         if m and m['format'] in FORMATS and os.path.isfile(path):
             by_format.setdefault(m['format'], []).append(path)
         elif z and z['format'] in FORMATS and os.path.isfile(path):
-            zips.append((path, z['producer']))
+            zips.append((path, z['producer'], z['format']))
     if not by_format and not zips:
         print('No result files or zips to check.')
         return 0
@@ -112,8 +132,9 @@ def main():
             _report(severity, path, _plain(text))
             counts[severity] += 1
 
-    for path, producer in sorted(zips):
-        report(path, _zip_problems(path, producer))
+    artifact_mapping = artifact_names.load_oid_mapping(args.oid_mapping)
+    for path, producer, fmt in sorted(zips):
+        report(path, _zip_problems(path, producer, fmt, artifact_mapping))
     for fmt, checked in sorted(by_format.items()):
         # The whole format is read, so that each file is checked against the current zips and the other files
         everything = sorted(set(_result_files(fmt)) | set(checked))
@@ -127,6 +148,23 @@ def main():
                                'digits, `.`, `-` and (in the verifier) `_`; the file is not used.')])
                 continue
             problems = verifier_scoreboard.file_problems(board, f, alg_name)
+            # the page passes over a file with no results for an unknown producer; a submission names a real one
+            if f.generator not in board.zips and f.path not in board.malformed and not board.results[f.path]:
+                problems.append((verifier_scoreboard.ERROR,
+                                 f'there is no producer named *{f.generator}*: the file name must be '
+                                 f'<producer>_<verifier>.csv, where providers/<producer>/{fmt}.zip is the zip '
+                                 'it verified.'))
+            header = result_files.submission_columns(fmt)
+            if (strict and f.path not in board.malformed
+                    and result_files.read_results(path, result_files.columns(fmt)).header != header):
+                problems.append((verifier_scoreboard.ERROR,
+                                 f'the header must be `{",".join(header)}`: a new or changed result file ends with '
+                                 f'`{result_files.SHA256_COLUMN}`, the SHA-256 of the producer\'s zip it verified, '
+                                 'in every row.'))
+            if f.zip_sha256 and not f.current and f.generator in board.zips:
+                problems.append((verifier_scoreboard.WARNING,
+                                 f'its `{result_files.SHA256_COLUMN}` is not that of {f.generator}\'s current zip, so '
+                                 'these results are stale and not shown; verify the current zip again.'))
             unknown = sorted({t[0] for t in board.results[f.path]} - set(names))
             if unknown:
                 problems.append((verifier_scoreboard.WARNING,

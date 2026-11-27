@@ -78,6 +78,33 @@ def test_the_worst_of_several_rows_is_used(tmp_path, results):
     assert rows.duplicates == {(A, 'cert')}
 
 
+H1, H2 = 'ab' * 32, 'cd' * 32
+
+
+def test_the_zip_sha256_column_is_optional_and_read_in_lower_case(tmp_path):
+    rows = rf.read_results(_write(tmp_path, f'key_algorithm_oid,type,test_result\n{A},cert,Y\n'), R5)
+    assert rows.zip_sha256 is None
+    assert rows.header == R5
+    rows = rf.read_results(_write(tmp_path, f'key_algorithm_oid,type,test_result,zip_sha256\n'
+                                            f'{A},cert,Y,{H1.upper()}\n{A},priv,,{H1}\n'), R5)
+    assert rows.malformed == ''
+    assert rows.zip_sha256 == H1
+    assert rows.header == rf.submission_columns('artifacts_certs_r5')
+    assert rows.results == {(A, 'cert'): 'Y'}
+
+
+@pytest.mark.parametrize('hashes, reason', [
+    ((H1, 'abc'), 'the `zip_sha256` on line 3 is not a SHA-256 (64 hex digits)'),
+    ((H1, ''), 'the `zip_sha256` on line 3 is not a SHA-256 (64 hex digits)'),
+    ((H1, H2), 'its rows give 2 different `zip_sha256` values; a result file has the results for one zip'),
+])
+def test_a_file_whose_rows_do_not_give_one_sha256_is_not_read(tmp_path, hashes, reason):
+    text = 'key_algorithm_oid,type,test_result,zip_sha256\n' + ''.join(f'{A},cert,Y,{h}\n' for h in hashes)
+    rows = rf.read_results(_write(tmp_path, text), R5)
+    assert rows.malformed == reason
+    assert rows.results == {}
+
+
 def test_names():
     assert rf.parse_name('p_my.verifier.csv') == ('p', 'my.verifier')
     assert rf.parse_name('seventhsense.ai_v_x.csv') == ('seventhsense.ai', 'v_x')

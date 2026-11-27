@@ -2,13 +2,15 @@
 them, so that they agree on every row, and the rules for the names, algorithms and types that go on the pages.
 
 A result file, <producer>_<verifier>.csv, has a row per test: key_algorithm_oid, test_result and, in the formats
-that have one, type. Names, algorithm ids and types are restricted to characters that are plain text in markdown
-and HTML, because they go into the pages.
+that have one, type, then zip_sha256, the SHA-256 of the producer's zip that was verified (the same in every row).
+zip_sha256 is optional while the result files submitted before it was added remain: src/check_result_files.py
+requires it of new and changed files. Names, algorithm ids and types are restricted to characters that are plain
+text in markdown and HTML, because they go into the pages.
 """
 import csv
 import os
 import re
-from typing import NamedTuple
+from typing import NamedTuple, Optional
 
 # The names, ids and types that go on the page, restricted to characters that are plain text in markdown and HTML.
 # Every pattern is used with fullmatch. A result file is <producer>_<verifier>.csv, with a lower-case extension as
@@ -20,6 +22,9 @@ _ID = re.compile(r'[A-Za-z0-9._-]+')
 _COLUMNS = {'artifacts_certs_r5': ('key_algorithm_oid', 'type', 'test_result')}
 _DEFAULT_COLUMNS = ('key_algorithm_oid', 'test_result')
 _TYPE = re.compile(r'[A-Za-z0-9_-]*')
+# The last column: the SHA-256 of the producer's zip, in hex
+SHA256_COLUMN = 'zip_sha256'
+_SHA256 = re.compile(r'[0-9A-Fa-f]{64}')
 
 
 def valid_type(kind):
@@ -58,11 +63,18 @@ class ResultRows(NamedTuple):
     duplicates: set     # tests reported in more than one row
     invalid: set        # (OID, type), made printable, of the rows left out for characters not allowed in either
     malformed: str      # why the file was not read at all, or ''
+    zip_sha256: Optional[str] = None    # the zip's SHA-256 (either case, kept lower); None without it
+    header: tuple = ()  # the column names, stripped
 
 
 def columns(format_dir):
-    """The columns a result file of a format must have."""
+    """The columns a result file of a format must have to be read."""
     return _COLUMNS.get(format_dir, _DEFAULT_COLUMNS)
+
+
+def submission_columns(format_dir):
+    """The header of a new result file of a format: its columns, then zip_sha256."""
+    return columns(format_dir) + (SHA256_COLUMN,)
 
 
 def read_results(path, required=_DEFAULT_COLUMNS):
@@ -72,7 +84,8 @@ def read_results(path, required=_DEFAULT_COLUMNS):
     artifact, and a zip can hold several copies of one: if any copy fails, the test fails). A file whose header
     lacks a required column,
     or with a row that has a different number of values than the header has columns, is not read: taking one
-    column for another (a type for the result, say) would misreport every row."""
+    column for another (a type for the result, say) would misreport every row. Nor is a file with a zip_sha256
+    column whose rows do not all give the same SHA-256: it says which zip the results are for."""
     try:
         with open(path, newline='', encoding='utf-8-sig') as f:
             rows = list(csv.reader(f))
@@ -95,6 +108,18 @@ def read_results(path, required=_DEFAULT_COLUMNS):
         return ResultRows({}, set(), set(), f'{(f"{len(uneven)} row" + ("s" if len(uneven) != 1 else ""))} (the first on line {uneven[0]}) '
                                             f'{"has" if len(uneven) == 1 else "have"} a different number of values '
                                             f'than the header has columns; {expected}')
+    zip_sha256 = None
+    if SHA256_COLUMN in header:
+        hashes = [(n, row[header.index(SHA256_COLUMN)]) for n, row in rows[1:]]
+        bad = [n for n, h in hashes if not _SHA256.fullmatch(h)]
+        if bad:
+            return ResultRows({}, set(), set(), f'the `{SHA256_COLUMN}` on line {bad[0]} is not a SHA-256 (64 hex '
+                                                f'digits)', header=tuple(header))
+        distinct = {h.lower() for _, h in hashes}
+        if len(distinct) > 1:
+            return ResultRows({}, set(), set(), f'its rows give {len(distinct)} different `{SHA256_COLUMN}` values; '
+                                                'a result file has the results for one zip', header=tuple(header))
+        zip_sha256 = distinct.pop() if distinct else None
     index = {name: header.index(name) for name in ('key_algorithm_oid', 'type', 'test_result') if name in header}
     results, duplicates, invalid = {}, set(), set()
     for _, row in rows[1:]:
@@ -112,4 +137,4 @@ def read_results(path, required=_DEFAULT_COLUMNS):
             if _badness(result) <= _badness(results[test]):
                 continue
         results[test] = result
-    return ResultRows(results, duplicates, invalid, '')
+    return ResultRows(results, duplicates, invalid, '', zip_sha256, tuple(header))
